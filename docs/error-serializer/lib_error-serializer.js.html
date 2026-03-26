@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title> lib/error-serializer.js</title>
+		<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+		<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+		<script src="./build/entry.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+		<link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+		<link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+		<link type="text/css" rel="stylesheet" href="styles/app.min.css">
+		<link type="text/css" rel="stylesheet" href="styles/iframe.css">
+		<link type="text/css" rel="stylesheet" href="">
+		<script async defer src="https://buttons.github.io/buttons.js"></script>
+	</head>
+
+	<body class="layout small-header">
+		<div id="stickyNavbarOverlay"></div>
+		<div class="top-nav">
+			<div class="inner">
+				<a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+					<span aria-hidden="true"></span>
+					<span aria-hidden="true"></span>
+					<span aria-hidden="true"></span>
+				</a>
+				<div class="logo">
+					<a href="index.html">
+						<h1 class="navbar-item">Error Serializer</h1>
+					</a>
+				</div>
+				<div class="menu">
+					<div class="navigation">
+						<a href="index.html" class="link">
+							Documentation
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="main">
+			<div class="sidebar " id="sidebarNav">
+				<nav>
+					<h2><a href="index.html">Documentation</a></h2>
+					<div class="category"></div>
+					<div class="category">
+						<h2>Packages/Error Serializer</h2>
+						<h3>Namespaces / Namespaces</h3>
+						<ul>
+							<li><a href="package.error-serializer.lib.html">package.error-serializer.lib</a></li>
+						</ul>
+						<h3>Global</h3>
+						<ul>
+							<li><a href="global.html#createErrorForPropagation">createErrorForPropagation</a></li>
+							<li><a href="global.html#errorSerializer">errorSerializer</a></li>
+						</ul>
+					</div>
+				</nav>
+			</div>
+			<div class="core" id="main-content-wrapper">
+				<div class="content">
+					<header class="page-title">
+						<p>Source</p>
+						<h1>lib/error-serializer.js</h1>
+					</header>
+					<section>
+						<article>
+							<pre class="prettyprint source linenums"><code>/**
+ * Imports for this file
+ *
+ * @category Packages/Error Serializer
+ * @subcategory Serializer
+ *
+ * @ignore
+ */
+import safeJsonStringify from 'safe-json-stringify';
+
+/**
+ * @category Packages/Error Serializer
+ * @subcategory Serializer
+ *
+ * @async
+ * @function errorSerializer
+ *
+ * @param {Error} [error] - Error Object to be serialized
+ *
+ * @returns {object} - serialized error object
+ *
+ * @description
+ * Recursively serializes an error till it reaches the leaf nodes.
+ * Leaf nodes are defined as errors that are:
+ * - Not AggregateError objects
+ * - Do not contain a `cause`
+ * - Have a `cause` that is not an Error object
+ */
+const errorSerializer = function errorSerializer(error) {
+	let printFullStack = true;
+	const serializedError = {
+		code: error?.code,
+		message: error?.message,
+		location: error?.stack?.split?.('\n')?.[1]?.trim?.()
+	};
+
+	if (error instanceof AggregateError) {
+		printFullStack = false;
+		serializedError['errors'] = [];
+		for (const subError of error?.errors ?? []) {
+			serializedError?.['errors']?.push?.(errorSerializer?.(subError));
+		}
+	}
+
+	if (error?.cause) {
+		printFullStack = printFullStack &amp;&amp; false;
+
+		if (error.cause instanceof Error) {
+			serializedError['cause'] = errorSerializer?.(error.cause);
+		} else {
+			printFullStack = true;
+			serializedError['cause'] = safeJsonStringify?.(
+				error.cause,
+				undefined,
+				'\t'
+			);
+		}
+	}
+
+	for (const customProperty in error) {
+		if (customProperty === 'code') continue;
+		if (customProperty === 'cause') continue;
+		if (customProperty === 'errors') continue;
+		if (customProperty === 'message') continue;
+
+		if (!Object?.hasOwn?.(error, customProperty)) continue;
+		// eslint-disable-next-line security/detect-object-injection
+		if (error[customProperty] instanceof Error) {
+			printFullStack = false;
+
+			// eslint-disable-next-line security/detect-object-injection
+			serializedError[customProperty] = errorSerializer?.(
+				// eslint-disable-next-line security/detect-object-injection
+				error?.[customProperty]
+			);
+		} else {
+			// eslint-disable-next-line security/detect-object-injection
+			serializedError[customProperty] = safeJsonStringify?.(
+				// eslint-disable-next-line security/detect-object-injection
+				error?.[customProperty],
+				undefined,
+				'\t'
+			);
+		}
+	}
+
+	if (printFullStack) {
+		const stackArray = error?.stack
+			?.split?.('\n')
+			?.map?.((stackLocation) => {
+				return stackLocation?.trim?.();
+			});
+
+		// The first line is redundant...
+		stackArray?.shift?.();
+		serializedError['stack'] = stackArray;
+	}
+
+	return serializedError;
+};
+
+/**
+ * Creates an error suitable for propagating one or more underlying failures.
+ *
+ * @category Packages/Error Serializer
+ * @subcategory Serializer
+ *
+ * @param {string} message - Message and error code for the propagated error.
+ * @param {Error|Error[]} errors - One or more underlying errors to wrap.
+ * @returns {Error|AggregateError} The propagated error instance.
+ */
+const createErrorForPropagation = function createErrorForPropagation(
+	message,
+	errors
+) {
+	let propagatedError;
+
+	if (!Array?.isArray?.(errors)) {
+		errors = [errors];
+	}
+
+	if (errors?.length === 0) {
+		propagatedError = new Error(message);
+	}
+
+	if (errors?.length === 1) {
+		propagatedError = errors[0]
+			? new Error(message, {
+					cause: errors?.pop?.()
+				})
+			: new Error(message);
+	}
+
+	if (errors?.length > 1) {
+		propagatedError = new AggregateError(errors, message);
+	}
+
+	propagatedError.code = message;
+	return propagatedError;
+};
+
+export { createErrorForPropagation, errorSerializer };
+</code></pre>
+						</article>
+					</section>
+				</div>
+				<footer class="footer">
+					<div class="content has-text-centered">
+						<p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a></p>
+						<p class="sidebar-created-by">
+							<a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by
+							<a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+						</p>
+					</div>
+				</footer>
+			</div>
+			<div id="side-nav" class="side-nav">
+			</div>
+		</div>
+		<script src="scripts/app.min.js"></script>
+		<script>
+			PR.prettyPrint();
+
+		</script>
+		<script src="scripts/linenumber.js"> </script>
+	</body>
+
+</html>

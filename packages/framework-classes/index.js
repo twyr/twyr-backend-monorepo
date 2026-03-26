@@ -1,0 +1,61 @@
+/**
+ * @category Packages/Framework Classes
+ * @subcategory Public API
+ *
+ * @license MITNFA
+ * @version 0.2.0
+ * @file Main Entry point for the Entity Value Aggregate Server Framework Classes package by Twyr
+ * @author {@link mailto:vish.desai@twyr.ai|Vish Desai}
+ * @name index.js
+ * @copyright &copy; {@link https://twyr.in|Twyr} 2025
+ */
+
+/**
+ * Exporting the base class for the server
+ *
+ * @category Packages/Framework Classes
+ * @subcategory Public API
+ *
+ * @ignore
+ */
+export { EVASBaseClass } from './lib/evas-base-class.js';
+
+/**
+ * Exporting the base classes used to create the server artifacts
+ *
+ * @category Packages/Framework Classes
+ * @subcategory Public API
+ *
+ * @ignore
+ */
+export { EVASBaseArtifact } from './lib/base_classes/evas-base-artifact.js';
+
+export { EVASBaseDomain } from './lib/base_classes/evas-base-domain.js';
+export { EVASBaseIngressSurface } from './lib/base_classes/evas-base-ingress-surface.js';
+export { EVASBaseRepository } from './lib/base_classes/evas-base-repository.js';
+export { EVASBaseBoundedContext } from './lib/base_classes/evas-base-bounded-context.js';
+export { EVASBaseMiddleware } from './lib/base_classes/evas-base-middleware.js';
+export { EVASBaseSurface } from './lib/base_classes/evas-base-surface.js';
+export { EVASBaseEventHandler } from './lib/base_classes/evas-base-event-handler.js';
+
+/**
+ * Exporting the factories
+ *
+ * @category Packages/Framework Classes
+ * @subcategory Public API
+ *
+ * @ignore
+ */
+export { EVASBaseFactory } from './lib/factories/evas-base-factory.js';
+
+/**
+ * Exporting the lifecycle managers for each type of artifact
+ *
+ * @category Packages/Framework Classes
+ * @subcategory Public API
+ *
+ * @ignore
+ */
+export { DomainLifecycleManagerFactory } from './lib/lifecycle_managers/domain-lifecycle-manager.js';
+export { BoundedContextLifecycleManagerFactory } from './lib/lifecycle_managers/bounded-context-lifecycle-manager.js';
+export { ServerLifecycleManagerFactory } from './lib/lifecycle_managers/server-lifecycle-manager.js';

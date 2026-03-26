@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title> lib/base_classes/evas-base-repository.js</title>
+		<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+		<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+		<script src="./build/entry.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+		<link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+		<link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+		<link type="text/css" rel="stylesheet" href="styles/app.min.css">
+		<link type="text/css" rel="stylesheet" href="styles/iframe.css">
+		<link type="text/css" rel="stylesheet" href="">
+		<script async defer src="https://buttons.github.io/buttons.js"></script>
+	</head>
+
+	<body class="layout small-header">
+		<div id="stickyNavbarOverlay"></div>
+		<div class="top-nav">
+			<div class="inner">
+				<a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+					<span aria-hidden="true"></span>
+					<span aria-hidden="true"></span>
+					<span aria-hidden="true"></span>
+				</a>
+				<div class="logo">
+					<a href="index.html">
+						<h1 class="navbar-item">Application Server Framework Classes</h1>
+					</a>
+				</div>
+				<div class="menu">
+					<div class="navigation">
+						<a href="index.html" class="link">
+							Documentation
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="main">
+			<div class="sidebar " id="sidebarNav">
+				<nav>
+					<h2><a href="index.html">Documentation</a></h2>
+					<div class="category"></div>
+					<div class="category">
+						<h2>Packages/Framework Classes</h2>
+						<h3>Namespaces / Namespaces</h3>
+						<ul>
+							<li><a href="package.framework-classes.helpers.html">package.framework-classes.helpers</a></li>
+							<li><a href="package.framework-classes.lib.html">package.framework-classes.lib</a></li>
+							<li><a href="package.framework-classes.lib.base_classes.html">package.framework-classes.lib.base_classes</a></li>
+							<li><a href="package.framework-classes.lib.factories.html">package.framework-classes.lib.factories</a></li>
+							<li><a href="package.framework-classes.lib.lifecycle_managers.html">package.framework-classes.lib.lifecycle_managers</a></li>
+						</ul>
+						<h3>Classes / Lifecycle Managers</h3>
+						<ul>
+							<li><a href="BoundedContextLifecycleManager.html">BoundedContextLifecycleManager</a></li>
+							<li><a href="BoundedContextLifecycleManagerFactory.html">BoundedContextLifecycleManagerFactory</a></li>
+							<li><a href="DomainLifecycleManager.html">DomainLifecycleManager</a></li>
+							<li><a href="DomainLifecycleManagerFactory.html">DomainLifecycleManagerFactory</a></li>
+							<li><a href="EVASBaseLifecycleManager.html">EVASBaseLifecycleManager</a></li>
+							<li><a href="ServerLifecycleManager.html">ServerLifecycleManager</a></li>
+							<li><a href="ServerLifecycleManagerFactory.html">ServerLifecycleManagerFactory</a></li>
+						</ul>
+						<h3>Classes / Base Classes</h3>
+						<ul>
+							<li><a href="EVASBaseArtifact.html">EVASBaseArtifact</a></li>
+							<li><a href="EVASBaseBoundedContext.html">EVASBaseBoundedContext</a></li>
+							<li><a href="EVASBaseDomain.html">EVASBaseDomain</a></li>
+							<li><a href="EVASBaseEventHandler.html">EVASBaseEventHandler</a></li>
+							<li><a href="EVASBaseIngressSurface.html">EVASBaseIngressSurface</a></li>
+							<li><a href="EVASBaseMiddleware.html">EVASBaseMiddleware</a></li>
+							<li><a href="EVASBaseRepository.html">EVASBaseRepository</a></li>
+							<li><a href="EVASBaseSurface.html">EVASBaseSurface</a></li>
+						</ul>
+						<h3>Classes / Core</h3>
+						<ul>
+							<li><a href="EVASBaseClass.html">EVASBaseClass</a></li>
+						</ul>
+						<h3>Classes / Factories</h3>
+						<ul>
+							<li><a href="EVASBaseFactory.html">EVASBaseFactory</a></li>
+						</ul>
+					</div>
+				</nav>
+			</div>
+			<div class="core" id="main-content-wrapper">
+				<div class="content">
+					<header class="page-title">
+						<p>Source</p>
+						<h1>lib/base_classes/evas-base-repository.js</h1>
+					</header>
+					<section>
+						<article>
+							<pre class="prettyprint source linenums"><code>/**
+ * Imports for this file
+ *
+ * @category Packages/Framework Classes
+ * @subcategory Base Classes
+ *
+ * @ignore
+ */
+import merge from 'lodash.merge';
+import { EVASBaseArtifact } from './evas-base-artifact.js';
+
+/**
+ * @category Packages/Framework Classes
+ * @subcategory Base Classes
+ *
+ * @class
+ * @name EVASBaseRepository
+ * @extends EVASBaseArtifact
+ *
+ * @param {string} [location] - __dirname for this file in CJS, basically
+ * @param {object} [iocContainer] - IoC module providing DI services
+ * @param {object} [configuration] - The configuration needed to connect to external api, if needed
+ *
+ * @classdesc
+ * The Base Class for all Repositories.
+ */
+export class EVASBaseRepository extends EVASBaseArtifact {
+	// #region Constructor
+	/**
+	 * @category Packages/Framework Classes
+	 * @subcategory Base Classes
+	 *
+	 * @ignore
+	 */
+	constructor(location, iocContainer, configuration) {
+		super(location);
+
+		this.#iocContainer = iocContainer;
+		this.#configuration = configuration;
+	}
+	// #endregion
+
+	// #region Lifecycle Methods
+	/**
+	 * @category Packages/Framework Classes
+	 * @subcategory Base Classes
+	 *
+	 * @memberof EVASBaseRepository
+	 * @async
+	 * @instance
+	 * @override
+	 * @function
+	 * @name load
+	 *
+	 * @returns {null} - Nothing
+	 *
+	 * @description
+	 * To be overridden by artifact implementations - for implementing custom
+	 * start logic
+	 */
+	async load() {
+		await super.load?.();
+	}
+
+	/**
+	 * @category Packages/Framework Classes
+	 * @subcategory Base Classes
+	 *
+	 * @memberof EVASBaseRepository
+	 * @async
+	 * @instance
+	 * @override
+	 * @function
+	 * @name unload
+	 *
+	 * @returns {null} - Nothing
+	 *
+	 * @description
+	 * To be overridden by artifact implementations - for implementing custom
+	 * stop logic
+	 */
+	async unload() {
+		this.#configuration = undefined;
+		this.#iocContainer = undefined;
+
+		await super.unload?.();
+	}
+	// #endregion
+
+	// #region Utility Methods to be used by derived classes
+	/**
+	 * @category Packages/Framework Classes
+	 * @subcategory Base Classes
+	 *
+	 * @memberof EVASBaseRepository
+	 * @async
+	 * @instance
+	 * @protected
+	 * @function
+	 * @name _mergeConfiguration
+	 *
+	 * @param {object} defaultConfiguration - The configuration to use when nothing is passed in
+	 * @param {string} repositoryName - The name of the repository for which configuration is to be fetched
+	 * @returns {object} - Merged configuration object
+	 *
+	 * @description
+	 * Merges the configurations for this Repository instance:
+	 * - Start with an empty object
+	 * - Merge the default configuration
+	 * - Merge the configuration from the .env file / process.env stuff
+	 * - Merge the configuration passed into this instance
+	 */
+	async _mergeConfiguration(defaultConfiguration, repositoryName) {
+		const configRepository =
+			await this?.iocContainer?.resolve?.('Configuration');
+
+		const environmentConfiguration = await configRepository?.getConfig?.(
+			repositoryName ?? this?.name
+		);
+
+		const instanceConfiguration = this?.configuration ?? {};
+
+		const mergedConfiguration = merge?.(
+			{},
+			defaultConfiguration,
+			environmentConfiguration,
+			instanceConfiguration
+		);
+
+		return mergedConfiguration;
+	}
+	// #endregion
+
+	// #region Getters / Setters
+	/**
+	 * @category Packages/Framework Classes
+	 * @subcategory Base Classes
+	 *
+	 * @memberof EVASBaseRepository
+	 * @instance
+	 * @member {object} configuration
+	 *
+	 * @returns {object} - configuration object
+	 *
+	 * @description
+	 * Returns the configuration object that was used to
+	 * initialize this Repository instance
+	 */
+	get configuration() {
+		return this.#configuration;
+	}
+
+	/**
+	 * @category Packages/Framework Classes
+	 * @subcategory Base Classes
+	 *
+	 * @memberof EVASBaseRepository
+	 * @instance
+	 * @member {object} iocContainer
+	 *
+	 * @returns {object} - IoC Object Instance
+	 *
+	 * @description
+	 * Returns the IoC Class instance that loaded
+	 * this Repository instance
+	 */
+	get iocContainer() {
+		return this.#iocContainer;
+	}
+
+	/**
+	 * @category Packages/Framework Classes
+	 * @subcategory Base Classes
+	 *
+	 * @memberof EVASBaseRepository
+	 * @instance
+	 * @member {object} interface
+	 *
+	 * @returns {object} - Repository interface
+	 *
+	 * @description
+	 * Returns the interface this Repository instance
+	 * exposes to the rest of the Server
+	 */
+	get interface() {
+		return this;
+	}
+	// #endregion
+
+	// #region Private Fields
+	#configuration = undefined;
+	#iocContainer = undefined;
+	// #endregion
+}
+</code></pre>
+						</article>
+					</section>
+				</div>
+				<footer class="footer">
+					<div class="content has-text-centered">
+						<p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a></p>
+						<p class="sidebar-created-by">
+							<a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by
+							<a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+						</p>
+					</div>
+				</footer>
+			</div>
+			<div id="side-nav" class="side-nav">
+			</div>
+		</div>
+		<script src="scripts/app.min.js"></script>
+		<script>
+			PR.prettyPrint();
+
+		</script>
+		<script src="scripts/linenumber.js"> </script>
+	</body>
+
+</html>

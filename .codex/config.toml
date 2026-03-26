@@ -1,0 +1,7 @@
+model = "gpt-5.4"
+personality = "pragmatic"
+[projects."/home/vish/Work/AyurAdhar/Code/entity-value-aggregate-server"]
+trust_level = "trusted"
+
+[notice.model_migrations]
+"gpt-5.3-codex" = "gpt-5.4"

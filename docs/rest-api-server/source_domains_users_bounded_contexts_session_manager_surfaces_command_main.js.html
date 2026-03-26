@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title> source/domains/users/bounded_contexts/session_manager/surfaces/command/main.js</title>
+		<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+		<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+		<script src="./build/entry.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+		<link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+		<link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+		<link type="text/css" rel="stylesheet" href="styles/app.min.css">
+		<link type="text/css" rel="stylesheet" href="styles/iframe.css">
+		<link type="text/css" rel="stylesheet" href="">
+		<script async defer src="https://buttons.github.io/buttons.js"></script>
+	</head>
+
+	<body class="layout small-header">
+		<div id="stickyNavbarOverlay"></div>
+		<div class="top-nav">
+			<div class="inner">
+				<a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+					<span aria-hidden="true"></span>
+					<span aria-hidden="true"></span>
+					<span aria-hidden="true"></span>
+				</a>
+				<div class="logo">
+					<a href="index.html">
+						<h1 class="navbar-item">Entity Value Aggregate REST API Server</h1>
+					</a>
+				</div>
+				<div class="menu">
+					<div class="navigation">
+						<a href="index.html" class="link">
+							Documentation
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="main">
+			<div class="sidebar " id="sidebarNav">
+				<nav>
+					<h2><a href="index.html">Documentation</a></h2>
+					<div class="category"></div>
+					<div class="category">
+						<h2>REST API Server</h2>
+						<h3>Namespaces / Namespaces</h3>
+						<ul>
+							<li><a href="server.rest-api-server.base_classes.html">server.rest-api-server.base_classes</a></li>
+							<li><a href="server.rest-api-server.custom_loaders.html">server.rest-api-server.custom_loaders</a></li>
+							<li><a href="server.rest-api-server.source.html">server.rest-api-server.source</a></li>
+							<li><a href="server.rest-api-server.source.bounded_contexts.html">server.rest-api-server.source.bounded_contexts</a></li>
+							<li><a href="server.rest-api-server.source.bounded_contexts.health.html">server.rest-api-server.source.bounded_contexts.health</a></li>
+							<li><a href="server.rest-api-server.source.bounded_contexts.health.surfaces.html">server.rest-api-server.source.bounded_contexts.health.surfaces</a></li>
+							<li><a href="server.rest-api-server.source.bounded_contexts.health.surfaces.query.html">server.rest-api-server.source.bounded_contexts.health.surfaces.query</a></li>
+							<li><a href="server.rest-api-server.source.bounded_contexts.masterdata.html">server.rest-api-server.source.bounded_contexts.masterdata</a></li>
+							<li><a href="server.rest-api-server.source.bounded_contexts.masterdata.middlewares.html">server.rest-api-server.source.bounded_contexts.masterdata.middlewares</a></li>
+							<li><a href="server.rest-api-server.source.bounded_contexts.masterdata.surfaces.html">server.rest-api-server.source.bounded_contexts.masterdata.surfaces</a></li>
+							<li><a href="server.rest-api-server.source.bounded_contexts.masterdata.surfaces.query.html">server.rest-api-server.source.bounded_contexts.masterdata.surfaces.query</a></li>
+							<li><a href="server.rest-api-server.source.domains.html">server.rest-api-server.source.domains</a></li>
+							<li><a href="server.rest-api-server.source.domains.users.html">server.rest-api-server.source.domains.users</a></li>
+							<li><a href="server.rest-api-server.source.domains.users.base_classes.html">server.rest-api-server.source.domains.users.base_classes</a></li>
+							<li><a href="server.rest-api-server.source.domains.users.bounded_contexts.html">server.rest-api-server.source.domains.users.bounded_contexts</a></li>
+							<li><a href="server.rest-api-server.source.domains.users.bounded_contexts.profile.html">server.rest-api-server.source.domains.users.bounded_contexts.profile</a></li>
+							<li><a href="server.rest-api-server.source.domains.users.bounded_contexts.profile.middlewares.html">server.rest-api-server.source.domains.users.bounded_contexts.profile.middlewares</a></li>
+							<li><a href="server.rest-api-server.source.domains.users.bounded_contexts.profile.surfaces.html">server.rest-api-server.source.domains.users.bounded_contexts.profile.surfaces</a></li>
+							<li><a href="server.rest-api-server.source.domains.users.bounded_contexts.profile.surfaces.command.html">server.rest-api-server.source.domains.users.bounded_contexts.profile.surfaces.command</a></li>
+							<li><a href="server.rest-api-server.source.domains.users.bounded_contexts.profile.surfaces.query.html">server.rest-api-server.source.domains.users.bounded_contexts.profile.surfaces.query</a></li>
+							<li><a href="server.rest-api-server.source.domains.users.bounded_contexts.session_manager.html">server.rest-api-server.source.domains.users.bounded_contexts.session_manager</a></li>
+							<li><a href="server.rest-api-server.source.domains.users.bounded_contexts.session_manager.event_handlers.html">server.rest-api-server.source.domains.users.bounded_contexts.session_manager.event_handlers</a></li>
+							<li><a href="server.rest-api-server.source.domains.users.bounded_contexts.session_manager.middlewares.html">server.rest-api-server.source.domains.users.bounded_contexts.session_manager.middlewares</a></li>
+							<li><a href="server.rest-api-server.source.domains.users.bounded_contexts.session_manager.surfaces.html">server.rest-api-server.source.domains.users.bounded_contexts.session_manager.surfaces</a></li>
+							<li><a href="server.rest-api-server.source.domains.users.bounded_contexts.session_manager.surfaces.command.html">server.rest-api-server.source.domains.users.bounded_contexts.session_manager.surfaces.command</a></li>
+							<li><a href="server.rest-api-server.source.domains.users.bounded_contexts.session_manager.surfaces.query.html">server.rest-api-server.source.domains.users.bounded_contexts.session_manager.surfaces.query</a></li>
+							<li><a href="server.rest-api-server.source.domains.users.models.html">server.rest-api-server.source.domains.users.models</a></li>
+							<li><a href="server.rest-api-server.source.domains.users.models.relational.html">server.rest-api-server.source.domains.users.models.relational</a></li>
+							<li><a href="server.rest-api-server.source.ingress_surfaces.html">server.rest-api-server.source.ingress_surfaces</a></li>
+							<li><a href="server.rest-api-server.source.ingress_surfaces.rest_api.html">server.rest-api-server.source.ingress_surfaces.rest_api</a></li>
+							<li><a href="server.rest-api-server.source.ingress_surfaces.rest_api.koa-middlewares.html">server.rest-api-server.source.ingress_surfaces.rest_api.koa-middlewares</a></li>
+							<li><a href="server.rest-api-server.source.repositories.html">server.rest-api-server.source.repositories</a></li>
+							<li><a href="server.rest-api-server.source.repositories.init.html">server.rest-api-server.source.repositories.init</a></li>
+							<li><a href="server.rest-api-server.source.repositories.init.configuration.html">server.rest-api-server.source.repositories.init.configuration</a></li>
+							<li><a href="server.rest-api-server.source.repositories.runtime.html">server.rest-api-server.source.repositories.runtime</a></li>
+							<li><a href="server.rest-api-server.source.repositories.runtime.audit.html">server.rest-api-server.source.repositories.runtime.audit</a></li>
+							<li><a href="server.rest-api-server.source.repositories.runtime.auth.html">server.rest-api-server.source.repositories.runtime.auth</a></li>
+							<li><a href="server.rest-api-server.source.repositories.runtime.auth.helpers.html">server.rest-api-server.source.repositories.runtime.auth.helpers</a></li>
+							<li><a href="server.rest-api-server.source.repositories.runtime.auth.strategies.html">server.rest-api-server.source.repositories.runtime.auth.strategies</a></li>
+							<li><a href="server.rest-api-server.source.repositories.runtime.cache.html">server.rest-api-server.source.repositories.runtime.cache</a></li>
+							<li><a href="server.rest-api-server.source.repositories.runtime.logger.html">server.rest-api-server.source.repositories.runtime.logger</a></li>
+							<li><a href="server.rest-api-server.source.repositories.runtime.message_i18n.html">server.rest-api-server.source.repositories.runtime.message_i18n</a></li>
+							<li><a href="server.rest-api-server.source.repositories.runtime.mongodb.html">server.rest-api-server.source.repositories.runtime.mongodb</a></li>
+							<li><a href="server.rest-api-server.source.repositories.runtime.notification.html">server.rest-api-server.source.repositories.runtime.notification</a></li>
+							<li><a href="server.rest-api-server.source.repositories.runtime.renderer.html">server.rest-api-server.source.repositories.runtime.renderer</a></li>
+							<li><a href="server.rest-api-server.source.repositories.runtime.sql_database.html">server.rest-api-server.source.repositories.runtime.sql_database</a></li>
+							<li><a href="server.rest-api-server.source.repositories.runtime.translate.html">server.rest-api-server.source.repositories.runtime.translate</a></li>
+						</ul>
+					</div>
+					<div class="category">
+						<h2>REST API Server/Base Classes</h2>
+						<h3>Classes / Base Classes</h3>
+						<ul>
+							<li><a href="BaseBoundedContext.html">BaseBoundedContext</a></li>
+							<li><a href="BaseDomain.html">BaseDomain</a></li>
+							<li><a href="BaseEventHandler.html">BaseEventHandler</a></li>
+							<li><a href="BaseMiddleware.html">BaseMiddleware</a></li>
+							<li><a href="BaseModel.html">BaseModel</a></li>
+							<li><a href="BaseSurface.html">BaseSurface</a></li>
+						</ul>
+					</div>
+					<div class="category">
+						<h2>REST API Server/Bootstrap</h2>
+						<h3>Classes / Application Server</h3>
+						<ul>
+							<li><a href="ApplicationServer.html">ApplicationServer</a></li>
+							<li><a href="ApplicationServerFactory.html">ApplicationServerFactory</a></li>
+						</ul>
+					</div>
+					<div class="category">
+						<h2>REST API Server/Bounded Contexts</h2>
+						<h3>Classes / Masterdata</h3>
+						<ul>
+							<li><a href="BoundedContextFactory.html">BoundedContextFactory</a></li>
+							<li><a href="Masterdata.html">Masterdata</a></li>
+						</ul>
+						<h3>Classes / Health</h3>
+						<ul>
+							<li><a href="Health.html">Health</a></li>
+							<li><a href="HealthBoundedContextFactory.html">HealthBoundedContextFactory</a></li>
+						</ul>
+						<h3>Classes / Health/Surfaces/Query</h3>
+						<ul>
+							<li><a href="Main.html">Main</a></li>
+							<li><a href="MainSurfaceFactory.html">MainSurfaceFactory</a></li>
+						</ul>
+						<h3>Classes / Masterdata/Middlewares</h3>
+						<ul>
+							<li><a href="MasterdataMiddlewareFactory.html">MasterdataMiddlewareFactory</a></li>
+						</ul>
+					</div>
+					<div class="category">
+						<h2>REST API Server/Domains/Users</h2>
+						<h3>Classes / Profile/Middlewares</h3>
+						<ul>
+							<li><a href="Basics.html">Basics</a></li>
+							<li><a href="BasicsMiddlewareFactory.html">BasicsMiddlewareFactory</a></li>
+							<li><a href="Contacts.html">Contacts</a></li>
+							<li><a href="ContactsMiddlewareFactory.html">ContactsMiddlewareFactory</a></li>
+							<li><a href="Locales.html">Locales</a></li>
+							<li><a href="LocalesMiddlewareFactory.html">LocalesMiddlewareFactory</a></li>
+						</ul>
+						<h3>Classes / Profile/Surfaces/Command</h3>
+						<ul>
+							<li><a href="Contact.html">Contact</a></li>
+							<li><a href="ContactSurfaceFactory.html">ContactSurfaceFactory</a></li>
+							<li><a href="Locale.html">Locale</a></li>
+							<li><a href="LocaleSurfaceFactory.html">LocaleSurfaceFactory</a></li>
+							<li><a href="Main.html">Main</a></li>
+							<li><a href="MainSurfaceFactory.html">MainSurfaceFactory</a></li>
+						</ul>
+						<h3>Classes / Profile</h3>
+						<ul>
+							<li><a href="Profile.html">Profile</a></li>
+							<li><a href="ProfileBoundedContextFactory.html">ProfileBoundedContextFactory</a></li>
+						</ul>
+						<h3>Classes / Session Manager/Event Handlers</h3>
+						<ul>
+							<li><a href="Session.html">Session</a></li>
+							<li><a href="SessionEventHandlerFactory.html">SessionEventHandlerFactory</a></li>
+						</ul>
+						<h3>Classes / Session Manager/Middlewares</h3>
+						<ul>
+							<li><a href="SessionMiddlewareFactory.html">SessionMiddlewareFactory</a></li>
+						</ul>
+						<h3>Classes / Session Manager</h3>
+						<ul>
+							<li><a href="SessionManager.html">SessionManager</a></li>
+							<li><a href="SessionManagerBoundedContextFactory.html">SessionManagerBoundedContextFactory</a></li>
+						</ul>
+						<h3>Classes / Base Classes</h3>
+						<ul>
+							<li><a href="UserBaseMiddleware.html">UserBaseMiddleware</a></li>
+							<li><a href="UserBaseSurface.html">UserBaseSurface</a></li>
+						</ul>
+						<h3>Classes / Domain</h3>
+						<ul>
+							<li><a href="Users.html">Users</a></li>
+							<li><a href="UsersDomainFactory.html">UsersDomainFactory</a></li>
+						</ul>
+						<h3>Classes / Models/Relational</h3>
+						<ul>
+							<li><a href="UsersDomain_ContactTypeMaster.html">UsersDomain_ContactTypeMaster</a></li>
+							<li><a href="UsersDomain_LocaleMaster.html">UsersDomain_LocaleMaster</a></li>
+							<li><a href="UsersDomain_User.html">UsersDomain_User</a></li>
+							<li><a href="UsersDomain_UserContact.html">UsersDomain_UserContact</a></li>
+							<li><a href="UsersDomain_UserLocale.html">UsersDomain_UserLocale</a></li>
+						</ul>
+					</div>
+					<div class="category">
+						<h2>REST API Server/Infrastructure</h2>
+						<h3>Global</h3>
+						<ul>
+							<li><a href="global.html#load">load</a></li>
+							<li><a href="global.html#resolve">resolve</a></li>
+						</ul>
+					</div>
+					<div class="category">
+						<h2>REST API Server/Ingress Surfaces</h2>
+						<h3>Classes / REST API</h3>
+						<ul>
+							<li><a href="IngressSurfaceFactory.html">IngressSurfaceFactory</a></li>
+							<li><a href="RestApi.html">RestApi</a></li>
+						</ul>
+						<h3>Global</h3>
+						<ul>
+							<li><a href="global.html#createAuditLogMiddleware">createAuditLogMiddleware</a></li>
+							<li><a href="global.html#createErrorLogMiddleware">createErrorLogMiddleware</a></li>
+						</ul>
+					</div>
+					<div class="category">
+						<h2>REST API Server/Repositories/Init</h2>
+						<h3>Classes / Configuration</h3>
+						<ul>
+							<li><a href="Configuration.html">Configuration</a></li>
+							<li><a href="ConfigurationRepositoryFactory.html">ConfigurationRepositoryFactory</a></li>
+						</ul>
+					</div>
+					<div class="category">
+						<h2>REST API Server/Repositories/Runtime</h2>
+						<h3>Classes / Audit</h3>
+						<ul>
+							<li><a href="Audit.html">Audit</a></li>
+							<li><a href="AuditRepositoryFactory.html">AuditRepositoryFactory</a></li>
+						</ul>
+						<h3>Classes / Auth</h3>
+						<ul>
+							<li><a href="Auth.html">Auth</a></li>
+							<li><a href="AuthRepositoryFactory.html">AuthRepositoryFactory</a></li>
+						</ul>
+						<h3>Classes / Cache</h3>
+						<ul>
+							<li><a href="Cache.html">Cache</a></li>
+							<li><a href="CacheRepositoryFactory.html">CacheRepositoryFactory</a></li>
+						</ul>
+						<h3>Classes / Logger</h3>
+						<ul>
+							<li><a href="Logger.html">Logger</a></li>
+							<li><a href="LoggerRepositoryFactory.html">LoggerRepositoryFactory</a></li>
+						</ul>
+						<h3>Classes / Message I18n</h3>
+						<ul>
+							<li><a href="MessageI18N.html">MessageI18N</a></li>
+							<li><a href="MessageI18NRepositoryFactory.html">MessageI18NRepositoryFactory</a></li>
+						</ul>
+						<h3>Classes / Audit/Models</h3>
+						<ul>
+							<li><a href="ModelFactory.html">ModelFactory</a></li>
+						</ul>
+						<h3>Classes / Mongodb</h3>
+						<ul>
+							<li><a href="MongoDB.html">MongoDB</a></li>
+							<li><a href="MongoDBRepositoryFactory.html">MongoDBRepositoryFactory</a></li>
+						</ul>
+						<h3>Classes / Notification</h3>
+						<ul>
+							<li><a href="Notification.html">Notification</a></li>
+							<li><a href="NotificationRepositoryFactory.html">NotificationRepositoryFactory</a></li>
+						</ul>
+						<h3>Classes / Renderer</h3>
+						<ul>
+							<li><a href="Renderer.html">Renderer</a></li>
+							<li><a href="RendererRepositoryFactory.html">RendererRepositoryFactory</a></li>
+						</ul>
+						<h3>Classes / SQL Database</h3>
+						<ul>
+							<li><a href="SQLDatabase.html">SQLDatabase</a></li>
+							<li><a href="SQLDatabaseRepositoryFactory.html">SQLDatabaseRepositoryFactory</a></li>
+						</ul>
+						<h3>Classes / Translate</h3>
+						<ul>
+							<li><a href="Translate.html">Translate</a></li>
+							<li><a href="TranslateRepositoryFactory.html">TranslateRepositoryFactory</a></li>
+						</ul>
+						<h3>Global</h3>
+						<ul>
+							<li><a href="global.html#localStrategy">localStrategy</a></li>
+							<li><a href="global.html#serializeDeserialize">serializeDeserialize</a></li>
+						</ul>
+					</div>
+				</nav>
+			</div>
+			<div class="core" id="main-content-wrapper">
+				<div class="content">
+					<header class="page-title">
+						<p>Source</p>
+						<h1>source/domains/users/bounded_contexts/session_manager/surfaces/command/main.js</h1>
+					</header>
+					<section>
+						<article>
+							<pre class="prettyprint source linenums"><code>/**
+ * Imports for this file
+ *
+ * @category REST API Server/Domains/Users
+ * @subcategory Session Manager/Surfaces/Command
+ *
+ * @ignore
+ */
+import Joi from 'joi';
+
+import { EVASBaseFactory } from '@twyr/framework-classes';
+import { MedicoBaseSurface } from '../../../../base_classes/surface.js';
+
+const HTTP_ERROR_FORBIDDEN = 403;
+const HTTP_ERROR_UNPROCESSABLE_CONTENT = 422;
+
+/**
+ * @category REST API Server/Domains/Users
+ * @subcategory Session Manager/Surfaces/Command
+ *
+ * @class
+ * @name Main
+ * @extends MedicoBaseSurface
+ *
+ * @param {string} [location] - __dirname for this file in CJS, basically
+ * @param {object} [domainInterface] - Domain functionality exposed to sub-artifacts
+ *
+ * @classdesc The main command surface for user session management.
+ */
+export class Main extends MedicoBaseSurface {
+	// #region Constructor
+	/**
+	 * @category REST API Server/Domains/Users
+	 * @subcategory Session Manager/Surfaces/Command
+	 *
+	 * @ignore
+	 */
+	constructor(location, domainInterface) {
+		super(location, domainInterface);
+	}
+	// #endregion
+
+	// #region Lifecycle Methods
+	/**
+	 * @category REST API Server/Domains/Users
+	 * @subcategory Session Manager/Surfaces/Command
+	 *
+	 * @memberof Main
+	 * @async
+	 * @instance
+	 * @override
+	 * @function
+	 * @name load
+	 *
+	 * @returns {Promise&lt;void>} Resolves when the surface has loaded.
+	 *
+	 * @description Loads the surface and its inherited route infrastructure.
+	 */
+	async load() {
+		await super.load?.();
+	}
+
+	/**
+	 * @category REST API Server/Domains/Users
+	 * @subcategory Session Manager/Surfaces/Command
+	 *
+	 * @memberof Main
+	 * @async
+	 * @instance
+	 * @override
+	 * @function
+	 * @name unload
+	 *
+	 * @returns {Promise&lt;void>} Resolves when the surface has unloaded.
+	 *
+	 * @description Unloads the surface and clears the local Joi validation schema cache.
+	 */
+	async unload() {
+		await super.unload?.();
+		this.#validationSchemaMap?.clear?.();
+	}
+	// #endregion
+
+	// #region Protected Methods, to be overridden by derived classes
+	/**
+	 * @category REST API Server/Domains/Users
+	 * @subcategory Session Manager/Surfaces/Command
+	 *
+	 * @memberof Main
+	 * @async
+	 * @instance
+	 * @override
+	 * @function
+	 * @name _registerSurface
+	 *
+	 * @returns {Promise&lt;Array>} Routes to be added to the REST API router.
+	 *
+	 * @description
+	 * Registers the user session command routes:
+	 * `POST /generate-otp`, `POST /validate-otp`, `POST /login`, and
+	 * `POST /logout` where logout requires the `registered` RBAC middleware.
+	 */
+	async _registerSurface() {
+		const baseRoutes = await super._registerSurface?.();
+
+		baseRoutes?.push?.({
+			version: 1,
+			httpMethod: 'POST',
+			path: '/generate-otp',
+			handler: this.#generateOtp?.bind?.(this)
+		});
+
+		baseRoutes?.push?.({
+			version: 1,
+			httpMethod: 'POST',
+			path: '/validate-otp',
+			handler: this.#validateOtp?.bind?.(this)
+		});
+
+		baseRoutes?.push?.({
+			version: 1,
+			httpMethod: 'POST',
+			path: '/login',
+			handler: this.#login?.bind?.(this)
+		});
+
+		baseRoutes?.push?.({
+			version: 1,
+			httpMethod: 'POST',
+			path: '/logout',
+			middlewares: [await this?._rbac?.('registered')],
+			handler: this.#logout?.bind?.(this)
+		});
+
+		return baseRoutes;
+	}
+
+	/**
+	 * @category REST API Server/Domains/Users
+	 * @subcategory Session Manager/Surfaces/Command
+	 *
+	 * @memberof Main
+	 * @async
+	 * @instance
+	 * @override
+	 * @function
+	 * @name _unregisterSurface
+	 *
+	 * @returns {Promise&lt;void>} Resolves when the surface routes are unregistered.
+	 *
+	 * @description Removes the command surface routes from the REST API router.
+	 */
+	async _unregisterSurface() {
+		await super._unregisterSurface?.();
+		return;
+	}
+
+	/**
+	 * @category REST API Server/Domains/Users
+	 * @subcategory Session Manager/Surfaces/Command
+	 *
+	 * @memberof Main
+	 * @async
+	 * @instance
+	 * @override
+	 * @function
+	 * @name _setupValidationSchemas
+	 *
+	 * @param {Map} [validationSchemaMap] - Map to be populated with the validation schemas.
+	 *
+	 * @returns {Map} Map containing the validation schemas.
+	 *
+	 * @description
+	 * Registers Joi schemas for:
+	 * `POST /generate-otp` with `username` matching `/^\\+\\d{12}$/`,
+	 * `POST /validate-otp` with the same `username` plus a four digit `password`,
+	 * and `POST /login` with the same `username` and four digit `password`.
+	 */
+	async _setupValidationSchemas(validationSchemaMap) {
+		validationSchemaMap = validationSchemaMap ?? this.#validationSchemaMap;
+		validationSchemaMap = await super._setupValidationSchemas?.(
+			validationSchemaMap
+		);
+
+		let generateOtpSchema = validationSchemaMap?.get?.(
+			'GENERATE_OTP_VALIDATION_SCHEMA'
+		);
+		if (!generateOtpSchema) {
+			generateOtpSchema = Joi.object({
+				username: Joi.string()
+					.pattern(/^\+\d{12}$/)
+					.required()
+					.messages({
+						'string.base':
+							'EVASERVER::VALIDATION_ERROR::STRING_BASE',
+						'string.empty':
+							'EVASERVER::VALIDATION_ERROR::STRING_EMPTY',
+						'string.pattern.base':
+							'EVASERVER::VALIDATION_ERROR::STRING_PATTERN_BASE',
+						'any.required':
+							'EVASERVER::VALIDATION_ERROR::ANY_REQUIRED'
+					})
+			});
+
+			validationSchemaMap?.set?.(
+				'GENERATE_OTP_VALIDATION_SCHEMA',
+				generateOtpSchema
+			);
+		}
+
+		let validateOtpSchema = validationSchemaMap?.get?.(
+			'VALIDATE_OTP_VALIDATION_SCHEMA'
+		);
+
+		if (!validateOtpSchema) {
+			validateOtpSchema = Joi.object({
+				username: Joi.string()
+					.pattern(/^\+\d{12}$/)
+					.required()
+					.messages({
+						'string.base':
+							'EVASERVER::VALIDATION_ERROR::STRING_BASE',
+						'string.empty':
+							'EVASERVER::VALIDATION_ERROR::STRING_EMPTY',
+						'string.pattern.base':
+							'EVASERVER::VALIDATION_ERROR::STRING_PATTERN_BASE',
+						'any.required':
+							'EVASERVER::VALIDATION_ERROR::ANY_REQUIRED'
+					}),
+				password: Joi.string()
+					.length(4)
+					.pattern(/^\d{4}$/)
+					.required()
+					.messages({
+						'string.base':
+							'EVASERVER::VALIDATION_ERROR::STRING_BASE',
+						'string.empty':
+							'EVASERVER::VALIDATION_ERROR::STRING_EMPTY',
+						'string.length':
+							'EVASERVER::VALIDATION_ERROR::STRING_LENGTH',
+						'string.pattern.base':
+							'EVASERVER::VALIDATION_ERROR::STRING_PATTERN_BASE',
+						'any.required':
+							'EVASERVER::VALIDATION_ERROR::ANY_REQUIRED'
+					})
+			});
+
+			validationSchemaMap?.set?.(
+				'VALIDATE_OTP_VALIDATION_SCHEMA',
+				validateOtpSchema
+			);
+		}
+
+		let loginValidationSchema = validationSchemaMap?.get?.(
+			'LOGIN_VALIDATION_SCHEMA'
+		);
+
+		if (!loginValidationSchema) {
+			loginValidationSchema = Joi.object({
+				username: Joi.string()
+					.pattern(/^\+\d{12}$/)
+					.required()
+					.messages({
+						'string.base':
+							'EVASERVER::VALIDATION_ERROR::STRING_BASE',
+						'string.empty':
+							'EVASERVER::VALIDATION_ERROR::STRING_EMPTY',
+						'string.pattern.base':
+							'EVASERVER::VALIDATION_ERROR::STRING_PATTERN_BASE',
+						'any.required':
+							'EVASERVER::VALIDATION_ERROR::ANY_REQUIRED'
+					}),
+				password: Joi.string()
+					.length(4)
+					.pattern(/^\d{4}$/)
+					.required()
+					.messages({
+						'string.base':
+							'EVASERVER::VALIDATION_ERROR::STRING_BASE',
+						'string.empty':
+							'EVASERVER::VALIDATION_ERROR::STRING_EMPTY',
+						'string.length':
+							'EVASERVER::VALIDATION_ERROR::STRING_LENGTH',
+						'string.pattern.base':
+							'EVASERVER::VALIDATION_ERROR::STRING_PATTERN_BASE',
+						'any.required':
+							'EVASERVER::VALIDATION_ERROR::ANY_REQUIRED'
+					})
+			});
+
+			validationSchemaMap?.set?.(
+				'LOGIN_VALIDATION_SCHEMA',
+				loginValidationSchema
+			);
+		}
+	}
+	// #endregion
+
+	// #region Route Handlers
+	/**
+	 * @category REST API Server/Domains/Users
+	 * @subcategory Session Manager/Surfaces/Command
+	 *
+	 * @memberof Main
+	 * @async
+	 * @instance
+	 * @private
+	 * @function
+	 * @name #generateOtp
+	 *
+	 * @param {object} ctxt - Koa context for `POST /generate-otp`.
+	 *
+	 * @returns {Promise&lt;void>} Resolves after the response has been written.
+	 *
+	 * @description
+	 * Handles `POST /generate-otp`.
+	 * Validates a request body shaped as `{ username }` where `username`
+	 * is a required string matching `/^\\+\\d{12}$/`, then triggers OTP generation.
+	 *
+	 * @example
+	 * // Given the following input data [./servers/curl_example_data/api_v1_users_session_manager_generate_otp.json]:
+	 * $ curl -X POST -H "Content-Type: application/json" -d @./servers/curl_example_data/api_v1_users_session_manager_generate_otp.json ${base_url}/api/v1/users/session-manager/generate-otp
+	 *
+	 * OTP metadata is returned for the supplied user contact number.
+	 */
+	async #generateOtp(ctxt) {
+		try {
+			const generateOtpSchema = this.#validationSchemaMap?.get?.(
+				'GENERATE_OTP_VALIDATION_SCHEMA'
+			);
+			await generateOtpSchema.validateAsync(ctxt?.request?.body, {
+				abortEarly: false
+			});
+		} catch (error) {
+			const validationError =
+				this?._convertValidationErrorToHandlerError?.(
+					error,
+					'EVASERVER::INPUT_VALIDATION_ERROR'
+				);
+			validationError.status = HTTP_ERROR_UNPROCESSABLE_CONTENT;
+			throw validationError;
+		}
+
+		const apiRegistry = this?.domainInterface?.apiRegistry;
+		const otpStatus = await apiRegistry?.execute?.('GENERATE_OTP', {
+			username: ctxt?.request?.body?.username,
+			locale: ctxt?.locale
+		});
+
+		ctxt.status = otpStatus?.status;
+		ctxt.body = otpStatus?.body;
+	}
+
+	/**
+	 * @category REST API Server/Domains/Users
+	 * @subcategory Session Manager/Surfaces/Command
+	 *
+	 * @memberof Main
+	 * @async
+	 * @instance
+	 * @private
+	 * @function
+	 * @name #validateOtp
+	 *
+	 * @param {object} ctxt - Koa context for `POST /validate-otp`.
+	 *
+	 * @returns {Promise&lt;void>} Resolves after the response has been written.
+	 *
+	 * @description
+	 * Handles `POST /validate-otp`.
+	 * Validates a request body shaped as `{ username, password }` where
+	 * `username` is required and matches `/^\\+\\d{12}$/` and `password`
+	 * is a required four digit string matching `/^\\d{4}$/`.
+	 *
+	 * @example
+	 * // Given the following input data [./servers/curl_example_data/api_v1_users_session_manager_validate_otp.json]:
+	 * $ curl -X POST -H "Content-Type: application/json" -d @./servers/curl_example_data/api_v1_users_session_manager_validate_otp.json ${base_url}/api/v1/users/session-manager/validate-otp
+	 *
+	 * The response indicates whether the supplied OTP is valid.
+	 */
+	async #validateOtp(ctxt) {
+		try {
+			const validateOtpSchema = this.#validationSchemaMap?.get?.(
+				'VALIDATE_OTP_VALIDATION_SCHEMA'
+			);
+			await validateOtpSchema.validateAsync(ctxt?.request?.body, {
+				abortEarly: false
+			});
+		} catch (error) {
+			const validationError =
+				this?._convertValidationErrorToHandlerError?.(
+					error,
+					'EVASERVER::INPUT_VALIDATION_ERROR'
+				);
+			validationError.status = HTTP_ERROR_UNPROCESSABLE_CONTENT;
+			throw validationError;
+		}
+
+		const apiRegistry = this?.domainInterface?.apiRegistry;
+		const otpStatus = await apiRegistry?.execute?.('VALIDATE_OTP', {
+			username: ctxt?.request?.body?.username,
+			password: ctxt?.request?.body?.password,
+			locale: ctxt?.locale
+		});
+
+		ctxt.status = otpStatus?.status;
+		ctxt.body = otpStatus?.body;
+	}
+
+	/**
+	 * @category REST API Server/Domains/Users
+	 * @subcategory Session Manager/Surfaces/Command
+	 *
+	 * @memberof Main
+	 * @async
+	 * @instance
+	 * @private
+	 * @function
+	 * @name #login
+	 *
+	 * @param {object} ctxt - Koa context for `POST /login`.
+	 *
+	 * @returns {Promise&lt;void>} Resolves after the response has been written.
+	 *
+	 * @description
+	 * Handles `POST /login`.
+	 * Validates a request body shaped as `{ username, password }` where
+	 * `username` is required and matches `/^\\+\\d{12}$/` and `password`
+	 * is a required four digit string matching `/^\\d{4}$/`.
+	 * If no active session exists, the route authenticates the user and creates
+	 * the session cookie.
+	 *
+	 * @example
+	 * $ curl -X POST -H "Content-Type: application/json" -d '{"username":"+911234567890", "password":"1270"}' -c ./cookies.txt ${base_url}/api/v1/users/session-manager/login
+	 *
+	 * The authenticated user profile is returned and the session cookie is set.
+	 */
+	async #login(ctxt) {
+		if (ctxt?.isAuthenticated?.()) {
+			const userError = new Error(
+				'EVASERVER::USERS::SESSION_MANAGER::EXISTING_ACTIVE_SESSION'
+			);
+			userError.status = HTTP_ERROR_FORBIDDEN;
+			userError.code =
+				'EVASERVER::USERS::SESSION_MANAGER::EXISTING_ACTIVE_SESSION';
+
+			throw userError;
+		}
+
+		try {
+			const loginValidationSchema = this.#validationSchemaMap?.get?.(
+				'LOGIN_VALIDATION_SCHEMA'
+			);
+
+			await loginValidationSchema.validateAsync(ctxt?.request?.body, {
+				abortEarly: false
+			});
+		} catch (error) {
+			const validationError =
+				this?._convertValidationErrorToHandlerError?.(
+					error,
+					'EVASERVER::INPUT_VALIDATION_ERROR'
+				);
+			validationError.status = HTTP_ERROR_UNPROCESSABLE_CONTENT;
+			throw validationError;
+		}
+
+		const authRepository =
+			await this?.domainInterface?.iocContainer?.resolve?.('Auth');
+		const authenticator = authRepository?.authenticate?.('user-local');
+
+		await authenticator?.(ctxt, async () => {});
+
+		const apiRegistry = this?.domainInterface?.apiRegistry;
+		const postLoginStatus = await apiRegistry?.execute?.('LOGIN', {
+			user: ctxt?.state?.user,
+			role: ctxt?.session?.passport?.user?.['role'],
+			locale: ctxt?.locale
+		});
+
+		ctxt.session.passport.user = postLoginStatus?.sessionData;
+		ctxt.status = postLoginStatus?.status;
+		ctxt.body = postLoginStatus?.body;
+		ctxt.locale = postLoginStatus?.locale ?? ctxt?.locale;
+	}
+
+	/**
+	 * @category REST API Server/Domains/Users
+	 * @subcategory Session Manager/Surfaces/Command
+	 *
+	 * @memberof Main
+	 * @async
+	 * @instance
+	 * @private
+	 * @function
+	 * @name #logout
+	 *
+	 * @param {object} ctxt - Koa context for `POST /logout`.
+	 *
+	 * @returns {Promise&lt;void>} Resolves after the response has been written.
+	 *
+	 * @description
+	 * Handles `POST /logout`.
+	 * This route has no Joi body validation and instead relies on the route definition:
+	 * it is a `POST /logout` endpoint guarded by the `registered` RBAC middleware and
+	 * logs out the currently authenticated user session.
+	 *
+	 * @example
+	 * $ curl -X POST -b ./cookies.txt ${base_url}/api/v1/users/session-manager/logout
+	 *
+	 * A localized logout response is returned for the current user session.
+	 */
+	async #logout(ctxt) {
+		const userId = ctxt?.state?.user?.id;
+		const userLocale = ctxt?.locale;
+		const userRole = ctxt?.session?.passport?.user?.['role'];
+
+		const userName =
+			ctxt?.state?.user?.primary_contact?.contact ??
+			ctxt?.state?.user?.mobile_no ??
+			'';
+
+		await ctxt?.logout?.();
+
+		const apiRegistry = this?.domainInterface?.apiRegistry;
+		const logoutStatus = await apiRegistry?.execute?.('LOGOUT', {
+			userId: userId,
+			userName: userName,
+			locale: userLocale
+		});
+
+		ctxt.state.user = {
+			id: userId,
+			role: userRole,
+			mobile_no: ctxt?.state?.user?.mobile_no
+		};
+
+		ctxt.status = logoutStatus?.status;
+		ctxt.body = logoutStatus?.body;
+		ctxt.locale = userLocale;
+	}
+	// #endregion
+
+	// #region Private Members
+	#validationSchemaMap = new Map();
+	// #endregion
+}
+
+/**
+ * @category REST API Server/Domains/Users
+ * @subcategory Session Manager/Surfaces/Command
+ *
+ * @class
+ * @name MainSurfaceFactory
+ * @extends EVASBaseFactory
+ *
+ * @classdesc Factory for the main command surface.
+ */
+export default class MainSurfaceFactory extends EVASBaseFactory {
+	// #region Constructor
+	/**
+	 * @category REST API Server/Domains/Users
+	 * @subcategory Session Manager/Surfaces/Command
+	 *
+	 * @ignore
+	 */
+	constructor() {
+		super();
+	}
+	// #endregion
+
+	// #region Lifecycle API
+	/**
+	 * @category REST API Server/Domains/Users
+	 * @subcategory Session Manager/Surfaces/Command
+	 *
+	 * @memberof MainSurfaceFactory
+	 * @async
+	 * @static
+	 * @override
+	 * @function
+	 * @name createInstance
+	 *
+	 * @param {object} [domainInterface] - Domain functionality exposed to sub-artifacts
+	 *
+	 * @returns {Promise&lt;Main>} Resolves to the Main surface instance.
+	 */
+	static async createInstances(domainInterface) {
+		if (!MainSurfaceFactory.#mainInstance) {
+			const mainInstance = new Main(
+				MainSurfaceFactory['$disk_unc'],
+				domainInterface
+			);
+
+			await mainInstance?.load?.();
+			MainSurfaceFactory.#mainInstance = mainInstance;
+		}
+
+		return MainSurfaceFactory.#mainInstance;
+	}
+
+	/**
+	 * @category REST API Server/Domains/Users
+	 * @subcategory Session Manager/Surfaces/Command
+	 *
+	 * @memberof MainSurfaceFactory
+	 * @async
+	 * @static
+	 * @override
+	 * @function
+	 * @name destroyInstances
+	 *
+	 * @returns {Promise&lt;void>} Resolves when the cached Main instance is cleared.
+	 *
+	 * @description Destroys the cached Main command surface instance.
+	 */
+	static async destroyInstances() {
+		await MainSurfaceFactory.#mainInstance?.unload?.();
+		MainSurfaceFactory.#mainInstance = undefined;
+
+		return;
+	}
+	// #endregion
+
+	// #region Getters
+	/**
+	 * @category REST API Server/Domains/Users
+	 * @subcategory Session Manager/Surfaces/Command
+	 *
+	 * @memberof MainSurfaceFactory
+	 * @async
+	 * @static
+	 * @override
+	 * @function
+	 * @name SurfaceName
+	 *
+	 * @returns {string} Name of this surface.
+	 *
+	 * @description
+	 * Returns the surface name: `Main`.
+	 */
+	static get SurfaceName() {
+		return 'Main';
+	}
+	// #endregion
+
+	// #region Private Static Members
+	static #mainInstance = undefined;
+	// #endregion
+}
+</code></pre>
+						</article>
+					</section>
+				</div>
+				<footer class="footer">
+					<div class="content has-text-centered">
+						<p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a></p>
+						<p class="sidebar-created-by">
+							<a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by
+							<a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+						</p>
+					</div>
+				</footer>
+			</div>
+			<div id="side-nav" class="side-nav">
+			</div>
+		</div>
+		<script src="scripts/app.min.js"></script>
+		<script>
+			PR.prettyPrint();
+
+		</script>
+		<script src="scripts/linenumber.js"> </script>
+	</body>
+
+</html>

@@ -1,0 +1,52 @@
+{
+	"tags": {
+		"allowUnknownTags": true,
+		"dictionaries": ["jsdoc"]
+	},
+	"source": {
+		"include": ["./index.js", "./lib", "./namespace.js", "./README.md"],
+		"exclude": [
+			"buildresults",
+			"deploy",
+			"knex_migrations",
+			"logs",
+			"node_modules",
+			"tests"
+		],
+		"includePattern": ".+\\.js(doc)?$",
+		"excludePattern": "(docs/|(^|/)namespaces\\.js$)"
+	},
+	"opts": {
+		"template": "./../../node_modules/better-docs",
+		"destination": "./jsdoc_default",
+		"access": "all",
+		"encoding": "utf8",
+		"package": "./package.json",
+		"private": true,
+		"readme": "./README.md",
+		"recurse": true,
+		"verbose": true
+	},
+	"plugins": [
+		"plugins/markdown",
+		"./../../node_modules/better-docs/category",
+		"plugins/summarize"
+	],
+	"templates": {
+		"cleverLinks": true,
+		"disableSort": false,
+		"monospaceLinks": false,
+		"better-docs": {
+			"name": "Application Server Framework Classes"
+		},
+		"referenceTitle": "Application Server Framework Classes",
+		"default": {
+			"outputSourceFiles": true,
+			"includeDate": false,
+			"useLongnameInNav": true
+		}
+	},
+	"metadata": {
+		"title": "Entity Value Aggregate Server Framework Classes by AyurAdhar"
+	}
+}

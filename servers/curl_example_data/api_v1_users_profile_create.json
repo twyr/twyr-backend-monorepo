@@ -1,0 +1,10 @@
+{
+	"data": {
+		"type": "user",
+		"attributes": {
+			"mobile_no": "+911234567890",
+			"locale_code": "en-IN",
+			"otp": "1234"
+		}
+	}
+}

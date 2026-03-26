@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title> lib/lifecycle_managers/evas-base-lifecycle-manager.js</title>
+		<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+		<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+		<script src="./build/entry.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+		<link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+		<link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+		<link type="text/css" rel="stylesheet" href="styles/app.min.css">
+		<link type="text/css" rel="stylesheet" href="styles/iframe.css">
+		<link type="text/css" rel="stylesheet" href="">
+		<script async defer src="https://buttons.github.io/buttons.js"></script>
+	</head>
+
+	<body class="layout small-header">
+		<div id="stickyNavbarOverlay"></div>
+		<div class="top-nav">
+			<div class="inner">
+				<a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+					<span aria-hidden="true"></span>
+					<span aria-hidden="true"></span>
+					<span aria-hidden="true"></span>
+				</a>
+				<div class="logo">
+					<a href="index.html">
+						<h1 class="navbar-item">Application Server Framework Classes</h1>
+					</a>
+				</div>
+				<div class="menu">
+					<div class="navigation">
+						<a href="index.html" class="link">
+							Documentation
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="main">
+			<div class="sidebar " id="sidebarNav">
+				<nav>
+					<h2><a href="index.html">Documentation</a></h2>
+					<div class="category"></div>
+					<div class="category">
+						<h2>Packages/Framework Classes</h2>
+						<h3>Namespaces / Namespaces</h3>
+						<ul>
+							<li><a href="package.framework-classes.helpers.html">package.framework-classes.helpers</a></li>
+							<li><a href="package.framework-classes.lib.html">package.framework-classes.lib</a></li>
+							<li><a href="package.framework-classes.lib.base_classes.html">package.framework-classes.lib.base_classes</a></li>
+							<li><a href="package.framework-classes.lib.factories.html">package.framework-classes.lib.factories</a></li>
+							<li><a href="package.framework-classes.lib.lifecycle_managers.html">package.framework-classes.lib.lifecycle_managers</a></li>
+						</ul>
+						<h3>Classes / Lifecycle Managers</h3>
+						<ul>
+							<li><a href="BoundedContextLifecycleManager.html">BoundedContextLifecycleManager</a></li>
+							<li><a href="BoundedContextLifecycleManagerFactory.html">BoundedContextLifecycleManagerFactory</a></li>
+							<li><a href="DomainLifecycleManager.html">DomainLifecycleManager</a></li>
+							<li><a href="DomainLifecycleManagerFactory.html">DomainLifecycleManagerFactory</a></li>
+							<li><a href="EVASBaseLifecycleManager.html">EVASBaseLifecycleManager</a></li>
+							<li><a href="ServerLifecycleManager.html">ServerLifecycleManager</a></li>
+							<li><a href="ServerLifecycleManagerFactory.html">ServerLifecycleManagerFactory</a></li>
+						</ul>
+						<h3>Classes / Base Classes</h3>
+						<ul>
+							<li><a href="EVASBaseArtifact.html">EVASBaseArtifact</a></li>
+							<li><a href="EVASBaseBoundedContext.html">EVASBaseBoundedContext</a></li>
+							<li><a href="EVASBaseDomain.html">EVASBaseDomain</a></li>
+							<li><a href="EVASBaseEventHandler.html">EVASBaseEventHandler</a></li>
+							<li><a href="EVASBaseIngressSurface.html">EVASBaseIngressSurface</a></li>
+							<li><a href="EVASBaseMiddleware.html">EVASBaseMiddleware</a></li>
+							<li><a href="EVASBaseRepository.html">EVASBaseRepository</a></li>
+							<li><a href="EVASBaseSurface.html">EVASBaseSurface</a></li>
+						</ul>
+						<h3>Classes / Core</h3>
+						<ul>
+							<li><a href="EVASBaseClass.html">EVASBaseClass</a></li>
+						</ul>
+						<h3>Classes / Factories</h3>
+						<ul>
+							<li><a href="EVASBaseFactory.html">EVASBaseFactory</a></li>
+						</ul>
+					</div>
+				</nav>
+			</div>
+			<div class="core" id="main-content-wrapper">
+				<div class="content">
+					<header class="page-title">
+						<p>Source</p>
+						<h1>lib/lifecycle_managers/evas-base-lifecycle-manager.js</h1>
+					</header>
+					<section>
+						<article>
+							<pre class="prettyprint source linenums"><code>/**
+ * Imports for this file
+ *
+ * @category Packages/Framework Classes
+ * @subcategory Lifecycle Managers
+ *
+ * @ignore
+ */
+import { join } from 'node:path';
+
+import { EVASBaseClass } from '../evas-base-class.js';
+import { loader } from '../../helpers/loader.js';
+
+/**
+ * @category Packages/Framework Classes
+ * @subcategory Lifecycle Managers
+ *
+ * @class
+ * @name EVASBaseLifecycleManager
+ * @extends EVASBaseClass
+ *
+ * @param {string} [location] - __dirname for this file in CJS, basically
+ * @param {object} [domainInterface] - Domain functionality exposed to sub-artifacts
+ *
+ * @classdesc
+ * The Base Lifecycle Manager Class for all Artifacts.
+ */
+export class EVASBaseLifecycleManager extends EVASBaseClass {
+	// #region Constructor
+	/**
+	 * @category Packages/Framework Classes
+	 * @subcategory Lifecycle Managers
+	 *
+	 * @ignore
+	 */
+	constructor(location, domainInterface) {
+		super();
+
+		this.#__dirname = location;
+		this.#domainInterface = domainInterface;
+
+		if (serverEnvironment === 'production') return;
+		console?.info?.(`\n${location}\n${this?.name}::constructor`);
+	}
+	// #endregion
+
+	// #region Lifecycle Methods
+	/**
+	 * @category Packages/Framework Classes
+	 * @subcategory Lifecycle Managers
+	 *
+	 * @memberof EVASBaseLifecycleManager
+	 * @async
+	 * @instance
+	 * @function
+	 * @name load
+	 *
+	 * @returns {null} - Nothing
+	 *
+	 * @description
+	 * To be overridden by artifact implementations - for implementing custom
+	 * start logic
+	 */
+	async load() {
+		if (serverEnvironment === 'production') return;
+		console?.info?.(`${this?.name}::load`);
+	}
+
+	/**
+	 * @category Packages/Framework Classes
+	 * @subcategory Lifecycle Managers
+	 *
+	 * @memberof EVASBaseLifecycleManager
+	 * @async
+	 * @instance
+	 * @function
+	 * @name unload
+	 *
+	 * @returns {null} - Nothing
+	 *
+	 * @description
+	 * To be overridden by artifact implementations - for implementing custom
+	 * stop logic
+	 */
+	async unload() {
+		if (serverEnvironment !== 'production') {
+			console?.info?.(`\n${this?.__dirname}\n${this?.name}::unload`);
+		}
+
+		this.#domainInterface = undefined;
+		this.#__dirname = undefined;
+	}
+	// #endregion
+
+	// #region "Protected Methods" - to be used only by derived classes
+	/**
+	 * @category Packages/Framework Classes
+	 * @subcategory Lifecycle Managers
+	 *
+	 * @memberof EVASBaseLifecycleManager
+	 * @async
+	 * @instance
+	 * @protected
+	 * @function
+	 * @name _loadArtifacts
+	 *
+	 * @param {string} [path] - search path for the artifacts
+	 * @param {boolean} [allFiles=false] - whether to load all files, or only index.js
+	 *
+	 * @returns {Map} - A Map of the loaded / instantiated artifacts.
+	 */
+	async _loadArtifacts(path, allFiles = false) {
+		const artifactsLocation = join?.(this.#__dirname, path);
+		const ArtifactFactories = await loader?.(artifactsLocation, allFiles);
+
+		return ArtifactFactories;
+	}
+
+	/**
+	 * @category Packages/Framework Classes
+	 * @subcategory Lifecycle Managers
+	 *
+	 * @memberof EVASBaseLifecycleManager
+	 * @async
+	 * @instance
+	 * @protected
+	 * @function
+	 * @name _unloadArtifacts
+	 *
+	 * @param {Map} [artifacts] - map of artifacts to be unloaded
+	 *
+	 * @returns {null} - Nothing.
+	 */
+	async _unloadArtifacts(artifacts) {
+		const errors = [];
+
+		try {
+			let artifactUnloadResolutions = [];
+			// eslint-disable-next-line no-unused-vars
+			for (const [artifactName, artifactInstance] of artifacts) {
+				artifactUnloadResolutions?.push?.(artifactInstance?.unload?.());
+			}
+
+			artifactUnloadResolutions = await Promise?.allSettled?.(
+				artifactUnloadResolutions
+			);
+
+			for (const unloadResolution of artifactUnloadResolutions) {
+				if (unloadResolution?.status === 'fulfilled') continue;
+				errors?.push?.(unloadResolution?.reason);
+			}
+		} catch (error) {
+			errors?.push?.(error);
+		}
+
+		if (!errors?.length) return;
+
+		throw new AggregateError(errors, `Unload Artifacts Error`);
+	}
+	// #endregion
+
+	// #region Getters / Setters
+	/**
+	 * @category Packages/Framework Classes
+	 * @subcategory Lifecycle Managers
+	 *
+	 * @memberof EVASBaseLifecycleManager
+	 * @instance
+	 * @member {string} __dirname
+	 *
+	 * @returns {string} - Location of this file
+	 *
+	 * @description
+	 * Returns the path to the directory (on disk) for this file
+	 * In ES6, we do not have __dirname, so the file that loads
+	 * this should pass it in
+	 */
+	get __dirname() {
+		return this.#__dirname;
+	}
+
+	/**
+	 * @category Packages/Framework Classes
+	 * @subcategory Lifecycle Managers
+	 *
+	 * @memberof EVASBaseLifecycleManager
+	 * @instance
+	 * @member {object} domainInterface
+	 *
+	 * @member {object} domainInterface
+	 *
+	 * @returns {object} - Domain Interface
+	 *
+	 * @description
+	 * Returns the domain interface instance that manages
+	 * the IoC / API for this Server
+	 */
+	get domainInterface() {
+		return this.#domainInterface;
+	}
+	// #endregion
+
+	// #region Private Fields
+	#__dirname = undefined;
+	#domainInterface = undefined;
+	// #endregion
+}
+</code></pre>
+						</article>
+					</section>
+				</div>
+				<footer class="footer">
+					<div class="content has-text-centered">
+						<p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a></p>
+						<p class="sidebar-created-by">
+							<a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by
+							<a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+						</p>
+					</div>
+				</footer>
+			</div>
+			<div id="side-nav" class="side-nav">
+			</div>
+		</div>
+		<script src="scripts/app.min.js"></script>
+		<script>
+			PR.prettyPrint();
+
+		</script>
+		<script src="scripts/linenumber.js"> </script>
+	</body>
+
+</html>

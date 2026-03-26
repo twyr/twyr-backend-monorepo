@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title> lib/lifecycle_managers/server-lifecycle-manager.js</title>
+		<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+		<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+		<script src="./build/entry.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+		<link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+		<link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+		<link type="text/css" rel="stylesheet" href="styles/app.min.css">
+		<link type="text/css" rel="stylesheet" href="styles/iframe.css">
+		<link type="text/css" rel="stylesheet" href="">
+		<script async defer src="https://buttons.github.io/buttons.js"></script>
+	</head>
+
+	<body class="layout small-header">
+		<div id="stickyNavbarOverlay"></div>
+		<div class="top-nav">
+			<div class="inner">
+				<a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+					<span aria-hidden="true"></span>
+					<span aria-hidden="true"></span>
+					<span aria-hidden="true"></span>
+				</a>
+				<div class="logo">
+					<a href="index.html">
+						<h1 class="navbar-item">Application Server Framework Classes</h1>
+					</a>
+				</div>
+				<div class="menu">
+					<div class="navigation">
+						<a href="index.html" class="link">
+							Documentation
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="main">
+			<div class="sidebar " id="sidebarNav">
+				<nav>
+					<h2><a href="index.html">Documentation</a></h2>
+					<div class="category"></div>
+					<div class="category">
+						<h2>Packages/Framework Classes</h2>
+						<h3>Namespaces / Namespaces</h3>
+						<ul>
+							<li><a href="package.framework-classes.helpers.html">package.framework-classes.helpers</a></li>
+							<li><a href="package.framework-classes.lib.html">package.framework-classes.lib</a></li>
+							<li><a href="package.framework-classes.lib.base_classes.html">package.framework-classes.lib.base_classes</a></li>
+							<li><a href="package.framework-classes.lib.factories.html">package.framework-classes.lib.factories</a></li>
+							<li><a href="package.framework-classes.lib.lifecycle_managers.html">package.framework-classes.lib.lifecycle_managers</a></li>
+						</ul>
+						<h3>Classes / Lifecycle Managers</h3>
+						<ul>
+							<li><a href="BoundedContextLifecycleManager.html">BoundedContextLifecycleManager</a></li>
+							<li><a href="BoundedContextLifecycleManagerFactory.html">BoundedContextLifecycleManagerFactory</a></li>
+							<li><a href="DomainLifecycleManager.html">DomainLifecycleManager</a></li>
+							<li><a href="DomainLifecycleManagerFactory.html">DomainLifecycleManagerFactory</a></li>
+							<li><a href="EVASBaseLifecycleManager.html">EVASBaseLifecycleManager</a></li>
+							<li><a href="ServerLifecycleManager.html">ServerLifecycleManager</a></li>
+							<li><a href="ServerLifecycleManagerFactory.html">ServerLifecycleManagerFactory</a></li>
+						</ul>
+						<h3>Classes / Base Classes</h3>
+						<ul>
+							<li><a href="EVASBaseArtifact.html">EVASBaseArtifact</a></li>
+							<li><a href="EVASBaseBoundedContext.html">EVASBaseBoundedContext</a></li>
+							<li><a href="EVASBaseDomain.html">EVASBaseDomain</a></li>
+							<li><a href="EVASBaseEventHandler.html">EVASBaseEventHandler</a></li>
+							<li><a href="EVASBaseIngressSurface.html">EVASBaseIngressSurface</a></li>
+							<li><a href="EVASBaseMiddleware.html">EVASBaseMiddleware</a></li>
+							<li><a href="EVASBaseRepository.html">EVASBaseRepository</a></li>
+							<li><a href="EVASBaseSurface.html">EVASBaseSurface</a></li>
+						</ul>
+						<h3>Classes / Core</h3>
+						<ul>
+							<li><a href="EVASBaseClass.html">EVASBaseClass</a></li>
+						</ul>
+						<h3>Classes / Factories</h3>
+						<ul>
+							<li><a href="EVASBaseFactory.html">EVASBaseFactory</a></li>
+						</ul>
+					</div>
+				</nav>
+			</div>
+			<div class="core" id="main-content-wrapper">
+				<div class="content">
+					<header class="page-title">
+						<p>Source</p>
+						<h1>lib/lifecycle_managers/server-lifecycle-manager.js</h1>
+					</header>
+					<section>
+						<article>
+							<pre class="prettyprint source linenums"><code>/**
+ * Imports for this file
+ *
+ * @category Packages/Framework Classes
+ * @subcategory Lifecycle Managers
+ *
+ * @ignore
+ */
+import { EVASBaseFactory } from './../factories//evas-base-factory.js';
+import { EVASBaseLifecycleManager } from './evas-base-lifecycle-manager.js';
+
+/**
+ * @category Packages/Framework Classes
+ * @subcategory Lifecycle Managers
+ *
+ * @class
+ * @name ServerLifecycleManager
+ * @extends EVASBaseLifecycleManager
+ *
+ * @param {string} [location] - __dirname for this file in CJS, basically
+ * @param {object} [domainInterface] - Domain functionality exposed to sub-artifacts
+ *
+ * @classdesc The Application Server's Lifecycle Manager Class.
+ */
+class ServerLifecycleManager extends EVASBaseLifecycleManager {
+	// #region Constructor
+	/**
+	 * @category Packages/Framework Classes
+	 * @subcategory Lifecycle Managers
+	 *
+	 * @ignore
+	 */
+	constructor(location, domainInterface) {
+		super(location, domainInterface);
+	}
+	// #endregion
+
+	// #region Lifecycle API
+	/**
+	 * @category Packages/Framework Classes
+	 * @subcategory Lifecycle Managers
+	 *
+	 * @memberof ServerLifecycleManager
+	 * @async
+	 * @instance
+	 * @override
+	 * @function
+	 * @name load
+	 *
+	 * @returns {null} - Nothing
+	 *
+	 * @description
+	 * 1. Loads init repositories - required for loading other repositories, etc.
+	 * 2. Loads the runtime repositories - required for the actual functioning of the server
+	 * 3. Loads the Ingress Surfaces - required for the server to accept incoming requests
+	 * 4. Loads bounded contexts
+	 * 5. Finally, loads the domains
+	 */
+	async load() {
+		const errors = [];
+
+		try {
+			await super.load?.();
+		} catch (error) {
+			errors?.push?.(error);
+		}
+
+		// Step 1: Load the repositories
+		try {
+			await this.#loadRepositories?.();
+		} catch (error) {
+			errors?.push?.(error);
+		}
+
+		// Step 2: Load the Ingress Surfaces
+		try {
+			await this.#loadIngressSurfaces?.();
+		} catch (error) {
+			errors?.push?.(error);
+		}
+
+		// Step 3: Load the bounded contexts
+		try {
+			await this.#loadBoundedContexts?.();
+		} catch (error) {
+			errors?.push?.(error);
+		}
+
+		// Step 4: Load the Domains
+		try {
+			await this.#loadDomains?.();
+		} catch (error) {
+			errors?.push?.(error);
+		}
+
+		if (!errors?.length) return;
+
+		const errorToBeThrown = new AggregateError(
+			errors,
+			`Error loading ${this?.name}`
+		);
+
+		throw errorToBeThrown;
+	}
+
+	/**
+	 * @category Packages/Framework Classes
+	 * @subcategory Lifecycle Managers
+	 *
+	 * @memberof ServerLifecycleManager
+	 * @async
+	 * @instance
+	 * @override
+	 * @function
+	 * @name unload
+	 *
+	 * @returns {undefined} - Nothing.
+	 *
+	 * @description
+	 * 1. Unloads domains
+	 * 2. Unloads bounded contexts
+	 * 3. Stops repositories in the correct order, and unloads them
+	 */
+	async unload() {
+		let errors = [];
+
+		// Step 1: Unload the API and repositories
+		try {
+			await this?.domainInterface?.iocContainer?.unregisterAll?.();
+		} catch (error) {
+			errors?.push?.(error);
+		}
+
+		try {
+			await this?.domainInterface?.apiRegistry?.unregisterAll?.();
+		} catch (error) {
+			errors?.push?.(error);
+		}
+
+		// Step 2: Unload the bounded contexts
+		try {
+			await this._unloadArtifacts?.(this.#boundedContexts);
+			this.#boundedContexts?.clear?.();
+		} catch (error) {
+			errors?.push?.(error);
+		}
+
+		// Step 3: Unload the domains
+		try {
+			await this._unloadArtifacts?.(this.#domains);
+			this.#domains?.clear?.();
+		} catch (error) {
+			errors?.push?.(error);
+		}
+
+		// Finally, call the base class stuff
+		try {
+			await super.unload?.();
+		} catch (error) {
+			errors?.push?.(error);
+		}
+
+		if (!errors?.length) return;
+
+		const errorToBeThrown = new AggregateError(
+			errors,
+			`Error unloading ${this?.name}`
+		);
+
+		throw errorToBeThrown;
+	}
+	// #endregion
+
+	// #region Private Methods
+	/**
+	 * @category Packages/Framework Classes
+	 * @subcategory Lifecycle Managers
+	 *
+	 * @memberof ServerLifecycleManager
+	 * @async
+	 * @instance
+	 * @private
+	 * @function
+	 * @name #loadBoundedContexts
+	 *
+	 * @returns {null} - Nothing.
+	 *
+	 * @description
+	 * Loads all the top-level BoundedContexts of this Server
+	 */
+	async #loadBoundedContexts() {
+		const BoundedContextFactories =
+			await this._loadArtifacts?.('bounded_contexts');
+		for (const BoundedContextFactory of BoundedContextFactories) {
+			const boundedContextInstance =
+				await BoundedContextFactory?.createInstances?.(
+					this?.domainInterface
+				);
+
+			this.#boundedContexts?.set?.(
+				BoundedContextFactory?.BoundedContextName,
+				boundedContextInstance
+			);
+		}
+	}
+
+	/**
+	 * @category Packages/Framework Classes
+	 * @subcategory Lifecycle Managers
+	 *
+	 * @memberof ServerLifecycleManager
+	 * @async
+	 * @instance
+	 * @private
+	 * @function
+	 * @name #loadDomains
+	 *
+	 * @returns {null} - Nothing.
+	 *
+	 * @description
+	 * Loads all the top-level Domains hosted by the Server
+	 */
+	async #loadDomains() {
+		const DomainFactories = await this._loadArtifacts?.('domains');
+		for (const DomainFactory of DomainFactories) {
+			const domainInstance = await DomainFactory?.createInstances?.(
+				this?.domainInterface
+			);
+
+			this.#domains?.set?.(DomainFactory?.DomainName, domainInstance);
+		}
+	}
+
+	/**
+	 * @category Packages/Framework Classes
+	 * @subcategory Lifecycle Managers
+	 *
+	 * @memberof ServerLifecycleManager
+	 * @async
+	 * @instance
+	 * @private
+	 * @function
+	 * @name #loadRepositories
+	 *
+	 * @returns {null} - Nothing.
+	 *
+	 * @description
+	 * Loads all the top-level Repositories offered by this Server
+	 */
+	async #loadRepositories() {
+		// Step 1: First up, get the init repositories up...
+		// Basically, the configuration repository
+		const InitRepositoryFactories =
+			await this._loadArtifacts?.('repositories/init');
+		for (const InitRepositoryFactory of InitRepositoryFactories) {
+			await this?.domainInterface?.iocContainer?.register?.(
+				InitRepositoryFactory?.RepositoryName,
+				InitRepositoryFactory
+			);
+		}
+
+		// Step 2: Load / Register the runtime Repositories
+		const RepositoryFactories = await this._loadArtifacts?.(
+			'repositories/runtime'
+		);
+		for (const RepositoryFactory of RepositoryFactories) {
+			await this?.domainInterface?.iocContainer?.register?.(
+				RepositoryFactory?.RepositoryName,
+				RepositoryFactory
+			);
+		}
+	}
+
+	/**
+	 * @category Packages/Framework Classes
+	 * @subcategory Lifecycle Managers
+	 *
+	 * @memberof ServerLifecycleManager
+	 * @async
+	 * @instance
+	 * @private
+	 * @function
+	 * @name #loadIngressSurfaces
+	 *
+	 * @returns {null} - Nothing.
+	 *
+	 * @description
+	 * Loads all the Ingress Surfaces offered by this Server
+	 */
+	async #loadIngressSurfaces() {
+		const IngressSurfaceFactories =
+			await this._loadArtifacts?.('ingress_surfaces');
+		for (const IngressSurfaceFactory of IngressSurfaceFactories) {
+			await this?.domainInterface?.iocContainer?.register?.(
+				IngressSurfaceFactory?.IngressSurfaceName,
+				IngressSurfaceFactory
+			);
+		}
+	}
+	// #endregion
+
+	// #region Private Fields
+	#domains = new Map();
+	#boundedContexts = new Map();
+	// #endregion
+}
+/**
+ * The Factory for the Application Server Lifecycle Manager class
+ *
+ * @category Packages/Framework Classes
+ * @subcategory Lifecycle Managers
+ *
+ * @class
+ * @name ServerLifecycleManagerFactory
+ * @extends EVASBaseFactory
+ *
+ * @classdesc The Application Server Lifecycle Manager Class Factory.
+ */
+export class ServerLifecycleManagerFactory extends EVASBaseFactory {
+	// #region Constructor
+	/**
+	 * @category Packages/Framework Classes
+	 * @subcategory Lifecycle Managers
+	 *
+	 * @ignore
+	 */
+	constructor() {
+		super();
+	}
+	// #endregion
+
+	// #region Creation API
+	/**
+	 * @category Packages/Framework Classes
+	 * @subcategory Lifecycle Managers
+	 *
+	 * @memberof ServerLifecycleManagerFactory
+	 * @async
+	 * @static
+	 * @override
+	 * @function
+	 * @name createInstances
+	 *
+	 * @param {string} [location] - __dirname for this file in CJS, basically
+	 * @param {object} [domainInterface] - Domain functionality exposed to sub-artifacts
+	 *
+	 * @returns {ServerLifecycleManager} - Instance of Lifecycle manager.
+	 */
+	static async createInstances(location, domainInterface) {
+		if (!ServerLifecycleManagerFactory.#serverLifecycleManagerInstance) {
+			ServerLifecycleManagerFactory.#serverLifecycleManagerInstance =
+				new ServerLifecycleManager(location, domainInterface);
+		}
+
+		await ServerLifecycleManagerFactory.#serverLifecycleManagerInstance?.load?.();
+		return ServerLifecycleManagerFactory.#serverLifecycleManagerInstance;
+	}
+
+	/**
+	 * @category Packages/Framework Classes
+	 * @subcategory Lifecycle Managers
+	 *
+	 * @memberof ServerLifecycleManagerFactory
+	 * @async
+	 * @static
+	 * @override
+	 * @function
+	 * @name destroyInstances
+	 *
+	 * @returns {null} - Nothing
+	 */
+	static async destroyInstances() {
+		if (!ServerLifecycleManagerFactory.#serverLifecycleManagerInstance)
+			return;
+
+		await ServerLifecycleManagerFactory.#serverLifecycleManagerInstance?.unload?.();
+		ServerLifecycleManagerFactory.#serverLifecycleManagerInstance =
+			undefined;
+	}
+	// #endregion
+
+	// #region Private Static Members
+	static #serverLifecycleManagerInstance = undefined;
+	// #endregion
+}
+</code></pre>
+						</article>
+					</section>
+				</div>
+				<footer class="footer">
+					<div class="content has-text-centered">
+						<p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a></p>
+						<p class="sidebar-created-by">
+							<a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by
+							<a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+						</p>
+					</div>
+				</footer>
+			</div>
+			<div id="side-nav" class="side-nav">
+			</div>
+		</div>
+		<script src="scripts/app.min.js"></script>
+		<script>
+			PR.prettyPrint();
+
+		</script>
+		<script src="scripts/linenumber.js"> </script>
+	</body>
+
+</html>
