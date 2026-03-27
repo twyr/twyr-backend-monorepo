@@ -514,19 +514,10 @@
 </a>
 </g>
 </g>
-<!-- namespace.js -->
-<g id="node28" class="node">
-<title>namespace.js</title>
-<g id="a_node28"><a xlink:href="namespace.js" xlink:title="no&#45;orphans">
-<path fill="#ccffcc" stroke="orange" d="M118.33,-513.25C118.33,-513.25 53.67,-513.25 53.67,-513.25 50.46,-513.25 47.25,-510.04 47.25,-506.83 47.25,-506.83 47.25,-500.42 47.25,-500.42 47.25,-497.21 50.46,-494 53.67,-494 53.67,-494 118.33,-494 118.33,-494 121.54,-494 124.75,-497.21 124.75,-500.42 124.75,-500.42 124.75,-506.83 124.75,-506.83 124.75,-510.04 121.54,-513.25 118.33,-513.25"/>
-<text xml:space="preserve" text-anchor="start" x="55.25" y="-500.25" font-family="Helvetica,sans-Serif" font-size="9.00" fill="orange">namespace.js</text>
-</a>
-</g>
-</g>
 <!-- node_modules/chai -->
-<g id="node29" class="node">
+<g id="node28" class="node">
 <title>node_modules/chai</title>
-<g id="a_node29"><a xlink:href="https://www.npmjs.com/package/chai" xlink:title="chai">
+<g id="a_node28"><a xlink:href="https://www.npmjs.com/package/chai" xlink:title="chai">
 <polygon fill="#c40b0a" fill-opacity="0.101961" stroke="black" points="578.5,-214.25 526.64,-214.25 524.5,-212.11 524.5,-195 576.36,-195 578.5,-197.14 578.5,-214.25"/>
 <polyline fill="none" stroke="black" points="576.36,-212.11 524.5,-212.11"/>
 <polyline fill="none" stroke="black" points="576.36,-212.11 576.36,-195"/>
@@ -536,9 +527,9 @@
 </g>
 </g>
 <!-- tests/index.spec.cjs -->
-<g id="node30" class="node">
+<g id="node29" class="node">
 <title>tests/index.spec.cjs</title>
-<g id="a_node30"><a xlink:href="tests/index.spec.cjs" xlink:title="index.spec.cjs">
+<g id="a_node29"><a xlink:href="tests/index.spec.cjs" xlink:title="index.spec.cjs">
 <path fill="#ffffcc" stroke="black" d="M461.33,-218.25C461.33,-218.25 394.42,-218.25 394.42,-218.25 391.21,-218.25 388,-215.04 388,-211.83 388,-211.83 388,-205.42 388,-205.42 388,-202.21 391.21,-199 394.42,-199 394.42,-199 461.33,-199 461.33,-199 464.54,-199 467.75,-202.21 467.75,-205.42 467.75,-205.42 467.75,-211.83 467.75,-211.83 467.75,-215.04 464.54,-218.25 461.33,-218.25"/>
 <text xml:space="preserve" text-anchor="start" x="396" y="-205.25" font-family="Helvetica,sans-Serif" font-size="9.00">index.spec.cjs</text>
 </a>
@@ -551,9 +542,9 @@
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-opacity="0.200000" points="516.66,-207.84 522.59,-205.54 516.52,-203.64 516.66,-207.84"/>
 </g>
 <!-- tests/setup&#45;mocks.cjs -->
-<g id="node31" class="node">
+<g id="node30" class="node">
 <title>tests/setup&#45;mocks.cjs</title>
-<g id="a_node31"><a xlink:href="tests/setup-mocks.cjs" xlink:title="no&#45;orphans">
+<g id="a_node30"><a xlink:href="tests/setup-mocks.cjs" xlink:title="no&#45;orphans">
 <path fill="#ccffcc" stroke="orange" d="M465.83,-249.25C465.83,-249.25 389.92,-249.25 389.92,-249.25 386.71,-249.25 383.5,-246.04 383.5,-242.83 383.5,-242.83 383.5,-236.42 383.5,-236.42 383.5,-233.21 386.71,-230 389.92,-230 389.92,-230 465.83,-230 465.83,-230 469.04,-230 472.25,-233.21 472.25,-236.42 472.25,-236.42 472.25,-242.83 472.25,-242.83 472.25,-246.04 469.04,-249.25 465.83,-249.25"/>
 <text xml:space="preserve" text-anchor="start" x="391.5" y="-236.25" font-family="Helvetica,sans-Serif" font-size="9.00" fill="orange">setup&#45;mocks.cjs</text>
 </a>

@@ -1,4 +1,4 @@
-cloc|github.com/AlDanial/cloc v 1.96  T=0.26 s (393.5 files/s, 227176.2 lines/s)
+cloc|github.com/AlDanial/cloc v 1.96  T=0.16 s (633.8 files/s, 367329.1 lines/s)
 --- | ---
 
 File|blank|comment|code
@@ -11,15 +11,15 @@ File|blank|comment|code
 ./knex_migrations/seeds/004-locales-by-locale-seed-mr-IN.cjs|6|18|4253
 ./knex_migrations/seeds/004-locales-by-locale-seed-ta-IN.cjs|6|18|4253
 ./knex_migrations/seeds/001-country-codes-seed.cjs|1|7|1434
-./knex_migrations/seeds/008-master-data-by-locale-seed-ta-IN.cjs|48|32|711
-./knex_migrations/seeds/008-master-data-by-locale-seed-ml-IN.cjs|48|31|706
-./knex_migrations/seeds/008-master-data-by-locale-seed-te-IN.cjs|48|32|704
+./knex_migrations/seeds/008-master-data-by-locale-seed-ta-IN.cjs|48|32|710
+./knex_migrations/seeds/008-master-data-by-locale-seed-ml-IN.cjs|48|31|705
+./knex_migrations/seeds/008-master-data-by-locale-seed-te-IN.cjs|48|32|703
 ./knex_migrations/migrations/20221213119018-master-table-schema.cjs|72|10|701
-./knex_migrations/seeds/008-master-data-by-locale-seed-kn-IN.cjs|48|32|696
-./knex_migrations/seeds/008-master-data-by-locale-seed-mr-IN.cjs|48|31|694
-./knex_migrations/seeds/008-master-data-by-locale-seed-hi-IN.cjs|48|32|692
-./knex_migrations/seeds/008-master-data-by-locale-seed-en-IN.cjs|48|32|688
-./knex_migrations/seeds/007-master-data-seed.cjs|31|27|623
+./knex_migrations/seeds/008-master-data-by-locale-seed-kn-IN.cjs|48|32|695
+./knex_migrations/seeds/008-master-data-by-locale-seed-mr-IN.cjs|48|31|693
+./knex_migrations/seeds/008-master-data-by-locale-seed-hi-IN.cjs|48|32|691
+./knex_migrations/seeds/008-master-data-by-locale-seed-en-IN.cjs|48|32|687
+./knex_migrations/seeds/007-master-data-seed.cjs|31|27|622
 ./knex_migrations/seeds/003-country-codes-by-locale-seed-ta-IN.cjs|6|19|477
 ./knex_migrations/seeds/003-country-codes-by-locale-seed-kn-IN.cjs|6|19|465
 ./knex_migrations/seeds/003-country-codes-by-locale-seed-ml-IN.cjs|6|19|461
@@ -77,7 +77,7 @@ File|blank|comment|code
 ./source/repositories/runtime/notification/index.js|17|177|62
 ./source/repositories/init/configuration/index.js|14|170|61
 ./source/domains/users/bounded_contexts/profile/surfaces/query/main.js|14|174|60
-./.jsdocrc.json|0|0|59
+./.jsdocrc.json|0|0|58
 ./source/repositories/runtime/auth/strategies/user-local.js|10|25|58
 ./source/repositories/runtime/audit/audit-trail-model.js|12|52|57
 ./source/bounded_contexts/health/surfaces/query/main.js|16|192|56
@@ -105,16 +105,15 @@ File|blank|comment|code
 ./tests/setup-mocks.cjs|1|0|8
 ./base_classes/objection-model.cjs|2|20|7
 ./.lintstagedrc.json|0|0|5
-./namespace.js|47|288|0
 --------|--------|--------|--------
-SUM:|2041|9114|48307
-cloc|github.com/AlDanial/cloc v 1.96  T=0.26 s (393.5 files/s, 227176.2 lines/s)
+SUM:|1994|8826|48298
+cloc|github.com/AlDanial/cloc v 1.96  T=0.16 s (633.8 files/s, 367329.1 lines/s)
 --- | ---
 
 Language|files|blank|comment|code
 :-------|-------:|-------:|-------:|-------:
-JavaScript|97|2036|9114|48007
-JSON|5|3|0|284
+JavaScript|96|1989|8826|47999
+JSON|5|3|0|283
 Markdown|1|2|0|16
 --------|--------|--------|--------|--------
-SUM:|103|2041|9114|48307
+SUM:|102|1994|8826|48298

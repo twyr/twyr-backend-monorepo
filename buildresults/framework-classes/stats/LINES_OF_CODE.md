@@ -1,9 +1,9 @@
-cloc|github.com/AlDanial/cloc v 1.96  T=0.04 s (644.2 files/s, 81590.7 lines/s)
+cloc|github.com/AlDanial/cloc v 1.96  T=0.03 s (932.9 files/s, 121319.3 lines/s)
 --- | ---
 
 File|blank|comment|code
 :-------|-------:|-------:|-------:
-./lib/lifecycle_managers/bounded-context-lifecycle-manager.js|38|184|179
+./lib/lifecycle_managers/bounded-context-lifecycle-manager.js|38|183|179
 ./lib/lifecycle_managers/server-lifecycle-manager.js|32|201|152
 ./lib/lifecycle_managers/domain-lifecycle-manager.js|34|177|150
 ./package.json|0|0|127
@@ -28,16 +28,15 @@ File|blank|comment|code
 ./lib/evas-base-class.js|2|40|7
 ./.lintstagedrc.json|0|0|5
 ./tests/setup-mocks.cjs|0|0|5
-./namespace.js|5|36|0
 --------|--------|--------|--------
-SUM:|244|1807|1242
-cloc|github.com/AlDanial/cloc v 1.96  T=0.04 s (644.2 files/s, 81590.7 lines/s)
+SUM:|239|1770|1242
+cloc|github.com/AlDanial/cloc v 1.96  T=0.03 s (932.9 files/s, 121319.3 lines/s)
 --- | ---
 
 Language|files|blank|comment|code
 :-------|-------:|-------:|-------:|-------:
-JavaScript|20|239|1807|998
+JavaScript|19|234|1770|998
 JSON|5|3|0|227
 Markdown|1|2|0|17
 --------|--------|--------|--------|--------
-SUM:|26|244|1807|1242
+SUM:|25|239|1770|1242

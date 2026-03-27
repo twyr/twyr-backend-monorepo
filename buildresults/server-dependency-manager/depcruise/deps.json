@@ -1280,18 +1280,6 @@
       ]
     },
     {
-      "source": "namespace.js",
-      "dependencies": [],
-      "orphan": true,
-      "valid": false,
-      "rules": [
-        {
-          "severity": "warn",
-          "name": "no-orphans"
-        }
-      ]
-    },
-    {
       "source": "tests/index.spec.cjs",
       "dependencies": [
         {
@@ -1400,15 +1388,6 @@
       },
       {
         "type": "module",
-        "from": "namespace.js",
-        "to": "namespace.js",
-        "rule": {
-          "severity": "warn",
-          "name": "no-orphans"
-        }
-      },
-      {
-        "type": "module",
         "from": "tests/setup-mocks.cjs",
         "to": "tests/setup-mocks.cjs",
         "rule": {
@@ -1418,13 +1397,13 @@
       }
     ],
     "error": 3,
-    "warn": 5,
+    "warn": 4,
     "info": 0,
     "ignore": 0,
-    "totalCruised": 43,
+    "totalCruised": 42,
     "totalDependenciesCruised": 52,
     "optionsUsed": {
-      "baseDir": "/home/vish/Work/twyr/code/entity-value-aggregate-server/packages/server-dependency-manager",
+      "baseDir": "/home/vish/Work/twyr/code/twyr-backend-monorepo/packages/server-dependency-manager",
       "combinedDependencies": false,
       "detectJSDocImports": false,
       "detectProcessBuiltinModuleCalls": true,

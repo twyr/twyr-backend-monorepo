@@ -2055,18 +2055,6 @@
       ]
     },
     {
-      "source": "namespace.js",
-      "dependencies": [],
-      "orphan": true,
-      "valid": false,
-      "rules": [
-        {
-          "severity": "warn",
-          "name": "no-orphans"
-        }
-      ]
-    },
-    {
       "source": "source/application-server.js",
       "dependencies": [
         {
@@ -6206,15 +6194,6 @@
       },
       {
         "type": "module",
-        "from": "namespace.js",
-        "to": "namespace.js",
-        "rule": {
-          "severity": "warn",
-          "name": "no-orphans"
-        }
-      },
-      {
-        "type": "module",
         "from": "tests/setup-mocks.cjs",
         "to": "tests/setup-mocks.cjs",
         "rule": {
@@ -6224,13 +6203,13 @@
       }
     ],
     "error": 26,
-    "warn": 9,
+    "warn": 8,
     "info": 0,
     "ignore": 0,
-    "totalCruised": 145,
+    "totalCruised": 144,
     "totalDependenciesCruised": 239,
     "optionsUsed": {
-      "baseDir": "/home/vish/Work/twyr/code/entity-value-aggregate-server/servers/rest-api-server",
+      "baseDir": "/home/vish/Work/twyr/code/twyr-backend-monorepo/servers/rest-api-server",
       "combinedDependencies": false,
       "detectJSDocImports": false,
       "detectProcessBuiltinModuleCalls": true,

@@ -466,18 +466,6 @@
       ]
     },
     {
-      "source": "namespace.js",
-      "dependencies": [],
-      "orphan": true,
-      "valid": false,
-      "rules": [
-        {
-          "severity": "warn",
-          "name": "no-orphans"
-        }
-      ]
-    },
-    {
       "source": "tests/index.spec.cjs",
       "dependencies": [
         {
@@ -568,15 +556,6 @@
       },
       {
         "type": "module",
-        "from": "namespace.js",
-        "to": "namespace.js",
-        "rule": {
-          "severity": "warn",
-          "name": "no-orphans"
-        }
-      },
-      {
-        "type": "module",
         "from": "tests/setup-mocks.cjs",
         "to": "tests/setup-mocks.cjs",
         "rule": {
@@ -586,13 +565,13 @@
       }
     ],
     "error": 1,
-    "warn": 5,
+    "warn": 4,
     "info": 0,
     "ignore": 0,
-    "totalCruised": 24,
+    "totalCruised": 23,
     "totalDependenciesCruised": 14,
     "optionsUsed": {
-      "baseDir": "/home/vish/Work/twyr/code/entity-value-aggregate-server/packages/error-serializer",
+      "baseDir": "/home/vish/Work/twyr/code/twyr-backend-monorepo/packages/error-serializer",
       "combinedDependencies": false,
       "detectJSDocImports": false,
       "detectProcessBuiltinModuleCalls": true,
