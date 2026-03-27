@@ -176,7 +176,7 @@ class BoundedContextLifecycleManager extends EVASBaseLifecycleManager {
 	 * @async
 	 * @instance
 	 * @private
-	 * @funservers/rest-api-server/source/domains/admin/bounded_contexts/tenant/command_surfacesction
+	 * @function
 	 * @name #loadSurfaces
 	 *
 	 * @returns {null} - Nothing.

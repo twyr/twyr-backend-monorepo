@@ -8,7 +8,6 @@
 			"./base_classes",
 			"./custom_loaders",
 			"./source",
-			"./namespace.js",
 			"./README.md"
 		],
 		"exclude": [

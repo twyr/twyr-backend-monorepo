@@ -4,7 +4,7 @@
 		"dictionaries": ["jsdoc"]
 	},
 	"source": {
-		"include": ["./index.js", "./lib", "./namespace.js", "./README.md"],
+		"include": ["./index.js", "./lib", "./README.md"],
 		"exclude": [
 			"buildresults",
 			"deploy",
