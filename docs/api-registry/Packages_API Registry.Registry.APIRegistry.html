@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title> Packages/API Registry/Registry/APIRegistry</title>
+		<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+		<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+		<script src="./build/entry.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+		<link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+		<link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+		<link type="text/css" rel="stylesheet" href="styles/app.min.css">
+		<link type="text/css" rel="stylesheet" href="styles/iframe.css">
+		<link type="text/css" rel="stylesheet" href="">
+		<script async defer src="https://buttons.github.io/buttons.js"></script>
+	</head>
+
+	<body class="layout small-header">
+		<div id="stickyNavbarOverlay"></div>
+		<div class="top-nav">
+			<div class="inner">
+				<a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+					<span aria-hidden="true"></span>
+					<span aria-hidden="true"></span>
+					<span aria-hidden="true"></span>
+				</a>
+				<div class="logo">
+					<a href="index.html">
+						<h1 class="navbar-item">API Registry</h1>
+					</a>
+				</div>
+				<div class="menu">
+					<div class="navigation">
+						<a href="index.html" class="link">
+							Documentation
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="main">
+			<div class="sidebar " id="sidebarNav">
+				<nav>
+					<h2><a href="index.html">Documentation</a></h2>
+					<div class="category"></div>
+					<div class="category">
+						<h2>Packages/API Registry</h2>
+						<h3>Classes / Registry</h3>
+						<ul>
+							<li><a href="Packages_API%20Registry.Registry.APIRegistry.html">Packages/API Registry/Registry/APIRegistry</a></li>
+						</ul>
+					</div>
+				</nav>
+			</div>
+			<div class="core" id="main-content-wrapper">
+				<div class="content">
+					<header class="page-title">
+						<p>Class</p>
+						<h1>Packages/API Registry/Registry/APIRegistry</h1>
+					</header>
+					<section>
+						<header>
+							<h2><span class="attribs"><span class="type-signature"></span></span>Packages/API Registry/Registry/APIRegistry<span class="signature">(domainName<span class="signature-attributes">opt</span>, parentRegistry<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h2>
+							<div class="class-description">
+								<p>The API Registry. Middlewares across the board
+									can register with their local API Registry and
+									expose their functionality to the rest of the
+									Server.</p>
+							</div>
+						</header>
+						<article>
+							<div class="container-overview">
+								<div class='vertical-section'>
+									<div class="members">
+										<div class="member">
+											<div class=name>
+												<span class="tag">Constructor</span>
+											</div>
+											<h4 class="name" id="APIRegistry">
+												<a class="href-link" href="#APIRegistry">#</a>
+												<span class="code-name">
+													new APIRegistry<span class="signature">(domainName<span class="signature-attributes">opt</span>, parentRegistry<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span>
+												</span>
+											</h4>
+											<h5>Parameters:</h5>
+											<div class="table-container">
+												<table class="params table">
+													<thead>
+														<tr>
+															<th>Name</th>
+															<th>Type</th>
+															<th>Attributes</th>
+															<th class="last">Description</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr class="deep-level-0">
+															<td class="name"><code>domainName</code></td>
+															<td class="type">
+																<code class="param-type">string</code>
+															</td>
+															<td class="attributes">
+																&lt;optional><br>
+															</td>
+															<td class="description last">
+																<p>The name of the domain that hosts this APIRegistry</p>
+															</td>
+														</tr>
+														<tr class="deep-level-0">
+															<td class="name"><code>parentRegistry</code></td>
+															<td class="type">
+																<code class="param-type">object</code>
+															</td>
+															<td class="attributes">
+																&lt;optional><br>
+															</td>
+															<td class="description last">
+																<p>The parent domain's APIRegistry</p>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+											<dl class="details">
+												<p class="tag-source">
+													<a href="lib_api-registry.js.html" class="button">View Source</a>
+													<span>
+														<a href="lib_api-registry.js.html">lib/api-registry.js</a>, <a href="lib_api-registry.js.html#line11">line 11</a>
+													</span>
+												</p>
+											</dl>
+										</div>
+									</div>
+								</div>
+							</div>
+							<h3 class="subsection-title">Extends</h3>
+							<ul>
+								<li>EVASBaseClass</li>
+							</ul>
+							<div class='vertical-section'>
+								<h1>Members</h1>
+								<div class="members">
+									<div class="member">
+										<span class="method-parameter is-pulled-right">
+											<label>Type:</label>
+											<code class="param-type">string</code>
+										</span>
+										<h4 class="name" id="name">
+											<a class="href-link" href="#name">#</a>
+											<span class='tag'>readonly</span>
+											<span class="code-name">
+												name
+											</span>
+										</h4>
+										<dl class="details">
+											<p class="tag-source">
+												<a href="lib_api-registry.js.html" class="button">View Source</a>
+												<span>
+													<a href="lib_api-registry.js.html">lib/api-registry.js</a>, <a href="lib_api-registry.js.html#line343">line 343</a>
+												</span>
+											</p>
+										</dl>
+									</div>
+								</div>
+							</div>
+							<div class='vertical-section'>
+								<h1>Methods</h1>
+								<h2 class="subsection-title">Interface API</h2>
+								<div class="members">
+									<div class="member">
+										<h4 class="name" id="registerChild">
+											<a class="href-link" href="#registerChild">#</a>
+											<span class='tag'>async</span>
+											<span class="code-name">
+												registerChild<span class="signature">(name, apiRegistry)</span><span class="type-signature"> &rarr; {null}</span>
+											</span>
+										</h4>
+										<p class="summary">Registers a child domain's API Registry.</p>
+										<div class="description">
+											<p>Registers a child domain's API Registry.</p>
+										</div>
+										<h5>Parameters:</h5>
+										<div class="table-container">
+											<table class="params table">
+												<thead>
+													<tr>
+														<th>Name</th>
+														<th>Type</th>
+														<th class="last">Description</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr class="deep-level-0">
+														<td class="name"><code>name</code></td>
+														<td class="type">
+															<code class="param-type">string</code>
+														</td>
+														<td class="description last">
+															<p>The name of child domain.</p>
+														</td>
+													</tr>
+													<tr class="deep-level-0">
+														<td class="name"><code>apiRegistry</code></td>
+														<td class="type">
+															<code class="param-type"><a href="APIRegistry.html">APIRegistry</a></code>
+														</td>
+														<td class="description last">
+															<p>The child domain's API registry.</p>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+										<dl class="details">
+											<p class="tag-source">
+												<a href="lib_api-registry.js.html" class="button">View Source</a>
+												<span>
+													<a href="lib_api-registry.js.html">lib/api-registry.js</a>, <a href="lib_api-registry.js.html#line47">line 47</a>
+												</span>
+											</p>
+										</dl>
+										<div class='columns method-parameter'>
+											<div class="column is-2"><label>Returns:</label></div>
+											<div class="column is-10">
+												<div class="columns">
+													<div class='param-desc column is-7'>
+														<p>Nothing.</p>
+													</div>
+													<div class='column is-5 has-text-left'>
+														<label>Type: </label>
+														<code class="param-type">null</code>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="member">
+										<h4 class="name" id="register">
+											<a class="href-link" href="#register">#</a>
+											<span class='tag'>async</span>
+											<span class="code-name">
+												register<span class="signature">(pattern, api)</span><span class="type-signature"> &rarr; {boolean}</span>
+											</span>
+										</h4>
+										<p class="summary">Registers the api function as a handler for the pattern.</p>
+										<div class="description">
+											<p>Registers the api function as a handler for the pattern.</p>
+										</div>
+										<h5>Parameters:</h5>
+										<div class="table-container">
+											<table class="params table">
+												<thead>
+													<tr>
+														<th>Name</th>
+														<th>Type</th>
+														<th class="last">Description</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr class="deep-level-0">
+														<td class="name"><code>pattern</code></td>
+														<td class="type">
+															<code class="param-type">string</code>
+														</td>
+														<td class="description last">
+															<p>The pattern to which this api will respond.</p>
+														</td>
+													</tr>
+													<tr class="deep-level-0">
+														<td class="name"><code>api</code></td>
+														<td class="type">
+															<code class="param-type">function</code>
+														</td>
+														<td class="description last">
+															<p>The api to be invoked against the pattern.</p>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+										<dl class="details">
+											<p class="tag-source">
+												<a href="lib_api-registry.js.html" class="button">View Source</a>
+												<span>
+													<a href="lib_api-registry.js.html">lib/api-registry.js</a>, <a href="lib_api-registry.js.html#line75">line 75</a>
+												</span>
+											</p>
+										</dl>
+										<div class='columns method-parameter'>
+											<div class="column is-2"><label>Returns:</label></div>
+											<div class="column is-10">
+												<div class="columns">
+													<div class='param-desc column is-7'>
+														<p>Boolean true/false - depending on whether the
+															registration succeeded.</p>
+													</div>
+													<div class='column is-5 has-text-left'>
+														<label>Type: </label>
+														<code class="param-type">boolean</code>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="member">
+										<h4 class="name" id="execute">
+											<a class="href-link" href="#execute">#</a>
+											<span class='tag'>async</span>
+											<span class="code-name">
+												execute<span class="signature">(pattern, data)</span><span class="type-signature"> &rarr; {Object}</span>
+											</span>
+										</h4>
+										<p class="summary">
+										<p>Executes all the API that respond to the pattern, and returns
+											the results</p>.</p>
+										<div class="description">
+											<p>Executes all the API that respond to the pattern, and returns
+												the results</p>
+										</div>
+										<h5>Parameters:</h5>
+										<div class="table-container">
+											<table class="params table">
+												<thead>
+													<tr>
+														<th>Name</th>
+														<th>Type</th>
+														<th class="last">Description</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr class="deep-level-0">
+														<td class="name"><code>pattern</code></td>
+														<td class="type">
+															<code class="param-type">string</code>
+														</td>
+														<td class="description last">
+															<p>The pattern to be resolved.</p>
+														</td>
+													</tr>
+													<tr class="deep-level-0">
+														<td class="name"><code>data</code></td>
+														<td class="type">
+															<code class="param-type">Object</code>
+														</td>
+														<td class="description last">
+															<p>The parameters to be passed to the API.</p>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+										<dl class="details">
+											<p class="tag-source">
+												<a href="lib_api-registry.js.html" class="button">View Source</a>
+												<span>
+													<a href="lib_api-registry.js.html">lib/api-registry.js</a>, <a href="lib_api-registry.js.html#line117">line 117</a>
+												</span>
+											</p>
+										</dl>
+										<div class='columns method-parameter'>
+											<div class="column is-2"><label>Returns:</label></div>
+											<div class="column is-10">
+												<div class="columns">
+													<div class='param-desc column is-7'>
+														<p>The return value(s) of the API that match the pattern</p>
+													</div>
+													<div class='column is-5 has-text-left'>
+														<label>Type: </label>
+														<code class="param-type">Object</code>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="member">
+										<h4 class="name" id="unregister">
+											<a class="href-link" href="#unregister">#</a>
+											<span class='tag'>async</span>
+											<span class="code-name">
+												unregister<span class="signature">(pattern, api)</span><span class="type-signature"> &rarr; {boolean}</span>
+											</span>
+										</h4>
+										<p class="summary">De-registers the api function as a handler for the pattern.</p>
+										<div class="description">
+											<p>De-registers the api function as a handler for the pattern.</p>
+										</div>
+										<h5>Parameters:</h5>
+										<div class="table-container">
+											<table class="params table">
+												<thead>
+													<tr>
+														<th>Name</th>
+														<th>Type</th>
+														<th class="last">Description</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr class="deep-level-0">
+														<td class="name"><code>pattern</code></td>
+														<td class="type">
+															<code class="param-type">string</code>
+														</td>
+														<td class="description last">
+															<p>The pattern to which this api will respond.</p>
+														</td>
+													</tr>
+													<tr class="deep-level-0">
+														<td class="name"><code>api</code></td>
+														<td class="type">
+															<code class="param-type">function</code>
+														</td>
+														<td class="description last">
+															<p>The api to be de-registered against the pattern.</p>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+										<dl class="details">
+											<p class="tag-source">
+												<a href="lib_api-registry.js.html" class="button">View Source</a>
+												<span>
+													<a href="lib_api-registry.js.html">lib/api-registry.js</a>, <a href="lib_api-registry.js.html#line178">line 178</a>
+												</span>
+											</p>
+										</dl>
+										<div class='columns method-parameter'>
+											<div class="column is-2"><label>Returns:</label></div>
+											<div class="column is-10">
+												<div class="columns">
+													<div class='param-desc column is-7'>
+														<p>Boolean true/false - depending on whether the
+															de-registration succeeded.</p>
+													</div>
+													<div class='column is-5 has-text-left'>
+														<label>Type: </label>
+														<code class="param-type">boolean</code>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="member">
+										<h4 class="name" id="unregisterAll">
+											<a class="href-link" href="#unregisterAll">#</a>
+											<span class='tag'>async</span>
+											<span class="code-name">
+												unregisterAll<span class="signature">()</span><span class="type-signature"> &rarr; {null}</span>
+											</span>
+										</h4>
+										<p class="summary">De-registers everything, including children.</p>
+										<div class="description">
+											<p>De-registers everything, including children.</p>
+										</div>
+										<dl class="details">
+											<p class="tag-source">
+												<a href="lib_api-registry.js.html" class="button">View Source</a>
+												<span>
+													<a href="lib_api-registry.js.html">lib/api-registry.js</a>, <a href="lib_api-registry.js.html#line223">line 223</a>
+												</span>
+											</p>
+										</dl>
+										<div class='columns method-parameter'>
+											<div class="column is-2"><label>Returns:</label></div>
+											<div class="column is-10">
+												<div class="columns">
+													<div class='param-desc column is-7'>
+														<p>Nothing.</p>
+													</div>
+													<div class='column is-5 has-text-left'>
+														<label>Type: </label>
+														<code class="param-type">null</code>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<h2 class="subsection-title">"Protected Methods"</h2>
+								<div class="members">
+									<div class="member">
+										<h4 class="name" id="_resolve">
+											<a class="href-link" href="#_resolve">#</a>
+											<span class='tag'>async</span>
+											<span class="code-name">
+												_resolve<span class="signature">(pattern)</span><span class="type-signature"> &rarr; {Array}</span>
+											</span>
+										</h4>
+										<p class="summary">
+										<p>Resolves the pattern asked for, and returns all the API
+											handlers that can respond to it - across the entire server
+											codebase</p>
+										<p>TREAT THIS AN INTERNAL METHOD ONLY.</p>
+										</p>
+										<div class="description">
+											<p>Resolves the pattern asked for, and returns all the API
+												handlers that can respond to it - across the entire server
+												codebase</p>
+											<p>TREAT THIS AN INTERNAL METHOD ONLY. CALL IT DIRECTLY AT YOUR OWN RISK.</p>
+										</div>
+										<h5>Parameters:</h5>
+										<div class="table-container">
+											<table class="params table">
+												<thead>
+													<tr>
+														<th>Name</th>
+														<th>Type</th>
+														<th class="last">Description</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr class="deep-level-0">
+														<td class="name"><code>pattern</code></td>
+														<td class="type">
+															<code class="param-type">string</code>
+														</td>
+														<td class="description last">
+															<p>The pattern to be executed.</p>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+										<dl class="details">
+											<p class="tag-source">
+												<a href="lib_api-registry.js.html" class="button">View Source</a>
+												<span>
+													<a href="lib_api-registry.js.html">lib/api-registry.js</a>, <a href="lib_api-registry.js.html#line253">line 253</a>
+												</span>
+											</p>
+										</dl>
+										<div class='columns method-parameter'>
+											<div class="column is-2"><label>Returns:</label></div>
+											<div class="column is-10">
+												<div class="columns">
+													<div class='param-desc column is-7'>
+														<p>The results of the execution.</p>
+													</div>
+													<div class='column is-5 has-text-left'>
+														<label>Type: </label>
+														<code class="param-type">Array</code>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="member">
+										<h4 class="name" id="_find">
+											<a class="href-link" href="#_find">#</a>
+											<span class='tag'>async</span>
+											<span class="code-name">
+												_find<span class="signature">(pattern)</span><span class="type-signature"> &rarr; {Array}</span>
+											</span>
+										</h4>
+										<p class="summary">
+										<p>Searches for the pattern in this registry and downwards,
+											and returns the apis registered against it.</p>
+										</p>
+										<div class="description">
+											<p>Searches for the pattern in this registry and downwards,
+												and returns the apis registered against it.</p>
+											<p>TREAT THIS AN INTERNAL METHOD ONLY. CALL IT DIRECTLY AT YOUR OWN RISK.</p>
+										</div>
+										<h5>Parameters:</h5>
+										<div class="table-container">
+											<table class="params table">
+												<thead>
+													<tr>
+														<th>Name</th>
+														<th>Type</th>
+														<th class="last">Description</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr class="deep-level-0">
+														<td class="name"><code>pattern</code></td>
+														<td class="type">
+															<code class="param-type">string</code>
+														</td>
+														<td class="description last">
+															<p>The pattern to be executed.</p>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+										<dl class="details">
+											<p class="tag-source">
+												<a href="lib_api-registry.js.html" class="button">View Source</a>
+												<span>
+													<a href="lib_api-registry.js.html">lib/api-registry.js</a>, <a href="lib_api-registry.js.html#line287">line 287</a>
+												</span>
+											</p>
+										</dl>
+										<div class='columns method-parameter'>
+											<div class="column is-2"><label>Returns:</label></div>
+											<div class="column is-10">
+												<div class="columns">
+													<div class='param-desc column is-7'>
+														<p>The apis that match the pattern.</p>
+													</div>
+													<div class='column is-5 has-text-left'>
+														<label>Type: </label>
+														<code class="param-type">Array</code>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</article>
+					</section>
+				</div>
+				<footer class="footer">
+					<div class="content has-text-centered">
+						<p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a></p>
+						<p class="sidebar-created-by">
+							<a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by
+							<a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+						</p>
+					</div>
+				</footer>
+			</div>
+			<div id="side-nav" class="side-nav">
+			</div>
+		</div>
+		<script src="scripts/app.min.js"></script>
+		<script>
+			PR.prettyPrint();
+
+		</script>
+		<script src="scripts/linenumber.js"> </script>
+	</body>
+
+</html>

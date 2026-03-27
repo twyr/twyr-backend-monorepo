@@ -51,10 +51,6 @@
 					<div class="category"></div>
 					<div class="category">
 						<h2>Packages/Error Serializer</h2>
-						<h3>Namespaces / Namespaces</h3>
-						<ul>
-							<li><a href="package.error-serializer.lib.html">package.error-serializer.lib</a></li>
-						</ul>
 						<h3>Global</h3>
 						<ul>
 							<li><a href="global.html#createErrorForPropagation">createErrorForPropagation</a></li>
@@ -81,76 +77,6 @@
 							<div class='vertical-section'>
 								<h1>Methods</h1>
 								<div class="members">
-									<div class="member">
-										<h4 class="name" id="createErrorForPropagation">
-											<a class="href-link" href="#createErrorForPropagation">#</a>
-											<span class="code-name">
-												createErrorForPropagation<span class="signature">(message, errors)</span><span class="type-signature"> &rarr; {Error|AggregateError}</span>
-											</span>
-										</h4>
-										<p class="summary">Creates an error suitable for propagating one or more underlying failures.</p>
-										<div class="description">
-											<p>Creates an error suitable for propagating one or more underlying failures.</p>
-										</div>
-										<h5>Parameters:</h5>
-										<div class="table-container">
-											<table class="params table">
-												<thead>
-													<tr>
-														<th>Name</th>
-														<th>Type</th>
-														<th class="last">Description</th>
-													</tr>
-												</thead>
-												<tbody>
-													<tr class="deep-level-0">
-														<td class="name"><code>message</code></td>
-														<td class="type">
-															<code class="param-type">string</code>
-														</td>
-														<td class="description last">
-															<p>Message and error code for the propagated error.</p>
-														</td>
-													</tr>
-													<tr class="deep-level-0">
-														<td class="name"><code>errors</code></td>
-														<td class="type">
-															<code class="param-type">Error</code>
-															|
-															<code class="param-type">Array.&lt;Error></code>
-														</td>
-														<td class="description last">
-															<p>One or more underlying errors to wrap.</p>
-														</td>
-													</tr>
-												</tbody>
-											</table>
-										</div>
-										<dl class="details">
-											<p class="tag-source">
-												<a href="lib_error-serializer.js.html" class="button">View Source</a>
-												<span>
-													<a href="lib_error-serializer.js.html">lib/error-serializer.js</a>, <a href="lib_error-serializer.js.html#line112">line 112</a>
-												</span>
-											</p>
-										</dl>
-										<div class='columns method-parameter'>
-											<div class="column is-2"><label>Returns:</label></div>
-											<div class="column is-10">
-												<div class="columns">
-													<div class='param-desc column is-7'>
-														<p>The propagated error instance.</p>
-													</div>
-													<div class='column is-5 has-text-left'>
-														<label>Type: </label>
-														<code class="param-type">Error</code>
-														|
-														<code class="param-type">AggregateError</code>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
 									<div class="member">
 										<h4 class="name" id="errorSerializer">
 											<a class="href-link" href="#errorSerializer">#</a>
@@ -216,6 +142,76 @@
 													<div class='column is-5 has-text-left'>
 														<label>Type: </label>
 														<code class="param-type">object</code>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="member">
+										<h4 class="name" id="createErrorForPropagation">
+											<a class="href-link" href="#createErrorForPropagation">#</a>
+											<span class="code-name">
+												createErrorForPropagation<span class="signature">(message, errors)</span><span class="type-signature"> &rarr; {Error|AggregateError}</span>
+											</span>
+										</h4>
+										<p class="summary">Creates an error suitable for propagating one or more underlying failures.</p>
+										<div class="description">
+											<p>Creates an error suitable for propagating one or more underlying failures.</p>
+										</div>
+										<h5>Parameters:</h5>
+										<div class="table-container">
+											<table class="params table">
+												<thead>
+													<tr>
+														<th>Name</th>
+														<th>Type</th>
+														<th class="last">Description</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr class="deep-level-0">
+														<td class="name"><code>message</code></td>
+														<td class="type">
+															<code class="param-type">string</code>
+														</td>
+														<td class="description last">
+															<p>Message and error code for the propagated error.</p>
+														</td>
+													</tr>
+													<tr class="deep-level-0">
+														<td class="name"><code>errors</code></td>
+														<td class="type">
+															<code class="param-type">Error</code>
+															|
+															<code class="param-type">Array.&lt;Error></code>
+														</td>
+														<td class="description last">
+															<p>One or more underlying errors to wrap.</p>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+										<dl class="details">
+											<p class="tag-source">
+												<a href="lib_error-serializer.js.html" class="button">View Source</a>
+												<span>
+													<a href="lib_error-serializer.js.html">lib/error-serializer.js</a>, <a href="lib_error-serializer.js.html#line112">line 112</a>
+												</span>
+											</p>
+										</dl>
+										<div class='columns method-parameter'>
+											<div class="column is-2"><label>Returns:</label></div>
+											<div class="column is-10">
+												<div class="columns">
+													<div class='param-desc column is-7'>
+														<p>The propagated error instance.</p>
+													</div>
+													<div class='column is-5 has-text-left'>
+														<label>Type: </label>
+														<code class="param-type">Error</code>
+														|
+														<code class="param-type">AggregateError</code>
 													</div>
 												</div>
 											</div>

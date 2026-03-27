@@ -1,4 +1,4 @@
-cloc|github.com/AlDanial/cloc v 1.96  T=0.05 s (247.1 files/s, 15713.5 lines/s)
+cloc|github.com/AlDanial/cloc v 1.96  T=0.02 s (656.7 files/s, 44773.3 lines/s)
 --- | ---
 
 File|blank|comment|code
@@ -14,16 +14,15 @@ File|blank|comment|code
 ./.lintstagedrc.json|0|0|5
 ./tests/setup-mocks.cjs|0|0|5
 ./index.js|1|11|1
-./namespace.js|1|12|0
 --------|--------|--------|--------
-SUM:|50|209|504
-cloc|github.com/AlDanial/cloc v 1.96  T=0.05 s (247.1 files/s, 15713.5 lines/s)
+SUM:|49|197|504
+cloc|github.com/AlDanial/cloc v 1.96  T=0.02 s (656.7 files/s, 44773.3 lines/s)
 --- | ---
 
 Language|files|blank|comment|code
 :-------|-------:|-------:|-------:|-------:
-JavaScript|6|45|209|262
+JavaScript|5|44|197|262
 JSON|5|3|0|226
 Markdown|1|2|0|16
 --------|--------|--------|--------|--------
-SUM:|12|50|209|504
+SUM:|11|49|197|504

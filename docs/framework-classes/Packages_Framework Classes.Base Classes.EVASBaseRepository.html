@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title> Packages/Framework Classes/Base Classes/EVASBaseRepository</title>
+		<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+		<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+		<script src="./build/entry.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+		<link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+		<link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+		<link type="text/css" rel="stylesheet" href="styles/app.min.css">
+		<link type="text/css" rel="stylesheet" href="styles/iframe.css">
+		<link type="text/css" rel="stylesheet" href="">
+		<script async defer src="https://buttons.github.io/buttons.js"></script>
+	</head>
+
+	<body class="layout small-header">
+		<div id="stickyNavbarOverlay"></div>
+		<div class="top-nav">
+			<div class="inner">
+				<a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+					<span aria-hidden="true"></span>
+					<span aria-hidden="true"></span>
+					<span aria-hidden="true"></span>
+				</a>
+				<div class="logo">
+					<a href="index.html">
+						<h1 class="navbar-item">Application Server Framework Classes</h1>
+					</a>
+				</div>
+				<div class="menu">
+					<div class="navigation">
+						<a href="index.html" class="link">
+							Documentation
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="main">
+			<div class="sidebar " id="sidebarNav">
+				<nav>
+					<h2><a href="index.html">Documentation</a></h2>
+					<div class="category"></div>
+					<div class="category">
+						<h2>Packages/Framework Classes</h2>
+						<h3>Classes / Lifecycle Managers</h3>
+						<ul>
+							<li><a href="Packages_Framework%20Classes.Lifecycle%20Managers.BoundedContextLifecycleManager.html">Packages/Framework Classes/Lifecycle Managers/BoundedContextLifecycleManager</a></li>
+							<li><a href="Packages_Framework%20Classes.Lifecycle%20Managers.BoundedContextLifecycleManagerFactory.html">Packages/Framework Classes/Lifecycle Managers/BoundedContextLifecycleManagerFactory</a></li>
+							<li><a href="Packages_Framework%20Classes.Lifecycle%20Managers.DomainLifecycleManager.html">Packages/Framework Classes/Lifecycle Managers/DomainLifecycleManager</a></li>
+							<li><a href="Packages_Framework%20Classes.Lifecycle%20Managers.DomainLifecycleManagerFactory.html">Packages/Framework Classes/Lifecycle Managers/DomainLifecycleManagerFactory</a></li>
+							<li><a href="Packages_Framework%20Classes.Lifecycle%20Managers.EVASBaseLifecycleManager.html">Packages/Framework Classes/Lifecycle Managers/EVASBaseLifecycleManager</a></li>
+							<li><a href="Packages_Framework%20Classes.Lifecycle%20Managers.ServerLifecycleManager.html">Packages/Framework Classes/Lifecycle Managers/ServerLifecycleManager</a></li>
+							<li><a href="Packages_Framework%20Classes.Lifecycle%20Managers.ServerLifecycleManagerFactory.html">Packages/Framework Classes/Lifecycle Managers/ServerLifecycleManagerFactory</a></li>
+						</ul>
+						<h3>Classes / Base Classes</h3>
+						<ul>
+							<li><a href="Packages_Framework%20Classes.Base%20Classes.EVASBaseArtifact.html">Packages/Framework Classes/Base Classes/EVASBaseArtifact</a></li>
+							<li><a href="Packages_Framework%20Classes.Base%20Classes.EVASBaseBoundedContext.html">Packages/Framework Classes/Base Classes/EVASBaseBoundedContext</a></li>
+							<li><a href="Packages_Framework%20Classes.Base%20Classes.EVASBaseDomain.html">Packages/Framework Classes/Base Classes/EVASBaseDomain</a></li>
+							<li><a href="Packages_Framework%20Classes.Base%20Classes.EVASBaseEventHandler.html">Packages/Framework Classes/Base Classes/EVASBaseEventHandler</a></li>
+							<li><a href="Packages_Framework%20Classes.Base%20Classes.EVASBaseIngressSurface.html">Packages/Framework Classes/Base Classes/EVASBaseIngressSurface</a></li>
+							<li><a href="Packages_Framework%20Classes.Base%20Classes.EVASBaseMiddleware.html">Packages/Framework Classes/Base Classes/EVASBaseMiddleware</a></li>
+							<li><a href="Packages_Framework%20Classes.Base%20Classes.EVASBaseRepository.html">Packages/Framework Classes/Base Classes/EVASBaseRepository</a></li>
+							<li><a href="Packages_Framework%20Classes.Base%20Classes.EVASBaseSurface.html">Packages/Framework Classes/Base Classes/EVASBaseSurface</a></li>
+						</ul>
+						<h3>Classes / Core</h3>
+						<ul>
+							<li><a href="Packages_Framework%20Classes.Core.EVASBaseClass.html">Packages/Framework Classes/Core/EVASBaseClass</a></li>
+						</ul>
+						<h3>Classes / Factories</h3>
+						<ul>
+							<li><a href="Packages_Framework%20Classes.Factories.EVASBaseFactory.html">Packages/Framework Classes/Factories/EVASBaseFactory</a></li>
+						</ul>
+					</div>
+				</nav>
+			</div>
+			<div class="core" id="main-content-wrapper">
+				<div class="content">
+					<header class="page-title">
+						<p>Class</p>
+						<h1>Packages/Framework Classes/Base Classes/EVASBaseRepository</h1>
+					</header>
+					<section>
+						<header>
+							<h2><span class="attribs"><span class="type-signature"></span></span>Packages/Framework Classes/Base Classes/EVASBaseRepository<span class="signature">(location<span class="signature-attributes">opt</span>, iocContainer<span class="signature-attributes">opt</span>, configuration<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h2>
+							<div class="class-description">
+								<p>The Base Class for all Repositories.</p>
+							</div>
+						</header>
+						<article>
+							<div class="container-overview">
+								<div class='vertical-section'>
+									<div class="members">
+										<div class="member">
+											<div class=name>
+												<span class="tag">Constructor</span>
+											</div>
+											<h4 class="name" id="EVASBaseRepository">
+												<a class="href-link" href="#EVASBaseRepository">#</a>
+												<span class="code-name">
+													new EVASBaseRepository<span class="signature">(location<span class="signature-attributes">opt</span>, iocContainer<span class="signature-attributes">opt</span>, configuration<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span>
+												</span>
+											</h4>
+											<h5>Parameters:</h5>
+											<div class="table-container">
+												<table class="params table">
+													<thead>
+														<tr>
+															<th>Name</th>
+															<th>Type</th>
+															<th>Attributes</th>
+															<th class="last">Description</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr class="deep-level-0">
+															<td class="name"><code>location</code></td>
+															<td class="type">
+																<code class="param-type">string</code>
+															</td>
+															<td class="attributes">
+																&lt;optional><br>
+															</td>
+															<td class="description last">
+																<p>__dirname for this file in CJS, basically</p>
+															</td>
+														</tr>
+														<tr class="deep-level-0">
+															<td class="name"><code>iocContainer</code></td>
+															<td class="type">
+																<code class="param-type">object</code>
+															</td>
+															<td class="attributes">
+																&lt;optional><br>
+															</td>
+															<td class="description last">
+																<p>IoC module providing DI services</p>
+															</td>
+														</tr>
+														<tr class="deep-level-0">
+															<td class="name"><code>configuration</code></td>
+															<td class="type">
+																<code class="param-type">object</code>
+															</td>
+															<td class="attributes">
+																&lt;optional><br>
+															</td>
+															<td class="description last">
+																<p>The configuration needed to connect to external api, if needed</p>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+											<dl class="details">
+												<p class="tag-source">
+													<a href="lib_base_classes_evas-base-repository.js.html" class="button">View Source</a>
+													<span>
+														<a href="lib_base_classes_evas-base-repository.js.html">lib/base_classes/evas-base-repository.js</a>, <a href="lib_base_classes_evas-base-repository.js.html#line12">line 12</a>
+													</span>
+												</p>
+											</dl>
+										</div>
+									</div>
+								</div>
+							</div>
+							<h3 class="subsection-title">Extends</h3>
+							<ul>
+								<li><a href="EVASBaseArtifact.html">EVASBaseArtifact</a></li>
+							</ul>
+							<div class='vertical-section'>
+								<h1>Members</h1>
+								<div class="members">
+									<div class="member">
+										<span class="method-parameter is-pulled-right">
+											<label>Type:</label>
+											<code class="param-type">object</code>
+										</span>
+										<h4 class="name" id="configuration">
+											<a class="href-link" href="#configuration">#</a>
+											<span class="code-name">
+												configuration
+											</span>
+										</h4>
+										<p class="summary">
+										<p>Returns the configuration object that was used to
+											initialize this Repository instance</p>.</p>
+										<div class="description">
+											<p>Returns the configuration object that was used to
+												initialize this Repository instance</p>
+										</div>
+										<dl class="details">
+											<p class="tag-source">
+												<a href="lib_base_classes_evas-base-repository.js.html" class="button">View Source</a>
+												<span>
+													<a href="lib_base_classes_evas-base-repository.js.html">lib/base_classes/evas-base-repository.js</a>, <a href="lib_base_classes_evas-base-repository.js.html#line135">line 135</a>
+												</span>
+											</p>
+										</dl>
+									</div>
+									<div class="member">
+										<span class="method-parameter is-pulled-right">
+											<label>Type:</label>
+											<code class="param-type">object</code>
+										</span>
+										<h4 class="name" id="interface">
+											<a class="href-link" href="#interface">#</a>
+											<span class="code-name">
+												interface
+											</span>
+										</h4>
+										<p class="summary">
+										<p>Returns the interface this Repository instance
+											exposes to the rest of the Server</p>.</p>
+										<div class="description">
+											<p>Returns the interface this Repository instance
+												exposes to the rest of the Server</p>
+										</div>
+										<dl class="details">
+											<p class="tag-source">
+												<a href="lib_base_classes_evas-base-repository.js.html" class="button">View Source</a>
+												<span>
+													<a href="lib_base_classes_evas-base-repository.js.html">lib/base_classes/evas-base-repository.js</a>, <a href="lib_base_classes_evas-base-repository.js.html#line171">line 171</a>
+												</span>
+											</p>
+										</dl>
+									</div>
+									<div class="member">
+										<span class="method-parameter is-pulled-right">
+											<label>Type:</label>
+											<code class="param-type">object</code>
+										</span>
+										<h4 class="name" id="iocContainer">
+											<a class="href-link" href="#iocContainer">#</a>
+											<span class="code-name">
+												iocContainer
+											</span>
+										</h4>
+										<p class="summary">
+										<p>Returns the IoC Class instance that loaded
+											this Repository instance</p>.</p>
+										<div class="description">
+											<p>Returns the IoC Class instance that loaded
+												this Repository instance</p>
+										</div>
+										<dl class="details">
+											<p class="tag-source">
+												<a href="lib_base_classes_evas-base-repository.js.html" class="button">View Source</a>
+												<span>
+													<a href="lib_base_classes_evas-base-repository.js.html">lib/base_classes/evas-base-repository.js</a>, <a href="lib_base_classes_evas-base-repository.js.html#line153">line 153</a>
+												</span>
+											</p>
+										</dl>
+									</div>
+								</div>
+							</div>
+							<div class='vertical-section'>
+								<h1>Methods</h1>
+								<h2 class="subsection-title">Lifecycle Methods</h2>
+								<div class="members">
+									<div class="member">
+										<h4 class="name" id="load">
+											<a class="href-link" href="#load">#</a>
+											<span class='tag'>async</span>
+											<span class="code-name">
+												load<span class="signature">()</span><span class="type-signature"> &rarr; {null}</span>
+											</span>
+										</h4>
+										<p class="summary">
+										<p>To be overridden by artifact implementations - for implementing custom
+											start logic</p>.</p>
+										<div class="description">
+											<p>To be overridden by artifact implementations - for implementing custom
+												start logic</p>
+										</div>
+										<dl class="details">
+											<dt class="tag-overrides">Overrides:</dt>
+											<dd class="tag-overrides">
+												<ul class="dummy">
+													<li>
+														<a href="EVASBaseArtifact.html#load">EVASBaseArtifact#load</a>
+													</li>
+												</ul>
+											</dd>
+											<p class="tag-source">
+												<a href="lib_base_classes_evas-base-repository.js.html" class="button">View Source</a>
+												<span>
+													<a href="lib_base_classes_evas-base-repository.js.html">lib/base_classes/evas-base-repository.js</a>, <a href="lib_base_classes_evas-base-repository.js.html#line44">line 44</a>
+												</span>
+											</p>
+										</dl>
+										<div class='columns method-parameter'>
+											<div class="column is-2"><label>Returns:</label></div>
+											<div class="column is-10">
+												<div class="columns">
+													<div class='param-desc column is-7'>
+														<ul>
+															<li>Nothing</li>
+														</ul>
+													</div>
+													<div class='column is-5 has-text-left'>
+														<label>Type: </label>
+														<code class="param-type">null</code>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="member">
+										<h4 class="name" id="unload">
+											<a class="href-link" href="#unload">#</a>
+											<span class='tag'>async</span>
+											<span class="code-name">
+												unload<span class="signature">()</span><span class="type-signature"> &rarr; {null}</span>
+											</span>
+										</h4>
+										<p class="summary">
+										<p>To be overridden by artifact implementations - for implementing custom
+											stop logic</p>.</p>
+										<div class="description">
+											<p>To be overridden by artifact implementations - for implementing custom
+												stop logic</p>
+										</div>
+										<dl class="details">
+											<dt class="tag-overrides">Overrides:</dt>
+											<dd class="tag-overrides">
+												<ul class="dummy">
+													<li>
+														<a href="EVASBaseArtifact.html#unload">EVASBaseArtifact#unload</a>
+													</li>
+												</ul>
+											</dd>
+											<p class="tag-source">
+												<a href="lib_base_classes_evas-base-repository.js.html" class="button">View Source</a>
+												<span>
+													<a href="lib_base_classes_evas-base-repository.js.html">lib/base_classes/evas-base-repository.js</a>, <a href="lib_base_classes_evas-base-repository.js.html#line65">line 65</a>
+												</span>
+											</p>
+										</dl>
+										<div class='columns method-parameter'>
+											<div class="column is-2"><label>Returns:</label></div>
+											<div class="column is-10">
+												<div class="columns">
+													<div class='param-desc column is-7'>
+														<ul>
+															<li>Nothing</li>
+														</ul>
+													</div>
+													<div class='column is-5 has-text-left'>
+														<label>Type: </label>
+														<code class="param-type">null</code>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<h2 class="subsection-title">Utility Methods to be used by derived classes</h2>
+								<div class="members">
+									<div class="member">
+										<h4 class="name" id="_mergeConfiguration">
+											<a class="href-link" href="#_mergeConfiguration">#</a>
+											<span class='tag'>async</span>
+											<span class='tag'>protected</span>
+											<span class="code-name">
+												_mergeConfiguration<span class="signature">(defaultConfiguration, repositoryName)</span><span class="type-signature"> &rarr; {object}</span>
+											</span>
+										</h4>
+										<p class="summary">
+										<p>Merges the configurations for this Repository instance:</p>
+										<ul>
+											<li>Start with an empty object</li>
+											<li>Merge the default configuration</li>
+											<li>Merge the configuration from the .env file / process.env stuff</li>
+											<li>Merge the configuration passed into this instance</li>
+										</ul>.</p>
+										<div class="description">
+											<p>Merges the configurations for this Repository instance:</p>
+											<ul>
+												<li>Start with an empty object</li>
+												<li>Merge the default configuration</li>
+												<li>Merge the configuration from the .env file / process.env stuff</li>
+												<li>Merge the configuration passed into this instance</li>
+											</ul>
+										</div>
+										<h5>Parameters:</h5>
+										<div class="table-container">
+											<table class="params table">
+												<thead>
+													<tr>
+														<th>Name</th>
+														<th>Type</th>
+														<th class="last">Description</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr class="deep-level-0">
+														<td class="name"><code>defaultConfiguration</code></td>
+														<td class="type">
+															<code class="param-type">object</code>
+														</td>
+														<td class="description last">
+															<p>The configuration to use when nothing is passed in</p>
+														</td>
+													</tr>
+													<tr class="deep-level-0">
+														<td class="name"><code>repositoryName</code></td>
+														<td class="type">
+															<code class="param-type">string</code>
+														</td>
+														<td class="description last">
+															<p>The name of the repository for which configuration is to be fetched</p>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+										<dl class="details">
+											<p class="tag-source">
+												<a href="lib_base_classes_evas-base-repository.js.html" class="button">View Source</a>
+												<span>
+													<a href="lib_base_classes_evas-base-repository.js.html">lib/base_classes/evas-base-repository.js</a>, <a href="lib_base_classes_evas-base-repository.js.html#line91">line 91</a>
+												</span>
+											</p>
+										</dl>
+										<div class='columns method-parameter'>
+											<div class="column is-2"><label>Returns:</label></div>
+											<div class="column is-10">
+												<div class="columns">
+													<div class='param-desc column is-7'>
+														<ul>
+															<li>Merged configuration object</li>
+														</ul>
+													</div>
+													<div class='column is-5 has-text-left'>
+														<label>Type: </label>
+														<code class="param-type">object</code>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</article>
+					</section>
+				</div>
+				<footer class="footer">
+					<div class="content has-text-centered">
+						<p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a></p>
+						<p class="sidebar-created-by">
+							<a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by
+							<a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+						</p>
+					</div>
+				</footer>
+			</div>
+			<div id="side-nav" class="side-nav">
+			</div>
+		</div>
+		<script src="scripts/app.min.js"></script>
+		<script>
+			PR.prettyPrint();
+
+		</script>
+		<script src="scripts/linenumber.js"> </script>
+	</body>
+
+</html>

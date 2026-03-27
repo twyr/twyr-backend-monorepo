@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title> REST API Server/Domains/Users/Profile/Surfaces/Query/Contact</title>
+		<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+		<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+		<script src="./build/entry.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+		<link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+		<link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+		<link type="text/css" rel="stylesheet" href="styles/app.min.css">
+		<link type="text/css" rel="stylesheet" href="styles/iframe.css">
+		<link type="text/css" rel="stylesheet" href="">
+		<script async defer src="https://buttons.github.io/buttons.js"></script>
+	</head>
+
+	<body class="layout small-header">
+		<div id="stickyNavbarOverlay"></div>
+		<div class="top-nav">
+			<div class="inner">
+				<a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+					<span aria-hidden="true"></span>
+					<span aria-hidden="true"></span>
+					<span aria-hidden="true"></span>
+				</a>
+				<div class="logo">
+					<a href="index.html">
+						<h1 class="navbar-item">Entity Value Aggregate REST API Server</h1>
+					</a>
+				</div>
+				<div class="menu">
+					<div class="navigation">
+						<a href="index.html" class="link">
+							Documentation
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="main">
+			<div class="sidebar " id="sidebarNav">
+				<nav>
+					<h2><a href="index.html">Documentation</a></h2>
+					<div class="category"></div>
+					<div class="category">
+						<h2>REST API Server/Base Classes</h2>
+						<h3>Classes / Base Classes</h3>
+						<ul>
+							<li><a href="REST%20API%20Server_Base%20Classes.Base%20Classes.BaseBoundedContext.html">REST API Server/Base Classes/Base Classes/BaseBoundedContext</a></li>
+							<li><a href="REST%20API%20Server_Base%20Classes.Base%20Classes.BaseDomain.html">REST API Server/Base Classes/Base Classes/BaseDomain</a></li>
+							<li><a href="REST%20API%20Server_Base%20Classes.Base%20Classes.BaseEventHandler.html">REST API Server/Base Classes/Base Classes/BaseEventHandler</a></li>
+							<li><a href="REST%20API%20Server_Base%20Classes.Base%20Classes.BaseMiddleware.html">REST API Server/Base Classes/Base Classes/BaseMiddleware</a></li>
+							<li><a href="REST%20API%20Server_Base%20Classes.Base%20Classes.BaseModel.html">REST API Server/Base Classes/Base Classes/BaseModel</a></li>
+							<li><a href="REST%20API%20Server_Base%20Classes.Base%20Classes.BaseSurface.html">REST API Server/Base Classes/Base Classes/BaseSurface</a></li>
+						</ul>
+					</div>
+					<div class="category">
+						<h2>REST API Server/Bootstrap</h2>
+						<h3>Classes / Application Server</h3>
+						<ul>
+							<li><a href="REST%20API%20Server_Bootstrap.Application%20Server.ApplicationServer.html">REST API Server/Bootstrap/Application Server/ApplicationServer</a></li>
+							<li><a href="REST%20API%20Server_Bootstrap.Application%20Server.ApplicationServerFactory.html">REST API Server/Bootstrap/Application Server/ApplicationServerFactory</a></li>
+						</ul>
+					</div>
+					<div class="category">
+						<h2>REST API Server/Bounded Contexts</h2>
+						<h3>Classes / Masterdata</h3>
+						<ul>
+							<li><a href="REST%20API%20Server_Bounded%20Contexts.Masterdata.BoundedContextFactory.html">REST API Server/Bounded Contexts/Masterdata/BoundedContextFactory</a></li>
+							<li><a href="REST%20API%20Server_Bounded%20Contexts.Masterdata.Masterdata.html">REST API Server/Bounded Contexts/Masterdata/Masterdata</a></li>
+						</ul>
+						<h3>Classes / Health</h3>
+						<ul>
+							<li><a href="REST%20API%20Server_Bounded%20Contexts.Health.Health.html">REST API Server/Bounded Contexts/Health/Health</a></li>
+							<li><a href="REST%20API%20Server_Bounded%20Contexts.Health.HealthBoundedContextFactory.html">REST API Server/Bounded Contexts/Health/HealthBoundedContextFactory</a></li>
+						</ul>
+						<h3>Classes / Health/Surfaces/Query</h3>
+						<ul>
+							<li><a href="REST%20API%20Server_Bounded%20Contexts.Health_Surfaces_Query.Main.html">REST API Server/Bounded Contexts/Health/Surfaces/Query/Main</a></li>
+							<li><a href="REST%20API%20Server_Bounded%20Contexts.Health_Surfaces_Query.MainSurfaceFactory.html">REST API Server/Bounded Contexts/Health/Surfaces/Query/MainSurfaceFactory</a></li>
+						</ul>
+						<h3>Classes / Masterdata/Surfaces/Query</h3>
+						<ul>
+							<li><a href="REST%20API%20Server_Bounded%20Contexts.Masterdata_Surfaces_Query.Main.html">REST API Server/Bounded Contexts/Masterdata/Surfaces/Query/Main</a></li>
+							<li><a href="REST%20API%20Server_Bounded%20Contexts.Masterdata_Surfaces_Query.MainSurfaceFactory.html">REST API Server/Bounded Contexts/Masterdata/Surfaces/Query/MainSurfaceFactory</a></li>
+						</ul>
+						<h3>Classes / Masterdata/Middlewares</h3>
+						<ul>
+							<li><a href="REST%20API%20Server_Bounded%20Contexts.Masterdata_Middlewares.Masterdata.html">REST API Server/Bounded Contexts/Masterdata/Middlewares/Masterdata</a></li>
+							<li><a href="REST%20API%20Server_Bounded%20Contexts.Masterdata_Middlewares.MasterdataMiddlewareFactory.html">REST API Server/Bounded Contexts/Masterdata/Middlewares/MasterdataMiddlewareFactory</a></li>
+						</ul>
+					</div>
+					<div class="category">
+						<h2>REST API Server/Domains/Users</h2>
+						<h3>Classes / Profile/Middlewares</h3>
+						<ul>
+							<li><a href="REST%20API%20Server_Domains_Users.Profile_Middlewares.Basics.html">REST API Server/Domains/Users/Profile/Middlewares/Basics</a></li>
+							<li><a href="REST%20API%20Server_Domains_Users.Profile_Middlewares.BasicsMiddlewareFactory.html">REST API Server/Domains/Users/Profile/Middlewares/BasicsMiddlewareFactory</a></li>
+							<li><a href="REST%20API%20Server_Domains_Users.Profile_Middlewares.Contacts.html">REST API Server/Domains/Users/Profile/Middlewares/Contacts</a></li>
+							<li><a href="REST%20API%20Server_Domains_Users.Profile_Middlewares.ContactsMiddlewareFactory.html">REST API Server/Domains/Users/Profile/Middlewares/ContactsMiddlewareFactory</a></li>
+							<li><a href="REST%20API%20Server_Domains_Users.Profile_Middlewares.Locales.html">REST API Server/Domains/Users/Profile/Middlewares/Locales</a></li>
+							<li><a href="REST%20API%20Server_Domains_Users.Profile_Middlewares.LocalesMiddlewareFactory.html">REST API Server/Domains/Users/Profile/Middlewares/LocalesMiddlewareFactory</a></li>
+						</ul>
+						<h3>Classes / Profile/Surfaces/Command</h3>
+						<ul>
+							<li><a href="REST%20API%20Server_Domains_Users.Profile_Surfaces_Command.Contact.html">REST API Server/Domains/Users/Profile/Surfaces/Command/Contact</a></li>
+							<li><a href="REST%20API%20Server_Domains_Users.Profile_Surfaces_Command.ContactSurfaceFactory.html">REST API Server/Domains/Users/Profile/Surfaces/Command/ContactSurfaceFactory</a></li>
+							<li><a href="REST%20API%20Server_Domains_Users.Profile_Surfaces_Command.Locale.html">REST API Server/Domains/Users/Profile/Surfaces/Command/Locale</a></li>
+							<li><a href="REST%20API%20Server_Domains_Users.Profile_Surfaces_Command.LocaleSurfaceFactory.html">REST API Server/Domains/Users/Profile/Surfaces/Command/LocaleSurfaceFactory</a></li>
+							<li><a href="REST%20API%20Server_Domains_Users.Profile_Surfaces_Command.Main.html">REST API Server/Domains/Users/Profile/Surfaces/Command/Main</a></li>
+							<li><a href="REST%20API%20Server_Domains_Users.Profile_Surfaces_Command.MainSurfaceFactory.html">REST API Server/Domains/Users/Profile/Surfaces/Command/MainSurfaceFactory</a></li>
+						</ul>
+						<h3>Classes / Profile/Surfaces/Query</h3>
+						<ul>
+							<li><a href="REST%20API%20Server_Domains_Users.Profile_Surfaces_Query.Contact.html">REST API Server/Domains/Users/Profile/Surfaces/Query/Contact</a></li>
+							<li><a href="REST%20API%20Server_Domains_Users.Profile_Surfaces_Query.ContactSurfaceFactory.html">REST API Server/Domains/Users/Profile/Surfaces/Query/ContactSurfaceFactory</a></li>
+							<li><a href="REST%20API%20Server_Domains_Users.Profile_Surfaces_Query.Locale.html">REST API Server/Domains/Users/Profile/Surfaces/Query/Locale</a></li>
+							<li><a href="REST%20API%20Server_Domains_Users.Profile_Surfaces_Query.LocaleSurfaceFactory.html">REST API Server/Domains/Users/Profile/Surfaces/Query/LocaleSurfaceFactory</a></li>
+							<li><a href="REST%20API%20Server_Domains_Users.Profile_Surfaces_Query.Main.html">REST API Server/Domains/Users/Profile/Surfaces/Query/Main</a></li>
+							<li><a href="REST%20API%20Server_Domains_Users.Profile_Surfaces_Query.MainSurfaceFactory.html">REST API Server/Domains/Users/Profile/Surfaces/Query/MainSurfaceFactory</a></li>
+						</ul>
+						<h3>Classes / Session Manager/Surfaces/Command</h3>
+						<ul>
+							<li><a href="REST%20API%20Server_Domains_Users.Session%20Manager_Surfaces_Command.Main.html">REST API Server/Domains/Users/Session Manager/Surfaces/Command/Main</a></li>
+							<li><a href="REST%20API%20Server_Domains_Users.Session%20Manager_Surfaces_Command.MainSurfaceFactory.html">REST API Server/Domains/Users/Session Manager/Surfaces/Command/MainSurfaceFactory</a></li>
+						</ul>
+						<h3>Classes / Session Manager/Surfaces/Query</h3>
+						<ul>
+							<li><a href="REST%20API%20Server_Domains_Users.Session%20Manager_Surfaces_Query.Main.html">REST API Server/Domains/Users/Session Manager/Surfaces/Query/Main</a></li>
+							<li><a href="REST%20API%20Server_Domains_Users.Session%20Manager_Surfaces_Query.MainSurfaceFactory.html">REST API Server/Domains/Users/Session Manager/Surfaces/Query/MainSurfaceFactory</a></li>
+						</ul>
+						<h3>Classes / Profile</h3>
+						<ul>
+							<li><a href="REST%20API%20Server_Domains_Users.Profile.Profile.html">REST API Server/Domains/Users/Profile/Profile</a></li>
+							<li><a href="REST%20API%20Server_Domains_Users.Profile.ProfileBoundedContextFactory.html">REST API Server/Domains/Users/Profile/ProfileBoundedContextFactory</a></li>
+						</ul>
+						<h3>Classes / Session Manager/Event Handlers</h3>
+						<ul>
+							<li><a href="REST%20API%20Server_Domains_Users.Session%20Manager_Event%20Handlers.Session.html">REST API Server/Domains/Users/Session Manager/Event Handlers/Session</a></li>
+							<li><a href="REST%20API%20Server_Domains_Users.Session%20Manager_Event%20Handlers.SessionEventHandlerFactory.html">REST API Server/Domains/Users/Session Manager/Event Handlers/SessionEventHandlerFactory</a></li>
+						</ul>
+						<h3>Classes / Session Manager/Middlewares</h3>
+						<ul>
+							<li><a href="REST%20API%20Server_Domains_Users.Session%20Manager_Middlewares.Session.html">REST API Server/Domains/Users/Session Manager/Middlewares/Session</a></li>
+							<li><a href="REST%20API%20Server_Domains_Users.Session%20Manager_Middlewares.SessionMiddlewareFactory.html">REST API Server/Domains/Users/Session Manager/Middlewares/SessionMiddlewareFactory</a></li>
+						</ul>
+						<h3>Classes / Session Manager</h3>
+						<ul>
+							<li><a href="REST%20API%20Server_Domains_Users.Session%20Manager.SessionManager.html">REST API Server/Domains/Users/Session Manager/SessionManager</a></li>
+							<li><a href="REST%20API%20Server_Domains_Users.Session%20Manager.SessionManagerBoundedContextFactory.html">REST API Server/Domains/Users/Session Manager/SessionManagerBoundedContextFactory</a></li>
+						</ul>
+						<h3>Classes / Base Classes</h3>
+						<ul>
+							<li><a href="REST%20API%20Server_Domains_Users.Base%20Classes.UserBaseMiddleware.html">REST API Server/Domains/Users/Base Classes/UserBaseMiddleware</a></li>
+							<li><a href="REST%20API%20Server_Domains_Users.Base%20Classes.UserBaseSurface.html">REST API Server/Domains/Users/Base Classes/UserBaseSurface</a></li>
+						</ul>
+						<h3>Classes / Domain</h3>
+						<ul>
+							<li><a href="REST%20API%20Server_Domains_Users.Domain.Users.html">REST API Server/Domains/Users/Domain/Users</a></li>
+							<li><a href="REST%20API%20Server_Domains_Users.Domain.UsersDomainFactory.html">REST API Server/Domains/Users/Domain/UsersDomainFactory</a></li>
+						</ul>
+						<h3>Classes / Models/Relational</h3>
+						<ul>
+							<li><a href="REST%20API%20Server_Domains_Users.Models_Relational.UsersDomain_ContactTypeMaster.html">REST API Server/Domains/Users/Models/Relational/UsersDomain_ContactTypeMaster</a></li>
+							<li><a href="REST%20API%20Server_Domains_Users.Models_Relational.UsersDomain_LocaleMaster.html">REST API Server/Domains/Users/Models/Relational/UsersDomain_LocaleMaster</a></li>
+							<li><a href="REST%20API%20Server_Domains_Users.Models_Relational.UsersDomain_User.html">REST API Server/Domains/Users/Models/Relational/UsersDomain_User</a></li>
+							<li><a href="REST%20API%20Server_Domains_Users.Models_Relational.UsersDomain_UserContact.html">REST API Server/Domains/Users/Models/Relational/UsersDomain_UserContact</a></li>
+							<li><a href="REST%20API%20Server_Domains_Users.Models_Relational.UsersDomain_UserLocale.html">REST API Server/Domains/Users/Models/Relational/UsersDomain_UserLocale</a></li>
+						</ul>
+					</div>
+					<div class="category">
+						<h2>REST API Server/Infrastructure</h2>
+						<h3>Global</h3>
+						<ul>
+							<li><a href="global.html#load">load</a></li>
+							<li><a href="global.html#resolve">resolve</a></li>
+						</ul>
+					</div>
+					<div class="category">
+						<h2>REST API Server/Ingress Surfaces</h2>
+						<h3>Classes / REST API</h3>
+						<ul>
+							<li><a href="REST%20API%20Server_Ingress%20Surfaces.REST%20API.IngressSurfaceFactory.html">REST API Server/Ingress Surfaces/REST API/IngressSurfaceFactory</a></li>
+							<li><a href="REST%20API%20Server_Ingress%20Surfaces.REST%20API.RestApi.html">REST API Server/Ingress Surfaces/REST API/RestApi</a></li>
+						</ul>
+						<h3>Global</h3>
+						<ul>
+							<li><a href="global.html#createAuditLogMiddleware">createAuditLogMiddleware</a></li>
+							<li><a href="global.html#createErrorLogMiddleware">createErrorLogMiddleware</a></li>
+						</ul>
+					</div>
+					<div class="category">
+						<h2>REST API Server/Repositories/Init</h2>
+						<h3>Classes / Configuration</h3>
+						<ul>
+							<li><a href="REST%20API%20Server_Repositories_Init.Configuration.Configuration.html">REST API Server/Repositories/Init/Configuration/Configuration</a></li>
+							<li><a href="REST%20API%20Server_Repositories_Init.Configuration.ConfigurationRepositoryFactory.html">REST API Server/Repositories/Init/Configuration/ConfigurationRepositoryFactory</a></li>
+						</ul>
+					</div>
+					<div class="category">
+						<h2>REST API Server/Repositories/Runtime</h2>
+						<h3>Classes / Audit</h3>
+						<ul>
+							<li><a href="REST%20API%20Server_Repositories_Runtime.Audit.Audit.html">REST API Server/Repositories/Runtime/Audit/Audit</a></li>
+							<li><a href="REST%20API%20Server_Repositories_Runtime.Audit.AuditRepositoryFactory.html">REST API Server/Repositories/Runtime/Audit/AuditRepositoryFactory</a></li>
+						</ul>
+						<h3>Classes / Auth</h3>
+						<ul>
+							<li><a href="REST%20API%20Server_Repositories_Runtime.Auth.Auth.html">REST API Server/Repositories/Runtime/Auth/Auth</a></li>
+							<li><a href="REST%20API%20Server_Repositories_Runtime.Auth.AuthRepositoryFactory.html">REST API Server/Repositories/Runtime/Auth/AuthRepositoryFactory</a></li>
+						</ul>
+						<h3>Classes / Cache</h3>
+						<ul>
+							<li><a href="REST%20API%20Server_Repositories_Runtime.Cache.Cache.html">REST API Server/Repositories/Runtime/Cache/Cache</a></li>
+							<li><a href="REST%20API%20Server_Repositories_Runtime.Cache.CacheRepositoryFactory.html">REST API Server/Repositories/Runtime/Cache/CacheRepositoryFactory</a></li>
+						</ul>
+						<h3>Classes / Logger</h3>
+						<ul>
+							<li><a href="REST%20API%20Server_Repositories_Runtime.Logger.Logger.html">REST API Server/Repositories/Runtime/Logger/Logger</a></li>
+							<li><a href="REST%20API%20Server_Repositories_Runtime.Logger.LoggerRepositoryFactory.html">REST API Server/Repositories/Runtime/Logger/LoggerRepositoryFactory</a></li>
+						</ul>
+						<h3>Classes / Message I18n</h3>
+						<ul>
+							<li><a href="REST%20API%20Server_Repositories_Runtime.Message%20I18n.MessageI18N.html">REST API Server/Repositories/Runtime/Message I18n/MessageI18N</a></li>
+							<li><a href="REST%20API%20Server_Repositories_Runtime.Message%20I18n.MessageI18NRepositoryFactory.html">REST API Server/Repositories/Runtime/Message I18n/MessageI18NRepositoryFactory</a></li>
+						</ul>
+						<h3>Classes / Audit/Models</h3>
+						<ul>
+							<li><a href="REST%20API%20Server_Repositories_Runtime.Audit_Models.ModelFactory.html">REST API Server/Repositories/Runtime/Audit/Models/ModelFactory</a></li>
+						</ul>
+						<h3>Classes / Mongodb</h3>
+						<ul>
+							<li><a href="REST%20API%20Server_Repositories_Runtime.Mongodb.MongoDB.html">REST API Server/Repositories/Runtime/Mongodb/MongoDB</a></li>
+							<li><a href="REST%20API%20Server_Repositories_Runtime.Mongodb.MongoDBRepositoryFactory.html">REST API Server/Repositories/Runtime/Mongodb/MongoDBRepositoryFactory</a></li>
+						</ul>
+						<h3>Classes / Notification</h3>
+						<ul>
+							<li><a href="REST%20API%20Server_Repositories_Runtime.Notification.Notification.html">REST API Server/Repositories/Runtime/Notification/Notification</a></li>
+							<li><a href="REST%20API%20Server_Repositories_Runtime.Notification.NotificationRepositoryFactory.html">REST API Server/Repositories/Runtime/Notification/NotificationRepositoryFactory</a></li>
+						</ul>
+						<h3>Classes / Renderer</h3>
+						<ul>
+							<li><a href="REST%20API%20Server_Repositories_Runtime.Renderer.Renderer.html">REST API Server/Repositories/Runtime/Renderer/Renderer</a></li>
+							<li><a href="REST%20API%20Server_Repositories_Runtime.Renderer.RendererRepositoryFactory.html">REST API Server/Repositories/Runtime/Renderer/RendererRepositoryFactory</a></li>
+						</ul>
+						<h3>Classes / SQL Database</h3>
+						<ul>
+							<li><a href="REST%20API%20Server_Repositories_Runtime.SQL%20Database.SQLDatabase.html">REST API Server/Repositories/Runtime/SQL Database/SQLDatabase</a></li>
+							<li><a href="REST%20API%20Server_Repositories_Runtime.SQL%20Database.SQLDatabaseRepositoryFactory.html">REST API Server/Repositories/Runtime/SQL Database/SQLDatabaseRepositoryFactory</a></li>
+						</ul>
+						<h3>Classes / Translate</h3>
+						<ul>
+							<li><a href="REST%20API%20Server_Repositories_Runtime.Translate.Translate.html">REST API Server/Repositories/Runtime/Translate/Translate</a></li>
+							<li><a href="REST%20API%20Server_Repositories_Runtime.Translate.TranslateRepositoryFactory.html">REST API Server/Repositories/Runtime/Translate/TranslateRepositoryFactory</a></li>
+						</ul>
+						<h3>Global</h3>
+						<ul>
+							<li><a href="global.html#localStrategy">localStrategy</a></li>
+							<li><a href="global.html#serializeDeserialize">serializeDeserialize</a></li>
+						</ul>
+					</div>
+				</nav>
+			</div>
+			<div class="core" id="main-content-wrapper">
+				<div class="content">
+					<header class="page-title">
+						<p>Class</p>
+						<h1>REST API Server/Domains/Users/Profile/Surfaces/Query/Contact</h1>
+					</header>
+					<section>
+						<header>
+							<h2><span class="attribs"><span class="type-signature"></span></span>REST API Server/Domains/Users/Profile/Surfaces/Query/Contact<span class="signature">(location<span class="signature-attributes">opt</span>, domainInterface<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h2>
+							<div class="class-description">
+								<p>The Contact Surface for the Medico Profile Context.</p>
+							</div>
+						</header>
+						<article>
+							<div class="container-overview">
+								<div class='vertical-section'>
+									<div class="members">
+										<div class="member">
+											<div class=name>
+												<span class="tag">Constructor</span>
+											</div>
+											<h4 class="name" id="Contact">
+												<a class="href-link" href="#Contact">#</a>
+												<span class="code-name">
+													new Contact<span class="signature">(location<span class="signature-attributes">opt</span>, domainInterface<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span>
+												</span>
+											</h4>
+											<h5>Parameters:</h5>
+											<div class="table-container">
+												<table class="params table">
+													<thead>
+														<tr>
+															<th>Name</th>
+															<th>Type</th>
+															<th>Attributes</th>
+															<th class="last">Description</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr class="deep-level-0">
+															<td class="name"><code>location</code></td>
+															<td class="type">
+																<code class="param-type">string</code>
+															</td>
+															<td class="attributes">
+																&lt;optional><br>
+															</td>
+															<td class="description last">
+																<p>__dirname for this file in CJS, basically</p>
+															</td>
+														</tr>
+														<tr class="deep-level-0">
+															<td class="name"><code>domainInterface</code></td>
+															<td class="type">
+																<code class="param-type">object</code>
+															</td>
+															<td class="attributes">
+																&lt;optional><br>
+															</td>
+															<td class="description last">
+																<p>Domain functionality exposed to sub-artifacts</p>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+											<dl class="details">
+												<p class="tag-source">
+													<a href="source_domains_users_bounded_contexts_profile_surfaces_query_contact.js.html" class="button">View Source</a>
+													<span>
+														<a href="source_domains_users_bounded_contexts_profile_surfaces_query_contact.js.html">source/domains/users/bounded_contexts/profile/surfaces/query/contact.js</a>, <a href="source_domains_users_bounded_contexts_profile_surfaces_query_contact.js.html#line12">line 12</a>
+													</span>
+												</p>
+											</dl>
+										</div>
+									</div>
+								</div>
+							</div>
+							<h3 class="subsection-title">Extends</h3>
+							<ul>
+								<li>MedicoBaseSurface</li>
+							</ul>
+							<div class='vertical-section'>
+								<h1>Methods</h1>
+								<h2 class="subsection-title">Lifecycle Methods</h2>
+								<div class="members">
+									<div class="member">
+										<h4 class="name" id="load">
+											<a class="href-link" href="#load">#</a>
+											<span class='tag'>async</span>
+											<span class="code-name">
+												load<span class="signature">()</span><span class="type-signature"> &rarr; {null}</span>
+											</span>
+										</h4>
+										<p class="summary">
+										<p>Sets the user role in the request headers for access control purposes
+											by passing it in to the base class load method</p>.</p>
+										<div class="description">
+											<p>Sets the user role in the request headers for access control purposes
+												by passing it in to the base class load method</p>
+										</div>
+										<dl class="details">
+											<p class="tag-source">
+												<a href="source_domains_users_bounded_contexts_profile_surfaces_query_contact.js.html" class="button">View Source</a>
+												<span>
+													<a href="source_domains_users_bounded_contexts_profile_surfaces_query_contact.js.html">source/domains/users/bounded_contexts/profile/surfaces/query/contact.js</a>, <a href="source_domains_users_bounded_contexts_profile_surfaces_query_contact.js.html#line39">line 39</a>
+												</span>
+											</p>
+										</dl>
+										<div class='columns method-parameter'>
+											<div class="column is-2"><label>Returns:</label></div>
+											<div class="column is-10">
+												<div class="columns">
+													<div class='param-desc column is-7'>
+														<ul>
+															<li>Nothing</li>
+														</ul>
+													</div>
+													<div class='column is-5 has-text-left'>
+														<label>Type: </label>
+														<code class="param-type">null</code>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<h2 class="subsection-title">Protected Methods, to be overridden by derived classes</h2>
+								<div class="members">
+									<div class="member">
+										<h4 class="name" id="_registerSurface">
+											<a class="href-link" href="#_registerSurface">#</a>
+											<span class='tag'>async</span>
+											<span class="code-name">
+												_registerSurface<span class="signature">()</span><span class="type-signature"> &rarr; {null}</span>
+											</span>
+										</h4>
+										<p class="summary">
+										<p>Adds the route definitions and handlers for this surface to
+											the Rest API Router</p>.</p>
+										<div class="description">
+											<p>Adds the route definitions and handlers for this surface to
+												the Rest API Router</p>
+										</div>
+										<dl class="details">
+											<p class="tag-source">
+												<a href="source_domains_users_bounded_contexts_profile_surfaces_query_contact.js.html" class="button">View Source</a>
+												<span>
+													<a href="source_domains_users_bounded_contexts_profile_surfaces_query_contact.js.html">source/domains/users/bounded_contexts/profile/surfaces/query/contact.js</a>, <a href="source_domains_users_bounded_contexts_profile_surfaces_query_contact.js.html#line62">line 62</a>
+												</span>
+											</p>
+										</dl>
+										<div class='columns method-parameter'>
+											<div class="column is-2"><label>Returns:</label></div>
+											<div class="column is-10">
+												<div class="columns">
+													<div class='param-desc column is-7'>
+														<ul>
+															<li>The routes to be added to the Rest API Router</li>
+														</ul>
+													</div>
+													<div class='column is-5 has-text-left'>
+														<label>Type: </label>
+														<code class="param-type">null</code>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="member">
+										<h4 class="name" id="_unregisterSurface">
+											<a class="href-link" href="#_unregisterSurface">#</a>
+											<span class='tag'>async</span>
+											<span class="code-name">
+												_unregisterSurface<span class="signature">()</span><span class="type-signature"> &rarr; {null}</span>
+											</span>
+										</h4>
+										<p class="summary">
+										<p>Removes the route definitions and handlers for this surface from
+											the Rest API Router</p>.</p>
+										<div class="description">
+											<p>Removes the route definitions and handlers for this surface from
+												the Rest API Router</p>
+										</div>
+										<dl class="details">
+											<p class="tag-source">
+												<a href="source_domains_users_bounded_contexts_profile_surfaces_query_contact.js.html" class="button">View Source</a>
+												<span>
+													<a href="source_domains_users_bounded_contexts_profile_surfaces_query_contact.js.html">source/domains/users/bounded_contexts/profile/surfaces/query/contact.js</a>, <a href="source_domains_users_bounded_contexts_profile_surfaces_query_contact.js.html#line100">line 100</a>
+												</span>
+											</p>
+										</dl>
+										<div class='columns method-parameter'>
+											<div class="column is-2"><label>Returns:</label></div>
+											<div class="column is-10">
+												<div class="columns">
+													<div class='param-desc column is-7'>
+														<ul>
+															<li>Nothing</li>
+														</ul>
+													</div>
+													<div class='column is-5 has-text-left'>
+														<label>Type: </label>
+														<code class="param-type">null</code>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<h2 class="subsection-title">Route Handlers</h2>
+								<div class="members">
+									<div class="member">
+										<h4 class="name" id="getContact">
+											<a class="href-link" href="#getContact">#</a>
+											<span class='tag'>async</span>
+											<span class='tag'>private</span>
+											<span class="code-name">
+												getContact<span class="signature">()</span><span class="type-signature"> &rarr; {null}</span>
+											</span>
+										</h4>
+										<p class="summary">Retrieves the contact data associated with the logged in user.</p>
+										<div class="description">
+											<p>Retrieves the contact data associated with the logged in user.</p>
+										</div>
+										<dl class="details">
+											<p class="tag-source">
+												<a href="source_domains_users_bounded_contexts_profile_surfaces_query_contact.js.html" class="button">View Source</a>
+												<span>
+													<a href="source_domains_users_bounded_contexts_profile_surfaces_query_contact.js.html">source/domains/users/bounded_contexts/profile/surfaces/query/contact.js</a>, <a href="source_domains_users_bounded_contexts_profile_surfaces_query_contact.js.html#line124">line 124</a>
+												</span>
+											</p>
+										</dl>
+										<div class='columns method-parameter'>
+											<div class="column is-2"><label>Returns:</label></div>
+											<div class="column is-10">
+												<div class="columns">
+													<div class='param-desc column is-7'>
+														<ul>
+															<li>Nothing</li>
+														</ul>
+													</div>
+													<div class='column is-5 has-text-left'>
+														<label>Type: </label>
+														<code class="param-type">null</code>
+													</div>
+												</div>
+											</div>
+										</div>
+										<h5>Examples</h5>
+										<pre class="prettyprint"><code>$ curl -X GET -H "Content-Type: application/json" -b ./cookies.txt ${base_url}/api/v1/users/profile/contact/</code></pre>
+										<pre class="prettyprint"><code>$ curl -X GET -H "Content-Type: application/json" -b ./cookies.txt ${base_url}/api/v1/users/profile/contact/${contactId}</code></pre>
+									</div>
+								</div>
+							</div>
+						</article>
+					</section>
+				</div>
+				<footer class="footer">
+					<div class="content has-text-centered">
+						<p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a></p>
+						<p class="sidebar-created-by">
+							<a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by
+							<a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+						</p>
+					</div>
+				</footer>
+			</div>
+			<div id="side-nav" class="side-nav">
+			</div>
+		</div>
+		<script src="scripts/app.min.js"></script>
+		<script>
+			PR.prettyPrint();
+
+		</script>
+		<script src="scripts/linenumber.js"> </script>
+	</body>
+
+</html>
