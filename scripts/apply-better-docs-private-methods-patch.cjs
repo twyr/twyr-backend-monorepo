@@ -136,6 +136,54 @@ const templateReplacements = [
 			"        var methods = doc.pageMethods || self.find({kind: 'function', memberof: isGlobalPage ? {isUndefined: true} : doc.longname});\n"
 	},
 	{
+		label: 'class page methods grouped by region',
+		alreadyAppliedValues: [
+			'            var methodGroups = self.groupMethodsByRegion(methods)\n'
+		],
+		searchValue: lines([
+			'        if (methods && methods.length && methods.forEach) {',
+			'            // Remove duplicated definition, keep overwritten by the converter',
+			'            methods = methods.reduce((acc, method) => {',
+			'                var index = acc.findIndex(m => m.id === method.id)',
+			'                index < 0 ? acc.push(method) : acc[index] = method',
+			'                return acc',
+			'            }, [])',
+			'    ?>',
+			"        <div class='vertical-section'>",
+			'            <h1>Methods</h1>',
+			'            <div class="members">',
+			'            <?js methods.forEach(function(m) { ?>',
+			'                <div class="member"><?js= self.partial(\'method.tmpl\', m) ?></div>',
+			'            <?js }); ?>',
+			'            </div>',
+			'        </div>'
+		]),
+		replacementValue: lines([
+			'        if (methods && methods.length && methods.forEach) {',
+			'            // Remove duplicated definition, keep overwritten by the converter',
+			'            methods = methods.reduce((acc, method) => {',
+			'                var index = acc.findIndex(m => m.id === method.id)',
+			'                index < 0 ? acc.push(method) : acc[index] = method',
+			'                return acc',
+			'            }, [])',
+			'            var methodGroups = self.groupMethodsByRegion(methods)',
+			'    ?>',
+			"        <div class='vertical-section'>",
+			'\t\t\t<h1>Methods</h1>',
+			'\t\t\t<?js methodGroups.forEach(function(group) { ?>',
+			'\t\t\t\t<?js if (group.title) { ?>',
+			'\t\t\t\t\t<h2 class="subsection-title"><?js= self.htmlsafe(group.title) ?></h2>',
+			'\t\t\t\t<?js } ?>',
+			'\t\t\t\t<div class="members">',
+			'\t\t\t\t<?js group.methods.forEach(function(m) { ?>',
+			'\t\t\t\t\t<div class="member"><?js= self.partial(\'method.tmpl\', m) ?></div>',
+			'\t\t\t\t<?js }); ?>',
+			'\t\t\t\t</div>',
+			'\t\t\t<?js }); ?>',
+			'\t\t</div>'
+		])
+	},
+	{
 		label: 'class page typedefs use attached collections',
 		searchValue:
 			"        var typedefs = self.find({kind: 'typedef', memberof: isGlobalPage ? {isUndefined: true} : doc.longname});\n",
@@ -1155,6 +1203,20 @@ const publishReplacements = [
 			'    }',
 			'',
 			'    if (doclet.examples) {'
+		])
+	},
+	{
+		label: 'expose groupMethodsByRegion to templates',
+		searchValue: lines([
+			'  view.tutoriallink = tutoriallink;',
+			'  view.htmlsafe = htmlsafe',
+			'  view.outputSourceFiles = outputSourceFiles'
+		]),
+		replacementValue: lines([
+			'  view.tutoriallink = tutoriallink;',
+			'  view.htmlsafe = htmlsafe',
+			'  view.groupMethodsByRegion = groupMethodsByRegion',
+			'  view.outputSourceFiles = outputSourceFiles'
 		])
 	},
 	{
