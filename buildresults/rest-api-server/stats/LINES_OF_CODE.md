@@ -1,4 +1,4 @@
-cloc|github.com/AlDanial/cloc v 1.96  T=0.16 s (633.8 files/s, 367329.1 lines/s)
+cloc|github.com/AlDanial/cloc v 1.96  T=0.22 s (464.8 files/s, 269406.3 lines/s)
 --- | ---
 
 File|blank|comment|code
@@ -107,7 +107,7 @@ File|blank|comment|code
 ./.lintstagedrc.json|0|0|5
 --------|--------|--------|--------
 SUM:|1994|8826|48298
-cloc|github.com/AlDanial/cloc v 1.96  T=0.16 s (633.8 files/s, 367329.1 lines/s)
+cloc|github.com/AlDanial/cloc v 1.96  T=0.22 s (464.8 files/s, 269406.3 lines/s)
 --- | ---
 
 Language|files|blank|comment|code
