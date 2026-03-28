@@ -95,6 +95,7 @@ development process.
 
 ```bash
 git config commit.gpgsign true
+git config tag.gpgsign true
 
 git config trailer.sign.key "Signed-off-by: "
 git config trailer.sign.ifmissing add
