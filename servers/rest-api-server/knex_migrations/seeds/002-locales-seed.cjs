@@ -404,8 +404,10 @@ exports.seed = async function (knex) {
 
 	await knex('locale_master')
 		.whereIn('code', [
+			'bn-BD',
 			'en-IN',
 			'hi-IN',
+			'gu-IN',
 			'kn-IN',
 			'ml-IN',
 			'mr-IN',

@@ -80,84 +80,6 @@ const insertGenderMasterData = async function insertGenderMasterData(knex) {
 	);
 };
 
-const insertFacilityStatusMasterData =
-	async function insertFacilityStatusMasterData(knex) {
-		// Step 0: If the data is already in the master, skip...
-		const statusCount = await knex?.raw?.(
-			`SELECT count(id) AS status_count FROM facility_status_master`
-		);
-		if (Number?.(statusCount?.rows?.[0]['status_count'])) return;
-
-		const now = knex.fn.now();
-
-		// Step 1: Insert base facility statuses into facility_status_master
-		const statuses = [
-			{
-				name: 'waiting',
-				display_name: 'Waiting',
-				description: "Waiting for system administrator's approval."
-			},
-			{
-				name: 'authorized',
-				display_name: 'Authorized',
-				description:
-					'Authorized Account - facility is online and operational.'
-			},
-			{
-				name: 'disabled',
-				display_name: 'Disabled',
-				description:
-					'Disabled Account - not operational in this system.'
-			}
-		];
-
-		await knex('facility_status_master').insert(
-			statuses.map((s) => ({
-				name: s.name,
-				created_at: now,
-				updated_at: now
-			}))
-		);
-	};
-
-const insertConnectionStatusMasterData =
-	async function insertConnectionStatusMasterData(knex) {
-		// Step 0: If the data is already in the master, skip...
-		const artifactCount = await knex?.raw?.(
-			`SELECT count(id) AS masterdata_count FROM connection_status_master`
-		);
-		if (Number?.(artifactCount?.rows?.[0]['masterdata_count'])) return;
-
-		const now = knex.fn.now();
-
-		// Step 1: Insert base connection statuses into connection_status_master
-		const statuses = [
-			{
-				name: 'waiting',
-				display_name: 'Waiting',
-				description: 'Connection approval pending'
-			},
-			{
-				name: 'authorized',
-				display_name: 'Authorized',
-				description: 'Connection approved'
-			},
-			{
-				name: 'disabled',
-				display_name: 'Disabled',
-				description: 'Connection removed'
-			}
-		];
-
-		await knex('connection_status_master').insert(
-			statuses.map((s) => ({
-				name: s.name,
-				created_at: now,
-				updated_at: now
-			}))
-		);
-	};
-
 const insertSystemMessageMasterData =
 	async function insertSystemMessageMasterData(knex) {
 		// Step 0: If the data is already in the master, skip...
@@ -620,44 +542,6 @@ const insertSystemMessageMasterData =
 			.ignore();
 	};
 
-const insertRelationshipTypeMasterData =
-	async function insertRelationshipTypeMasterData(knex) {
-		// Step 0: If the data is already in the master, skip...
-		const artifactCount = await knex?.raw?.(
-			`SELECT count(id) AS masterdata_count FROM relationship_type_master`
-		);
-		if (Number?.(artifactCount?.rows?.[0]['masterdata_count'])) return;
-
-		const now = knex.fn.now();
-
-		// Step 1: Insert base relationship type names into relationship_type_master
-		const relationshipTypes = [
-			{
-				name: 'father',
-				display_name: 'Father',
-				description: 'Father'
-			},
-			{
-				name: 'mother',
-				display_name: 'Mother',
-				description: 'Mother'
-			},
-			{
-				name: 'guardian',
-				display_name: 'Guardian',
-				description: 'Guardian'
-			}
-		];
-
-		await knex('relationship_type_master').insert(
-			relationshipTypes.map((rt) => ({
-				name: rt.name,
-				created_at: now,
-				updated_at: now
-			}))
-		);
-	};
-
 exports.seed = async function (knex) {
 	console.log('Processing 007-master-data-seed.cjs');
 	// Step 1: Insert master data into contact types master
@@ -666,15 +550,6 @@ exports.seed = async function (knex) {
 	// Step 2: Insert master data into genders master
 	await insertGenderMasterData(knex);
 
-	// Step 3: Insert master data into facility status master
-	await insertFacilityStatusMasterData(knex);
-
-	// Step 4: Insert master data into connection status master
-	await insertConnectionStatusMasterData(knex);
-
-	// Step 5: Insert master data into relationship type master
-	await insertRelationshipTypeMasterData(knex);
-
-	// Step 6: Insert master data into the system message master
+	// Step 3: Insert master data into the system message master
 	await insertSystemMessageMasterData(knex);
 };

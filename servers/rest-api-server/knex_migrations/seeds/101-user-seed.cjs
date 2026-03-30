@@ -36,7 +36,7 @@ exports.seed = async function (knex) {
 		{
 			user_id: userId,
 			contact_type_id: emailContactTypeId,
-			contact: 'dr.meera.sharma@twyr.ai',
+			contact: 'john.doe@twyr.ai',
 			is_primary: false,
 			verified: true
 		}
@@ -46,6 +46,15 @@ exports.seed = async function (knex) {
 		user_id: userId,
 		locale_code: 'en-IN',
 		is_primary: true
+	});
+
+	await knex?.('user_names_by_locale')?.insert?.({
+		user_id: userId,
+		locale_code: 'en-IN',
+		first_name: 'John',
+		middle_names: null,
+		last_name: 'Doe',
+		nickname: 'Johnny'
 	});
 
 	userId = await knex?.('users')
@@ -66,7 +75,7 @@ exports.seed = async function (knex) {
 		{
 			user_id: userId,
 			contact_type_id: emailContactTypeId,
-			contact: 'dr.arjun.rao@twyr.ai',
+			contact: 'jane.doe@twyr.ai',
 			is_primary: false,
 			verified: true
 		}
@@ -76,5 +85,14 @@ exports.seed = async function (knex) {
 		user_id: userId,
 		locale_code: 'en-IN',
 		is_primary: true
+	});
+
+	await knex?.('user_names_by_locale')?.insert?.({
+		user_id: userId,
+		locale_code: 'en-IN',
+		first_name: 'Jane',
+		middle_names: null,
+		last_name: 'Doe',
+		nickname: 'Janey'
 	});
 };

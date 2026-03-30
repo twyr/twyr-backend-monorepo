@@ -110,113 +110,6 @@ const insertGenderMasterData = async function insertGenderMasterData(knex) {
 	await knex('gender_by_locale').insert(localizedGenders);
 };
 
-const insertFacilityStatusMasterData =
-	async function insertFacilityStatusMasterData(knex) {
-		const localeId = 'te-IN'; // Default locale for English display names
-
-		// Step 0: If the data is already in there for this locale, skip...
-		const statusCount = await knex?.raw?.(
-			`SELECT count(facility_status_id) AS status_count FROM facility_status_by_locale WHERE locale_id = ?`,
-			[localeId]
-		);
-		if (Number?.(statusCount?.rows?.[0]['status_count'])) return;
-
-		const now = knex.fn.now();
-
-		// Step 1: Insert base facility statuses into facility_status_master
-		const statuses = [
-			{
-				name: 'waiting',
-				display_name: 'వేచి ఉంది',
-				description: 'సిస్టమ్ నిర్వాహకుడి అనుమతి కోసం వేచి ఉంది.'
-			},
-			{
-				name: 'authorized',
-				display_name: 'అనుమతించబడింది',
-				description:
-					'అనుమతించబడిన ఖాతా — సదుపాయం ఆన్‌లైన్‌లో ఉంది మరియు పనిచేస్తోంది.'
-			},
-			{
-				name: 'disabled',
-				display_name: 'నిలిపివేయబడింది',
-				description: 'నిలిపివేయబడిన ఖాతా — ఈ వ్యవస్థలో పనిచేయడం లేదు.'
-			}
-		];
-
-		const baseStatuses = await knex?.raw?.(
-			`SELECT id, name FROM facility_status_master WHERE name = ANY (?)`,
-			[statuses.map((s) => s.name)]
-		);
-		const facilityStatusIdByName = new Map(
-			baseStatuses?.rows?.map((s) => [s.name, s.id])
-		);
-
-		// Step 2: Insert localized facility status display names into facility_status_by_locale
-		const localizedStatuses = statuses.map((s) => ({
-			facility_status_id: facilityStatusIdByName.get(s.name),
-			locale_id: localeId,
-			display_name: s.display_name,
-			description: s.description,
-			created_at: now,
-			updated_at: now
-		}));
-
-		await knex('facility_status_by_locale').insert(localizedStatuses);
-	};
-
-const insertConnectionStatusMasterData =
-	async function insertConnectionStatusMasterData(knex) {
-		const localeId = 'te-IN'; // Default locale for English display names
-
-		// Step 0: If the data is already in there for this locale, skip...
-		const artifactCount = await knex?.raw?.(
-			`SELECT count(connection_status_id) AS masterdata_count FROM connection_status_by_locale WHERE locale_id = ?`,
-			[localeId]
-		);
-		if (Number?.(artifactCount?.rows?.[0]['masterdata_count'])) return;
-
-		const now = knex.fn.now();
-
-		// Step 1: Insert base connection statuses into connection_status_master
-		const statuses = [
-			{
-				name: 'waiting',
-				display_name: 'వేచి ఉంది',
-				description: 'కనెక్షన్ అనుమతి పెండింగ్‌లో ఉంది'
-			},
-			{
-				name: 'authorized',
-				display_name: 'అనుమతించబడింది',
-				description: 'కనెక్షన్ అనుమతించబడింది'
-			},
-			{
-				name: 'disabled',
-				display_name: 'నిలిపివేయబడింది',
-				description: 'కనెక్షన్ తొలగించబడింది'
-			}
-		];
-
-		const baseStatuses = await knex?.raw?.(
-			`SELECT id, name FROM connection_status_master WHERE name = ANY (?)`,
-			[statuses.map((s) => s.name)]
-		);
-		const connectionStatusIdByName = new Map(
-			baseStatuses?.rows?.map((s) => [s.name, s.id])
-		);
-
-		// Step 2: Insert localized connection status display names into connection_status_by_locale
-		const localizedStatuses = statuses.map((s) => ({
-			connection_status_id: connectionStatusIdByName.get(s.name),
-			locale_id: localeId,
-			display_name: s.display_name,
-			description: s.description,
-			created_at: now,
-			updated_at: now
-		}));
-
-		await knex('connection_status_by_locale').insert(localizedStatuses);
-	};
-
 const insertSystemMessageMasterData =
 	async function insertSystemMessageMasterData(knex) {
 		const localeId = 'te-IN'; // Default locale for English messages
@@ -706,61 +599,6 @@ const insertSystemMessageMasterData =
 		await knex('system_message_by_locale').insert(localizedMessages);
 	};
 
-const insertRelationshipTypeMasterData =
-	async function insertRelationshipTypeMasterData(knex) {
-		const localeId = 'te-IN'; // Default locale for Telugu display names
-
-		// Step 0: If the data is already in there for this locale, skip...
-		const artifactCount = await knex?.raw?.(
-			`SELECT count(relationship_type_id) AS masterdata_count FROM relationship_type_by_locale WHERE locale_id = ?`,
-			[localeId]
-		);
-		if (Number?.(artifactCount?.rows?.[0]['masterdata_count'])) return;
-
-		const now = knex.fn.now();
-
-		// Step 1: Insert base relationship type names into relationship_type_master
-		const relationshipTypes = [
-			{
-				name: 'father',
-				display_name: 'తండ్రి',
-				description: 'తండ్రి'
-			},
-			{
-				name: 'mother',
-				display_name: 'తల్లి',
-				description: 'తల్లి'
-			},
-			{
-				name: 'guardian',
-				display_name: 'సంరక్షకుడు',
-				description: 'సంరక్షకుడు'
-			}
-		];
-
-		const baseRelationshipTypes = await knex?.raw?.(
-			`SELECT id, name FROM relationship_type_master WHERE name = ANY (?)`,
-			[relationshipTypes.map((rt) => rt.name)]
-		);
-		const relationshipTypeIdByName = new Map(
-			baseRelationshipTypes?.rows?.map((rt) => [rt.name, rt.id])
-		);
-
-		// Step 2: Insert localized relationship type display names into relationship_type_by_locale
-		const localizedRelationshipTypes = relationshipTypes.map((rt) => ({
-			relationship_type_id: relationshipTypeIdByName.get(rt.name),
-			locale_id: localeId,
-			display_name: rt.display_name,
-			description: rt.description,
-			created_at: now,
-			updated_at: now
-		}));
-
-		await knex('relationship_type_by_locale').insert(
-			localizedRelationshipTypes
-		);
-	};
-
 exports.seed = async function (knex) {
 	console.log('Processing 008-master-data-by-locale-seed-te-IN.cjs');
 	// Step 1: Insert master data into contact types master
@@ -769,15 +607,6 @@ exports.seed = async function (knex) {
 	// Step 2: Insert master data into genders master
 	await insertGenderMasterData(knex);
 
-	// Step 3: Insert master data into facility status master
-	await insertFacilityStatusMasterData(knex);
-
-	// Step 4: Insert master data into connection status master
-	await insertConnectionStatusMasterData(knex);
-
-	// Step 5: Insert master data into relationship types master
-	await insertRelationshipTypeMasterData(knex);
-
-	// Step 6: Insert master data into the system message master
+	// Step 3: Insert master data into the system message master
 	await insertSystemMessageMasterData(knex);
 };

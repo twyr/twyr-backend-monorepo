@@ -1,0 +1,42 @@
+'use strict';
+
+exports.seed = async function (knex) {
+	console.log('Processing 108-system-admin-profile-messages-seed.cjs');
+
+	const firstMessageId = 'SYSTEM_ADMIN::SESSION_MANAGER::OTP_MESSAGE_SMS';
+	const existingMessage = await knex?.raw?.(
+		`SELECT id FROM system_message_master WHERE id = ?`,
+		[firstMessageId]
+	);
+	if (existingMessage?.rows?.[0]?.['id']) return;
+
+	const now = knex.fn.now();
+	const messageIds = [
+		'SYSTEM_ADMIN::SESSION_MANAGER::OTP_MESSAGE_SMS',
+		'SYSTEM_ADMIN::SESSION_MANAGER::OTP_MESSAGE_RESPONSE',
+		'SYSTEM_ADMIN::SESSION_MANAGER::LOGOUT_MESSAGE',
+		'SYSTEM_ADMIN::SESSION_MANAGER::EXISTING_ACTIVE_SESSION',
+		'SYSTEM_ADMIN::SESSION_MANAGER::NO_ACTIVE_SESSION',
+		'SYSTEM_ADMIN::SESSION_MANAGER::AUTHORIZATION_FAILURE',
+		'SYSTEM_ADMIN::SESSION_MANAGER::INVALID_OTP_REQUEST',
+		'SYSTEM_ADMIN::SESSION_MANAGER::INVALID_OTP_VALIDATION',
+		'SYSTEM_ADMIN::SESSION_MANAGER::INVALID_LOGIN_REQUEST',
+		'SYSTEM_ADMIN::PROFILE::INSUFFICIENT_PERMISSIONS',
+		'SYSTEM_ADMIN::PROFILE::INVALID_OTP',
+		'SYSTEM_ADMIN::PROFILE::SYSTEM_ADMIN_ALREADY_EXISTS',
+		'SYSTEM_ADMIN::PROFILE::INVALID_CREATE_REQUEST',
+		'SYSTEM_ADMIN::PROFILE::INVALID_UPDATE_REQUEST',
+		'SYSTEM_ADMIN::CONTACT::INVALID_CREATE_REQUEST',
+		'SYSTEM_ADMIN::CONTACT::INVALID_UPDATE_REQUEST',
+		'SYSTEM_ADMIN::LOCALE::INVALID_CREATE_REQUEST',
+		'SYSTEM_ADMIN::LOCALE::INVALID_UPDATE_REQUEST'
+	];
+
+	await knex('system_message_master').insert(
+		messageIds.map((messageId) => ({
+			id: messageId,
+			created_at: now,
+			updated_at: now
+		}))
+	);
+};
