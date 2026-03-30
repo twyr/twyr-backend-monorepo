@@ -248,7 +248,7 @@ class RestApi extends EVASBaseIngressSurface {
 				await i18nRepository?.supportedLocales?.includes?.(localeId);
 
 			if (!isLocaleSupported) {
-				ctxt.status = 400;
+				ctxt.status = 406;
 				ctxt.body = {
 					error: `Locale ${localeId} is not supported`
 				};
