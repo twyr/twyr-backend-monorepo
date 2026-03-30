@@ -1,0 +1,10 @@
+{
+	"data": {
+		"type": "system_admin_locale",
+		"id": "66666666-6666-7666-8666-666666666666",
+		"attributes": {
+			"locale_code": "hi-IN",
+			"is_primary": true
+		}
+	}
+}

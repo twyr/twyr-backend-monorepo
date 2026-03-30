@@ -39,6 +39,15 @@ module.exports = {
 		},
 		{ name: 'server/rest-api-server/domain/user/model' },
 		{ name: 'server/rest-api-server/domain/user/template' },
+		{ name: 'server/rest-api-server/domain/system_admin' },
+		{ name: 'server/rest-api-server/domain/system_admin/baseclass' },
+		{
+			name: 'server/rest-api-server/domain/system_admin/context/session_manager'
+		},
+		{
+			name: 'server/rest-api-server/domain/system_admin/context/profile'
+		},
+		{ name: 'server/rest-api-server/domain/system_admin/model' },
 		{ name: 'server/rest-api-server/surface/rest-api' },
 		{ name: 'server/rest-api-server/repository/config' },
 		{ name: 'server/rest-api-server/repository/audit' },

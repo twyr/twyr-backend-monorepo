@@ -1,12 +1,12 @@
 const SESSION_CACHE_TIMEOUT_DEVELOPMENT = 3_600;
 const SESSION_CACHE_TIMEOUT_PRODUCTION = 86_400;
 
-const getUserDetails = async function getUserDetails(
+const getSystemAdminDetails = async function getSystemAdminDetails(
 	userId,
 	cacheRepository,
 	databaseRepository
 ) {
-	const userRole = 'user';
+	const userRole = 'system_admin';
 	const cacheKey = `twyr!entity!value!aggregate!${userRole}!${userId}!basics`;
 
 	let cachedUser = await cacheRepository?.get?.(cacheKey);
@@ -15,7 +15,7 @@ const getUserDetails = async function getUserDetails(
 	}
 
 	cachedUser = await databaseRepository?.raw?.(
-		`SELECT * FROM users WHERE id = ? AND is_deleted = false`,
+		`SELECT * FROM system_admins WHERE id = ? AND is_deleted = false`,
 		[userId]
 	);
 
@@ -32,7 +32,7 @@ const getUserDetails = async function getUserDetails(
 
 	const contactDetails = await databaseRepository?.raw?.(
 		`SELECT A.id, B.name AS type, A.contact, A.verified, A.is_primary
-		 FROM user_contacts A
+		 FROM system_admin_contacts A
 		 INNER JOIN contact_type_master B ON (A.contact_type_id = B.id)
 		 WHERE A.user_id = ?`,
 		[userId]
@@ -43,7 +43,7 @@ const getUserDetails = async function getUserDetails(
 
 	const localeDetails = await databaseRepository?.raw?.(
 		`SELECT A.id, A.locale_code, A.is_primary, B.language_name
-		 FROM user_locales A
+		 FROM system_admin_locales A
 		 INNER JOIN locale_master B ON (A.locale_code = B.code)
 		 WHERE A.user_id = ?`,
 		[userId]
@@ -55,10 +55,10 @@ const getUserDetails = async function getUserDetails(
 
 	const localizedName = await databaseRepository?.raw?.(
 		`SELECT first_name, middle_names, last_name, nickname
-		 FROM user_names_by_locale
+		 FROM system_admin_names_by_locale
 		 WHERE user_id = ?
 		 AND locale_code = COALESCE(
-		 	(SELECT locale_code FROM user_locales WHERE user_id = ? AND is_primary = true LIMIT 1),
+		 	(SELECT locale_code FROM system_admin_locales WHERE user_id = ? AND is_primary = true LIMIT 1),
 		 	'en-IN'
 		 )
 		 LIMIT 1`,
@@ -85,11 +85,16 @@ const getUserDetails = async function getUserDetails(
 	return cachedUser;
 };
 
-// eslint-disable-next-line jsdoc/require-jsdoc
-export default async function userSessionCache(
+/**
+ *
+ * @param userId
+ * @param cacheRepository
+ * @param databaseRepository
+ */
+export default async function systemAdminSessionCache(
 	userId,
 	cacheRepository,
 	databaseRepository
 ) {
-	return getUserDetails(userId, cacheRepository, databaseRepository);
+	return getSystemAdminDetails(userId, cacheRepository, databaseRepository);
 }

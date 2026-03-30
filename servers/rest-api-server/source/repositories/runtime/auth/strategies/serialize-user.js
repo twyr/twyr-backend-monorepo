@@ -1,3 +1,4 @@
+import systemAdminSessionCache from '../helpers/system-admin-session-cache.js';
 import userSessionCache from '../helpers/user-session-cache.js';
 
 /**
@@ -33,6 +34,12 @@ export default async function serializeDeserialize(
 
 				if (sessionUser?.role === 'user') {
 					deserializedUser = await userSessionCache(
+						sessionUser?.id,
+						cacheRepository,
+						databaseRepository
+					);
+				} else if (sessionUser?.role === 'system_admin') {
+					deserializedUser = await systemAdminSessionCache(
 						sessionUser?.id,
 						cacheRepository,
 						databaseRepository
