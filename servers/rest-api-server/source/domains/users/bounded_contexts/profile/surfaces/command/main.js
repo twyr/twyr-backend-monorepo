@@ -72,7 +72,8 @@ export class Main extends UserBaseSurface {
 	}
 
 	/**
-	 * Registers the validation schemas used by this surface.
+	 * Registers the validation schemas used by this surface, including
+	 * localized-name fields on create and update payloads.
 	 *
 	 * @category REST API Server/Domains/Users
 	 * @subcategory Profile/Surfaces/Command
@@ -97,6 +98,10 @@ export class Main extends UserBaseSurface {
 						mobile_no: Joi.string()
 							.pattern(/^\+\d{12}$/)
 							.required(),
+						first_name: Joi.string().required(),
+						middle_names: Joi.string().optional(),
+						last_name: Joi.string().required(),
+						nickname: Joi.string().optional(),
 						locale_code: Joi.string().required(),
 						otp: Joi.string()
 							.length(4)
@@ -124,7 +129,12 @@ export class Main extends UserBaseSurface {
 					attributes: Joi.object({
 						mobile_no: Joi.string()
 							.pattern(/^\+\d{12}$/)
-							.optional()
+							.optional(),
+						first_name: Joi.string().optional(),
+						middle_names: Joi.string().optional(),
+						last_name: Joi.string().optional(),
+						nickname: Joi.string().optional(),
+						locale_code: Joi.string().optional()
 					}).required()
 				}).required()
 			});

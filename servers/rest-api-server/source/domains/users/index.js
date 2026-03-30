@@ -56,7 +56,8 @@ export class Users extends BaseDomain {
 			id: 'code',
 			blacklist: ['created_at', 'updated_at'],
 			relationships: {
-				userLocales: { type: 'user_locale' }
+				userLocales: { type: 'user_locale' },
+				userNamesByLocale: { type: 'user_name_by_locale' }
 			}
 		});
 
@@ -64,7 +65,8 @@ export class Users extends BaseDomain {
 			blacklist: ['created_at', 'updated_at', 'is_deleted'],
 			relationships: {
 				contacts: { type: 'user_contact' },
-				locales: { type: 'user_locale' }
+				locales: { type: 'user_locale' },
+				names: { type: 'user_name_by_locale' }
 			}
 		});
 
@@ -77,6 +79,14 @@ export class Users extends BaseDomain {
 		});
 
 		serializer?.register?.('user_locale', {
+			blacklist: ['created_at', 'updated_at'],
+			relationships: {
+				user: { type: 'user' },
+				locale: { type: 'locale_master' }
+			}
+		});
+
+		serializer?.register?.('user_name_by_locale', {
 			blacklist: ['created_at', 'updated_at'],
 			relationships: {
 				user: { type: 'user' },

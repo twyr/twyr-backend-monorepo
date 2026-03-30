@@ -46,6 +46,7 @@ class UsersDomain_User extends BaseModel {
 	static relationMappings() {
 		const UserContact = require('./user-contact.cjs').Model;
 		const UserLocale = require('./user-locale.cjs').Model;
+		const UserNameByLocale = require('./user-name-by-locale.cjs').Model;
 
 		return {
 			contacts: {
@@ -62,6 +63,14 @@ class UsersDomain_User extends BaseModel {
 				join: {
 					from: 'users.id',
 					to: 'user_locales.user_id'
+				}
+			},
+			names: {
+				relation: BaseModel.HasManyRelation,
+				modelClass: UserNameByLocale,
+				join: {
+					from: 'users.id',
+					to: 'user_names_by_locale.user_id'
 				}
 			}
 		};

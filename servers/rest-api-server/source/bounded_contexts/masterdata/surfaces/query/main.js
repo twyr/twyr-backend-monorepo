@@ -98,38 +98,6 @@ export class Main extends BaseSurface {
 		baseRoutes?.push?.({
 			version: 1,
 			httpMethod: 'GET',
-			path: '/connection-statuses',
-			middlewares: [await this?._rbac?.('registered')],
-			handler: this.#getConnectionStatuses?.bind?.(this)
-		});
-
-		baseRoutes?.push?.({
-			version: 1,
-			httpMethod: 'GET',
-			path: '/connection-statuses/:id',
-			middlewares: [await this?._rbac?.('registered')],
-			handler: this.#getConnectionStatuses?.bind?.(this)
-		});
-
-		baseRoutes?.push?.({
-			version: 1,
-			httpMethod: 'GET',
-			path: '/facility-statuses',
-			middlewares: [await this?._rbac?.('registered')],
-			handler: this.#getFacilityStatuses?.bind?.(this)
-		});
-
-		baseRoutes?.push?.({
-			version: 1,
-			httpMethod: 'GET',
-			path: '/facility-statuses/:id',
-			middlewares: [await this?._rbac?.('registered')],
-			handler: this.#getFacilityStatuses?.bind?.(this)
-		});
-
-		baseRoutes?.push?.({
-			version: 1,
-			httpMethod: 'GET',
 			path: '/genders',
 			handler: this.#getGenders?.bind?.(this)
 		});
@@ -155,22 +123,6 @@ export class Main extends BaseSurface {
 			path: '/locales/:id',
 			middlewares: [],
 			handler: this.#getLocales?.bind?.(this)
-		});
-
-		baseRoutes?.push?.({
-			version: 1,
-			httpMethod: 'GET',
-			path: '/relationship-types',
-			middlewares: [await this?._rbac?.('registered')],
-			handler: this.#getRelationshipTypes?.bind?.(this)
-		});
-
-		baseRoutes?.push?.({
-			version: 1,
-			httpMethod: 'GET',
-			path: '/relationship-types/:id',
-			middlewares: [await this?._rbac?.('registered')],
-			handler: this.#getRelationshipTypes?.bind?.(this)
 		});
 
 		baseRoutes?.push?.({
@@ -278,78 +230,6 @@ export class Main extends BaseSurface {
 	 * @private
 	 * @override
 	 * @function
-	 * @name #getConnectionStatuses
-	 *
-	 * @returns {null} - Nothing
-	 *
-	 * @description
-	 * Retrieves the connection statues available in the system
-	 * pending, etc.
-	 *
-	 * @example
-	 * // Retrieve all connection statuses
-	 * $ curl -X GET -H "Content-Type: application/json" -b ./cookies.txt ${base_url}/api/v1/masterdata/connection-statuses/
-	 *
-	 * Array of connection statuses
-	 * $
-	 */
-	async #getConnectionStatuses(ctxt) {
-		const masterdataList = await this.#getMasterdata?.(
-			'CONNECTION_STATUS',
-			ctxt.params.id,
-			ctxt.locale
-		);
-
-		ctxt.status = masterdataList?.status;
-		ctxt.body = masterdataList?.body;
-	}
-
-	/**
-	 * @category REST API Server/Bounded Contexts
-	 * @subcategory Masterdata/Surfaces/Query
-	 *
-	 * @memberof Main
-	 * @async
-	 * @instance
-	 * @private
-	 * @override
-	 * @function
-	 * @name #getFacilityStatuses
-	 *
-	 * @returns {null} - Nothing
-	 *
-	 * @description
-	 * Retrieves the facility statuses available in the system
-	 * pending, etc.
-	 *
-	 * @example
-	 * // Retrieve all facility statuses
-	 * $ curl -X GET -H "Content-Type: application/json" -b ./cookies.txt ${base_url}/api/v1/masterdata/facility-statuses/
-	 *
-	 * Array of facility statuses
-	 * $
-	 */
-	async #getFacilityStatuses(ctxt) {
-		const masterdataList = await this.#getMasterdata?.(
-			'FACILITY_STATUS',
-			ctxt.params.id,
-			ctxt.locale
-		);
-
-		ctxt.status = masterdataList?.status;
-		ctxt.body = masterdataList?.body;
-	}
-
-	/**
-	 * @category REST API Server/Bounded Contexts
-	 * @subcategory Masterdata/Surfaces/Query
-	 *
-	 * @memberof Main
-	 * @async
-	 * @instance
-	 * @private
-	 * @override
-	 * @function
 	 * @name #getGenders
 	 *
 	 * @returns {null} - Nothing
@@ -402,42 +282,6 @@ export class Main extends BaseSurface {
 	async #getLocales(ctxt) {
 		const masterdataList = await this.#getMasterdata?.(
 			'LOCALE',
-			ctxt.params.id,
-			ctxt.locale
-		);
-
-		ctxt.status = masterdataList?.status;
-		ctxt.body = masterdataList?.body;
-	}
-
-	/**
-	 * @category REST API Server/Bounded Contexts
-	 * @subcategory Masterdata/Surfaces/Query
-	 *
-	 * @memberof Main
-	 * @async
-	 * @instance
-	 * @private
-	 * @override
-	 * @function
-	 * @name #getRelationshipTypes
-	 *
-	 * @returns {null} - Nothing
-	 *
-	 * @description
-	 * Retrieves the relationship types available in the system
-	 * father, mother, spouse, sibling, etc.
-	 *
-	 * @example
-	 * // Retrieve all relationship types
-	 * $ curl -X GET -H "Content-Type: application/json" -b ./cookies.txt ${base_url}/api/v1/masterdata/relationship-types/
-	 *
-	 * Array of relationship types
-	 * $
-	 */
-	async #getRelationshipTypes(ctxt) {
-		const masterdataList = await this.#getMasterdata?.(
-			'RELATIONSHIP_TYPE',
 			ctxt.params.id,
 			ctxt.locale
 		);

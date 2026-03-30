@@ -75,18 +75,6 @@ export class Masterdata extends BaseMiddleware {
 			);
 			registerResolutions?.push?.(
 				apiRegistry?.register?.(
-					'CONNECTION_STATUS',
-					this.#getConnectionStatuses?.bind?.(this)
-				)
-			);
-			registerResolutions?.push?.(
-				apiRegistry?.register?.(
-					'FACILITY_STATUS',
-					this.#getFacilityStatuses?.bind?.(this)
-				)
-			);
-			registerResolutions?.push?.(
-				apiRegistry?.register?.(
 					'GENDER',
 					this.#getGenders?.bind?.(this)
 				)
@@ -95,12 +83,6 @@ export class Masterdata extends BaseMiddleware {
 				apiRegistry?.register?.(
 					'LOCALE',
 					this.#getLocales?.bind?.(this)
-				)
-			);
-			registerResolutions?.push?.(
-				apiRegistry?.register?.(
-					'RELATIONSHIP_TYPE',
-					this.#getRelationshipTypes?.bind?.(this)
 				)
 			);
 			registerResolutions?.push?.(
@@ -172,12 +154,6 @@ export class Masterdata extends BaseMiddleware {
 			);
 			unregisterResolutions?.push?.(
 				apiRegistry?.unregister?.(
-					'RELATIONSHIP_TYPE',
-					this.#getRelationshipTypes?.bind?.(this)
-				)
-			);
-			unregisterResolutions?.push?.(
-				apiRegistry?.unregister?.(
 					'LOCALE',
 					this.#getLocales?.bind?.(this)
 				)
@@ -186,18 +162,6 @@ export class Masterdata extends BaseMiddleware {
 				apiRegistry?.unregister?.(
 					'GENDER',
 					this.#getGenders?.bind?.(this)
-				)
-			);
-			unregisterResolutions?.push?.(
-				apiRegistry?.unregister?.(
-					'FACILITY_STATUS',
-					this.#getFacilityStatuses?.bind?.(this)
-				)
-			);
-			unregisterResolutions?.push?.(
-				apiRegistry?.unregister?.(
-					'CONNECTION_STATUS',
-					this.#getConnectionStatuses?.bind?.(this)
 				)
 			);
 			unregisterResolutions?.push?.(
@@ -255,72 +219,6 @@ export class Masterdata extends BaseMiddleware {
 			'id',
 			'contact_type_by_locale',
 			'contact_type_id',
-			id,
-			localeId
-		);
-
-		return {
-			status: 200,
-			body: masterdata
-		};
-	}
-
-	/**
-	 * Retrieves connection-status master data from the domain model layer.
-	 *
-	 * @category REST API Server/Bounded Contexts
-	 * @subcategory Masterdata/Middlewares
-	 *
-	 * @memberof Masterdata
-	 * @async
-	 * @instance
-	 * @private
-	 * @function
-	 * @name #getConnectionStatuses
-	 *
-	 * @param {string} id - Optional connection status id.
-	 * @param {string} localeId - Locale used to resolve translated records.
-	 * @returns {Promise<object>} HTTP response data containing the resolved records.
-	 */
-	async #getConnectionStatuses(id, localeId) {
-		const masterdata = await this.#getMasterdata?.(
-			'connection_status_master',
-			'id',
-			'connection_status_by_locale',
-			'connection_status_id',
-			id,
-			localeId
-		);
-
-		return {
-			status: 200,
-			body: masterdata
-		};
-	}
-
-	/**
-	 * Retrieves facility-status master data from the domain model layer.
-	 *
-	 * @category REST API Server/Bounded Contexts
-	 * @subcategory Masterdata/Middlewares
-	 *
-	 * @memberof Masterdata
-	 * @async
-	 * @instance
-	 * @private
-	 * @function
-	 * @name #getFacilityStatuses
-	 *
-	 * @param {string} id - Optional facility status id.
-	 * @param {string} localeId - Locale used to resolve translated records.
-	 * @returns {Promise<object>} HTTP response data containing the resolved records.
-	 */
-	async #getFacilityStatuses(id, localeId) {
-		const masterdata = await this.#getMasterdata?.(
-			'facility_status_master',
-			'id',
-			'facility_status_by_locale',
-			'facility_status_id',
 			id,
 			localeId
 		);
@@ -392,39 +290,6 @@ export class Masterdata extends BaseMiddleware {
 		masterdata = masterdata?.filter?.((locale) => {
 			return locale?.is_enabled && locale?.code === locale.locale_id;
 		});
-
-		return {
-			status: 200,
-			body: masterdata
-		};
-	}
-
-	/**
-	 * Retrieves relationship-type master data from the domain model layer.
-	 *
-	 * @category REST API Server/Bounded Contexts
-	 * @subcategory Masterdata/Middlewares
-	 *
-	 * @memberof Masterdata
-	 * @async
-	 * @instance
-	 * @private
-	 * @function
-	 * @name #getRelationshipTypes
-	 *
-	 * @param {string} id - Optional relationship type id.
-	 * @param {string} localeId - Locale used to resolve translated records.
-	 * @returns {Promise<object>} HTTP response data containing the resolved records.
-	 */
-	async #getRelationshipTypes(id, localeId) {
-		const masterdata = await this.#getMasterdata?.(
-			'relationship_type_master',
-			'id',
-			'relationship_type_by_locale',
-			'relationship_type_id',
-			id,
-			localeId
-		);
 
 		return {
 			status: 200,
