@@ -18,6 +18,13 @@ exports.up = async function (knex) {
 					?.notNullable?.()
 					?.unique?.();
 				systemAdminTable
+					?.uuid?.('gender_id')
+					?.notNullable?.()
+					?.references?.('id')
+					?.inTable?.('gender_master')
+					?.onDelete?.('CASCADE')
+					?.onUpdate?.('CASCADE');
+				systemAdminTable
 					?.boolean?.('is_deleted')
 					?.notNullable?.()
 					?.defaultTo?.(false);
@@ -29,6 +36,23 @@ exports.up = async function (knex) {
 					?.timestamp?.('updated_at')
 					?.notNullable?.()
 					?.defaultTo?.(knex?.fn?.now?.());
+			});
+	}
+
+	let hasColumn = await knex?.schema
+		?.withSchema?.('public')
+		?.hasColumn?.('system_admins', 'gender_id');
+	if (!hasColumn) {
+		await knex?.schema
+			?.withSchema?.('public')
+			?.alterTable?.('system_admins', function (systemAdminTable) {
+				systemAdminTable
+					?.uuid?.('gender_id')
+					?.notNullable?.()
+					?.references?.('id')
+					?.inTable?.('gender_master')
+					?.onDelete?.('CASCADE')
+					?.onUpdate?.('CASCADE');
 			});
 	}
 
@@ -98,7 +122,7 @@ exports.up = async function (knex) {
 					?.onDelete?.('CASCADE')
 					?.onUpdate?.('CASCADE');
 				localeTable
-					?.text?.('locale_code')
+					?.text?.('locale_id')
 					?.notNullable?.()
 					?.references?.('code')
 					?.inTable?.('locale_master')
@@ -141,7 +165,7 @@ exports.up = async function (knex) {
 						?.onDelete?.('CASCADE')
 						?.onUpdate?.('CASCADE');
 					nameTable
-						?.text?.('locale_code')
+						?.text?.('locale_id')
 						?.notNullable?.()
 						?.references?.('code')
 						?.inTable?.('locale_master')
@@ -160,7 +184,7 @@ exports.up = async function (knex) {
 						?.notNullable?.()
 						?.defaultTo?.(knex?.fn?.now?.());
 
-					nameTable?.unique?.(['user_id', 'locale_code']);
+					nameTable?.unique?.(['user_id', 'locale_id']);
 				}
 			);
 	}

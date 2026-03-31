@@ -18,7 +18,7 @@ exports.seed = async function (knex) {
 
 	// Check if data already exists to skip re-seeding
 	const byLocaleCount = await knex?.raw?.(
-		`SELECT count(*) AS cnt FROM locale_by_locale`
+		`SELECT count(*) AS cnt FROM locale_by_locale WHERE locale_id = 'en-IN'`
 	);
 	if (Number?.(byLocaleCount?.rows?.[0]?.cnt) > 0) return;
 
@@ -403,6 +403,11 @@ exports.seed = async function (knex) {
 			locale_code: 'bn-BD',
 			locale_id: 'en-IN',
 			language_name: 'Bangla'
+		},
+		{
+			locale_code: 'bn-IN',
+			locale_id: 'en-IN',
+			language_name: 'Bangla (India)'
 		},
 		{
 			locale_code: 'bo-CN',
@@ -4258,10 +4263,10 @@ exports.seed = async function (knex) {
 		updated_at: now
 	}));
 
-	// Deduplicate by locale_code to avoid ON CONFLICT multi-hit
+	// Deduplicate by composite locale key to match the table constraint
 	const uniqueRows = Object.values(
 		rowsWithTimestamps.reduce((acc, r) => {
-			acc[r.locale_code] = r;
+			acc[`${r.locale_code}::${r.locale_id}`] = r;
 			return acc;
 		}, {})
 	);

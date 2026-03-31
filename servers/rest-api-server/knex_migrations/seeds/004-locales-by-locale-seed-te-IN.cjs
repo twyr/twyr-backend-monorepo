@@ -4259,10 +4259,10 @@ exports.seed = async function (knex) {
 		updated_at: now
 	}));
 
-	// Deduplicate by locale_code to avoid ON CONFLICT multi-hit
+	// Deduplicate by composite locale key to match the table constraint
 	const uniqueRows = Object.values(
 		rowsWithTimestamps.reduce((acc, r) => {
-			acc[r.locale_code] = r;
+			acc[`${r.locale_code}::${r.locale_id}`] = r;
 			return acc;
 		}, {})
 	);

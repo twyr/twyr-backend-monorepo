@@ -15,6 +15,13 @@ exports.up = async function (knex) {
 					?.defaultTo?.(knex?.raw?.('gen_random_uuid()'));
 				userTable?.text?.('mobile_no')?.notNullable?.()?.unique?.();
 				userTable
+					?.uuid?.('gender_id')
+					?.notNullable?.()
+					?.references?.('id')
+					?.inTable?.('gender_master')
+					?.onDelete?.('CASCADE')
+					?.onUpdate?.('CASCADE');
+				userTable
 					?.boolean?.('is_deleted')
 					?.notNullable?.()
 					?.defaultTo?.(false);
@@ -26,6 +33,23 @@ exports.up = async function (knex) {
 					?.timestamp?.('updated_at')
 					?.notNullable?.()
 					?.defaultTo?.(knex?.fn?.now?.());
+			});
+	}
+
+	let hasColumn = await knex?.schema
+		?.withSchema?.('public')
+		?.hasColumn?.('users', 'gender_id');
+	if (!hasColumn) {
+		await knex?.schema
+			?.withSchema?.('public')
+			?.alterTable?.('users', function (userTable) {
+				userTable
+					?.uuid?.('gender_id')
+					?.notNullable?.()
+					?.references?.('id')
+					?.inTable?.('gender_master')
+					?.onDelete?.('CASCADE')
+					?.onUpdate?.('CASCADE');
 			});
 	}
 
@@ -95,7 +119,7 @@ exports.up = async function (knex) {
 					?.onDelete?.('CASCADE')
 					?.onUpdate?.('CASCADE');
 				localeTable
-					?.text?.('locale_code')
+					?.text?.('locale_id')
 					?.notNullable?.()
 					?.references?.('code')
 					?.inTable?.('locale_master')
@@ -136,7 +160,7 @@ exports.up = async function (knex) {
 					?.onDelete?.('CASCADE')
 					?.onUpdate?.('CASCADE');
 				nameTable
-					?.text?.('locale_code')
+					?.text?.('locale_id')
 					?.notNullable?.()
 					?.references?.('code')
 					?.inTable?.('locale_master')
@@ -155,7 +179,7 @@ exports.up = async function (knex) {
 					?.notNullable?.()
 					?.defaultTo?.(knex?.fn?.now?.());
 
-				nameTable?.unique?.(['user_id', 'locale_code']);
+				nameTable?.unique?.(['user_id', 'locale_id']);
 			});
 	}
 };
