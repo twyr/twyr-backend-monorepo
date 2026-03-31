@@ -270,7 +270,7 @@ export class Basics extends UserBaseMiddleware {
 				if (nameLocaleCode) {
 					await UserLocaleModel?.query?.(trx)?.insert?.({
 						user_id: createdUser?.id,
-						locale_code: nameLocaleCode,
+						locale_id: nameLocaleCode,
 						is_primary: true
 					});
 				}
@@ -342,15 +342,26 @@ export class Basics extends UserBaseMiddleware {
 			locale ??
 			storedUser?.locales?.find?.(
 				(storedLocale) => storedLocale?.is_primary
-			)?.locale_code ??
-			storedUser?.names?.[0]?.locale_code;
+			)?.locale_id ??
+			storedUser?.names?.[0]?.locale_id;
 
 		if (storedUser && requestedLocale) {
 			await this.#ensureUserNamesForLocale?.(storedUser, requestedLocale);
 			storedUser.names = storedUser?.names?.filter?.((nameByLocale) => {
-				return nameByLocale?.locale_code === requestedLocale;
+				return nameByLocale?.locale_id === requestedLocale;
 			});
 		}
+
+		storedUser?.locales?.forEach?.((storedLocale) => {
+			if (storedLocale?.locale_id && !storedLocale?.locale_code) {
+				storedLocale.locale_code = storedLocale.locale_id;
+			}
+		});
+		storedUser?.names?.forEach?.((nameByLocale) => {
+			if (nameByLocale?.locale_id && !nameByLocale?.locale_code) {
+				nameByLocale.locale_code = nameByLocale.locale_id;
+			}
+		});
 
 		storedUser = await this?.domainInterface?.serializer?.serializeAsync?.(
 			'user',
@@ -422,7 +433,7 @@ export class Basics extends UserBaseMiddleware {
 			async () => {
 				return UserNameByLocaleModel?.query?.()
 					?.where?.('user_id', '=', user?.id)
-					?.select?.('id', 'locale_code');
+					?.select?.('id', 'locale_id');
 			}
 		);
 
@@ -433,7 +444,7 @@ export class Basics extends UserBaseMiddleware {
 		const localizedUserNames = hasNameFieldsToUpdate
 			? await this.#localizeUserNames?.(
 					userNameFields,
-					existingNameRecords?.map?.((record) => record?.locale_code)
+					existingNameRecords?.map?.((record) => record?.locale_id)
 				)
 			: undefined;
 
@@ -462,8 +473,8 @@ export class Basics extends UserBaseMiddleware {
 						const existingNameRecord = existingNameRecords?.find?.(
 							(nameRecord) => {
 								return (
-									nameRecord?.locale_code ===
-									localizedUserName?.locale_code
+									nameRecord?.locale_id ===
+									localizedUserName?.locale_id
 								);
 							}
 						);
@@ -571,7 +582,7 @@ export class Basics extends UserBaseMiddleware {
 		requestedLocales?.forEach?.((locale) => {
 			// eslint-disable-next-line security/detect-object-injection
 			localizedUserNames[locale] = {
-				locale_code: locale
+				locale_id: locale
 			};
 		});
 
@@ -655,17 +666,17 @@ export class Basics extends UserBaseMiddleware {
 		]);
 
 		const userNamesForLocale = user?.names?.find?.((nameByLocale) => {
-			return nameByLocale?.locale_code === locale;
+			return nameByLocale?.locale_id === locale;
 		});
 		if (userNamesForLocale) return;
 
 		const baseNameRecord = user?.names?.[0];
-		if (!baseNameRecord?.locale_code) return;
+		if (!baseNameRecord?.locale_id) return;
 
 		const localizedUserNames = await this.#localizeUserNames?.(
 			{
-				...(baseNameRecord?.locale_code && {
-					locale_code: baseNameRecord?.locale_code
+				...(baseNameRecord?.locale_id && {
+					locale_code: baseNameRecord?.locale_id
 				}),
 				...(Object.hasOwn(baseNameRecord ?? {}, 'first_name') && {
 					first_name: baseNameRecord?.first_name ?? ''

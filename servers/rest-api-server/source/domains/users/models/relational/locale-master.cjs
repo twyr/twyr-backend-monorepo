@@ -69,7 +69,7 @@ class UsersDomain_LocaleMaster extends BaseModel {
 				modelClass: UserLocale,
 				join: {
 					from: 'locale_master.code',
-					to: 'user_locales.locale_code'
+					to: 'user_locales.locale_id'
 				}
 			}
 		};

@@ -53,7 +53,7 @@ class SystemAdminDomain_SystemAdminContact extends BaseModel {
 				modelClass: User,
 				join: {
 					from: 'system_admin_contacts.user_id',
-					to: 'system_admin.id'
+					to: 'system_admins.id'
 				}
 			},
 			contactType: {

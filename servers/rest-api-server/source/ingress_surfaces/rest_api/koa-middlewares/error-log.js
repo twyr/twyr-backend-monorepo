@@ -115,12 +115,18 @@ export function createErrorLogMiddleware(dependencies) {
 
 		if (!throwableError) return;
 
+		const responseLocale =
+			ctxt?.locale ??
+			ctxt?.query?.lang ??
+			ctxt?.state?.user?.['primary_locale'] ??
+			'en-IN';
+
 		ctxt.type = 'application/problem+json; charset=utf-8';
 		ctxt.status = throwableError?.status ?? ctxt?.status;
 
 		ctxt?.set?.('Cache-Control', 'no-store');
 		ctxt?.set?.('Pragma', 'no-cache');
-		ctxt?.set?.('Content-Language', ctxt?.locale);
+		ctxt?.set?.('Content-Language', responseLocale);
 		ctxt?.set?.('Access-Control-Allow-Origin', '*');
 
 		if (ctxt?.status === HTTP_ERROR_UNAUTHORIZED) {

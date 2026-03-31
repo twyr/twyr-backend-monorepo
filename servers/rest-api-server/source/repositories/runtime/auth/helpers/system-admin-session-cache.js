@@ -1,3 +1,6 @@
+/* eslint-disable no-useless-assignment */
+import safeJsonStringify from 'safe-json-stringify';
+
 const SESSION_CACHE_TIMEOUT_DEVELOPMENT = 3_600;
 const SESSION_CACHE_TIMEOUT_PRODUCTION = 86_400;
 
@@ -23,6 +26,7 @@ const getSystemAdminDetails = async function getSystemAdminDetails(
 		const userError = new Error(
 			'EVASERVER::AUTH_REPOSITORY::USER_NOT_FOUND_IN_DB'
 		);
+		userError.status = 404;
 		userError.code = 'EVASERVER::AUTH_REPOSITORY::USER_NOT_FOUND_IN_DB';
 		throw userError;
 	}
@@ -30,52 +34,119 @@ const getSystemAdminDetails = async function getSystemAdminDetails(
 	cachedUser = cachedUser?.rows?.[0];
 	cachedUser.role = userRole;
 
-	const contactDetails = await databaseRepository?.raw?.(
-		`SELECT A.id, B.name AS type, A.contact, A.verified, A.is_primary
-		 FROM system_admin_contacts A
-		 INNER JOIN contact_type_master B ON (A.contact_type_id = B.id)
-		 WHERE A.user_id = ?`,
-		[userId]
-	);
-	cachedUser.contacts = contactDetails?.rows ?? [];
-	cachedUser.primary_contact =
-		cachedUser?.contacts?.find?.((row) => row?.is_primary) ?? null;
-
+	let primaryLocale = undefined;
 	const localeDetails = await databaseRepository?.raw?.(
-		`SELECT A.id, A.locale_code, A.is_primary, B.language_name
-		 FROM system_admin_locales A
-		 INNER JOIN locale_master B ON (A.locale_code = B.code)
-		 WHERE A.user_id = ?`,
+		`SELECT locale_id FROM system_admin_locales WHERE user_id = ? AND is_primary = true`,
 		[userId]
 	);
-	cachedUser.locales = localeDetails?.rows ?? [];
-	cachedUser.primary_locale =
-		cachedUser?.locales?.find?.((row) => row?.is_primary)?.locale_code ??
-		null;
+	primaryLocale = localeDetails?.rows?.shift?.()?.locale_id;
 
-	const localizedName = await databaseRepository?.raw?.(
-		`SELECT first_name, middle_names, last_name, nickname
-		 FROM system_admin_names_by_locale
-		 WHERE user_id = ?
-		 AND locale_code = COALESCE(
-		 	(SELECT locale_code FROM system_admin_locales WHERE user_id = ? AND is_primary = true LIMIT 1),
-		 	'en-IN'
-		 )
-		 LIMIT 1`,
-		[userId, userId]
-	);
-	const nameRecord = localizedName?.rows?.[0] ?? null;
-	if (nameRecord) {
-		cachedUser.first_name = nameRecord?.first_name ?? null;
-		cachedUser.middle_names = nameRecord?.middle_names ?? null;
-		cachedUser.last_name = nameRecord?.last_name ?? null;
-		cachedUser.nickname = nameRecord?.nickname ?? null;
+	let localizedName = undefined;
+	if (primaryLocale) {
+		localizedName = await databaseRepository?.raw?.(
+			`SELECT
+				first_name,
+				middle_names,
+				last_name,
+				nickname
+			FROM
+				system_admin_names_by_locale
+			WHERE
+				user_id = ? AND
+				locale_id = ?
+			LIMIT 1`,
+			[userId, primaryLocale]
+		);
+	} else {
+		localizedName = await databaseRepository?.raw?.(
+			`SELECT
+				first_name,
+				middle_names,
+				last_name,
+				nickname
+			FROM
+				system_admin_names_by_locale
+			WHERE
+				user_id = ?
+			LIMIT 1`,
+			[userId]
+		);
 	}
 
+	const localizedNameRow = localizedName?.rows?.[0] ?? {};
+	cachedUser['first_name'] = localizedNameRow?.first_name;
+	cachedUser['middle_names'] = localizedNameRow?.middle_names;
+	cachedUser['last_name'] = localizedNameRow?.last_name;
+	cachedUser['nickname'] = localizedNameRow?.nickname;
+
+	let genderDetails = undefined;
+	if (primaryLocale) {
+		genderDetails = await databaseRepository?.raw?.(
+			`SELECT gender_id as id, display_name, description FROM gender_by_locale WHERE gender_id = ? AND locale_id = ?`,
+			[cachedUser?.gender_id, primaryLocale]
+		);
+	} else {
+		genderDetails = await databaseRepository?.raw?.(
+			`SELECT gender_id as id, display_name, description FROM gender_by_locale WHERE gender_id = ? LIMIT 1`,
+			[cachedUser?.gender_id]
+		);
+	}
+	cachedUser['gender'] = genderDetails?.rows?.[0];
+
+	const contactDetails = await databaseRepository?.raw?.(
+		`SELECT A.id, B.name as type, A.contact AS contact, A.verified AS verified, A.is_primary FROM user_contacts A INNER JOIN contact_type_master B ON (A.contact_type_id = B.id) WHERE A.user_id = ?`,
+		[userId]
+	);
+	cachedUser['contacts'] = contactDetails?.rows;
+	cachedUser['primary_contact'] = contactDetails?.rows?.filter(
+		(row) => row?.is_primary
+	)?.[0]?.['id'];
+
+	let localizedLocaleDetails = { rows: [] };
+	if (primaryLocale) {
+		localizedLocaleDetails = await databaseRepository?.raw?.(
+			`SELECT
+				A.locale_id AS locale_code,
+				A.is_primary,
+				B.language_name
+			FROM
+				system_admin_locales A
+			LEFT JOIN
+				locale_by_locale B
+			ON
+				A.locale_id = B.locale_code
+			WHERE
+				A.user_id = ? AND
+				B.locale_id = ?`,
+			[userId, primaryLocale]
+		);
+	} else {
+		localizedLocaleDetails = await databaseRepository?.raw?.(
+			`SELECT
+				A.locale_id AS locale_code,
+				A.is_primary,
+				B.language_name
+			FROM
+				system_admin_locales A
+			LEFT JOIN
+				locale_by_locale B
+			ON
+				A.locale_id = B.locale_code
+			 WHERE
+				A.user_id = ?`,
+			[userId]
+		);
+	}
+	cachedUser['locales'] = localizedLocaleDetails?.rows ?? [];
+	cachedUser['primary_locale'] = primaryLocale;
+
 	const cacheMulti = await cacheRepository?.multi?.();
-	cacheMulti?.set?.(cacheKey, JSON?.stringify?.(cachedUser));
+	cacheMulti?.set?.(
+		`twyr!entity!value!aggregate!${userRole}!${userId}!basics`,
+		safeJsonStringify?.(cachedUser)
+	);
 	cacheMulti?.expire?.(
-		cacheKey,
+		`twyr!entity!value!aggregate!${userRole}!${userId}!basics`,
 		global.serverEnvironment === 'development'
 			? SESSION_CACHE_TIMEOUT_DEVELOPMENT
 			: SESSION_CACHE_TIMEOUT_PRODUCTION

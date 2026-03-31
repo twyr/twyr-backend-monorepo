@@ -69,7 +69,7 @@ class SystemAdminDomain_LocaleMaster extends BaseModel {
 				modelClass: UserLocale,
 				join: {
 					from: 'locale_master.code',
-					to: 'system_admin_locales.locale_code'
+					to: 'system_admin_locales.locale_id'
 				}
 			}
 		};

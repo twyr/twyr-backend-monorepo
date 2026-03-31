@@ -68,7 +68,10 @@ export class UserBaseSurface extends BaseSurface {
 					throw userError;
 				}
 
-				if (permission === 'registered') {
+				if (
+					permission === 'registered' &&
+					ctxt.state.user.role === 'user'
+				) {
 					await next?.();
 					return;
 				}

@@ -53,14 +53,14 @@ class SystemAdminDomain_SystemAdminLocale extends BaseModel {
 				modelClass: User,
 				join: {
 					from: 'system_admin_locales.user_id',
-					to: 'system_admin.id'
+					to: 'system_admins.id'
 				}
 			},
 			locale: {
 				relation: BaseModel.BelongsToOneRelation,
 				modelClass: LocaleMaster,
 				join: {
-					from: 'system_admin_locales.locale_code',
+					from: 'system_admin_locales.locale_id',
 					to: 'locale_master.code'
 				}
 			}

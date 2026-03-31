@@ -68,7 +68,10 @@ export class SystemAdminBaseSurface extends BaseSurface {
 					throw userError;
 				}
 
-				if (permission === 'registered') {
+				if (
+					permission === 'registered' &&
+					ctxt.state.user.role === 'system_admin'
+				) {
 					await next?.();
 					return;
 				}

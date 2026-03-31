@@ -60,7 +60,7 @@ class UsersDomain_UserNameByLocale extends BaseModel {
 				relation: BaseModel.BelongsToOneRelation,
 				modelClass: LocaleMaster,
 				join: {
-					from: 'user_names_by_locale.locale_code',
+					from: 'user_names_by_locale.locale_id',
 					to: 'locale_master.code'
 				}
 			}
