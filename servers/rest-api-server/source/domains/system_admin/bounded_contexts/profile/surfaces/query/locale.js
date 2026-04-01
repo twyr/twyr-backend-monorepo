@@ -8,6 +8,7 @@
  */
 import { EVASBaseFactory } from '@twyr/framework-classes';
 import { SystemAdminBaseSurface } from 'baseclass:surface';
+import { Mutex } from 'async-mutex';
 
 /**
  * @category REST API Server/Domains/System Admin
@@ -196,17 +197,19 @@ export default class LocaleSurfaceFactory extends EVASBaseFactory {
 	 * @returns {Locale} - The Locale surface instance.
 	 */
 	static async createInstances(domainInterface) {
-		if (!LocaleSurfaceFactory.#localeInstance) {
-			const localeInstance = new Locale(
-				LocaleSurfaceFactory['$disk_unc'],
-				domainInterface
-			);
+		return await LocaleSurfaceFactory.#mutex?.runExclusive?.(async () => {
+			if (!LocaleSurfaceFactory.#localeInstance) {
+				const localeInstance = new Locale(
+					LocaleSurfaceFactory['$disk_unc'],
+					domainInterface
+				);
 
-			await localeInstance?.load?.();
-			LocaleSurfaceFactory.#localeInstance = localeInstance;
-		}
+				await localeInstance?.load?.();
+				LocaleSurfaceFactory.#localeInstance = localeInstance;
+			}
 
-		return LocaleSurfaceFactory.#localeInstance;
+			return LocaleSurfaceFactory.#localeInstance;
+		});
 	}
 
 	/**
@@ -225,9 +228,11 @@ export default class LocaleSurfaceFactory extends EVASBaseFactory {
 	 * @description Clears the Locale instance
 	 */
 	static async destroyInstances() {
-		await LocaleSurfaceFactory.#localeInstance?.unload?.();
-		LocaleSurfaceFactory.#localeInstance = undefined;
-		return;
+		await LocaleSurfaceFactory.#mutex?.runExclusive?.(async () => {
+			await LocaleSurfaceFactory.#localeInstance?.unload?.();
+			LocaleSurfaceFactory.#localeInstance = undefined;
+			return;
+		});
 	}
 	// #endregion
 
@@ -254,6 +259,7 @@ export default class LocaleSurfaceFactory extends EVASBaseFactory {
 	// #endregion
 
 	// #region Private Static Members
+	static #mutex = new Mutex();
 	static #localeInstance = undefined;
 	// #endregion
 }

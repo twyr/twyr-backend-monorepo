@@ -9,6 +9,7 @@
 import Joi from 'joi';
 import { EVASBaseFactory } from '@twyr/framework-classes';
 import { SystemAdminBaseSurface } from 'baseclass:surface';
+import { Mutex } from 'async-mutex';
 
 const HTTP_ERROR_UNPROCESSABLE_CONTENT = 422;
 
@@ -98,11 +99,14 @@ export class Main extends SystemAdminBaseSurface {
 						mobile_no: Joi.string()
 							.pattern(/^\+\d{12}$/)
 							.required(),
+						date_of_birth: Joi.string()
+							.pattern(/^\d{4}-\d{2}-\d{2}$/)
+							.optional(),
 						first_name: Joi.string().required(),
 						middle_names: Joi.string().optional(),
 						last_name: Joi.string().required(),
 						nickname: Joi.string().optional(),
-						locale_code: Joi.string().required(),
+						locale_id: Joi.string().required(),
 						otp: Joi.string()
 							.length(4)
 							.pattern(/^\d{4}$/)
@@ -130,11 +134,14 @@ export class Main extends SystemAdminBaseSurface {
 						mobile_no: Joi.string()
 							.pattern(/^\+\d{12}$/)
 							.optional(),
+						date_of_birth: Joi.string()
+							.pattern(/^\d{4}-\d{2}-\d{2}$/)
+							.optional(),
 						first_name: Joi.string().optional(),
 						middle_names: Joi.string().optional(),
 						last_name: Joi.string().optional(),
 						nickname: Joi.string().optional(),
-						locale_code: Joi.string().optional()
+						locale_id: Joi.string().optional()
 					}).required()
 				}).required()
 			});
@@ -273,6 +280,7 @@ export class Main extends SystemAdminBaseSurface {
  * @classdesc Factory for the profile command main surface.
  */
 export default class MainSurfaceFactory extends EVASBaseFactory {
+	static #mutex = new Mutex();
 	static #mainInstance = undefined;
 
 	/**
@@ -300,17 +308,19 @@ export default class MainSurfaceFactory extends EVASBaseFactory {
 	 * @returns {Promise<Main>} The singleton surface instance.
 	 */
 	static async createInstances(domainInterface) {
-		if (!MainSurfaceFactory.#mainInstance) {
-			const mainInstance = new Main(
-				MainSurfaceFactory['$disk_unc'],
-				domainInterface
-			);
+		return await MainSurfaceFactory.#mutex?.runExclusive?.(async () => {
+			if (!MainSurfaceFactory.#mainInstance) {
+				const mainInstance = new Main(
+					MainSurfaceFactory['$disk_unc'],
+					domainInterface
+				);
 
-			await mainInstance?.load?.();
-			MainSurfaceFactory.#mainInstance = mainInstance;
-		}
+				await mainInstance?.load?.();
+				MainSurfaceFactory.#mainInstance = mainInstance;
+			}
 
-		return MainSurfaceFactory.#mainInstance;
+			return MainSurfaceFactory.#mainInstance;
+		});
 	}
 
 	/**
@@ -327,8 +337,10 @@ export default class MainSurfaceFactory extends EVASBaseFactory {
 	 * @returns {Promise<void>} Resolves after the instance is unloaded.
 	 */
 	static async destroyInstances() {
-		await MainSurfaceFactory.#mainInstance?.unload?.();
-		MainSurfaceFactory.#mainInstance = undefined;
+		await MainSurfaceFactory.#mutex?.runExclusive?.(async () => {
+			await MainSurfaceFactory.#mainInstance?.unload?.();
+			MainSurfaceFactory.#mainInstance = undefined;
+		});
 	}
 
 	/**

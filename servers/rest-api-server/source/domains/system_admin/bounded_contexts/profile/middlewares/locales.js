@@ -9,6 +9,7 @@
 import { EVASBaseFactory } from '@twyr/framework-classes';
 import { createErrorForPropagation } from '@twyr/error-serializer';
 import { SystemAdminBaseMiddleware } from 'baseclass:middleware';
+import { Mutex } from 'async-mutex';
 
 /**
  * @category REST API Server/Domains/System Admin
@@ -343,17 +344,21 @@ export default class LocalesMiddlewareFactory extends EVASBaseFactory {
 	 * @returns {Locales} - The Locales middleware instance.
 	 */
 	static async createInstances(domainInterface) {
-		if (!LocalesMiddlewareFactory.#localesInstance) {
-			const localesInstance = new Locales(
-				LocalesMiddlewareFactory['$disk_unc'],
-				domainInterface
-			);
+		return await LocalesMiddlewareFactory.#mutex?.runExclusive?.(
+			async () => {
+				if (!LocalesMiddlewareFactory.#localesInstance) {
+					const localesInstance = new Locales(
+						LocalesMiddlewareFactory['$disk_unc'],
+						domainInterface
+					);
 
-			await localesInstance?.load?.();
-			LocalesMiddlewareFactory.#localesInstance = localesInstance;
-		}
+					await localesInstance?.load?.();
+					LocalesMiddlewareFactory.#localesInstance = localesInstance;
+				}
 
-		return LocalesMiddlewareFactory.#localesInstance;
+				return LocalesMiddlewareFactory.#localesInstance;
+			}
+		);
 	}
 
 	/**
@@ -372,9 +377,11 @@ export default class LocalesMiddlewareFactory extends EVASBaseFactory {
 	 * @description Clears the Locales instance
 	 */
 	static async destroyInstances() {
-		await LocalesMiddlewareFactory.#localesInstance?.unload?.();
-		LocalesMiddlewareFactory.#localesInstance = undefined;
-		return;
+		await LocalesMiddlewareFactory.#mutex?.runExclusive?.(async () => {
+			await LocalesMiddlewareFactory.#localesInstance?.unload?.();
+			LocalesMiddlewareFactory.#localesInstance = undefined;
+			return;
+		});
 	}
 	// #endregion
 
@@ -401,6 +408,7 @@ export default class LocalesMiddlewareFactory extends EVASBaseFactory {
 	// #endregion
 
 	// #region Private Static Members
+	static #mutex = new Mutex();
 	static #localesInstance = undefined;
 	// #endregion
 }

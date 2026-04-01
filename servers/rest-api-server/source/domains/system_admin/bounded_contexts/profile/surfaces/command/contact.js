@@ -9,6 +9,7 @@
 import Joi from 'joi';
 import { EVASBaseFactory } from '@twyr/framework-classes';
 import { SystemAdminBaseSurface } from 'baseclass:surface';
+import { Mutex } from 'async-mutex';
 
 const HTTP_ERROR_UNPROCESSABLE_CONTENT = 422;
 
@@ -147,7 +148,7 @@ export class Contact extends SystemAdminBaseSurface {
 	 * @description
 	 * Registers Joi schemas used by the contact routes. The authenticated
 	 * user identifier is derived from `user?.id`, so clients do not send
-	 * `user_id`.
+	 * `system_admin_id`.
 	 */
 	async _setupValidationSchemas(validationSchemaMap) {
 		validationSchemaMap = validationSchemaMap ?? this.#validationSchemaMap;
@@ -269,10 +270,10 @@ export class Contact extends SystemAdminBaseSurface {
 	 * @returns {null} - Nothing
 	 *
 	 * @description Creates a new contact for the logged in user. The
-	 * `user_id` relationship is derived from `user?.id`.
+	 * `system_admin_id` relationship is derived from `user?.id`.
 	 * @example
-	 * // Given the following input data [./servers/curl_example_data/system_admin_profile_contact_create.json]:
-	 * $ curl -X POST -H "Content-Type: application/json" -b ./cookies.txt -d @./servers/curl_example_data/system_admin_profile_contact_create.json ${base_url}/api/v1/system_admin/profile/contact/create
+	 * // Given the following input data [./servers/curl_example_data/api_v1_system_admin_profile_contact_create.json]:
+	 * $ curl -X POST -H "Content-Type: application/json" -b ./cookies.txt -d @./servers/curl_example_data/api_v1_system_admin_profile_contact_create.json ${base_url}/api/v1/system_admin/profile/contact/create
 	 */
 	async #createContact(ctxt) {
 		const createContactSchema = this.#validationSchemaMap?.get(
@@ -299,7 +300,7 @@ export class Contact extends SystemAdminBaseSurface {
 				...ctxt?.request?.body?.data,
 				attributes: {
 					...ctxt?.request?.body?.data?.attributes,
-					user_id: ctxt?.state?.user?.id
+					system_admin_id: ctxt?.state?.user?.id
 				}
 			}
 		};
@@ -329,10 +330,10 @@ export class Contact extends SystemAdminBaseSurface {
 	 * @returns {null} - Nothing
 	 *
 	 * @description Updates an existing contact for the logged in user. The
-	 * `user_id` relationship is derived from `user?.id`.
+	 * `system_admin_id` relationship is derived from `user?.id`.
 	 * @example
-	 * // Given the following input data [./servers/curl_example_data/system_admin_profile_contact_update.json]:
-	 * $ curl -X PATCH -H "Content-Type: application/json" -b ./cookies.txt -d @./servers/curl_example_data/system_admin_profile_contact_update.json ${base_url}/api/v1/system_admin/profile/contact/update
+	 * // Given the following input data [./servers/curl_example_data/api_v1_system_admin_profile_contact_update.json]:
+	 * $ curl -X PATCH -H "Content-Type: application/json" -b ./cookies.txt -d @./servers/curl_example_data/api_v1_system_admin_profile_contact_update.json ${base_url}/api/v1/system_admin/profile/contact/update
 	 */
 	async #updateContact(ctxt) {
 		const updateContactSchema = this.#validationSchemaMap?.get(
@@ -359,7 +360,7 @@ export class Contact extends SystemAdminBaseSurface {
 				...ctxt?.request?.body?.data,
 				attributes: {
 					...ctxt?.request?.body?.data?.attributes,
-					user_id: ctxt?.state?.user?.id
+					system_admin_id: ctxt?.state?.user?.id
 				}
 			}
 		};
@@ -454,17 +455,19 @@ export default class ContactSurfaceFactory extends EVASBaseFactory {
 	 * @returns {Contact} - The Contact surface instance.
 	 */
 	static async createInstances(domainInterface) {
-		if (!ContactSurfaceFactory.#contactInstance) {
-			const contactInstance = new Contact(
-				ContactSurfaceFactory['$disk_unc'],
-				domainInterface
-			);
+		return await ContactSurfaceFactory.#mutex?.runExclusive?.(async () => {
+			if (!ContactSurfaceFactory.#contactInstance) {
+				const contactInstance = new Contact(
+					ContactSurfaceFactory['$disk_unc'],
+					domainInterface
+				);
 
-			await contactInstance?.load?.();
-			ContactSurfaceFactory.#contactInstance = contactInstance;
-		}
+				await contactInstance?.load?.();
+				ContactSurfaceFactory.#contactInstance = contactInstance;
+			}
 
-		return ContactSurfaceFactory.#contactInstance;
+			return ContactSurfaceFactory.#contactInstance;
+		});
 	}
 
 	/**
@@ -483,9 +486,11 @@ export default class ContactSurfaceFactory extends EVASBaseFactory {
 	 * @description Clears the Contact instance
 	 */
 	static async destroyInstances() {
-		await ContactSurfaceFactory.#contactInstance?.unload?.();
-		ContactSurfaceFactory.#contactInstance = undefined;
-		return;
+		await ContactSurfaceFactory.#mutex?.runExclusive?.(async () => {
+			await ContactSurfaceFactory.#contactInstance?.unload?.();
+			ContactSurfaceFactory.#contactInstance = undefined;
+			return;
+		});
 	}
 	// #endregion
 
@@ -512,6 +517,7 @@ export default class ContactSurfaceFactory extends EVASBaseFactory {
 	// #endregion
 
 	// #region Private Static Members
+	static #mutex = new Mutex();
 	static #contactInstance = undefined;
 	// #endregion
 }

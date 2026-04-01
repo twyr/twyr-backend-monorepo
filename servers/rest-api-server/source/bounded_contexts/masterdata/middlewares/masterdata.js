@@ -9,6 +9,7 @@
 import { EVASBaseFactory } from '@twyr/framework-classes';
 import { createErrorForPropagation } from '@twyr/error-serializer';
 import { BaseMiddleware } from 'baseclass:middleware';
+import { Mutex } from 'async-mutex';
 
 /**
  * @category REST API Server/Bounded Contexts
@@ -511,18 +512,22 @@ export default class MasterdataMiddlewareFactory extends EVASBaseFactory {
 	 * @returns {Masterdata} - The Masterdata middleware instance.
 	 */
 	static async createInstances(domainInterface) {
-		if (!MasterdataMiddlewareFactory.#masterdataInstance) {
-			const masterdataInstance = new Masterdata(
-				MasterdataMiddlewareFactory['$disk_unc'],
-				domainInterface
-			);
+		return await MasterdataMiddlewareFactory.#mutex?.runExclusive?.(
+			async () => {
+				if (!MasterdataMiddlewareFactory.#masterdataInstance) {
+					const masterdataInstance = new Masterdata(
+						MasterdataMiddlewareFactory['$disk_unc'],
+						domainInterface
+					);
 
-			await masterdataInstance?.load?.();
-			MasterdataMiddlewareFactory.#masterdataInstance =
-				masterdataInstance;
-		}
+					await masterdataInstance?.load?.();
+					MasterdataMiddlewareFactory.#masterdataInstance =
+						masterdataInstance;
+				}
 
-		return MasterdataMiddlewareFactory.#masterdataInstance;
+				return MasterdataMiddlewareFactory.#masterdataInstance;
+			}
+		);
 	}
 
 	/**
@@ -541,10 +546,12 @@ export default class MasterdataMiddlewareFactory extends EVASBaseFactory {
 	 * @description Clears the Masterdata instance
 	 */
 	static async destroyInstances() {
-		await MasterdataMiddlewareFactory.#masterdataInstance?.unload?.();
-		MasterdataMiddlewareFactory.#masterdataInstance = undefined;
+		await MasterdataMiddlewareFactory.#mutex?.runExclusive?.(async () => {
+			await MasterdataMiddlewareFactory.#masterdataInstance?.unload?.();
+			MasterdataMiddlewareFactory.#masterdataInstance = undefined;
 
-		return;
+			return;
+		});
 	}
 	// #endregion
 
@@ -571,6 +578,7 @@ export default class MasterdataMiddlewareFactory extends EVASBaseFactory {
 	// #endregion
 
 	// #region Private Static Members
+	static #mutex = new Mutex();
 	static #masterdataInstance = undefined;
 	// #endregion
 }

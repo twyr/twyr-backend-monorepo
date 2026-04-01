@@ -52,7 +52,7 @@ class SystemAdminDomain_SystemAdminLocale extends BaseModel {
 				relation: BaseModel.BelongsToOneRelation,
 				modelClass: User,
 				join: {
-					from: 'system_admin_locales.user_id',
+					from: 'system_admin_locales.system_admin_id',
 					to: 'system_admins.id'
 				}
 			},

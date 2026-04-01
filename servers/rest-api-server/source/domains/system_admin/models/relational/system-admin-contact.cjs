@@ -52,7 +52,7 @@ class SystemAdminDomain_SystemAdminContact extends BaseModel {
 				relation: BaseModel.BelongsToOneRelation,
 				modelClass: User,
 				join: {
-					from: 'system_admin_contacts.user_id',
+					from: 'system_admin_contacts.system_admin_id',
 					to: 'system_admins.id'
 				}
 			},

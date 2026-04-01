@@ -8,6 +8,7 @@
  */
 import { EVASBaseFactory } from '@twyr/framework-classes';
 import { BaseDomain } from 'baseclass:domain';
+import { Mutex } from 'async-mutex';
 
 /**
  * @category REST API Server/Domains/System Admin
@@ -107,6 +108,7 @@ export class SystemAdmin extends BaseDomain {
  * @classdesc Factory for the system_admin domain.
  */
 export default class SystemAdminDomainFactory extends EVASBaseFactory {
+	static #mutex = new Mutex();
 	static #systemAdminDomainInstance = undefined;
 
 	/**
@@ -134,18 +136,22 @@ export default class SystemAdminDomainFactory extends EVASBaseFactory {
 	 * @returns {Promise<SystemAdmin>} The singleton domain instance.
 	 */
 	static async createInstances(domainInterface) {
-		if (!SystemAdminDomainFactory.#systemAdminDomainInstance) {
-			const usersDomainInstance = new SystemAdmin(
-				SystemAdminDomainFactory['$disk_unc'],
-				domainInterface
-			);
+		return await SystemAdminDomainFactory.#mutex?.runExclusive?.(
+			async () => {
+				if (!SystemAdminDomainFactory.#systemAdminDomainInstance) {
+					const usersDomainInstance = new SystemAdmin(
+						SystemAdminDomainFactory['$disk_unc'],
+						domainInterface
+					);
 
-			await usersDomainInstance?.load?.();
-			SystemAdminDomainFactory.#systemAdminDomainInstance =
-				usersDomainInstance;
-		}
+					await usersDomainInstance?.load?.();
+					SystemAdminDomainFactory.#systemAdminDomainInstance =
+						usersDomainInstance;
+				}
 
-		return SystemAdminDomainFactory.#systemAdminDomainInstance;
+				return SystemAdminDomainFactory.#systemAdminDomainInstance;
+			}
+		);
 	}
 
 	/**
@@ -162,8 +168,10 @@ export default class SystemAdminDomainFactory extends EVASBaseFactory {
 	 * @returns {Promise<void>} Resolves after the instance is unloaded.
 	 */
 	static async destroyInstances() {
-		await SystemAdminDomainFactory.#systemAdminDomainInstance?.unload?.();
-		SystemAdminDomainFactory.#systemAdminDomainInstance = undefined;
+		await SystemAdminDomainFactory.#mutex?.runExclusive?.(async () => {
+			await SystemAdminDomainFactory.#systemAdminDomainInstance?.unload?.();
+			SystemAdminDomainFactory.#systemAdminDomainInstance = undefined;
+		});
 	}
 
 	/**

@@ -36,7 +36,7 @@ const getSystemAdminDetails = async function getSystemAdminDetails(
 
 	let primaryLocale = undefined;
 	const localeDetails = await databaseRepository?.raw?.(
-		`SELECT locale_id FROM system_admin_locales WHERE user_id = ? AND is_primary = true`,
+		`SELECT locale_id FROM system_admin_locales WHERE system_admin_id = ? AND is_primary = true`,
 		[userId]
 	);
 	primaryLocale = localeDetails?.rows?.shift?.()?.locale_id;
@@ -52,7 +52,7 @@ const getSystemAdminDetails = async function getSystemAdminDetails(
 			FROM
 				system_admin_names_by_locale
 			WHERE
-				user_id = ? AND
+				system_admin_id = ? AND
 				locale_id = ?
 			LIMIT 1`,
 			[userId, primaryLocale]
@@ -67,7 +67,7 @@ const getSystemAdminDetails = async function getSystemAdminDetails(
 			FROM
 				system_admin_names_by_locale
 			WHERE
-				user_id = ?
+				system_admin_id = ?
 			LIMIT 1`,
 			[userId]
 		);
@@ -94,7 +94,7 @@ const getSystemAdminDetails = async function getSystemAdminDetails(
 	cachedUser['gender'] = genderDetails?.rows?.[0];
 
 	const contactDetails = await databaseRepository?.raw?.(
-		`SELECT A.id, B.name as type, A.contact AS contact, A.verified AS verified, A.is_primary FROM user_contacts A INNER JOIN contact_type_master B ON (A.contact_type_id = B.id) WHERE A.user_id = ?`,
+		`SELECT A.id, B.name as type, A.contact AS contact, A.verified AS verified, A.is_primary FROM system_admin_contacts A INNER JOIN contact_type_master B ON (A.contact_type_id = B.id) WHERE A.system_admin_id = ?`,
 		[userId]
 	);
 	cachedUser['contacts'] = contactDetails?.rows;
@@ -116,7 +116,7 @@ const getSystemAdminDetails = async function getSystemAdminDetails(
 			ON
 				A.locale_id = B.locale_code
 			WHERE
-				A.user_id = ? AND
+				A.system_admin_id = ? AND
 				B.locale_id = ?`,
 			[userId, primaryLocale]
 		);
@@ -133,7 +133,7 @@ const getSystemAdminDetails = async function getSystemAdminDetails(
 			ON
 				A.locale_id = B.locale_code
 			 WHERE
-				A.user_id = ?`,
+				A.system_admin_id = ?`,
 			[userId]
 		);
 	}

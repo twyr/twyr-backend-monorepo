@@ -15,6 +15,7 @@ import { ServerLifecycleManagerFactory } from '@twyr/framework-classes';
 
 import { APIRegistry } from '@twyr/api-registry';
 import { IocContainer } from '@twyr/server-dependency-manager';
+import { Mutex } from 'async-mutex';
 
 /**
  * @category REST API Server/Bootstrap
@@ -186,14 +187,18 @@ export default class ApplicationServerFactory extends EVASBaseFactory {
 	 * @returns {ApplicationServer} - The server application instance.
 	 */
 	static async createInstances(location, serverName) {
-		if (!ApplicationServerFactory.#ApplicationServerInstance) {
-			ApplicationServerFactory.#ApplicationServerInstance =
-				new ApplicationServer(location, serverName);
+		return await ApplicationServerFactory.#mutex?.runExclusive?.(
+			async () => {
+				if (!ApplicationServerFactory.#ApplicationServerInstance) {
+					ApplicationServerFactory.#ApplicationServerInstance =
+						new ApplicationServer(location, serverName);
 
-			await ApplicationServerFactory.#ApplicationServerInstance?.load?.();
-		}
+					await ApplicationServerFactory.#ApplicationServerInstance?.load?.();
+				}
 
-		return ApplicationServerFactory.#ApplicationServerInstance;
+				return ApplicationServerFactory.#ApplicationServerInstance;
+			}
+		);
 	}
 
 	/**
@@ -212,14 +217,17 @@ export default class ApplicationServerFactory extends EVASBaseFactory {
 	 * @description Clears the cached {ApplicationServer} instances
 	 */
 	static async destroyInstances() {
-		if (!ApplicationServerFactory.#ApplicationServerInstance) return;
+		await ApplicationServerFactory.#mutex?.runExclusive?.(async () => {
+			if (!ApplicationServerFactory.#ApplicationServerInstance) return;
 
-		await ApplicationServerFactory.#ApplicationServerInstance?.unload?.();
-		ApplicationServerFactory.#ApplicationServerInstance = undefined;
+			await ApplicationServerFactory.#ApplicationServerInstance?.unload?.();
+			ApplicationServerFactory.#ApplicationServerInstance = undefined;
+		});
 	}
 	// #endregion
 
 	// #region Private Static Members
+	static #mutex = new Mutex();
 	static #ApplicationServerInstance = undefined;
 	// #endregion
 }

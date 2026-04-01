@@ -9,6 +9,7 @@
 import { EVASBaseFactory } from '@twyr/framework-classes';
 import { createErrorForPropagation } from '@twyr/error-serializer';
 import { BaseEventHandler } from 'baseclass:event-handler';
+import { Mutex } from 'async-mutex';
 
 /**
  * @category REST API Server/Domains/System Admin
@@ -225,17 +226,22 @@ export default class SessionEventHandlerFactory extends EVASBaseFactory {
 	 * @returns {Promise<Session>} Resolves to the Session event handler instance.
 	 */
 	static async createInstances(domainInterface) {
-		if (!SessionEventHandlerFactory.#eventHandlerInstance) {
-			const sessionInstance = new Session(
-				SessionEventHandlerFactory['$disk_unc'],
-				domainInterface
-			);
+		return await SessionEventHandlerFactory.#mutex?.runExclusive?.(
+			async () => {
+				if (!SessionEventHandlerFactory.#eventHandlerInstance) {
+					const sessionInstance = new Session(
+						SessionEventHandlerFactory['$disk_unc'],
+						domainInterface
+					);
 
-			await sessionInstance?.load?.();
-			SessionEventHandlerFactory.#eventHandlerInstance = sessionInstance;
-		}
+					await sessionInstance?.load?.();
+					SessionEventHandlerFactory.#eventHandlerInstance =
+						sessionInstance;
+				}
 
-		return SessionEventHandlerFactory.#eventHandlerInstance;
+				return SessionEventHandlerFactory.#eventHandlerInstance;
+			}
+		);
 	}
 
 	/**
@@ -254,10 +260,12 @@ export default class SessionEventHandlerFactory extends EVASBaseFactory {
 	 * @description Destroys the cached Session event handler instance.
 	 */
 	static async destroyInstances() {
-		await SessionEventHandlerFactory.#eventHandlerInstance?.unload?.();
-		SessionEventHandlerFactory.#eventHandlerInstance = undefined;
+		await SessionEventHandlerFactory.#mutex?.runExclusive?.(async () => {
+			await SessionEventHandlerFactory.#eventHandlerInstance?.unload?.();
+			SessionEventHandlerFactory.#eventHandlerInstance = undefined;
 
-		return;
+			return;
+		});
 	}
 	// #endregion
 
@@ -284,6 +292,7 @@ export default class SessionEventHandlerFactory extends EVASBaseFactory {
 	// #endregion
 
 	// #region Private Static Members
+	static #mutex = new Mutex();
 	static #eventHandlerInstance = undefined;
 	// #endregion
 }

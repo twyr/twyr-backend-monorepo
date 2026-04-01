@@ -8,6 +8,7 @@
  */
 import { EVASBaseFactory } from '@twyr/framework-classes';
 import { BaseBoundedContext } from 'baseclass:bounded-context';
+import { Mutex } from 'async-mutex';
 
 /**
  * @category REST API Server/Bounded Contexts
@@ -118,17 +119,19 @@ export default class BoundedContextFactory extends EVASBaseFactory {
 	 * @returns {Masterdata} - The Masterdata module instance.
 	 */
 	static async createInstances(domainInterface) {
-		if (!BoundedContextFactory.#masterdataInstance) {
-			const masterdataInstance = new Masterdata(
-				BoundedContextFactory['$disk_unc'],
-				domainInterface
-			);
+		return await BoundedContextFactory.#mutex?.runExclusive?.(async () => {
+			if (!BoundedContextFactory.#masterdataInstance) {
+				const masterdataInstance = new Masterdata(
+					BoundedContextFactory['$disk_unc'],
+					domainInterface
+				);
 
-			await masterdataInstance?.load?.();
-			BoundedContextFactory.#masterdataInstance = masterdataInstance;
-		}
+				await masterdataInstance?.load?.();
+				BoundedContextFactory.#masterdataInstance = masterdataInstance;
+			}
 
-		return BoundedContextFactory.#masterdataInstance;
+			return BoundedContextFactory.#masterdataInstance;
+		});
 	}
 
 	/**
@@ -147,10 +150,12 @@ export default class BoundedContextFactory extends EVASBaseFactory {
 	 * @description Clears the Masterdata instance
 	 */
 	static async destroyInstances() {
-		await BoundedContextFactory.#masterdataInstance?.unload?.();
-		BoundedContextFactory.#masterdataInstance = undefined;
+		await BoundedContextFactory.#mutex?.runExclusive?.(async () => {
+			await BoundedContextFactory.#masterdataInstance?.unload?.();
+			BoundedContextFactory.#masterdataInstance = undefined;
 
-		return;
+			return;
+		});
 	}
 	// #endregion
 
@@ -177,6 +182,7 @@ export default class BoundedContextFactory extends EVASBaseFactory {
 	// #endregion
 
 	// #region Private Static Members
+	static #mutex = new Mutex();
 	static #masterdataInstance = undefined;
 	// #endregion
 }

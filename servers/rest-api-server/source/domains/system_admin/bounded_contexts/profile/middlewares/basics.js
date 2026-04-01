@@ -11,6 +11,7 @@ import safeJsonStringify from 'safe-json-stringify';
 import { EVASBaseFactory } from '@twyr/framework-classes';
 import { createErrorForPropagation } from '@twyr/error-serializer';
 import { SystemAdminBaseMiddleware } from 'baseclass:middleware';
+import { Mutex } from 'async-mutex';
 
 /**
  * @category REST API Server/Domains/System Admin
@@ -227,7 +228,7 @@ export class Basics extends SystemAdminBaseMiddleware {
 			throw userError;
 		}
 
-		const nameLocaleCode = user?.locale_code;
+		const nameLocaleCode = user?.locale_id ?? user?.locale_code;
 		const userNameFields = {
 			locale_code: nameLocaleCode,
 			...(user?.first_name && { first_name: user?.first_name }),
@@ -242,10 +243,12 @@ export class Basics extends SystemAdminBaseMiddleware {
 			await this.#localizeUserNames?.(userNameFields);
 
 		delete user.id;
+		delete user.otp;
 		delete user.first_name;
 		delete user.middle_names;
 		delete user.last_name;
 		delete user.nickname;
+		delete user.locale_id;
 		delete user.locale_code;
 		delete user.created_at;
 		delete user.updated_at;
@@ -257,7 +260,7 @@ export class Basics extends SystemAdminBaseMiddleware {
 
 			try {
 				createdUser = await UserModel?.query?.(trx)?.insertAndFetch?.({
-					mobile_no: user?.mobile_no
+					...user
 				});
 
 				const locales = Object.keys?.(localizedUserNames) ?? [];
@@ -265,14 +268,14 @@ export class Basics extends SystemAdminBaseMiddleware {
 					// eslint-disable-next-line security/detect-object-injection
 					const localizedUserName = localizedUserNames[locale];
 					await UserNameByLocaleModel?.query?.(trx)?.insert?.({
-						user_id: createdUser?.id,
+						system_admin_id: createdUser?.id,
 						...localizedUserName
 					});
 				}
 
 				if (nameLocaleCode) {
 					await UserLocaleModel?.query?.(trx)?.insert?.({
-						user_id: createdUser?.id,
+						system_admin_id: createdUser?.id,
 						locale_id: nameLocaleCode,
 						is_primary: true
 					});
@@ -323,10 +326,9 @@ export class Basics extends SystemAdminBaseMiddleware {
 	 * @returns {Promise<object>} HTTP response data for the stored profile.
 	 */
 	async #readBasics({ user, locale }) {
-		const Models = await this?._getModelsFromDomain?.([
+		const UserModel = await this?._getModelsFromDomain?.([
 			{ type: 'relational', name: 'system-admin' }
 		]);
-		const UserModel = Models?.[0];
 
 		let relationshipSet = new Set([
 			'contacts.[contactType]',
@@ -413,12 +415,17 @@ export class Basics extends SystemAdminBaseMiddleware {
 				data
 			);
 
+		delete dataToBeUpdated.id;
 		delete dataToBeUpdated.created_at;
 		delete dataToBeUpdated.updated_at;
 		delete dataToBeUpdated.is_deleted;
 		delete dataToBeUpdated.otp;
 		const nameLocaleCode =
-			dataToBeUpdated?.locale_code ?? user?.locale_code ?? 'en-IN';
+			dataToBeUpdated?.locale_id ??
+			dataToBeUpdated?.locale_code ??
+			user?.locale_id ??
+			user?.locale_code ??
+			'en-IN';
 		const userNameFields = {
 			locale_code: nameLocaleCode,
 			...(Object.hasOwn(dataToBeUpdated ?? {}, 'first_name') && {
@@ -438,7 +445,7 @@ export class Basics extends SystemAdminBaseMiddleware {
 		let existingNameRecords = await this?._executeWithBackOff?.(
 			async () => {
 				return UserNameByLocaleModel?.query?.()
-					?.where?.('user_id', '=', user?.id)
+					?.where?.('system_admin_id', '=', user?.id)
 					?.select?.('id', 'locale_id');
 			}
 		);
@@ -454,6 +461,7 @@ export class Basics extends SystemAdminBaseMiddleware {
 				)
 			: undefined;
 
+		delete dataToBeUpdated.locale_id;
 		delete dataToBeUpdated.locale_code;
 		delete dataToBeUpdated.first_name;
 		delete dataToBeUpdated.middle_names;
@@ -466,9 +474,7 @@ export class Basics extends SystemAdminBaseMiddleware {
 
 			try {
 				await UserModel?.query?.(trx)?.patchAndFetchById?.(user?.id, {
-					...(dataToBeUpdated?.mobile_no && {
-						mobile_no: dataToBeUpdated?.mobile_no
-					})
+					...dataToBeUpdated
 				});
 
 				if (localizedUserNames) {
@@ -495,7 +501,7 @@ export class Basics extends SystemAdminBaseMiddleware {
 						}
 
 						await UserNameByLocaleModel?.query?.(trx)?.insert?.({
-							user_id: user?.id,
+							system_admin_id: user?.id,
 							...localizedUserName
 						});
 					}
@@ -536,10 +542,9 @@ export class Basics extends SystemAdminBaseMiddleware {
 	 * @returns {Promise<object>} HTTP response data for the delete operation.
 	 */
 	async #deleteBasics({ user }) {
-		const Models = await this?._getModelsFromDomain?.([
+		const UserModel = await this?._getModelsFromDomain?.([
 			{ type: 'relational', name: 'system-admin' }
 		]);
-		const UserModel = Models?.[0];
 
 		await this?._executeWithBackOff?.(async () => {
 			return UserModel?.query?.().patchAndFetchById?.(user?.id, {
@@ -709,7 +714,7 @@ export class Basics extends SystemAdminBaseMiddleware {
 		const localizedNameRecord = await this?._executeWithBackOff?.(
 			async () => {
 				return UserNameByLocaleModel?.query?.().insertAndFetch?.({
-					user_id: user?.id,
+					system_admin_id: user?.id,
 					// eslint-disable-next-line security/detect-object-injection
 					...localizedUserNames?.[locale]
 				});
@@ -741,6 +746,7 @@ export class Basics extends SystemAdminBaseMiddleware {
  * @classdesc Factory for the profile basics middleware.
  */
 export default class BasicsMiddlewareFactory extends EVASBaseFactory {
+	static #mutex = new Mutex();
 	static #basicsInstance = undefined;
 
 	/**
@@ -768,17 +774,21 @@ export default class BasicsMiddlewareFactory extends EVASBaseFactory {
 	 * @returns {Promise<Basics>} The singleton middleware instance.
 	 */
 	static async createInstances(domainInterface) {
-		if (!BasicsMiddlewareFactory.#basicsInstance) {
-			const basicsInstance = new Basics(
-				BasicsMiddlewareFactory['$disk_unc'],
-				domainInterface
-			);
+		return await BasicsMiddlewareFactory.#mutex?.runExclusive?.(
+			async () => {
+				if (!BasicsMiddlewareFactory.#basicsInstance) {
+					const basicsInstance = new Basics(
+						BasicsMiddlewareFactory['$disk_unc'],
+						domainInterface
+					);
 
-			await basicsInstance?.load?.();
-			BasicsMiddlewareFactory.#basicsInstance = basicsInstance;
-		}
+					await basicsInstance?.load?.();
+					BasicsMiddlewareFactory.#basicsInstance = basicsInstance;
+				}
 
-		return BasicsMiddlewareFactory.#basicsInstance;
+				return BasicsMiddlewareFactory.#basicsInstance;
+			}
+		);
 	}
 
 	/**
@@ -795,8 +805,10 @@ export default class BasicsMiddlewareFactory extends EVASBaseFactory {
 	 * @returns {Promise<void>} Resolves after the instance is unloaded.
 	 */
 	static async destroyInstances() {
-		await BasicsMiddlewareFactory.#basicsInstance?.unload?.();
-		BasicsMiddlewareFactory.#basicsInstance = undefined;
+		await BasicsMiddlewareFactory.#mutex?.runExclusive?.(async () => {
+			await BasicsMiddlewareFactory.#basicsInstance?.unload?.();
+			BasicsMiddlewareFactory.#basicsInstance = undefined;
+		});
 	}
 
 	/**

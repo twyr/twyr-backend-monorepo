@@ -8,6 +8,7 @@
  */
 import { EVASBaseFactory } from '@twyr/framework-classes';
 import { BaseBoundedContext } from 'baseclass:bounded-context';
+import { Mutex } from 'async-mutex';
 
 /**
  * @category REST API Server/Domains/System Admin
@@ -114,17 +115,22 @@ export default class ProfileBoundedContextFactory extends EVASBaseFactory {
 	 * @returns {Profile} - The Profile module instance.
 	 */
 	static async createInstances(domainInterface) {
-		if (!ProfileBoundedContextFactory.#profileInstance) {
-			const profileInstance = new Profile(
-				ProfileBoundedContextFactory['$disk_unc'],
-				domainInterface
-			);
+		return await ProfileBoundedContextFactory.#mutex?.runExclusive?.(
+			async () => {
+				if (!ProfileBoundedContextFactory.#profileInstance) {
+					const profileInstance = new Profile(
+						ProfileBoundedContextFactory['$disk_unc'],
+						domainInterface
+					);
 
-			await profileInstance?.load?.();
-			ProfileBoundedContextFactory.#profileInstance = profileInstance;
-		}
+					await profileInstance?.load?.();
+					ProfileBoundedContextFactory.#profileInstance =
+						profileInstance;
+				}
 
-		return ProfileBoundedContextFactory.#profileInstance;
+				return ProfileBoundedContextFactory.#profileInstance;
+			}
+		);
 	}
 
 	/**
@@ -143,10 +149,12 @@ export default class ProfileBoundedContextFactory extends EVASBaseFactory {
 	 * @description Clears the Profile instance
 	 */
 	static async destroyInstances() {
-		await ProfileBoundedContextFactory.#profileInstance?.unload?.();
-		ProfileBoundedContextFactory.#profileInstance = undefined;
+		await ProfileBoundedContextFactory.#mutex?.runExclusive?.(async () => {
+			await ProfileBoundedContextFactory.#profileInstance?.unload?.();
+			ProfileBoundedContextFactory.#profileInstance = undefined;
 
-		return;
+			return;
+		});
 	}
 	// #endregion
 
@@ -172,6 +180,7 @@ export default class ProfileBoundedContextFactory extends EVASBaseFactory {
 	// #endregion
 
 	// #region Private Static Members
+	static #mutex = new Mutex();
 	static #profileInstance = undefined;
 	// #endregion
 }

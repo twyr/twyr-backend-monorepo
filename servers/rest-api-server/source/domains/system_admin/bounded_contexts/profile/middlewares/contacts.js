@@ -9,6 +9,7 @@
 import { EVASBaseFactory } from '@twyr/framework-classes';
 import { createErrorForPropagation } from '@twyr/error-serializer';
 import { SystemAdminBaseMiddleware } from 'baseclass:middleware';
+import { Mutex } from 'async-mutex';
 
 /**
  * @category REST API Server/Domains/System Admin
@@ -343,17 +344,22 @@ export default class ContactsMiddlewareFactory extends EVASBaseFactory {
 	 * @returns {Contacts} - The Contacts middleware instance.
 	 */
 	static async createInstances(domainInterface) {
-		if (!ContactsMiddlewareFactory.#contactsInstance) {
-			const contactsInstance = new Contacts(
-				ContactsMiddlewareFactory['$disk_unc'],
-				domainInterface
-			);
+		return await ContactsMiddlewareFactory.#mutex?.runExclusive?.(
+			async () => {
+				if (!ContactsMiddlewareFactory.#contactsInstance) {
+					const contactsInstance = new Contacts(
+						ContactsMiddlewareFactory['$disk_unc'],
+						domainInterface
+					);
 
-			await contactsInstance?.load?.();
-			ContactsMiddlewareFactory.#contactsInstance = contactsInstance;
-		}
+					await contactsInstance?.load?.();
+					ContactsMiddlewareFactory.#contactsInstance =
+						contactsInstance;
+				}
 
-		return ContactsMiddlewareFactory.#contactsInstance;
+				return ContactsMiddlewareFactory.#contactsInstance;
+			}
+		);
 	}
 
 	/**
@@ -372,9 +378,11 @@ export default class ContactsMiddlewareFactory extends EVASBaseFactory {
 	 * @description Clears the Contacts instance
 	 */
 	static async destroyInstances() {
-		await ContactsMiddlewareFactory.#contactsInstance?.unload?.();
-		ContactsMiddlewareFactory.#contactsInstance = undefined;
-		return;
+		await ContactsMiddlewareFactory.#mutex?.runExclusive?.(async () => {
+			await ContactsMiddlewareFactory.#contactsInstance?.unload?.();
+			ContactsMiddlewareFactory.#contactsInstance = undefined;
+			return;
+		});
 	}
 	// #endregion
 
@@ -401,6 +409,7 @@ export default class ContactsMiddlewareFactory extends EVASBaseFactory {
 	// #endregion
 
 	// #region Private Static Members
+	static #mutex = new Mutex();
 	static #contactsInstance = undefined;
 	// #endregion
 }

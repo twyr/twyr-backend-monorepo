@@ -8,6 +8,7 @@
  */
 import { EVASBaseFactory } from '@twyr/framework-classes';
 import { BaseDomain } from 'baseclass:domain';
+import { Mutex } from 'async-mutex';
 
 /**
  * @category REST API Server/Domains/Users
@@ -107,6 +108,7 @@ export class Users extends BaseDomain {
  * @classdesc Factory for the users domain.
  */
 export default class UsersDomainFactory extends EVASBaseFactory {
+	static #mutex = new Mutex();
 	static #usersDomainInstance = undefined;
 
 	/**
@@ -134,17 +136,19 @@ export default class UsersDomainFactory extends EVASBaseFactory {
 	 * @returns {Promise<Users>} The singleton domain instance.
 	 */
 	static async createInstances(domainInterface) {
-		if (!UsersDomainFactory.#usersDomainInstance) {
-			const usersDomainInstance = new Users(
-				UsersDomainFactory['$disk_unc'],
-				domainInterface
-			);
+		return await UsersDomainFactory.#mutex?.runExclusive?.(async () => {
+			if (!UsersDomainFactory.#usersDomainInstance) {
+				const usersDomainInstance = new Users(
+					UsersDomainFactory['$disk_unc'],
+					domainInterface
+				);
 
-			await usersDomainInstance?.load?.();
-			UsersDomainFactory.#usersDomainInstance = usersDomainInstance;
-		}
+				await usersDomainInstance?.load?.();
+				UsersDomainFactory.#usersDomainInstance = usersDomainInstance;
+			}
 
-		return UsersDomainFactory.#usersDomainInstance;
+			return UsersDomainFactory.#usersDomainInstance;
+		});
 	}
 
 	/**
@@ -161,8 +165,10 @@ export default class UsersDomainFactory extends EVASBaseFactory {
 	 * @returns {Promise<void>} Resolves after the instance is unloaded.
 	 */
 	static async destroyInstances() {
-		await UsersDomainFactory.#usersDomainInstance?.unload?.();
-		UsersDomainFactory.#usersDomainInstance = undefined;
+		await UsersDomainFactory.#mutex?.runExclusive?.(async () => {
+			await UsersDomainFactory.#usersDomainInstance?.unload?.();
+			UsersDomainFactory.#usersDomainInstance = undefined;
+		});
 	}
 
 	/**

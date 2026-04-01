@@ -56,11 +56,11 @@ export class SystemAdminBaseMiddleware extends BaseMiddleware {
 		delete userEntity.created_at;
 		delete userEntity.updated_at;
 
-		userEntity.user_id = data?.user?.id;
+		userEntity.system_admin_id = data?.user?.id;
 
 		let existingEntityCount = await EntityModel?.query?.()
 			?.count?.('* as count')
-			?.where?.('user_id', '=', data?.user?.id)
+			?.where?.('system_admin_id', '=', data?.user?.id)
 			?.first?.();
 		existingEntityCount = Number?.parseInt?.(existingEntityCount?.count);
 		if (!existingEntityCount) userEntity.is_primary = true;
@@ -106,14 +106,14 @@ export class SystemAdminBaseMiddleware extends BaseMiddleware {
 		if (!data?.entityId) {
 			userEntities = await this?._executeWithBackOff?.(async () => {
 				return EntityModel?.query?.()
-					?.where?.('user_id', '=', data?.user?.id)
+					?.where?.('system_admin_id', '=', data?.user?.id)
 					?.withGraphFetched?.(data?.relationships);
 			});
 		} else {
 			userEntities = await this?._executeWithBackOff?.(async () => {
 				return EntityModel?.query?.()
 					?.where?.('id', '=', data?.entityId)
-					?.andWhere?.('user_id', '=', data?.user?.id)
+					?.andWhere?.('system_admin_id', '=', data?.user?.id)
 					?.withGraphFetched?.(data?.relationships);
 			});
 		}
@@ -152,13 +152,13 @@ export class SystemAdminBaseMiddleware extends BaseMiddleware {
 
 		delete userEntity.created_at;
 		delete userEntity.updated_at;
-		userEntity.user_id = data?.user?.id;
+		userEntity.system_admin_id = data?.user?.id;
 
 		const entityBelongsToUser = await this?._executeWithBackOff?.(
 			async () => {
 				return EntityModel?.query?.()
 					?.where?.('id', '=', userEntity?.id)
-					?.andWhere?.('user_id', '=', data?.user?.id)
+					?.andWhere?.('system_admin_id', '=', data?.user?.id)
 					?.first?.();
 			}
 		);
@@ -215,7 +215,7 @@ export class SystemAdminBaseMiddleware extends BaseMiddleware {
 			async () => {
 				return EntityModel?.query?.()
 					?.where?.('id', '=', data?.entityId)
-					?.andWhere?.('user_id', '=', data?.user?.id)
+					?.andWhere?.('system_admin_id', '=', data?.user?.id)
 					?.first?.();
 			}
 		);
@@ -234,7 +234,7 @@ export class SystemAdminBaseMiddleware extends BaseMiddleware {
 		await this?._executeWithBackOff?.(async () => {
 			return EntityModel?.query?.()
 				?.deleteById?.(data?.entityId)
-				?.andWhere?.('user_id', '=', data?.user?.id);
+				?.andWhere?.('system_admin_id', '=', data?.user?.id);
 		});
 
 		this?.domainInterface?.eventEmitter?.emit?.(

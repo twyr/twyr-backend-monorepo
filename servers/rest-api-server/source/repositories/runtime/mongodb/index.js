@@ -97,18 +97,17 @@ class MongoDB extends EVASBaseRepository {
 		let mongoose = await import('mongoose');
 		mongoose = mongoose?.['default'];
 
-		mongoose?.set?.('strictQuery', true);
-		mongoose?.connection?.on?.(
-			'error',
-			this.#mongoConnectionError.bind(this)
-		);
+		const MongooseClass = mongoose?.Mongoose;
+		this.#mongooseRoot = new MongooseClass();
+		this.#mongooseRoot?.set?.('strictQuery', true);
 
 		// Step 3: Open a connection to the server
 		let connectionString = `mongodb://${configuration?.user}:${configuration?.pass}@${configuration?.host}:${configuration?.port}/${configuration?.dbName}?retryWrites=true&w=majority`;
 		if (configuration?.authSource) {
 			connectionString += `&authSource=${configuration?.authSource}`;
 		}
-		this.#mongoose = await mongoose?.createConnection?.(connectionString);
+		this.#mongoose =
+			await this.#mongooseRoot?.createConnection?.(connectionString);
 
 		// Step 4: Error Handler
 		this.#mongoose?.on?.('error', this.#mongoConnectionError.bind(this));
@@ -136,6 +135,7 @@ class MongoDB extends EVASBaseRepository {
 
 		await this.#mongoose?.close?.();
 		this.#mongoose = undefined;
+		this.#mongooseRoot = undefined;
 
 		await super.unload?.();
 	}
@@ -186,6 +186,7 @@ class MongoDB extends EVASBaseRepository {
 	// #endregion
 
 	// #region Private Fields
+	#mongooseRoot = undefined;
 	#mongoose = undefined;
 	// #endregion
 }

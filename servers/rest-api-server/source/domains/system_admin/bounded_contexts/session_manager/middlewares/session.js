@@ -12,6 +12,7 @@ import { DateTime } from 'luxon';
 import { EVASBaseFactory } from '@twyr/framework-classes';
 import { createErrorForPropagation } from '@twyr/error-serializer';
 import { BaseMiddleware } from 'baseclass:middleware';
+import { Mutex } from 'async-mutex';
 
 /**
  * @category REST API Server/Domains/System Admin
@@ -422,17 +423,21 @@ export default class SessionMiddlewareFactory extends EVASBaseFactory {
 	 * @returns {Promise<Session>} Resolves to the Session middleware instance.
 	 */
 	static async createInstances(domainInterface) {
-		if (!SessionMiddlewareFactory.#sessionInstance) {
-			const sessionInstance = new Session(
-				SessionMiddlewareFactory['$disk_unc'],
-				domainInterface
-			);
+		return await SessionMiddlewareFactory.#mutex?.runExclusive?.(
+			async () => {
+				if (!SessionMiddlewareFactory.#sessionInstance) {
+					const sessionInstance = new Session(
+						SessionMiddlewareFactory['$disk_unc'],
+						domainInterface
+					);
 
-			await sessionInstance?.load?.();
-			SessionMiddlewareFactory.#sessionInstance = sessionInstance;
-		}
+					await sessionInstance?.load?.();
+					SessionMiddlewareFactory.#sessionInstance = sessionInstance;
+				}
 
-		return SessionMiddlewareFactory.#sessionInstance;
+				return SessionMiddlewareFactory.#sessionInstance;
+			}
+		);
 	}
 
 	/**
@@ -451,10 +456,12 @@ export default class SessionMiddlewareFactory extends EVASBaseFactory {
 	 * @description Destroys the cached Session middleware instance.
 	 */
 	static async destroyInstances() {
-		await SessionMiddlewareFactory.#sessionInstance?.unload?.();
-		SessionMiddlewareFactory.#sessionInstance = undefined;
+		await SessionMiddlewareFactory.#mutex?.runExclusive?.(async () => {
+			await SessionMiddlewareFactory.#sessionInstance?.unload?.();
+			SessionMiddlewareFactory.#sessionInstance = undefined;
 
-		return;
+			return;
+		});
 	}
 	// #endregion
 
@@ -481,6 +488,7 @@ export default class SessionMiddlewareFactory extends EVASBaseFactory {
 	// #endregion
 
 	// #region Private Static Members
+	static #mutex = new Mutex();
 	static #sessionInstance = undefined;
 	// #endregion
 }

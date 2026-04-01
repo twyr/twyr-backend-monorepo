@@ -8,6 +8,7 @@
  */
 import { EVASBaseFactory } from '@twyr/framework-classes';
 import { BaseBoundedContext } from 'baseclass:bounded-context';
+import { Mutex } from 'async-mutex';
 
 /**
  * @category REST API Server/Domains/Users
@@ -119,18 +120,25 @@ export default class SessionManagerBoundedContextFactory extends EVASBaseFactory
 	 * @returns {Promise<SessionManager>} Resolves to the SessionManager instance.
 	 */
 	static async createInstances(domainInterface) {
-		if (!SessionManagerBoundedContextFactory.#sessionManagerInstance) {
-			const sessionManagerInstance = new SessionManager(
-				SessionManagerBoundedContextFactory['$disk_unc'],
-				domainInterface
-			);
+		return await SessionManagerBoundedContextFactory.#mutex?.runExclusive?.(
+			async () => {
+				if (
+					!SessionManagerBoundedContextFactory.#sessionManagerInstance
+				) {
+					const sessionManagerInstance = new SessionManager(
+						SessionManagerBoundedContextFactory['$disk_unc'],
+						domainInterface
+					);
 
-			await sessionManagerInstance?.load?.();
-			SessionManagerBoundedContextFactory.#sessionManagerInstance =
-				sessionManagerInstance;
-		}
+					await sessionManagerInstance?.load?.();
+					SessionManagerBoundedContextFactory.#sessionManagerInstance =
+						sessionManagerInstance;
+				}
 
-		return SessionManagerBoundedContextFactory.#sessionManagerInstance;
+				return SessionManagerBoundedContextFactory
+					.#sessionManagerInstance;
+			}
+		);
 	}
 
 	/**
@@ -149,10 +157,15 @@ export default class SessionManagerBoundedContextFactory extends EVASBaseFactory
 	 * @description Destroys the cached SessionManager instance.
 	 */
 	static async destroyInstances() {
-		await SessionManagerBoundedContextFactory.#sessionManagerInstance?.unload?.();
-		SessionManagerBoundedContextFactory.#sessionManagerInstance = undefined;
+		await SessionManagerBoundedContextFactory.#mutex?.runExclusive?.(
+			async () => {
+				await SessionManagerBoundedContextFactory.#sessionManagerInstance?.unload?.();
+				SessionManagerBoundedContextFactory.#sessionManagerInstance =
+					undefined;
 
-		return;
+				return;
+			}
+		);
 	}
 	// #endregion
 
@@ -179,6 +192,7 @@ export default class SessionManagerBoundedContextFactory extends EVASBaseFactory
 	// #endregion
 
 	// #region Private Static Members
+	static #mutex = new Mutex();
 	static #sessionManagerInstance = undefined;
 	// #endregion
 }

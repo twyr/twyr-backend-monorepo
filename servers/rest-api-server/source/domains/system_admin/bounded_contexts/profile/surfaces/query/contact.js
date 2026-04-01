@@ -8,6 +8,7 @@
  */
 import { EVASBaseFactory } from '@twyr/framework-classes';
 import { SystemAdminBaseSurface } from 'baseclass:surface';
+import { Mutex } from 'async-mutex';
 
 /**
  * @category REST API Server/Domains/System Admin
@@ -196,17 +197,19 @@ export default class ContactSurfaceFactory extends EVASBaseFactory {
 	 * @returns {Contact} - The Contact surface instance.
 	 */
 	static async createInstances(domainInterface) {
-		if (!ContactSurfaceFactory.#contactInstance) {
-			const contactInstance = new Contact(
-				ContactSurfaceFactory['$disk_unc'],
-				domainInterface
-			);
+		return await ContactSurfaceFactory.#mutex?.runExclusive?.(async () => {
+			if (!ContactSurfaceFactory.#contactInstance) {
+				const contactInstance = new Contact(
+					ContactSurfaceFactory['$disk_unc'],
+					domainInterface
+				);
 
-			await contactInstance?.load?.();
-			ContactSurfaceFactory.#contactInstance = contactInstance;
-		}
+				await contactInstance?.load?.();
+				ContactSurfaceFactory.#contactInstance = contactInstance;
+			}
 
-		return ContactSurfaceFactory.#contactInstance;
+			return ContactSurfaceFactory.#contactInstance;
+		});
 	}
 
 	/**
@@ -225,9 +228,11 @@ export default class ContactSurfaceFactory extends EVASBaseFactory {
 	 * @description Clears the Contact instance
 	 */
 	static async destroyInstances() {
-		await ContactSurfaceFactory.#contactInstance?.unload?.();
-		ContactSurfaceFactory.#contactInstance = undefined;
-		return;
+		await ContactSurfaceFactory.#mutex?.runExclusive?.(async () => {
+			await ContactSurfaceFactory.#contactInstance?.unload?.();
+			ContactSurfaceFactory.#contactInstance = undefined;
+			return;
+		});
 	}
 	// #endregion
 
@@ -254,6 +259,7 @@ export default class ContactSurfaceFactory extends EVASBaseFactory {
 	// #endregion
 
 	// #region Private Static Members
+	static #mutex = new Mutex();
 	static #contactInstance = undefined;
 	// #endregion
 }

@@ -9,6 +9,7 @@
 import Joi from 'joi';
 import { EVASBaseFactory } from '@twyr/framework-classes';
 import { MedicoBaseSurface } from 'baseclass:surface';
+import { Mutex } from 'async-mutex';
 
 const HTTP_ERROR_UNPROCESSABLE_CONTENT = 422;
 
@@ -170,7 +171,7 @@ export class Locale extends MedicoBaseSurface {
 								'EVASERVER::VALIDATION_ERROR::ANY_REQUIRED'
 						}),
 					attributes: Joi.object({
-						locale_code: Joi.string().required().messages({
+						locale_id: Joi.string().required().messages({
 							'string.base':
 								'EVASERVER::VALIDATION_ERROR::STRING_BASE',
 							'any.required':
@@ -211,7 +212,7 @@ export class Locale extends MedicoBaseSurface {
 								'EVASERVER::VALIDATION_ERROR::STRING_GUID'
 						}),
 					attributes: Joi.object({
-						locale_code: Joi.string().optional(),
+						locale_id: Joi.string().optional(),
 						is_primary: Joi.boolean().optional()
 					}).required()
 				})
@@ -245,8 +246,8 @@ export class Locale extends MedicoBaseSurface {
 	 * @description Creates a new locale for the logged in user. The
 	 * `user_id` relationship is derived from `user?.id`.
 	 * @example
-	 * // Given the following input data [./servers/curl_example_data/user_profile_locale_create.json]:
-	 * $ curl -X POST -H "Content-Type: application/json" -b ./cookies.txt -d @./servers/curl_example_data/user_profile_locale_create.json ${base_url}/api/v1/users/profile/locale/create
+	 * // Given the following input data [./servers/curl_example_data/api_v1_users_profile_locale_create.json]:
+	 * $ curl -X POST -H "Content-Type: application/json" -b ./cookies.txt -d @./servers/curl_example_data/api_v1_users_profile_locale_create.json ${base_url}/api/v1/users/profile/locale/create
 	 */
 	async #createLocale(ctxt) {
 		const createLocaleSchema = this.#validationSchemaMap?.get(
@@ -305,8 +306,8 @@ export class Locale extends MedicoBaseSurface {
 	 * @description Updates an existing locale for the logged in user. The
 	 * `user_id` relationship is derived from `user?.id`.
 	 * @example
-	 * // Given the following input data [./servers/curl_example_data/user_profile_locale_update.json]:
-	 * $ curl -X PATCH -H "Content-Type: application/json" -b ./cookies.txt -d @./servers/curl_example_data/user_profile_locale_update.json ${base_url}/api/v1/users/profile/locale/update
+	 * // Given the following input data [./servers/curl_example_data/api_v1_users_profile_locale_update.json]:
+	 * $ curl -X PATCH -H "Content-Type: application/json" -b ./cookies.txt -d @./servers/curl_example_data/api_v1_users_profile_locale_update.json ${base_url}/api/v1/users/profile/locale/update
 	 */
 	async #updateLocale(ctxt) {
 		const updateLocaleSchema = this.#validationSchemaMap?.get(
@@ -428,17 +429,19 @@ export default class LocaleSurfaceFactory extends EVASBaseFactory {
 	 * @returns {Locale} - The Locale surface instance.
 	 */
 	static async createInstances(domainInterface) {
-		if (!LocaleSurfaceFactory.#localeInstance) {
-			const localeInstance = new Locale(
-				LocaleSurfaceFactory['$disk_unc'],
-				domainInterface
-			);
+		return await LocaleSurfaceFactory.#mutex?.runExclusive?.(async () => {
+			if (!LocaleSurfaceFactory.#localeInstance) {
+				const localeInstance = new Locale(
+					LocaleSurfaceFactory['$disk_unc'],
+					domainInterface
+				);
 
-			await localeInstance?.load?.();
-			LocaleSurfaceFactory.#localeInstance = localeInstance;
-		}
+				await localeInstance?.load?.();
+				LocaleSurfaceFactory.#localeInstance = localeInstance;
+			}
 
-		return LocaleSurfaceFactory.#localeInstance;
+			return LocaleSurfaceFactory.#localeInstance;
+		});
 	}
 
 	/**
@@ -457,9 +460,11 @@ export default class LocaleSurfaceFactory extends EVASBaseFactory {
 	 * @description Clears the Locale instance
 	 */
 	static async destroyInstances() {
-		await LocaleSurfaceFactory.#localeInstance?.unload?.();
-		LocaleSurfaceFactory.#localeInstance = undefined;
-		return;
+		await LocaleSurfaceFactory.#mutex?.runExclusive?.(async () => {
+			await LocaleSurfaceFactory.#localeInstance?.unload?.();
+			LocaleSurfaceFactory.#localeInstance = undefined;
+			return;
+		});
 	}
 	// #endregion
 
@@ -486,6 +491,7 @@ export default class LocaleSurfaceFactory extends EVASBaseFactory {
 	// #endregion
 
 	// #region Private Static Members
+	static #mutex = new Mutex();
 	static #localeInstance = undefined;
 	// #endregion
 }

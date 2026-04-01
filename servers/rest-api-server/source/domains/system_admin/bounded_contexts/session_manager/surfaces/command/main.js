@@ -10,6 +10,7 @@ import Joi from 'joi';
 
 import { EVASBaseFactory } from '@twyr/framework-classes';
 import { SystemAdminBaseSurface } from '../../../../base_classes/surface.js';
+import { Mutex } from 'async-mutex';
 
 const HTTP_ERROR_FORBIDDEN = 403;
 const HTTP_ERROR_UNPROCESSABLE_CONTENT = 422;
@@ -587,17 +588,19 @@ export default class MainSurfaceFactory extends EVASBaseFactory {
 	 * @returns {Promise<Main>} Resolves to the Main surface instance.
 	 */
 	static async createInstances(domainInterface) {
-		if (!MainSurfaceFactory.#mainInstance) {
-			const mainInstance = new Main(
-				MainSurfaceFactory['$disk_unc'],
-				domainInterface
-			);
+		return await MainSurfaceFactory.#mutex?.runExclusive?.(async () => {
+			if (!MainSurfaceFactory.#mainInstance) {
+				const mainInstance = new Main(
+					MainSurfaceFactory['$disk_unc'],
+					domainInterface
+				);
 
-			await mainInstance?.load?.();
-			MainSurfaceFactory.#mainInstance = mainInstance;
-		}
+				await mainInstance?.load?.();
+				MainSurfaceFactory.#mainInstance = mainInstance;
+			}
 
-		return MainSurfaceFactory.#mainInstance;
+			return MainSurfaceFactory.#mainInstance;
+		});
 	}
 
 	/**
@@ -616,10 +619,12 @@ export default class MainSurfaceFactory extends EVASBaseFactory {
 	 * @description Destroys the cached Main command surface instance.
 	 */
 	static async destroyInstances() {
-		await MainSurfaceFactory.#mainInstance?.unload?.();
-		MainSurfaceFactory.#mainInstance = undefined;
+		await MainSurfaceFactory.#mutex?.runExclusive?.(async () => {
+			await MainSurfaceFactory.#mainInstance?.unload?.();
+			MainSurfaceFactory.#mainInstance = undefined;
 
-		return;
+			return;
+		});
 	}
 	// #endregion
 
@@ -646,6 +651,7 @@ export default class MainSurfaceFactory extends EVASBaseFactory {
 	// #endregion
 
 	// #region Private Static Members
+	static #mutex = new Mutex();
 	static #mainInstance = undefined;
 	// #endregion
 }

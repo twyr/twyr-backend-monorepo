@@ -8,6 +8,7 @@
  */
 import { EVASBaseFactory } from '@twyr/framework-classes';
 import { BaseBoundedContext } from 'baseclass:bounded-context';
+import { Mutex } from 'async-mutex';
 
 /**
  * @category REST API Server/Bounded Contexts
@@ -118,17 +119,22 @@ export default class HealthBoundedContextFactory extends EVASBaseFactory {
 	 * @returns {Health} - The Health module instance.
 	 */
 	static async createInstances(domainInterface) {
-		if (!HealthBoundedContextFactory.#healthInstance) {
-			const healthInstance = new Health(
-				HealthBoundedContextFactory['$disk_unc'],
-				domainInterface
-			);
+		return await HealthBoundedContextFactory.#mutex?.runExclusive?.(
+			async () => {
+				if (!HealthBoundedContextFactory.#healthInstance) {
+					const healthInstance = new Health(
+						HealthBoundedContextFactory['$disk_unc'],
+						domainInterface
+					);
 
-			await healthInstance?.load?.();
-			HealthBoundedContextFactory.#healthInstance = healthInstance;
-		}
+					await healthInstance?.load?.();
+					HealthBoundedContextFactory.#healthInstance =
+						healthInstance;
+				}
 
-		return HealthBoundedContextFactory.#healthInstance;
+				return HealthBoundedContextFactory.#healthInstance;
+			}
+		);
 	}
 
 	/**
@@ -147,10 +153,12 @@ export default class HealthBoundedContextFactory extends EVASBaseFactory {
 	 * @description Clears the Health instance
 	 */
 	static async destroyInstances() {
-		await HealthBoundedContextFactory.#healthInstance?.unload?.();
-		HealthBoundedContextFactory.#healthInstance = undefined;
+		await HealthBoundedContextFactory.#mutex?.runExclusive?.(async () => {
+			await HealthBoundedContextFactory.#healthInstance?.unload?.();
+			HealthBoundedContextFactory.#healthInstance = undefined;
 
-		return;
+			return;
+		});
 	}
 	// #endregion
 
@@ -177,6 +185,7 @@ export default class HealthBoundedContextFactory extends EVASBaseFactory {
 	// #endregion
 
 	// #region Private Static Members
+	static #mutex = new Mutex();
 	static #healthInstance = undefined;
 	// #endregion
 }

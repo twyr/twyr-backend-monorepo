@@ -55,7 +55,7 @@ class SystemAdminDomain_SystemAdmin extends BaseModel {
 				modelClass: UserContact,
 				join: {
 					from: 'system_admins.id',
-					to: 'system_admin_contacts.user_id'
+					to: 'system_admin_contacts.system_admin_id'
 				}
 			},
 			locales: {
@@ -63,7 +63,7 @@ class SystemAdminDomain_SystemAdmin extends BaseModel {
 				modelClass: UserLocale,
 				join: {
 					from: 'system_admins.id',
-					to: 'system_admin_locales.user_id'
+					to: 'system_admin_locales.system_admin_id'
 				}
 			},
 			names: {
@@ -71,7 +71,7 @@ class SystemAdminDomain_SystemAdmin extends BaseModel {
 				modelClass: UserNameByLocale,
 				join: {
 					from: 'system_admins.id',
-					to: 'system_admin_names_by_locale.user_id'
+					to: 'system_admin_names_by_locale.system_admin_id'
 				}
 			}
 		};
