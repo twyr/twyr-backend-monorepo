@@ -3,11 +3,12 @@
 		"type": "system_admin",
 		"attributes": {
 			"mobile_no": "+911234567890",
+			"date_of_birth": "1989-01-30",
 			"first_name": "John",
 			"middle_names": "Q",
 			"last_name": "Doc",
 			"nickname": "Johnny",
-			"locale_code": "en-IN",
+			"locale_id": "en-IN",
 			"otp": "1234"
 		}
 	}

@@ -3,7 +3,7 @@
 		"type": "user_locale",
 		"id": "33333333-3333-7333-8333-333333333333",
 		"attributes": {
-			"locale_code": "hi-IN",
+			"locale_id": "hi-IN",
 			"is_primary": true
 		}
 	}

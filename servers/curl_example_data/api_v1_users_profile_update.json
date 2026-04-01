@@ -4,11 +4,12 @@
 		"id": "44444444-4444-7444-8444-444444444444",
 		"attributes": {
 			"mobile_no": "+919999999999",
+			"date_of_birth": "1996-08-24",
 			"first_name": "Jane",
 			"middle_names": "R",
 			"last_name": "Doe",
 			"nickname": "Janey",
-			"locale_code": "en-IN"
+			"locale_id": "en-IN"
 		}
 	}
 }

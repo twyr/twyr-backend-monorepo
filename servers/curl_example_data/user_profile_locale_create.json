@@ -1,9 +1,0 @@
-{
-	"data": {
-		"type": "user_locale",
-		"attributes": {
-			"locale_code": "en-IN",
-			"is_primary": true
-		}
-	}
-}

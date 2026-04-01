@@ -2,7 +2,7 @@
 	"data": {
 		"type": "system_admin_locale",
 		"attributes": {
-			"locale_code": "en-IN",
+			"locale_id": "en-IN",
 			"is_primary": true
 		}
 	}
