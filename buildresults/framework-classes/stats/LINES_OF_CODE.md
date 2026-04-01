@@ -1,4 +1,4 @@
-cloc|github.com/AlDanial/cloc v 1.96  T=0.03 s (942.4 files/s, 122588.0 lines/s)
+cloc|github.com/AlDanial/cloc v 1.96  T=0.02 s (1084.4 files/s, 141055.0 lines/s)
 --- | ---
 
 File|blank|comment|code
@@ -30,7 +30,7 @@ File|blank|comment|code
 ./tests/setup-mocks.cjs|0|0|5
 --------|--------|--------|--------
 SUM:|239|1771|1242
-cloc|github.com/AlDanial/cloc v 1.96  T=0.03 s (942.4 files/s, 122588.0 lines/s)
+cloc|github.com/AlDanial/cloc v 1.96  T=0.02 s (1084.4 files/s, 141055.0 lines/s)
 --- | ---
 
 Language|files|blank|comment|code

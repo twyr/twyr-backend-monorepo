@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<testsuites></testsuites>
+<testsuites>
+	<testsuite package="org.eslint" time="0" tests="1" errors="1" name="/home/vish/Work/twyr/code/twyr-backend-monorepo/servers/rest-api-server/source/repositories/runtime/auth/helpers/system-admin-session-cache.js">
+		<testcase time="0" name="org.eslint.jsdoc/require-returns" classname="/home/vish/Work/twyr/code/twyr-backend-monorepo/servers/rest-api-server/source/repositories/runtime/auth/helpers/system-admin-session-cache">
+			<failure message="Missing JSDoc @returns declaration.">
+				<![CDATA[]]>
+			</failure>
+		</testcase>
+	</testsuite>
+</testsuites>

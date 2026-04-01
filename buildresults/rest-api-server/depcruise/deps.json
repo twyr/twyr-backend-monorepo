@@ -2109,6 +2109,23 @@
           "valid": true
         },
         {
+          "module": "async-mutex",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "npm",
+            "import"
+          ],
+          "resolved": "../../node_modules/async-mutex/index.mjs",
+          "coreModule": false,
+          "followable": false,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": true,
+          "circular": false,
+          "valid": true
+        },
+        {
           "module": "events",
           "moduleSystem": "es6",
           "dynamic": false,
@@ -2127,6 +2144,20 @@
           "valid": true
         }
       ],
+      "orphan": false,
+      "valid": true
+    },
+    {
+      "source": "../../node_modules/async-mutex/index.mjs",
+      "followable": false,
+      "coreModule": false,
+      "couldNotResolve": false,
+      "matchesDoNotFollow": true,
+      "dependencyTypes": [
+        "npm",
+        "import"
+      ],
+      "dependencies": [],
       "orphan": false,
       "valid": true
     },
@@ -2161,6 +2192,23 @@
           "followable": true,
           "couldNotResolve": false,
           "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "async-mutex",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "npm",
+            "import"
+          ],
+          "resolved": "../../node_modules/async-mutex/index.mjs",
+          "coreModule": false,
+          "followable": false,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": true,
           "circular": false,
           "valid": true
         },
@@ -2224,6 +2272,23 @@
           "valid": true
         },
         {
+          "module": "async-mutex",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "npm",
+            "import"
+          ],
+          "resolved": "../../node_modules/async-mutex/index.mjs",
+          "coreModule": false,
+          "followable": false,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": true,
+          "circular": false,
+          "valid": true
+        },
+        {
           "module": "baseclass:surface",
           "moduleSystem": "es6",
           "dynamic": false,
@@ -2279,6 +2344,23 @@
           "followable": true,
           "couldNotResolve": false,
           "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "async-mutex",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "npm",
+            "import"
+          ],
+          "resolved": "../../node_modules/async-mutex/index.mjs",
+          "coreModule": false,
+          "followable": false,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": true,
           "circular": false,
           "valid": true
         },
@@ -2346,6 +2428,23 @@
           "valid": true
         },
         {
+          "module": "async-mutex",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "npm",
+            "import"
+          ],
+          "resolved": "../../node_modules/async-mutex/index.mjs",
+          "coreModule": false,
+          "followable": false,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": true,
+          "circular": false,
+          "valid": true
+        },
+        {
           "module": "baseclass:middleware",
           "moduleSystem": "es6",
           "dynamic": false,
@@ -2405,6 +2504,23 @@
           "valid": true
         },
         {
+          "module": "async-mutex",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "npm",
+            "import"
+          ],
+          "resolved": "../../node_modules/async-mutex/index.mjs",
+          "coreModule": false,
+          "followable": false,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": true,
+          "circular": false,
+          "valid": true
+        },
+        {
           "module": "baseclass:surface",
           "moduleSystem": "es6",
           "dynamic": false,
@@ -2431,7 +2547,7 @@
       "valid": true
     },
     {
-      "source": "source/domains/users/base_classes/middleware.js",
+      "source": "source/domains/system_admin/base_classes/middleware.js",
       "dependencies": [
         {
           "module": "baseclass:middleware",
@@ -2460,7 +2576,7 @@
       "valid": true
     },
     {
-      "source": "source/domains/users/base_classes/surface.js",
+      "source": "source/domains/system_admin/base_classes/surface.js",
       "dependencies": [
         {
           "module": "baseclass:surface",
@@ -2489,7 +2605,7 @@
       "valid": true
     },
     {
-      "source": "source/domains/users/bounded_contexts/profile/index.js",
+      "source": "source/domains/system_admin/bounded_contexts/profile/index.js",
       "dependencies": [
         {
           "module": "@twyr/framework-classes",
@@ -2505,6 +2621,23 @@
           "followable": true,
           "couldNotResolve": false,
           "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "async-mutex",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "npm",
+            "import"
+          ],
+          "resolved": "../../node_modules/async-mutex/index.mjs",
+          "coreModule": false,
+          "followable": false,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": true,
           "circular": false,
           "valid": true
         },
@@ -2535,7 +2668,7 @@
       "valid": true
     },
     {
-      "source": "source/domains/users/bounded_contexts/profile/middlewares/basics.js",
+      "source": "source/domains/system_admin/bounded_contexts/profile/middlewares/basics.js",
       "dependencies": [
         {
           "module": "@twyr/error-serializer",
@@ -2572,6 +2705,23 @@
           "valid": true
         },
         {
+          "module": "async-mutex",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "npm",
+            "import"
+          ],
+          "resolved": "../../node_modules/async-mutex/index.mjs",
+          "coreModule": false,
+          "followable": false,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": true,
+          "circular": false,
+          "valid": true
+        },
+        {
           "module": "baseclass:middleware",
           "moduleSystem": "es6",
           "dynamic": false,
@@ -2592,13 +2742,30 @@
               "name": "not-to-unresolvable"
             }
           ]
+        },
+        {
+          "module": "safe-json-stringify",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "npm",
+            "import"
+          ],
+          "resolved": "../../node_modules/safe-json-stringify/index.js",
+          "coreModule": false,
+          "followable": false,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": true,
+          "circular": false,
+          "valid": true
         }
       ],
       "orphan": false,
       "valid": true
     },
     {
-      "source": "source/domains/users/bounded_contexts/profile/middlewares/contacts.js",
+      "source": "source/domains/system_admin/bounded_contexts/profile/middlewares/contacts.js",
       "dependencies": [
         {
           "module": "@twyr/error-serializer",
@@ -2635,6 +2802,23 @@
           "valid": true
         },
         {
+          "module": "async-mutex",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "npm",
+            "import"
+          ],
+          "resolved": "../../node_modules/async-mutex/index.mjs",
+          "coreModule": false,
+          "followable": false,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": true,
+          "circular": false,
+          "valid": true
+        },
+        {
           "module": "baseclass:middleware",
           "moduleSystem": "es6",
           "dynamic": false,
@@ -2661,7 +2845,7 @@
       "valid": true
     },
     {
-      "source": "source/domains/users/bounded_contexts/profile/middlewares/locales.js",
+      "source": "source/domains/system_admin/bounded_contexts/profile/middlewares/locales.js",
       "dependencies": [
         {
           "module": "@twyr/error-serializer",
@@ -2698,6 +2882,23 @@
           "valid": true
         },
         {
+          "module": "async-mutex",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "npm",
+            "import"
+          ],
+          "resolved": "../../node_modules/async-mutex/index.mjs",
+          "coreModule": false,
+          "followable": false,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": true,
+          "circular": false,
+          "valid": true
+        },
+        {
           "module": "baseclass:middleware",
           "moduleSystem": "es6",
           "dynamic": false,
@@ -2724,7 +2925,7 @@
       "valid": true
     },
     {
-      "source": "source/domains/users/bounded_contexts/profile/surfaces/command/contact.js",
+      "source": "source/domains/system_admin/bounded_contexts/profile/surfaces/command/contact.js",
       "dependencies": [
         {
           "module": "@twyr/framework-classes",
@@ -2740,6 +2941,23 @@
           "followable": true,
           "couldNotResolve": false,
           "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "async-mutex",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "npm",
+            "import"
+          ],
+          "resolved": "../../node_modules/async-mutex/index.mjs",
+          "coreModule": false,
+          "followable": false,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": true,
           "circular": false,
           "valid": true
         },
@@ -2801,7 +3019,7 @@
       "valid": true
     },
     {
-      "source": "source/domains/users/bounded_contexts/profile/surfaces/command/locale.js",
+      "source": "source/domains/system_admin/bounded_contexts/profile/surfaces/command/locale.js",
       "dependencies": [
         {
           "module": "@twyr/framework-classes",
@@ -2817,6 +3035,23 @@
           "followable": true,
           "couldNotResolve": false,
           "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "async-mutex",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "npm",
+            "import"
+          ],
+          "resolved": "../../node_modules/async-mutex/index.mjs",
+          "coreModule": false,
+          "followable": false,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": true,
           "circular": false,
           "valid": true
         },
@@ -2864,7 +3099,7 @@
       "valid": true
     },
     {
-      "source": "source/domains/users/bounded_contexts/profile/surfaces/command/main.js",
+      "source": "source/domains/system_admin/bounded_contexts/profile/surfaces/command/main.js",
       "dependencies": [
         {
           "module": "@twyr/framework-classes",
@@ -2880,6 +3115,23 @@
           "followable": true,
           "couldNotResolve": false,
           "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "async-mutex",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "npm",
+            "import"
+          ],
+          "resolved": "../../node_modules/async-mutex/index.mjs",
+          "coreModule": false,
+          "followable": false,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": true,
           "circular": false,
           "valid": true
         },
@@ -2927,7 +3179,7 @@
       "valid": true
     },
     {
-      "source": "source/domains/users/bounded_contexts/profile/surfaces/query/contact.js",
+      "source": "source/domains/system_admin/bounded_contexts/profile/surfaces/query/contact.js",
       "dependencies": [
         {
           "module": "@twyr/framework-classes",
@@ -2943,6 +3195,23 @@
           "followable": true,
           "couldNotResolve": false,
           "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "async-mutex",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "npm",
+            "import"
+          ],
+          "resolved": "../../node_modules/async-mutex/index.mjs",
+          "coreModule": false,
+          "followable": false,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": true,
           "circular": false,
           "valid": true
         },
@@ -2973,7 +3242,7 @@
       "valid": true
     },
     {
-      "source": "source/domains/users/bounded_contexts/profile/surfaces/query/locale.js",
+      "source": "source/domains/system_admin/bounded_contexts/profile/surfaces/query/locale.js",
       "dependencies": [
         {
           "module": "@twyr/framework-classes",
@@ -2989,6 +3258,23 @@
           "followable": true,
           "couldNotResolve": false,
           "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "async-mutex",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "npm",
+            "import"
+          ],
+          "resolved": "../../node_modules/async-mutex/index.mjs",
+          "coreModule": false,
+          "followable": false,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": true,
           "circular": false,
           "valid": true
         },
@@ -3019,7 +3305,7 @@
       "valid": true
     },
     {
-      "source": "source/domains/users/bounded_contexts/profile/surfaces/query/main.js",
+      "source": "source/domains/system_admin/bounded_contexts/profile/surfaces/query/main.js",
       "dependencies": [
         {
           "module": "@twyr/framework-classes",
@@ -3035,6 +3321,23 @@
           "followable": true,
           "couldNotResolve": false,
           "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "async-mutex",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "npm",
+            "import"
+          ],
+          "resolved": "../../node_modules/async-mutex/index.mjs",
+          "coreModule": false,
+          "followable": false,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": true,
           "circular": false,
           "valid": true
         },
@@ -3065,7 +3368,7 @@
       "valid": true
     },
     {
-      "source": "source/domains/users/bounded_contexts/session_manager/event_handlers/session.js",
+      "source": "source/domains/system_admin/bounded_contexts/session_manager/event_handlers/session.js",
       "dependencies": [
         {
           "module": "@twyr/error-serializer",
@@ -3098,6 +3401,23 @@
           "followable": true,
           "couldNotResolve": false,
           "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "async-mutex",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "npm",
+            "import"
+          ],
+          "resolved": "../../node_modules/async-mutex/index.mjs",
+          "coreModule": false,
+          "followable": false,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": true,
           "circular": false,
           "valid": true
         },
@@ -3141,7 +3461,7 @@
       "valid": true
     },
     {
-      "source": "source/domains/users/bounded_contexts/session_manager/index.js",
+      "source": "source/domains/system_admin/bounded_contexts/session_manager/index.js",
       "dependencies": [
         {
           "module": "@twyr/framework-classes",
@@ -3157,6 +3477,23 @@
           "followable": true,
           "couldNotResolve": false,
           "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "async-mutex",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "npm",
+            "import"
+          ],
+          "resolved": "../../node_modules/async-mutex/index.mjs",
+          "coreModule": false,
+          "followable": false,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": true,
           "circular": false,
           "valid": true
         },
@@ -3187,7 +3524,7 @@
       "valid": true
     },
     {
-      "source": "source/domains/users/bounded_contexts/session_manager/middlewares/session.js",
+      "source": "source/domains/system_admin/bounded_contexts/session_manager/middlewares/session.js",
       "dependencies": [
         {
           "module": "@twyr/error-serializer",
@@ -3220,6 +3557,23 @@
           "followable": true,
           "couldNotResolve": false,
           "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "async-mutex",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "npm",
+            "import"
+          ],
+          "resolved": "../../node_modules/async-mutex/index.mjs",
+          "coreModule": false,
+          "followable": false,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": true,
           "circular": false,
           "valid": true
         },
@@ -3313,6 +3667,1867 @@
       "valid": true
     },
     {
+      "source": "source/domains/system_admin/bounded_contexts/session_manager/surfaces/command/main.js",
+      "dependencies": [
+        {
+          "module": "../../../../base_classes/surface.js",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "import"
+          ],
+          "resolved": "source/domains/system_admin/base_classes/surface.js",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "@twyr/framework-classes",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "undetermined",
+            "import"
+          ],
+          "resolved": "../../packages/framework-classes/index.js",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "async-mutex",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "npm",
+            "import"
+          ],
+          "resolved": "../../node_modules/async-mutex/index.mjs",
+          "coreModule": false,
+          "followable": false,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": true,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "joi",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "npm",
+            "import"
+          ],
+          "resolved": "../../node_modules/joi/lib/index.js",
+          "coreModule": false,
+          "followable": false,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": true,
+          "circular": false,
+          "valid": true
+        }
+      ],
+      "orphan": false,
+      "valid": true
+    },
+    {
+      "source": "source/domains/system_admin/bounded_contexts/session_manager/surfaces/query/main.js",
+      "dependencies": [
+        {
+          "module": "../../../../base_classes/surface.js",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "import"
+          ],
+          "resolved": "source/domains/system_admin/base_classes/surface.js",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "@twyr/framework-classes",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "undetermined",
+            "import"
+          ],
+          "resolved": "../../packages/framework-classes/index.js",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "async-mutex",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "npm",
+            "import"
+          ],
+          "resolved": "../../node_modules/async-mutex/index.mjs",
+          "coreModule": false,
+          "followable": false,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": true,
+          "circular": false,
+          "valid": true
+        }
+      ],
+      "orphan": false,
+      "valid": true
+    },
+    {
+      "source": "source/domains/system_admin/index.js",
+      "dependencies": [
+        {
+          "module": "@twyr/framework-classes",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "undetermined",
+            "import"
+          ],
+          "resolved": "../../packages/framework-classes/index.js",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "async-mutex",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "npm",
+            "import"
+          ],
+          "resolved": "../../node_modules/async-mutex/index.mjs",
+          "coreModule": false,
+          "followable": false,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": true,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "baseclass:domain",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "unknown"
+          ],
+          "resolved": "baseclass:domain",
+          "coreModule": false,
+          "followable": false,
+          "couldNotResolve": true,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": false,
+          "rules": [
+            {
+              "severity": "error",
+              "name": "not-to-unresolvable"
+            }
+          ]
+        }
+      ],
+      "orphan": false,
+      "valid": true
+    },
+    {
+      "source": "baseclass:domain",
+      "followable": false,
+      "coreModule": false,
+      "couldNotResolve": true,
+      "matchesDoNotFollow": false,
+      "dependencyTypes": [
+        "unknown"
+      ],
+      "dependencies": [],
+      "orphan": false,
+      "valid": true
+    },
+    {
+      "source": "source/domains/system_admin/models/relational/contact-type-master.cjs",
+      "dependencies": [
+        {
+          "module": "./../../../../../base_classes/objection-model.cjs",
+          "moduleSystem": "cjs",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "require"
+          ],
+          "resolved": "base_classes/objection-model.cjs",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "./system-admin-contact.cjs",
+          "moduleSystem": "cjs",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "require"
+          ],
+          "resolved": "source/domains/system_admin/models/relational/system-admin-contact.cjs",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": true,
+          "cycle": [
+            {
+              "name": "source/domains/system_admin/models/relational/system-admin-contact.cjs",
+              "dependencyTypes": [
+                "local",
+                "require"
+              ]
+            },
+            {
+              "name": "source/domains/system_admin/models/relational/contact-type-master.cjs",
+              "dependencyTypes": [
+                "local",
+                "require"
+              ]
+            }
+          ],
+          "valid": false,
+          "rules": [
+            {
+              "severity": "warn",
+              "name": "no-circular"
+            }
+          ]
+        }
+      ],
+      "orphan": false,
+      "valid": true
+    },
+    {
+      "source": "source/domains/system_admin/models/relational/system-admin-contact.cjs",
+      "dependencies": [
+        {
+          "module": "./../../../../../base_classes/objection-model.cjs",
+          "moduleSystem": "cjs",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "require"
+          ],
+          "resolved": "base_classes/objection-model.cjs",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "./contact-type-master.cjs",
+          "moduleSystem": "cjs",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "require"
+          ],
+          "resolved": "source/domains/system_admin/models/relational/contact-type-master.cjs",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": true,
+          "cycle": [
+            {
+              "name": "source/domains/system_admin/models/relational/contact-type-master.cjs",
+              "dependencyTypes": [
+                "local",
+                "require"
+              ]
+            },
+            {
+              "name": "source/domains/system_admin/models/relational/system-admin-contact.cjs",
+              "dependencyTypes": [
+                "local",
+                "require"
+              ]
+            }
+          ],
+          "valid": false,
+          "rules": [
+            {
+              "severity": "warn",
+              "name": "no-circular"
+            }
+          ]
+        },
+        {
+          "module": "./system-admin.cjs",
+          "moduleSystem": "cjs",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "require"
+          ],
+          "resolved": "source/domains/system_admin/models/relational/system-admin.cjs",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": true,
+          "cycle": [
+            {
+              "name": "source/domains/system_admin/models/relational/system-admin.cjs",
+              "dependencyTypes": [
+                "local",
+                "require"
+              ]
+            },
+            {
+              "name": "source/domains/system_admin/models/relational/system-admin-contact.cjs",
+              "dependencyTypes": [
+                "local",
+                "require"
+              ]
+            }
+          ],
+          "valid": false,
+          "rules": [
+            {
+              "severity": "warn",
+              "name": "no-circular"
+            }
+          ]
+        }
+      ],
+      "orphan": false,
+      "valid": true
+    },
+    {
+      "source": "source/domains/system_admin/models/relational/system-admin.cjs",
+      "dependencies": [
+        {
+          "module": "./../../../../../base_classes/objection-model.cjs",
+          "moduleSystem": "cjs",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "require"
+          ],
+          "resolved": "base_classes/objection-model.cjs",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "./system-admin-contact.cjs",
+          "moduleSystem": "cjs",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "require"
+          ],
+          "resolved": "source/domains/system_admin/models/relational/system-admin-contact.cjs",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": true,
+          "cycle": [
+            {
+              "name": "source/domains/system_admin/models/relational/system-admin-contact.cjs",
+              "dependencyTypes": [
+                "local",
+                "require"
+              ]
+            },
+            {
+              "name": "source/domains/system_admin/models/relational/system-admin.cjs",
+              "dependencyTypes": [
+                "local",
+                "require"
+              ]
+            }
+          ],
+          "valid": false,
+          "rules": [
+            {
+              "severity": "warn",
+              "name": "no-circular"
+            }
+          ]
+        },
+        {
+          "module": "./system-admin-locale.cjs",
+          "moduleSystem": "cjs",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "require"
+          ],
+          "resolved": "source/domains/system_admin/models/relational/system-admin-locale.cjs",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": true,
+          "cycle": [
+            {
+              "name": "source/domains/system_admin/models/relational/system-admin-locale.cjs",
+              "dependencyTypes": [
+                "local",
+                "require"
+              ]
+            },
+            {
+              "name": "source/domains/system_admin/models/relational/system-admin.cjs",
+              "dependencyTypes": [
+                "local",
+                "require"
+              ]
+            }
+          ],
+          "valid": false,
+          "rules": [
+            {
+              "severity": "warn",
+              "name": "no-circular"
+            }
+          ]
+        },
+        {
+          "module": "./system-admin-name-by-locale.cjs",
+          "moduleSystem": "cjs",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "require"
+          ],
+          "resolved": "source/domains/system_admin/models/relational/system-admin-name-by-locale.cjs",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": true,
+          "cycle": [
+            {
+              "name": "source/domains/system_admin/models/relational/system-admin-name-by-locale.cjs",
+              "dependencyTypes": [
+                "local",
+                "require"
+              ]
+            },
+            {
+              "name": "source/domains/system_admin/models/relational/system-admin.cjs",
+              "dependencyTypes": [
+                "local",
+                "require"
+              ]
+            }
+          ],
+          "valid": false,
+          "rules": [
+            {
+              "severity": "warn",
+              "name": "no-circular"
+            }
+          ]
+        }
+      ],
+      "orphan": false,
+      "valid": true
+    },
+    {
+      "source": "source/domains/system_admin/models/relational/system-admin-locale.cjs",
+      "dependencies": [
+        {
+          "module": "./../../../../../base_classes/objection-model.cjs",
+          "moduleSystem": "cjs",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "require"
+          ],
+          "resolved": "base_classes/objection-model.cjs",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "./locale-master.cjs",
+          "moduleSystem": "cjs",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "require"
+          ],
+          "resolved": "source/domains/system_admin/models/relational/locale-master.cjs",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": true,
+          "cycle": [
+            {
+              "name": "source/domains/system_admin/models/relational/locale-master.cjs",
+              "dependencyTypes": [
+                "local",
+                "require"
+              ]
+            },
+            {
+              "name": "source/domains/system_admin/models/relational/system-admin-locale.cjs",
+              "dependencyTypes": [
+                "local",
+                "require"
+              ]
+            }
+          ],
+          "valid": false,
+          "rules": [
+            {
+              "severity": "warn",
+              "name": "no-circular"
+            }
+          ]
+        },
+        {
+          "module": "./system-admin.cjs",
+          "moduleSystem": "cjs",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "require"
+          ],
+          "resolved": "source/domains/system_admin/models/relational/system-admin.cjs",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": true,
+          "cycle": [
+            {
+              "name": "source/domains/system_admin/models/relational/system-admin.cjs",
+              "dependencyTypes": [
+                "local",
+                "require"
+              ]
+            },
+            {
+              "name": "source/domains/system_admin/models/relational/system-admin-locale.cjs",
+              "dependencyTypes": [
+                "local",
+                "require"
+              ]
+            }
+          ],
+          "valid": false,
+          "rules": [
+            {
+              "severity": "warn",
+              "name": "no-circular"
+            }
+          ]
+        }
+      ],
+      "orphan": false,
+      "valid": true
+    },
+    {
+      "source": "source/domains/system_admin/models/relational/locale-master.cjs",
+      "dependencies": [
+        {
+          "module": "./../../../../../base_classes/objection-model.cjs",
+          "moduleSystem": "cjs",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "require"
+          ],
+          "resolved": "base_classes/objection-model.cjs",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "./system-admin-locale.cjs",
+          "moduleSystem": "cjs",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "require"
+          ],
+          "resolved": "source/domains/system_admin/models/relational/system-admin-locale.cjs",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": true,
+          "cycle": [
+            {
+              "name": "source/domains/system_admin/models/relational/system-admin-locale.cjs",
+              "dependencyTypes": [
+                "local",
+                "require"
+              ]
+            },
+            {
+              "name": "source/domains/system_admin/models/relational/locale-master.cjs",
+              "dependencyTypes": [
+                "local",
+                "require"
+              ]
+            }
+          ],
+          "valid": false,
+          "rules": [
+            {
+              "severity": "warn",
+              "name": "no-circular"
+            }
+          ]
+        }
+      ],
+      "orphan": false,
+      "valid": true
+    },
+    {
+      "source": "source/domains/system_admin/models/relational/system-admin-name-by-locale.cjs",
+      "dependencies": [
+        {
+          "module": "./../../../../../base_classes/objection-model.cjs",
+          "moduleSystem": "cjs",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "require"
+          ],
+          "resolved": "base_classes/objection-model.cjs",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "./locale-master.cjs",
+          "moduleSystem": "cjs",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "require"
+          ],
+          "resolved": "source/domains/system_admin/models/relational/locale-master.cjs",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": true,
+          "cycle": [
+            {
+              "name": "source/domains/system_admin/models/relational/locale-master.cjs",
+              "dependencyTypes": [
+                "local",
+                "require"
+              ]
+            },
+            {
+              "name": "source/domains/system_admin/models/relational/system-admin-locale.cjs",
+              "dependencyTypes": [
+                "local",
+                "require"
+              ]
+            },
+            {
+              "name": "source/domains/system_admin/models/relational/system-admin.cjs",
+              "dependencyTypes": [
+                "local",
+                "require"
+              ]
+            },
+            {
+              "name": "source/domains/system_admin/models/relational/system-admin-name-by-locale.cjs",
+              "dependencyTypes": [
+                "local",
+                "require"
+              ]
+            }
+          ],
+          "valid": false,
+          "rules": [
+            {
+              "severity": "warn",
+              "name": "no-circular"
+            }
+          ]
+        },
+        {
+          "module": "./system-admin.cjs",
+          "moduleSystem": "cjs",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "require"
+          ],
+          "resolved": "source/domains/system_admin/models/relational/system-admin.cjs",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": true,
+          "cycle": [
+            {
+              "name": "source/domains/system_admin/models/relational/system-admin.cjs",
+              "dependencyTypes": [
+                "local",
+                "require"
+              ]
+            },
+            {
+              "name": "source/domains/system_admin/models/relational/system-admin-name-by-locale.cjs",
+              "dependencyTypes": [
+                "local",
+                "require"
+              ]
+            }
+          ],
+          "valid": false,
+          "rules": [
+            {
+              "severity": "warn",
+              "name": "no-circular"
+            }
+          ]
+        }
+      ],
+      "orphan": false,
+      "valid": true
+    },
+    {
+      "source": "source/domains/users/base_classes/middleware.js",
+      "dependencies": [
+        {
+          "module": "baseclass:middleware",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "unknown"
+          ],
+          "resolved": "baseclass:middleware",
+          "coreModule": false,
+          "followable": false,
+          "couldNotResolve": true,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": false,
+          "rules": [
+            {
+              "severity": "error",
+              "name": "not-to-unresolvable"
+            }
+          ]
+        }
+      ],
+      "orphan": false,
+      "valid": true
+    },
+    {
+      "source": "source/domains/users/base_classes/surface.js",
+      "dependencies": [
+        {
+          "module": "baseclass:surface",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "unknown"
+          ],
+          "resolved": "baseclass:surface",
+          "coreModule": false,
+          "followable": false,
+          "couldNotResolve": true,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": false,
+          "rules": [
+            {
+              "severity": "error",
+              "name": "not-to-unresolvable"
+            }
+          ]
+        }
+      ],
+      "orphan": false,
+      "valid": true
+    },
+    {
+      "source": "source/domains/users/bounded_contexts/profile/index.js",
+      "dependencies": [
+        {
+          "module": "@twyr/framework-classes",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "undetermined",
+            "import"
+          ],
+          "resolved": "../../packages/framework-classes/index.js",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "async-mutex",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "npm",
+            "import"
+          ],
+          "resolved": "../../node_modules/async-mutex/index.mjs",
+          "coreModule": false,
+          "followable": false,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": true,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "baseclass:bounded-context",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "unknown"
+          ],
+          "resolved": "baseclass:bounded-context",
+          "coreModule": false,
+          "followable": false,
+          "couldNotResolve": true,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": false,
+          "rules": [
+            {
+              "severity": "error",
+              "name": "not-to-unresolvable"
+            }
+          ]
+        }
+      ],
+      "orphan": false,
+      "valid": true
+    },
+    {
+      "source": "source/domains/users/bounded_contexts/profile/middlewares/basics.js",
+      "dependencies": [
+        {
+          "module": "@twyr/error-serializer",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "undetermined",
+            "import"
+          ],
+          "resolved": "../../packages/error-serializer/index.js",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "@twyr/framework-classes",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "undetermined",
+            "import"
+          ],
+          "resolved": "../../packages/framework-classes/index.js",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "async-mutex",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "npm",
+            "import"
+          ],
+          "resolved": "../../node_modules/async-mutex/index.mjs",
+          "coreModule": false,
+          "followable": false,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": true,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "baseclass:middleware",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "unknown"
+          ],
+          "resolved": "baseclass:middleware",
+          "coreModule": false,
+          "followable": false,
+          "couldNotResolve": true,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": false,
+          "rules": [
+            {
+              "severity": "error",
+              "name": "not-to-unresolvable"
+            }
+          ]
+        },
+        {
+          "module": "safe-json-stringify",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "npm",
+            "import"
+          ],
+          "resolved": "../../node_modules/safe-json-stringify/index.js",
+          "coreModule": false,
+          "followable": false,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": true,
+          "circular": false,
+          "valid": true
+        }
+      ],
+      "orphan": false,
+      "valid": true
+    },
+    {
+      "source": "source/domains/users/bounded_contexts/profile/middlewares/contacts.js",
+      "dependencies": [
+        {
+          "module": "@twyr/error-serializer",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "undetermined",
+            "import"
+          ],
+          "resolved": "../../packages/error-serializer/index.js",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "@twyr/framework-classes",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "undetermined",
+            "import"
+          ],
+          "resolved": "../../packages/framework-classes/index.js",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "async-mutex",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "npm",
+            "import"
+          ],
+          "resolved": "../../node_modules/async-mutex/index.mjs",
+          "coreModule": false,
+          "followable": false,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": true,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "baseclass:middleware",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "unknown"
+          ],
+          "resolved": "baseclass:middleware",
+          "coreModule": false,
+          "followable": false,
+          "couldNotResolve": true,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": false,
+          "rules": [
+            {
+              "severity": "error",
+              "name": "not-to-unresolvable"
+            }
+          ]
+        }
+      ],
+      "orphan": false,
+      "valid": true
+    },
+    {
+      "source": "source/domains/users/bounded_contexts/profile/middlewares/locales.js",
+      "dependencies": [
+        {
+          "module": "@twyr/error-serializer",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "undetermined",
+            "import"
+          ],
+          "resolved": "../../packages/error-serializer/index.js",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "@twyr/framework-classes",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "undetermined",
+            "import"
+          ],
+          "resolved": "../../packages/framework-classes/index.js",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "async-mutex",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "npm",
+            "import"
+          ],
+          "resolved": "../../node_modules/async-mutex/index.mjs",
+          "coreModule": false,
+          "followable": false,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": true,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "baseclass:middleware",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "unknown"
+          ],
+          "resolved": "baseclass:middleware",
+          "coreModule": false,
+          "followable": false,
+          "couldNotResolve": true,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": false,
+          "rules": [
+            {
+              "severity": "error",
+              "name": "not-to-unresolvable"
+            }
+          ]
+        }
+      ],
+      "orphan": false,
+      "valid": true
+    },
+    {
+      "source": "source/domains/users/bounded_contexts/profile/surfaces/command/contact.js",
+      "dependencies": [
+        {
+          "module": "@twyr/framework-classes",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "undetermined",
+            "import"
+          ],
+          "resolved": "../../packages/framework-classes/index.js",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "async-mutex",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "npm",
+            "import"
+          ],
+          "resolved": "../../node_modules/async-mutex/index.mjs",
+          "coreModule": false,
+          "followable": false,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": true,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "baseclass:surface",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "unknown"
+          ],
+          "resolved": "baseclass:surface",
+          "coreModule": false,
+          "followable": false,
+          "couldNotResolve": true,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": false,
+          "rules": [
+            {
+              "severity": "error",
+              "name": "not-to-unresolvable"
+            }
+          ]
+        },
+        {
+          "module": "joi",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "npm",
+            "import"
+          ],
+          "resolved": "../../node_modules/joi/lib/index.js",
+          "coreModule": false,
+          "followable": false,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": true,
+          "circular": false,
+          "valid": true
+        }
+      ],
+      "orphan": false,
+      "valid": true
+    },
+    {
+      "source": "source/domains/users/bounded_contexts/profile/surfaces/command/locale.js",
+      "dependencies": [
+        {
+          "module": "@twyr/framework-classes",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "undetermined",
+            "import"
+          ],
+          "resolved": "../../packages/framework-classes/index.js",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "async-mutex",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "npm",
+            "import"
+          ],
+          "resolved": "../../node_modules/async-mutex/index.mjs",
+          "coreModule": false,
+          "followable": false,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": true,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "baseclass:surface",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "unknown"
+          ],
+          "resolved": "baseclass:surface",
+          "coreModule": false,
+          "followable": false,
+          "couldNotResolve": true,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": false,
+          "rules": [
+            {
+              "severity": "error",
+              "name": "not-to-unresolvable"
+            }
+          ]
+        },
+        {
+          "module": "joi",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "npm",
+            "import"
+          ],
+          "resolved": "../../node_modules/joi/lib/index.js",
+          "coreModule": false,
+          "followable": false,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": true,
+          "circular": false,
+          "valid": true
+        }
+      ],
+      "orphan": false,
+      "valid": true
+    },
+    {
+      "source": "source/domains/users/bounded_contexts/profile/surfaces/command/main.js",
+      "dependencies": [
+        {
+          "module": "@twyr/framework-classes",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "undetermined",
+            "import"
+          ],
+          "resolved": "../../packages/framework-classes/index.js",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "async-mutex",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "npm",
+            "import"
+          ],
+          "resolved": "../../node_modules/async-mutex/index.mjs",
+          "coreModule": false,
+          "followable": false,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": true,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "baseclass:surface",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "unknown"
+          ],
+          "resolved": "baseclass:surface",
+          "coreModule": false,
+          "followable": false,
+          "couldNotResolve": true,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": false,
+          "rules": [
+            {
+              "severity": "error",
+              "name": "not-to-unresolvable"
+            }
+          ]
+        },
+        {
+          "module": "joi",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "npm",
+            "import"
+          ],
+          "resolved": "../../node_modules/joi/lib/index.js",
+          "coreModule": false,
+          "followable": false,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": true,
+          "circular": false,
+          "valid": true
+        }
+      ],
+      "orphan": false,
+      "valid": true
+    },
+    {
+      "source": "source/domains/users/bounded_contexts/profile/surfaces/query/contact.js",
+      "dependencies": [
+        {
+          "module": "@twyr/framework-classes",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "undetermined",
+            "import"
+          ],
+          "resolved": "../../packages/framework-classes/index.js",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "async-mutex",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "npm",
+            "import"
+          ],
+          "resolved": "../../node_modules/async-mutex/index.mjs",
+          "coreModule": false,
+          "followable": false,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": true,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "baseclass:surface",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "unknown"
+          ],
+          "resolved": "baseclass:surface",
+          "coreModule": false,
+          "followable": false,
+          "couldNotResolve": true,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": false,
+          "rules": [
+            {
+              "severity": "error",
+              "name": "not-to-unresolvable"
+            }
+          ]
+        }
+      ],
+      "orphan": false,
+      "valid": true
+    },
+    {
+      "source": "source/domains/users/bounded_contexts/profile/surfaces/query/locale.js",
+      "dependencies": [
+        {
+          "module": "@twyr/framework-classes",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "undetermined",
+            "import"
+          ],
+          "resolved": "../../packages/framework-classes/index.js",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "async-mutex",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "npm",
+            "import"
+          ],
+          "resolved": "../../node_modules/async-mutex/index.mjs",
+          "coreModule": false,
+          "followable": false,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": true,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "baseclass:surface",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "unknown"
+          ],
+          "resolved": "baseclass:surface",
+          "coreModule": false,
+          "followable": false,
+          "couldNotResolve": true,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": false,
+          "rules": [
+            {
+              "severity": "error",
+              "name": "not-to-unresolvable"
+            }
+          ]
+        }
+      ],
+      "orphan": false,
+      "valid": true
+    },
+    {
+      "source": "source/domains/users/bounded_contexts/profile/surfaces/query/main.js",
+      "dependencies": [
+        {
+          "module": "@twyr/framework-classes",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "undetermined",
+            "import"
+          ],
+          "resolved": "../../packages/framework-classes/index.js",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "async-mutex",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "npm",
+            "import"
+          ],
+          "resolved": "../../node_modules/async-mutex/index.mjs",
+          "coreModule": false,
+          "followable": false,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": true,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "baseclass:surface",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "unknown"
+          ],
+          "resolved": "baseclass:surface",
+          "coreModule": false,
+          "followable": false,
+          "couldNotResolve": true,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": false,
+          "rules": [
+            {
+              "severity": "error",
+              "name": "not-to-unresolvable"
+            }
+          ]
+        }
+      ],
+      "orphan": false,
+      "valid": true
+    },
+    {
+      "source": "source/domains/users/bounded_contexts/session_manager/event_handlers/session.js",
+      "dependencies": [
+        {
+          "module": "@twyr/error-serializer",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "undetermined",
+            "import"
+          ],
+          "resolved": "../../packages/error-serializer/index.js",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "@twyr/framework-classes",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "undetermined",
+            "import"
+          ],
+          "resolved": "../../packages/framework-classes/index.js",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "async-mutex",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "npm",
+            "import"
+          ],
+          "resolved": "../../node_modules/async-mutex/index.mjs",
+          "coreModule": false,
+          "followable": false,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": true,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "baseclass:event-handler",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "unknown"
+          ],
+          "resolved": "baseclass:event-handler",
+          "coreModule": false,
+          "followable": false,
+          "couldNotResolve": true,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": false,
+          "rules": [
+            {
+              "severity": "error",
+              "name": "not-to-unresolvable"
+            }
+          ]
+        }
+      ],
+      "orphan": false,
+      "valid": true
+    },
+    {
+      "source": "source/domains/users/bounded_contexts/session_manager/index.js",
+      "dependencies": [
+        {
+          "module": "@twyr/framework-classes",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "undetermined",
+            "import"
+          ],
+          "resolved": "../../packages/framework-classes/index.js",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "async-mutex",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "npm",
+            "import"
+          ],
+          "resolved": "../../node_modules/async-mutex/index.mjs",
+          "coreModule": false,
+          "followable": false,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": true,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "baseclass:bounded-context",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "unknown"
+          ],
+          "resolved": "baseclass:bounded-context",
+          "coreModule": false,
+          "followable": false,
+          "couldNotResolve": true,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": false,
+          "rules": [
+            {
+              "severity": "error",
+              "name": "not-to-unresolvable"
+            }
+          ]
+        }
+      ],
+      "orphan": false,
+      "valid": true
+    },
+    {
+      "source": "source/domains/users/bounded_contexts/session_manager/middlewares/session.js",
+      "dependencies": [
+        {
+          "module": "@twyr/error-serializer",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "undetermined",
+            "import"
+          ],
+          "resolved": "../../packages/error-serializer/index.js",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "@twyr/framework-classes",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "undetermined",
+            "import"
+          ],
+          "resolved": "../../packages/framework-classes/index.js",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "async-mutex",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "npm",
+            "import"
+          ],
+          "resolved": "../../node_modules/async-mutex/index.mjs",
+          "coreModule": false,
+          "followable": false,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": true,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "baseclass:middleware",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "unknown"
+          ],
+          "resolved": "baseclass:middleware",
+          "coreModule": false,
+          "followable": false,
+          "couldNotResolve": true,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": false,
+          "rules": [
+            {
+              "severity": "error",
+              "name": "not-to-unresolvable"
+            }
+          ]
+        },
+        {
+          "module": "crypto",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "core",
+            "import"
+          ],
+          "protocol": "node:",
+          "resolved": "crypto",
+          "coreModule": true,
+          "followable": false,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "luxon",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "npm",
+            "import"
+          ],
+          "resolved": "../../node_modules/luxon/build/es6/luxon.mjs",
+          "coreModule": false,
+          "followable": false,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": true,
+          "circular": false,
+          "valid": true
+        }
+      ],
+      "orphan": false,
+      "valid": true
+    },
+    {
       "source": "source/domains/users/bounded_contexts/session_manager/surfaces/command/main.js",
       "dependencies": [
         {
@@ -3346,6 +5561,23 @@
           "followable": true,
           "couldNotResolve": false,
           "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "async-mutex",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "npm",
+            "import"
+          ],
+          "resolved": "../../node_modules/async-mutex/index.mjs",
+          "coreModule": false,
+          "followable": false,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": true,
           "circular": false,
           "valid": true
         },
@@ -3406,6 +5638,23 @@
           "matchesDoNotFollow": false,
           "circular": false,
           "valid": true
+        },
+        {
+          "module": "async-mutex",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "npm",
+            "import"
+          ],
+          "resolved": "../../node_modules/async-mutex/index.mjs",
+          "coreModule": false,
+          "followable": false,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": true,
+          "circular": false,
+          "valid": true
         }
       ],
       "orphan": false,
@@ -3432,6 +5681,23 @@
           "valid": true
         },
         {
+          "module": "async-mutex",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "npm",
+            "import"
+          ],
+          "resolved": "../../node_modules/async-mutex/index.mjs",
+          "coreModule": false,
+          "followable": false,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": true,
+          "circular": false,
+          "valid": true
+        },
+        {
           "module": "baseclass:domain",
           "moduleSystem": "es6",
           "dynamic": false,
@@ -3454,19 +5720,6 @@
           ]
         }
       ],
-      "orphan": false,
-      "valid": true
-    },
-    {
-      "source": "baseclass:domain",
-      "followable": false,
-      "coreModule": false,
-      "couldNotResolve": true,
-      "matchesDoNotFollow": false,
-      "dependencyTypes": [
-        "unknown"
-      ],
-      "dependencies": [],
       "orphan": false,
       "valid": true
     },
@@ -3732,6 +5985,45 @@
               "name": "no-circular"
             }
           ]
+        },
+        {
+          "module": "./user-name-by-locale.cjs",
+          "moduleSystem": "cjs",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "require"
+          ],
+          "resolved": "source/domains/users/models/relational/user-name-by-locale.cjs",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": true,
+          "cycle": [
+            {
+              "name": "source/domains/users/models/relational/user-name-by-locale.cjs",
+              "dependencyTypes": [
+                "local",
+                "require"
+              ]
+            },
+            {
+              "name": "source/domains/users/models/relational/user.cjs",
+              "dependencyTypes": [
+                "local",
+                "require"
+              ]
+            }
+          ],
+          "valid": false,
+          "rules": [
+            {
+              "severity": "warn",
+              "name": "no-circular"
+            }
+          ]
         }
       ],
       "orphan": false,
@@ -3884,6 +6176,122 @@
             },
             {
               "name": "source/domains/users/models/relational/locale-master.cjs",
+              "dependencyTypes": [
+                "local",
+                "require"
+              ]
+            }
+          ],
+          "valid": false,
+          "rules": [
+            {
+              "severity": "warn",
+              "name": "no-circular"
+            }
+          ]
+        }
+      ],
+      "orphan": false,
+      "valid": true
+    },
+    {
+      "source": "source/domains/users/models/relational/user-name-by-locale.cjs",
+      "dependencies": [
+        {
+          "module": "./../../../../../base_classes/objection-model.cjs",
+          "moduleSystem": "cjs",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "require"
+          ],
+          "resolved": "base_classes/objection-model.cjs",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "./locale-master.cjs",
+          "moduleSystem": "cjs",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "require"
+          ],
+          "resolved": "source/domains/users/models/relational/locale-master.cjs",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": true,
+          "cycle": [
+            {
+              "name": "source/domains/users/models/relational/locale-master.cjs",
+              "dependencyTypes": [
+                "local",
+                "require"
+              ]
+            },
+            {
+              "name": "source/domains/users/models/relational/user-locale.cjs",
+              "dependencyTypes": [
+                "local",
+                "require"
+              ]
+            },
+            {
+              "name": "source/domains/users/models/relational/user.cjs",
+              "dependencyTypes": [
+                "local",
+                "require"
+              ]
+            },
+            {
+              "name": "source/domains/users/models/relational/user-name-by-locale.cjs",
+              "dependencyTypes": [
+                "local",
+                "require"
+              ]
+            }
+          ],
+          "valid": false,
+          "rules": [
+            {
+              "severity": "warn",
+              "name": "no-circular"
+            }
+          ]
+        },
+        {
+          "module": "./user.cjs",
+          "moduleSystem": "cjs",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "require"
+          ],
+          "resolved": "source/domains/users/models/relational/user.cjs",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": true,
+          "cycle": [
+            {
+              "name": "source/domains/users/models/relational/user.cjs",
+              "dependencyTypes": [
+                "local",
+                "require"
+              ]
+            },
+            {
+              "name": "source/domains/users/models/relational/user-name-by-locale.cjs",
               "dependencyTypes": [
                 "local",
                 "require"
@@ -4404,20 +6812,6 @@
       "valid": true
     },
     {
-      "source": "../../node_modules/async-mutex/index.mjs",
-      "followable": false,
-      "coreModule": false,
-      "couldNotResolve": false,
-      "matchesDoNotFollow": true,
-      "dependencyTypes": [
-        "npm",
-        "import"
-      ],
-      "dependencies": [],
-      "orphan": false,
-      "valid": true
-    },
-    {
       "source": "../../node_modules/device/index.js",
       "followable": false,
       "coreModule": false,
@@ -4798,8 +7192,50 @@
       "valid": true
     },
     {
+      "source": "source/repositories/runtime/auth/helpers/system-admin-session-cache.js",
+      "dependencies": [
+        {
+          "module": "safe-json-stringify",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "npm",
+            "import"
+          ],
+          "resolved": "../../node_modules/safe-json-stringify/index.js",
+          "coreModule": false,
+          "followable": false,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": true,
+          "circular": false,
+          "valid": true
+        }
+      ],
+      "orphan": false,
+      "valid": true
+    },
+    {
       "source": "source/repositories/runtime/auth/helpers/user-session-cache.js",
-      "dependencies": [],
+      "dependencies": [
+        {
+          "module": "safe-json-stringify",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "npm",
+            "import"
+          ],
+          "resolved": "../../node_modules/safe-json-stringify/index.js",
+          "coreModule": false,
+          "followable": false,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": true,
+          "circular": false,
+          "valid": true
+        }
+      ],
       "orphan": false,
       "valid": true
     },
@@ -4950,6 +7386,23 @@
       "source": "source/repositories/runtime/auth/strategies/serialize-user.js",
       "dependencies": [
         {
+          "module": "../helpers/system-admin-session-cache.js",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "import"
+          ],
+          "resolved": "source/repositories/runtime/auth/helpers/system-admin-session-cache.js",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
           "module": "../helpers/user-session-cache.js",
           "moduleSystem": "es6",
           "dynamic": false,
@@ -4971,7 +7424,7 @@
       "valid": true
     },
     {
-      "source": "source/repositories/runtime/auth/strategies/user-local.js",
+      "source": "source/repositories/runtime/auth/strategies/system-admin-local.js",
       "dependencies": [
         {
           "module": "passport-local",
@@ -5005,6 +7458,30 @@
         "dynamic-import"
       ],
       "dependencies": [],
+      "orphan": false,
+      "valid": true
+    },
+    {
+      "source": "source/repositories/runtime/auth/strategies/user-local.js",
+      "dependencies": [
+        {
+          "module": "passport-local",
+          "moduleSystem": "es6",
+          "dynamic": true,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "npm",
+            "dynamic-import"
+          ],
+          "resolved": "../../node_modules/passport-local/lib/index.js",
+          "coreModule": false,
+          "followable": false,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": true,
+          "circular": false,
+          "valid": true
+        }
+      ],
       "orphan": false,
       "valid": true
     },
@@ -5597,7 +8074,7 @@
             "npm",
             "dynamic-import"
           ],
-          "resolved": "../../node_modules/knex/types/index.d.mts",
+          "resolved": "../../node_modules/knex/knex.js",
           "coreModule": false,
           "followable": false,
           "couldNotResolve": false,
@@ -5644,7 +8121,7 @@
       "valid": true
     },
     {
-      "source": "../../node_modules/knex/types/index.d.mts",
+      "source": "../../node_modules/knex/knex.js",
       "followable": false,
       "coreModule": false,
       "couldNotResolve": false,
@@ -5923,6 +8400,150 @@
       },
       {
         "type": "dependency",
+        "from": "source/domains/system_admin/base_classes/middleware.js",
+        "to": "baseclass:middleware",
+        "rule": {
+          "severity": "error",
+          "name": "not-to-unresolvable"
+        }
+      },
+      {
+        "type": "dependency",
+        "from": "source/domains/system_admin/base_classes/surface.js",
+        "to": "baseclass:surface",
+        "rule": {
+          "severity": "error",
+          "name": "not-to-unresolvable"
+        }
+      },
+      {
+        "type": "dependency",
+        "from": "source/domains/system_admin/bounded_contexts/profile/index.js",
+        "to": "baseclass:bounded-context",
+        "rule": {
+          "severity": "error",
+          "name": "not-to-unresolvable"
+        }
+      },
+      {
+        "type": "dependency",
+        "from": "source/domains/system_admin/bounded_contexts/profile/middlewares/basics.js",
+        "to": "baseclass:middleware",
+        "rule": {
+          "severity": "error",
+          "name": "not-to-unresolvable"
+        }
+      },
+      {
+        "type": "dependency",
+        "from": "source/domains/system_admin/bounded_contexts/profile/middlewares/contacts.js",
+        "to": "baseclass:middleware",
+        "rule": {
+          "severity": "error",
+          "name": "not-to-unresolvable"
+        }
+      },
+      {
+        "type": "dependency",
+        "from": "source/domains/system_admin/bounded_contexts/profile/middlewares/locales.js",
+        "to": "baseclass:middleware",
+        "rule": {
+          "severity": "error",
+          "name": "not-to-unresolvable"
+        }
+      },
+      {
+        "type": "dependency",
+        "from": "source/domains/system_admin/bounded_contexts/profile/surfaces/command/contact.js",
+        "to": "baseclass:surface",
+        "rule": {
+          "severity": "error",
+          "name": "not-to-unresolvable"
+        }
+      },
+      {
+        "type": "dependency",
+        "from": "source/domains/system_admin/bounded_contexts/profile/surfaces/command/locale.js",
+        "to": "baseclass:surface",
+        "rule": {
+          "severity": "error",
+          "name": "not-to-unresolvable"
+        }
+      },
+      {
+        "type": "dependency",
+        "from": "source/domains/system_admin/bounded_contexts/profile/surfaces/command/main.js",
+        "to": "baseclass:surface",
+        "rule": {
+          "severity": "error",
+          "name": "not-to-unresolvable"
+        }
+      },
+      {
+        "type": "dependency",
+        "from": "source/domains/system_admin/bounded_contexts/profile/surfaces/query/contact.js",
+        "to": "baseclass:surface",
+        "rule": {
+          "severity": "error",
+          "name": "not-to-unresolvable"
+        }
+      },
+      {
+        "type": "dependency",
+        "from": "source/domains/system_admin/bounded_contexts/profile/surfaces/query/locale.js",
+        "to": "baseclass:surface",
+        "rule": {
+          "severity": "error",
+          "name": "not-to-unresolvable"
+        }
+      },
+      {
+        "type": "dependency",
+        "from": "source/domains/system_admin/bounded_contexts/profile/surfaces/query/main.js",
+        "to": "baseclass:surface",
+        "rule": {
+          "severity": "error",
+          "name": "not-to-unresolvable"
+        }
+      },
+      {
+        "type": "dependency",
+        "from": "source/domains/system_admin/bounded_contexts/session_manager/event_handlers/session.js",
+        "to": "baseclass:event-handler",
+        "rule": {
+          "severity": "error",
+          "name": "not-to-unresolvable"
+        }
+      },
+      {
+        "type": "dependency",
+        "from": "source/domains/system_admin/bounded_contexts/session_manager/index.js",
+        "to": "baseclass:bounded-context",
+        "rule": {
+          "severity": "error",
+          "name": "not-to-unresolvable"
+        }
+      },
+      {
+        "type": "dependency",
+        "from": "source/domains/system_admin/bounded_contexts/session_manager/middlewares/session.js",
+        "to": "baseclass:middleware",
+        "rule": {
+          "severity": "error",
+          "name": "not-to-unresolvable"
+        }
+      },
+      {
+        "type": "dependency",
+        "from": "source/domains/system_admin/index.js",
+        "to": "baseclass:domain",
+        "rule": {
+          "severity": "error",
+          "name": "not-to-unresolvable"
+        }
+      },
+      {
+        "type": "dependency",
         "from": "source/domains/users/base_classes/middleware.js",
         "to": "baseclass:middleware",
         "rule": {
@@ -6067,6 +8688,170 @@
       },
       {
         "type": "cycle",
+        "from": "source/domains/system_admin/models/relational/contact-type-master.cjs",
+        "to": "source/domains/system_admin/models/relational/system-admin-contact.cjs",
+        "rule": {
+          "severity": "warn",
+          "name": "no-circular"
+        },
+        "cycle": [
+          {
+            "name": "source/domains/system_admin/models/relational/system-admin-contact.cjs",
+            "dependencyTypes": [
+              "local",
+              "require"
+            ]
+          },
+          {
+            "name": "source/domains/system_admin/models/relational/contact-type-master.cjs",
+            "dependencyTypes": [
+              "local",
+              "require"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "cycle",
+        "from": "source/domains/system_admin/models/relational/locale-master.cjs",
+        "to": "source/domains/system_admin/models/relational/system-admin-locale.cjs",
+        "rule": {
+          "severity": "warn",
+          "name": "no-circular"
+        },
+        "cycle": [
+          {
+            "name": "source/domains/system_admin/models/relational/system-admin-locale.cjs",
+            "dependencyTypes": [
+              "local",
+              "require"
+            ]
+          },
+          {
+            "name": "source/domains/system_admin/models/relational/locale-master.cjs",
+            "dependencyTypes": [
+              "local",
+              "require"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "cycle",
+        "from": "source/domains/system_admin/models/relational/system-admin-contact.cjs",
+        "to": "source/domains/system_admin/models/relational/system-admin.cjs",
+        "rule": {
+          "severity": "warn",
+          "name": "no-circular"
+        },
+        "cycle": [
+          {
+            "name": "source/domains/system_admin/models/relational/system-admin.cjs",
+            "dependencyTypes": [
+              "local",
+              "require"
+            ]
+          },
+          {
+            "name": "source/domains/system_admin/models/relational/system-admin-contact.cjs",
+            "dependencyTypes": [
+              "local",
+              "require"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "cycle",
+        "from": "source/domains/system_admin/models/relational/system-admin-locale.cjs",
+        "to": "source/domains/system_admin/models/relational/system-admin.cjs",
+        "rule": {
+          "severity": "warn",
+          "name": "no-circular"
+        },
+        "cycle": [
+          {
+            "name": "source/domains/system_admin/models/relational/system-admin.cjs",
+            "dependencyTypes": [
+              "local",
+              "require"
+            ]
+          },
+          {
+            "name": "source/domains/system_admin/models/relational/system-admin-locale.cjs",
+            "dependencyTypes": [
+              "local",
+              "require"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "cycle",
+        "from": "source/domains/system_admin/models/relational/system-admin-name-by-locale.cjs",
+        "to": "source/domains/system_admin/models/relational/locale-master.cjs",
+        "rule": {
+          "severity": "warn",
+          "name": "no-circular"
+        },
+        "cycle": [
+          {
+            "name": "source/domains/system_admin/models/relational/locale-master.cjs",
+            "dependencyTypes": [
+              "local",
+              "require"
+            ]
+          },
+          {
+            "name": "source/domains/system_admin/models/relational/system-admin-locale.cjs",
+            "dependencyTypes": [
+              "local",
+              "require"
+            ]
+          },
+          {
+            "name": "source/domains/system_admin/models/relational/system-admin.cjs",
+            "dependencyTypes": [
+              "local",
+              "require"
+            ]
+          },
+          {
+            "name": "source/domains/system_admin/models/relational/system-admin-name-by-locale.cjs",
+            "dependencyTypes": [
+              "local",
+              "require"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "cycle",
+        "from": "source/domains/system_admin/models/relational/system-admin-name-by-locale.cjs",
+        "to": "source/domains/system_admin/models/relational/system-admin.cjs",
+        "rule": {
+          "severity": "warn",
+          "name": "no-circular"
+        },
+        "cycle": [
+          {
+            "name": "source/domains/system_admin/models/relational/system-admin.cjs",
+            "dependencyTypes": [
+              "local",
+              "require"
+            ]
+          },
+          {
+            "name": "source/domains/system_admin/models/relational/system-admin-name-by-locale.cjs",
+            "dependencyTypes": [
+              "local",
+              "require"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "cycle",
         "from": "source/domains/users/models/relational/contact-type-master.cjs",
         "to": "source/domains/users/models/relational/user-contact.cjs",
         "rule": {
@@ -6166,6 +8951,70 @@
         ]
       },
       {
+        "type": "cycle",
+        "from": "source/domains/users/models/relational/user-name-by-locale.cjs",
+        "to": "source/domains/users/models/relational/locale-master.cjs",
+        "rule": {
+          "severity": "warn",
+          "name": "no-circular"
+        },
+        "cycle": [
+          {
+            "name": "source/domains/users/models/relational/locale-master.cjs",
+            "dependencyTypes": [
+              "local",
+              "require"
+            ]
+          },
+          {
+            "name": "source/domains/users/models/relational/user-locale.cjs",
+            "dependencyTypes": [
+              "local",
+              "require"
+            ]
+          },
+          {
+            "name": "source/domains/users/models/relational/user.cjs",
+            "dependencyTypes": [
+              "local",
+              "require"
+            ]
+          },
+          {
+            "name": "source/domains/users/models/relational/user-name-by-locale.cjs",
+            "dependencyTypes": [
+              "local",
+              "require"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "cycle",
+        "from": "source/domains/users/models/relational/user-name-by-locale.cjs",
+        "to": "source/domains/users/models/relational/user.cjs",
+        "rule": {
+          "severity": "warn",
+          "name": "no-circular"
+        },
+        "cycle": [
+          {
+            "name": "source/domains/users/models/relational/user.cjs",
+            "dependencyTypes": [
+              "local",
+              "require"
+            ]
+          },
+          {
+            "name": "source/domains/users/models/relational/user-name-by-locale.cjs",
+            "dependencyTypes": [
+              "local",
+              "require"
+            ]
+          }
+        ]
+      },
+      {
         "type": "module",
         "from": "jsdoc_default/@twyr/rest-api-server/0.2.0/scripts/app.min.js",
         "to": "jsdoc_default/@twyr/rest-api-server/0.2.0/scripts/app.min.js",
@@ -6202,12 +9051,12 @@
         }
       }
     ],
-    "error": 26,
-    "warn": 8,
+    "error": 42,
+    "warn": 16,
     "info": 0,
     "ignore": 0,
-    "totalCruised": 144,
-    "totalDependenciesCruised": 239,
+    "totalCruised": 171,
+    "totalDependenciesCruised": 349,
     "optionsUsed": {
       "baseDir": "/home/vish/Work/twyr/code/twyr-backend-monorepo/servers/rest-api-server",
       "combinedDependencies": false,
