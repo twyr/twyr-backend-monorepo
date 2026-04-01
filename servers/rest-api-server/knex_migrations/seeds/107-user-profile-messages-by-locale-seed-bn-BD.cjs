@@ -50,6 +50,10 @@ const insertUserProfileMessagesByLocale =
 					'অবৈধ যোগাযোগ আপডেট অনুরোধ: এক বা একাধিক বৈশিষ্ট্য অবৈধ।'
 			},
 			{
+				message_id: 'USERS::CONTACT::CANNOT_DELETE_PRIMARY',
+				message_text: 'প্রাথমিক যোগাযোগ মুছে ফেলা যাবে না।'
+			},
+			{
 				message_id: 'USERS::LOCALE::INVALID_CREATE_REQUEST',
 				message_text:
 					'অবৈধ লোকেল তৈরির অনুরোধ: এক বা একাধিক বৈশিষ্ট্য অবৈধ।'
@@ -58,6 +62,10 @@ const insertUserProfileMessagesByLocale =
 				message_id: 'USERS::LOCALE::INVALID_UPDATE_REQUEST',
 				message_text:
 					'অবৈধ লোকেল আপডেট অনুরোধ: এক বা একাধিক বৈশিষ্ট্য অবৈধ।'
+			},
+			{
+				message_id: 'USERS::LOCALE::CANNOT_DELETE_PRIMARY',
+				message_text: 'প্রাথমিক লোকেল মুছে ফেলা যাবে না।'
 			}
 		];
 

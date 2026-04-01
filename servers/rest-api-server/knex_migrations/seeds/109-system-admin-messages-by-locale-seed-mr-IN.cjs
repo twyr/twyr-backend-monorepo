@@ -99,6 +99,10 @@ const insertSystemAdminMessagesByLocale =
 					'अवैध संपर्क अद्यतन विनंती: एक किंवा अधिक गुणधर्म अवैध आहेत.'
 			},
 			{
+				message_id: 'SYSTEM_ADMIN::CONTACT::CANNOT_DELETE_PRIMARY',
+				message_text: 'प्राथमिक संपर्क हटवता येणार नाही.'
+			},
+			{
 				message_id: 'SYSTEM_ADMIN::LOCALE::INVALID_CREATE_REQUEST',
 				message_text:
 					'अवैध लोकेल तयार करण्याची विनंती: एक किंवा अधिक गुणधर्म अवैध आहेत.'
@@ -107,6 +111,10 @@ const insertSystemAdminMessagesByLocale =
 				message_id: 'SYSTEM_ADMIN::LOCALE::INVALID_UPDATE_REQUEST',
 				message_text:
 					'अवैध लोकेल अद्यतन विनंती: एक किंवा अधिक गुणधर्म अवैध आहेत.'
+			},
+			{
+				message_id: 'SYSTEM_ADMIN::LOCALE::CANNOT_DELETE_PRIMARY',
+				message_text: 'प्राथमिक लोकेल हटवता येणार नाही.'
 			}
 		];
 

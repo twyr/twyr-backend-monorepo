@@ -99,6 +99,10 @@ const insertSystemAdminMessagesByLocale =
 					'ಅಮಾನ್ಯ ಸಂಪರ್ಕ ನವೀಕರಣ ವಿನಂತಿ: ಒಂದು ಅಥವಾ ಹೆಚ್ಚು ಗುಣಲಕ್ಷಣಗಳು ಅಮಾನ್ಯವಾಗಿವೆ.'
 			},
 			{
+				message_id: 'SYSTEM_ADMIN::CONTACT::CANNOT_DELETE_PRIMARY',
+				message_text: 'ಪ್ರಾಥಮಿಕ ಸಂಪರ್ಕವನ್ನು ಅಳಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ.'
+			},
+			{
 				message_id: 'SYSTEM_ADMIN::LOCALE::INVALID_CREATE_REQUEST',
 				message_text:
 					'ಅಮಾನ್ಯ ಲೊಕೇಲ್ ರಚನೆ ವಿನಂತಿ: ಒಂದು ಅಥವಾ ಹೆಚ್ಚು ಗುಣಲಕ್ಷಣಗಳು ಅಮಾನ್ಯವಾಗಿವೆ.'
@@ -107,6 +111,10 @@ const insertSystemAdminMessagesByLocale =
 				message_id: 'SYSTEM_ADMIN::LOCALE::INVALID_UPDATE_REQUEST',
 				message_text:
 					'ಅಮಾನ್ಯ ಲೊಕೇಲ್ ನವೀಕರಣ ವಿನಂತಿ: ಒಂದು ಅಥವಾ ಹೆಚ್ಚು ಗುಣಲಕ್ಷಣಗಳು ಅಮಾನ್ಯವಾಗಿವೆ.'
+			},
+			{
+				message_id: 'SYSTEM_ADMIN::LOCALE::CANNOT_DELETE_PRIMARY',
+				message_text: 'ಪ್ರಾಥಮಿಕ ಲೊಕೇಲ್ ಅನ್ನು ಅಳಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ.'
 			}
 		];
 

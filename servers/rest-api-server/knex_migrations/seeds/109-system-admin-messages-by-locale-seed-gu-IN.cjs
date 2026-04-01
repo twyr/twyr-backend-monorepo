@@ -99,6 +99,10 @@ const insertSystemAdminMessagesByLocale =
 					'અમાન્ય સંપર્ક અપડેટ વિનંતી: એક અથવા વધુ ગુણધર્મો અમાન્ય છે.'
 			},
 			{
+				message_id: 'SYSTEM_ADMIN::CONTACT::CANNOT_DELETE_PRIMARY',
+				message_text: 'પ્રાથમિક સંપર્ક ભૂંસી શકાશે નહીં.'
+			},
+			{
 				message_id: 'SYSTEM_ADMIN::LOCALE::INVALID_CREATE_REQUEST',
 				message_text:
 					'અમાન્ય લોકેલ બનાવવાની વિનંતી: એક અથવા વધુ ગુણધર્મો અમાન્ય છે.'
@@ -107,6 +111,10 @@ const insertSystemAdminMessagesByLocale =
 				message_id: 'SYSTEM_ADMIN::LOCALE::INVALID_UPDATE_REQUEST',
 				message_text:
 					'અમાન્ય લોકેલ અપડેટ વિનંતી: એક અથવા વધુ ગુણધર્મો અમાન્ય છે.'
+			},
+			{
+				message_id: 'SYSTEM_ADMIN::LOCALE::CANNOT_DELETE_PRIMARY',
+				message_text: 'પ્રાથમિક લોકેલ ભૂંસી શકાશે નહીં.'
 			}
 		];
 

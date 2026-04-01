@@ -27,37 +27,37 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'aa-ET',
 			locale_id: 'mr-IN',
-			language_name: 'अफार (इथिओपिया)'
+			language_name: 'अफार'
 		},
 		{
 			locale_code: 'ab-GE',
 			locale_id: 'mr-IN',
-			language_name: 'अबखेजियन (जॉर्जिया)'
+			language_name: 'अबखेजियन'
 		},
 		{
 			locale_code: 'ace-ID',
 			locale_id: 'mr-IN',
-			language_name: 'अचीनी (इंडोनेशिया)'
+			language_name: 'अचीनी'
 		},
 		{
 			locale_code: 'ach-UG',
 			locale_id: 'mr-IN',
-			language_name: 'अकोली (युगांडा)'
+			language_name: 'अकोली'
 		},
 		{
 			locale_code: 'ada-GH',
 			locale_id: 'mr-IN',
-			language_name: 'अडांग्मे (घाना)'
+			language_name: 'अडांग्मे'
 		},
 		{
 			locale_code: 'ady-RU',
 			locale_id: 'mr-IN',
-			language_name: 'अडिघे (रशिया)'
+			language_name: 'अडिघे'
 		},
 		{
 			locale_code: 'ae-IR',
 			locale_id: 'mr-IN',
-			language_name: 'अवेस्तन (इराण)'
+			language_name: 'अवेस्तन'
 		},
 		{
 			locale_code: 'aeb-TN',
@@ -67,32 +67,32 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'af-ZA',
 			locale_id: 'mr-IN',
-			language_name: 'अफ्रिकान्स (दक्षिण आफ्रिका)'
+			language_name: 'अफ्रिकान्स'
 		},
 		{
 			locale_code: 'afh-GH',
 			locale_id: 'mr-IN',
-			language_name: 'अफ्रिहिली (घाना)'
+			language_name: 'अफ्रिहिली'
 		},
 		{
 			locale_code: 'agq-CM',
 			locale_id: 'mr-IN',
-			language_name: 'अघेम (कॅमेरून)'
+			language_name: 'अघेम'
 		},
 		{
 			locale_code: 'ain-JP',
 			locale_id: 'mr-IN',
-			language_name: 'ऐनू (जपान)'
+			language_name: 'ऐनू'
 		},
 		{
 			locale_code: 'ak-GH',
 			locale_id: 'mr-IN',
-			language_name: 'अकान (घाना)'
+			language_name: 'अकान'
 		},
 		{
 			locale_code: 'akk-IQ',
 			locale_id: 'mr-IN',
-			language_name: 'अक्केडियन (इराक)'
+			language_name: 'अक्केडियन'
 		},
 		{
 			locale_code: 'akz-US',
@@ -102,67 +102,67 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'ale-US',
 			locale_id: 'mr-IN',
-			language_name: 'अलेउत (युनायटेड स्टेट्स)'
+			language_name: 'अलेउत'
 		},
 		{
 			locale_code: 'alt-RU',
 			locale_id: 'mr-IN',
-			language_name: 'दक्षिणात्य अल्ताई (रशिया)'
+			language_name: 'दक्षिणात्य अल्ताई'
 		},
 		{
 			locale_code: 'am-ET',
 			locale_id: 'mr-IN',
-			language_name: 'अम्हारिक (इथिओपिया)'
+			language_name: 'अम्हारिक'
 		},
 		{
 			locale_code: 'an-ES',
 			locale_id: 'mr-IN',
-			language_name: 'अर्गोनीज (स्पेन)'
+			language_name: 'अर्गोनीज'
 		},
 		{
 			locale_code: 'ang-GB',
 			locale_id: 'mr-IN',
-			language_name: 'पुरातन इंग्रजी (युनायटेड किंगडम)'
+			language_name: 'पुरातन इंग्रजी'
 		},
 		{
 			locale_code: 'ann-NG',
 			locale_id: 'mr-IN',
-			language_name: 'ओबोलो (नायजेरिया)'
+			language_name: 'ओबोलो'
 		},
 		{
 			locale_code: 'anp-IN',
 			locale_id: 'mr-IN',
-			language_name: 'अंगिका (भारत)'
+			language_name: 'अंगिका'
 		},
 		{
 			locale_code: 'ar-EG',
 			locale_id: 'mr-IN',
-			language_name: 'अरबी (इजिप्त)'
+			language_name: 'अरबी'
 		},
 		{
 			locale_code: 'arc-IR',
 			locale_id: 'mr-IN',
-			language_name: 'अ‍ॅरेमाइक (इराण)'
+			language_name: 'अ‍ॅरेमाइक'
 		},
 		{
 			locale_code: 'arc-IQ',
 			locale_id: 'mr-IN',
-			language_name: 'अ‍ॅरेमाइक (इराक)'
+			language_name: 'अ‍ॅरेमाइक'
 		},
 		{
 			locale_code: 'arc-JO',
 			locale_id: 'mr-IN',
-			language_name: 'अ‍ॅरेमाइक (जॉर्डन)'
+			language_name: 'अ‍ॅरेमाइक'
 		},
 		{
 			locale_code: 'arc-SY',
 			locale_id: 'mr-IN',
-			language_name: 'अ‍ॅरेमाइक (सीरिया)'
+			language_name: 'अ‍ॅरेमाइक'
 		},
 		{
 			locale_code: 'arn-CL',
 			locale_id: 'mr-IN',
-			language_name: 'मापुची (चिली)'
+			language_name: 'मापुची'
 		},
 		{
 			locale_code: 'aro-BO',
@@ -172,7 +172,7 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'arp-US',
 			locale_id: 'mr-IN',
-			language_name: 'आरापाहो (युनायटेड स्टेट्स)'
+			language_name: 'आरापाहो'
 		},
 		{
 			locale_code: 'arq-DZ',
@@ -182,12 +182,12 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'ars-SA',
 			locale_id: 'mr-IN',
-			language_name: 'नजदी अरबी (सौदी अरब)'
+			language_name: 'नजदी अरबी'
 		},
 		{
 			locale_code: 'arw-SR',
 			locale_id: 'mr-IN',
-			language_name: 'आरावाक (सुरिनाम)'
+			language_name: 'आरावाक'
 		},
 		{
 			locale_code: 'ary-MA',
@@ -202,12 +202,12 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'as-IN',
 			locale_id: 'mr-IN',
-			language_name: 'आसामी (भारत)'
+			language_name: 'आसामी'
 		},
 		{
 			locale_code: 'asa-TZ',
 			locale_id: 'mr-IN',
-			language_name: 'असु (टांझानिया)'
+			language_name: 'असु'
 		},
 		{
 			locale_code: 'ase-US',
@@ -217,62 +217,62 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'ast-ES',
 			locale_id: 'mr-IN',
-			language_name: 'अस्तुरियन (स्पेन)'
+			language_name: 'अस्तुरियन'
 		},
 		{
 			locale_code: 'atj-CA',
 			locale_id: 'mr-IN',
-			language_name: 'अटिकमेक (कॅनडा)'
+			language_name: 'अटिकमेक'
 		},
 		{
 			locale_code: 'av-RU',
 			locale_id: 'mr-IN',
-			language_name: 'अ‍ॅव्हेरिक (रशिया)'
+			language_name: 'अ‍ॅव्हेरिक'
 		},
 		{
 			locale_code: 'awa-IN',
 			locale_id: 'mr-IN',
-			language_name: 'अवधी (भारत)'
+			language_name: 'अवधी'
 		},
 		{
 			locale_code: 'ay-BO',
 			locale_id: 'mr-IN',
-			language_name: 'ऐमरा (बोलिव्हिया)'
+			language_name: 'ऐमरा'
 		},
 		{
 			locale_code: 'az-AZ',
 			locale_id: 'mr-IN',
-			language_name: 'अझरबैजानी (अझरबैजान)'
+			language_name: 'अझरबैजानी'
 		},
 		{
 			locale_code: 'az-IR',
 			locale_id: 'mr-IN',
-			language_name: 'अझरबैजानी (इराण)'
+			language_name: 'अझरबैजानी'
 		},
 		{
 			locale_code: 'az-IQ',
 			locale_id: 'mr-IN',
-			language_name: 'अझरबैजानी (इराक)'
+			language_name: 'अझरबैजानी'
 		},
 		{
 			locale_code: 'az-RU',
 			locale_id: 'mr-IN',
-			language_name: 'अझरबैजानी (रशिया)'
+			language_name: 'अझरबैजानी'
 		},
 		{
 			locale_code: 'ba-RU',
 			locale_id: 'mr-IN',
-			language_name: 'बष्किर (रशिया)'
+			language_name: 'बष्किर'
 		},
 		{
 			locale_code: 'bal-PK',
 			locale_id: 'mr-IN',
-			language_name: 'बलुची (पाकिस्तान)'
+			language_name: 'बलुची'
 		},
 		{
 			locale_code: 'ban-ID',
 			locale_id: 'mr-IN',
-			language_name: 'बालिनीज (इंडोनेशिया)'
+			language_name: 'बालिनीज'
 		},
 		{
 			locale_code: 'bar-AT',
@@ -282,7 +282,7 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'bas-CM',
 			locale_id: 'mr-IN',
-			language_name: 'बसा (कॅमेरून)'
+			language_name: 'बसा'
 		},
 		{
 			locale_code: 'bax-CM',
@@ -302,17 +302,17 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'be-BY',
 			locale_id: 'mr-IN',
-			language_name: 'बेलारुशियन (बेलारूस)'
+			language_name: 'बेलारुशियन'
 		},
 		{
 			locale_code: 'bej-SD',
 			locale_id: 'mr-IN',
-			language_name: 'बेजा (सुदान)'
+			language_name: 'बेजा'
 		},
 		{
 			locale_code: 'bem-ZM',
 			locale_id: 'mr-IN',
-			language_name: 'बेम्बा (झाम्बिया)'
+			language_name: 'बेम्बा'
 		},
 		{
 			locale_code: 'bew-ID',
@@ -322,7 +322,7 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'bez-TZ',
 			locale_id: 'mr-IN',
-			language_name: 'बेना (टांझानिया)'
+			language_name: 'बेना'
 		},
 		{
 			locale_code: 'bfd-CM',
@@ -337,37 +337,37 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'bg-BG',
 			locale_id: 'mr-IN',
-			language_name: 'बल्गेरियन (बल्गेरिया)'
+			language_name: 'बल्गेरियन'
 		},
 		{
 			locale_code: 'bgc-IN',
 			locale_id: 'mr-IN',
-			language_name: 'हरियाणवी (भारत)'
+			language_name: 'हरियाणवी'
 		},
 		{
 			locale_code: 'bgn-PK',
 			locale_id: 'mr-IN',
-			language_name: 'पश्चिमी बालोची (पाकिस्तान)'
+			language_name: 'पश्चिमी बालोची'
 		},
 		{
 			locale_code: 'bho-IN',
 			locale_id: 'mr-IN',
-			language_name: 'भोजपुरी (भारत)'
+			language_name: 'भोजपुरी'
 		},
 		{
 			locale_code: 'bi-VU',
 			locale_id: 'mr-IN',
-			language_name: 'बिस्लामा (वानुआतु)'
+			language_name: 'बिस्लामा'
 		},
 		{
 			locale_code: 'bik-PH',
 			locale_id: 'mr-IN',
-			language_name: 'बिकोल (फिलिपिन्स)'
+			language_name: 'बिकोल'
 		},
 		{
 			locale_code: 'bin-NG',
 			locale_id: 'mr-IN',
-			language_name: 'बिनी (नायजेरिया)'
+			language_name: 'बिनी'
 		},
 		{
 			locale_code: 'bjn-ID',
@@ -382,12 +382,12 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'bla-CA',
 			locale_id: 'mr-IN',
-			language_name: 'सिक्सिका (कॅनडा)'
+			language_name: 'सिक्सिका'
 		},
 		{
 			locale_code: 'blo-BJ',
 			locale_id: 'mr-IN',
-			language_name: 'ॲनीआय (बेनिन)'
+			language_name: 'ॲनीआय'
 		},
 		{
 			locale_code: 'blt-VN',
@@ -397,17 +397,17 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'bm-ML',
 			locale_id: 'mr-IN',
-			language_name: 'बाम्बारा (माली)'
+			language_name: 'बाम्बारा'
 		},
 		{
 			locale_code: 'bn-BD',
 			locale_id: 'mr-IN',
-			language_name: 'बंगाली (बांगलादेश)'
+			language_name: 'बंगाली'
 		},
 		{
 			locale_code: 'bo-CN',
 			locale_id: 'mr-IN',
-			language_name: 'तिबेटी (चीन)'
+			language_name: 'तिबेटी'
 		},
 		{
 			locale_code: 'bpy-IN',
@@ -422,12 +422,12 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'br-FR',
 			locale_id: 'mr-IN',
-			language_name: 'ब्रेतॉन (फ्रान्स)'
+			language_name: 'ब्रेतॉन'
 		},
 		{
 			locale_code: 'bra-IN',
 			locale_id: 'mr-IN',
-			language_name: 'ब्रज (भारत)'
+			language_name: 'ब्रज'
 		},
 		{
 			locale_code: 'brh-PK',
@@ -437,12 +437,12 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'brx-IN',
 			locale_id: 'mr-IN',
-			language_name: 'बोडो (भारत)'
+			language_name: 'बोडो'
 		},
 		{
 			locale_code: 'bs-BA',
 			locale_id: 'mr-IN',
-			language_name: 'बोस्नियन (बोस्निया अणि हर्जेगोविना)'
+			language_name: 'बोस्नियन'
 		},
 		{
 			locale_code: 'bss-CM',
@@ -452,12 +452,12 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'bua-RU',
 			locale_id: 'mr-IN',
-			language_name: 'बुरियात (रशिया)'
+			language_name: 'बुरियात'
 		},
 		{
 			locale_code: 'bug-ID',
 			locale_id: 'mr-IN',
-			language_name: 'बगिनीस (इंडोनेशिया)'
+			language_name: 'बगिनीस'
 		},
 		{
 			locale_code: 'bum-CM',
@@ -467,7 +467,7 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'byn-ER',
 			locale_id: 'mr-IN',
-			language_name: 'ब्लिन (एरिट्रिया)'
+			language_name: 'ब्लिन'
 		},
 		{
 			locale_code: 'byv-CM',
@@ -477,97 +477,97 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'ca-ES',
 			locale_id: 'mr-IN',
-			language_name: 'कातालान (स्पेन)'
+			language_name: 'कातालान'
 		},
 		{
 			locale_code: 'cad-US',
 			locale_id: 'mr-IN',
-			language_name: 'कॅड्डो (युनायटेड स्टेट्स)'
+			language_name: 'कॅड्डो'
 		},
 		{
 			locale_code: 'car-VE',
 			locale_id: 'mr-IN',
-			language_name: 'कॅरिब (व्हेनेझुएला)'
+			language_name: 'कॅरिब'
 		},
 		{
 			locale_code: 'cay-CA',
 			locale_id: 'mr-IN',
-			language_name: 'केयुगा (कॅनडा)'
+			language_name: 'केयुगा'
 		},
 		{
 			locale_code: 'cch-NG',
 			locale_id: 'mr-IN',
-			language_name: 'अत्सम (नायजेरिया)'
+			language_name: 'अत्सम'
 		},
 		{
 			locale_code: 'ccp-BD',
 			locale_id: 'mr-IN',
-			language_name: 'चाकमा (बांगलादेश)'
+			language_name: 'चाकमा'
 		},
 		{
 			locale_code: 'ce-RU',
 			locale_id: 'mr-IN',
-			language_name: 'चेचेन (रशिया)'
+			language_name: 'चेचेन'
 		},
 		{
 			locale_code: 'ceb-PH',
 			locale_id: 'mr-IN',
-			language_name: 'सिबुआनो (फिलिपिन्स)'
+			language_name: 'सिबुआनो'
 		},
 		{
 			locale_code: 'cgg-UG',
 			locale_id: 'mr-IN',
-			language_name: 'किगा (युगांडा)'
+			language_name: 'किगा'
 		},
 		{
 			locale_code: 'ch-GU',
 			locale_id: 'mr-IN',
-			language_name: 'कॅमोरो (गुआम)'
+			language_name: 'कॅमोरो'
 		},
 		{
 			locale_code: 'chb-CO',
 			locale_id: 'mr-IN',
-			language_name: 'चिब्चा (कोलम्बिया)'
+			language_name: 'चिब्चा'
 		},
 		{
 			locale_code: 'chg-TM',
 			locale_id: 'mr-IN',
-			language_name: 'छागाताइ (तुर्कमेनिस्तान)'
+			language_name: 'छागाताइ'
 		},
 		{
 			locale_code: 'chk-FM',
 			locale_id: 'mr-IN',
-			language_name: 'चूकीसे (मायक्रोनेशिया)'
+			language_name: 'चूकीसे'
 		},
 		{
 			locale_code: 'chm-RU',
 			locale_id: 'mr-IN',
-			language_name: 'मारी (रशिया)'
+			language_name: 'मारी'
 		},
 		{
 			locale_code: 'chn-US',
 			locale_id: 'mr-IN',
-			language_name: 'चिनूक जारगॉन (युनायटेड स्टेट्स)'
+			language_name: 'चिनूक जारगॉन'
 		},
 		{
 			locale_code: 'cho-US',
 			locale_id: 'mr-IN',
-			language_name: 'चोक्तौ (युनायटेड स्टेट्स)'
+			language_name: 'चोक्तौ'
 		},
 		{
 			locale_code: 'chp-CA',
 			locale_id: 'mr-IN',
-			language_name: 'शिपेव्यान (कॅनडा)'
+			language_name: 'शिपेव्यान'
 		},
 		{
 			locale_code: 'chr-US',
 			locale_id: 'mr-IN',
-			language_name: 'चेरोकी (युनायटेड स्टेट्स)'
+			language_name: 'चेरोकी'
 		},
 		{
 			locale_code: 'chy-US',
 			locale_id: 'mr-IN',
-			language_name: 'शेयेन्न (युनायटेड स्टेट्स)'
+			language_name: 'शेयेन्न'
 		},
 		{
 			locale_code: 'cic-US',
@@ -577,22 +577,22 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'ckb-IQ',
 			locale_id: 'mr-IN',
-			language_name: 'मध्य कुर्दिश (इराक)'
+			language_name: 'मध्य कुर्दिश'
 		},
 		{
 			locale_code: 'clc-CA',
 			locale_id: 'mr-IN',
-			language_name: 'चिलकोटिन (कॅनडा)'
+			language_name: 'चिलकोटिन'
 		},
 		{
 			locale_code: 'co-FR',
 			locale_id: 'mr-IN',
-			language_name: 'कॉर्सिकन (फ्रान्स)'
+			language_name: 'कॉर्सिकन'
 		},
 		{
 			locale_code: 'cop-EG',
 			locale_id: 'mr-IN',
-			language_name: 'कॉप्टिक (इजिप्त)'
+			language_name: 'कॉप्टिक'
 		},
 		{
 			locale_code: 'cps-PH',
@@ -602,137 +602,137 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'cr-CA',
 			locale_id: 'mr-IN',
-			language_name: 'क्री (कॅनडा)'
+			language_name: 'क्री'
 		},
 		{
 			locale_code: 'crg-CA',
 			locale_id: 'mr-IN',
-			language_name: 'मिचिफो (कॅनडा)'
+			language_name: 'मिचिफो'
 		},
 		{
 			locale_code: 'crh-UA',
 			locale_id: 'mr-IN',
-			language_name: 'क्राइमीन तुर्की (युक्रेन)'
+			language_name: 'क्राइमीन तुर्की'
 		},
 		{
 			locale_code: 'crj-CA',
 			locale_id: 'mr-IN',
-			language_name: 'दक्षिणात्य इस्ट क्री (कॅनडा)'
+			language_name: 'दक्षिणात्य इस्ट क्री'
 		},
 		{
 			locale_code: 'crk-CA',
 			locale_id: 'mr-IN',
-			language_name: 'प्लेन्स क्री (कॅनडा)'
+			language_name: 'प्लेन्स क्री'
 		},
 		{
 			locale_code: 'crl-CA',
 			locale_id: 'mr-IN',
-			language_name: 'नॉर्दर्न ईस्ट क्री (कॅनडा)'
+			language_name: 'नॉर्दर्न ईस्ट क्री'
 		},
 		{
 			locale_code: 'crm-CA',
 			locale_id: 'mr-IN',
-			language_name: 'मूस क्री (कॅनडा)'
+			language_name: 'मूस क्री'
 		},
 		{
 			locale_code: 'crs-SC',
 			locale_id: 'mr-IN',
-			language_name: 'सेसेल्वा क्रिओल फ्रेंच (सेशेल्स)'
+			language_name: 'सेसेल्वा क्रिओल फ्रेंच'
 		},
 		{
 			locale_code: 'cs-CZ',
 			locale_id: 'mr-IN',
-			language_name: 'झेक (झेकिया)'
+			language_name: 'झेक'
 		},
 		{
 			locale_code: 'csb-PL',
 			locale_id: 'mr-IN',
-			language_name: 'काशुबियन (पोलंड)'
+			language_name: 'काशुबियन'
 		},
 		{
 			locale_code: 'csw-CA',
 			locale_id: 'mr-IN',
-			language_name: 'स्वॅम्पी क्री (कॅनडा)'
+			language_name: 'स्वॅम्पी क्री'
 		},
 		{
 			locale_code: 'cu-RU',
 			locale_id: 'mr-IN',
-			language_name: 'चर्च स्लाव्हिक (रशिया)'
+			language_name: 'चर्च स्लाव्हिक'
 		},
 		{
 			locale_code: 'cu-BG',
 			locale_id: 'mr-IN',
-			language_name: 'चर्च स्लाव्हिक (बल्गेरिया)'
+			language_name: 'चर्च स्लाव्हिक'
 		},
 		{
 			locale_code: 'cv-RU',
 			locale_id: 'mr-IN',
-			language_name: 'चूवाश (रशिया)'
+			language_name: 'चूवाश'
 		},
 		{
 			locale_code: 'cy-GB',
 			locale_id: 'mr-IN',
-			language_name: 'वेल्श (युनायटेड किंगडम)'
+			language_name: 'वेल्श'
 		},
 		{
 			locale_code: 'da-DK',
 			locale_id: 'mr-IN',
-			language_name: 'डॅनिश (डेन्मार्क)'
+			language_name: 'डॅनिश'
 		},
 		{
 			locale_code: 'dak-US',
 			locale_id: 'mr-IN',
-			language_name: 'डाकोटा (युनायटेड स्टेट्स)'
+			language_name: 'डाकोटा'
 		},
 		{
 			locale_code: 'dar-RU',
 			locale_id: 'mr-IN',
-			language_name: 'दार्गवा (रशिया)'
+			language_name: 'दार्गवा'
 		},
 		{
 			locale_code: 'dav-KE',
 			locale_id: 'mr-IN',
-			language_name: 'तायता (केनिया)'
+			language_name: 'तायता'
 		},
 		{
 			locale_code: 'de-DE',
 			locale_id: 'mr-IN',
-			language_name: 'जर्मन (जर्मनी)'
+			language_name: 'जर्मन'
 		},
 		{
 			locale_code: 'del-US',
 			locale_id: 'mr-IN',
-			language_name: 'डेलावेयर (युनायटेड स्टेट्स)'
+			language_name: 'डेलावेयर'
 		},
 		{
 			locale_code: 'den-CA',
 			locale_id: 'mr-IN',
-			language_name: 'स्लाव्ह (कॅनडा)'
+			language_name: 'स्लाव्ह'
 		},
 		{
 			locale_code: 'dgr-CA',
 			locale_id: 'mr-IN',
-			language_name: 'डोग्रिब (कॅनडा)'
+			language_name: 'डोग्रिब'
 		},
 		{
 			locale_code: 'din-SS',
 			locale_id: 'mr-IN',
-			language_name: 'डिन्का (दक्षिण सुदान)'
+			language_name: 'डिन्का'
 		},
 		{
 			locale_code: 'dje-NE',
 			locale_id: 'mr-IN',
-			language_name: 'झार्मा (नाइजर)'
+			language_name: 'झार्मा'
 		},
 		{
 			locale_code: 'doi-IN',
 			locale_id: 'mr-IN',
-			language_name: 'डोगरी (भारत)'
+			language_name: 'डोगरी'
 		},
 		{
 			locale_code: 'dsb-DE',
 			locale_id: 'mr-IN',
-			language_name: 'लोअर सोर्बियन (जर्मनी)'
+			language_name: 'लोअर सोर्बियन'
 		},
 		{
 			locale_code: 'dtp-MY',
@@ -742,52 +742,52 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'dua-CM',
 			locale_id: 'mr-IN',
-			language_name: 'दुआला (कॅमेरून)'
+			language_name: 'दुआला'
 		},
 		{
 			locale_code: 'dum-NL',
 			locale_id: 'mr-IN',
-			language_name: 'मिडल डच (नेदरलँड)'
+			language_name: 'मिडल डच'
 		},
 		{
 			locale_code: 'dv-MV',
 			locale_id: 'mr-IN',
-			language_name: 'दिवेही (मालदीव)'
+			language_name: 'दिवेही'
 		},
 		{
 			locale_code: 'dyo-SN',
 			locale_id: 'mr-IN',
-			language_name: 'जोला-फॉन्यी (सेनेगल)'
+			language_name: 'जोला-फॉन्यी'
 		},
 		{
 			locale_code: 'dyu-BF',
 			locale_id: 'mr-IN',
-			language_name: 'ड्युला (बुर्किना फासो)'
+			language_name: 'ड्युला'
 		},
 		{
 			locale_code: 'dz-BT',
 			locale_id: 'mr-IN',
-			language_name: 'झोंगखा (भूतान)'
+			language_name: 'झोंगखा'
 		},
 		{
 			locale_code: 'dzg-TD',
 			locale_id: 'mr-IN',
-			language_name: 'दाझागा (चाड)'
+			language_name: 'दाझागा'
 		},
 		{
 			locale_code: 'ebu-KE',
 			locale_id: 'mr-IN',
-			language_name: 'एम्बू (केनिया)'
+			language_name: 'एम्बू'
 		},
 		{
 			locale_code: 'ee-GH',
 			locale_id: 'mr-IN',
-			language_name: 'एवे (घाना)'
+			language_name: 'एवे'
 		},
 		{
 			locale_code: 'efi-NG',
 			locale_id: 'mr-IN',
-			language_name: 'एफिक (नायजेरिया)'
+			language_name: 'एफिक'
 		},
 		{
 			locale_code: 'egl-IT',
@@ -797,17 +797,17 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'egy-EG',
 			locale_id: 'mr-IN',
-			language_name: 'प्राचीन इजिप्शियन (इजिप्त)'
+			language_name: 'प्राचीन इजिप्शियन'
 		},
 		{
 			locale_code: 'eka-NG',
 			locale_id: 'mr-IN',
-			language_name: 'एकाजुक (नायजेरिया)'
+			language_name: 'एकाजुक'
 		},
 		{
 			locale_code: 'el-GR',
 			locale_id: 'mr-IN',
-			language_name: 'ग्रीक (ग्रीस)'
+			language_name: 'ग्रीक'
 		},
 		{
 			locale_code: 'en-US',
@@ -822,12 +822,12 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'en-IN',
 			locale_id: 'mr-IN',
-			language_name: 'इंग्रजी (भारत)'
+			language_name: 'इंग्रजी'
 		},
 		{
 			locale_code: 'enm-GB',
 			locale_id: 'mr-IN',
-			language_name: 'मिडल इंग्रजी (युनायटेड किंगडम)'
+			language_name: 'मिडल इंग्रजी'
 		},
 		{
 			locale_code: 'es-ES',
@@ -842,17 +842,17 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'et-EE',
 			locale_id: 'mr-IN',
-			language_name: 'इस्टोनियन (एस्टोनिया)'
+			language_name: 'इस्टोनियन'
 		},
 		{
 			locale_code: 'eu-ES',
 			locale_id: 'mr-IN',
-			language_name: 'बास्क (स्पेन)'
+			language_name: 'बास्क'
 		},
 		{
 			locale_code: 'ewo-CM',
 			locale_id: 'mr-IN',
-			language_name: 'इवोन्डो (कॅमेरून)'
+			language_name: 'इवोन्डो'
 		},
 		{
 			locale_code: 'ext-ES',
@@ -862,32 +862,32 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'fa-IR',
 			locale_id: 'mr-IN',
-			language_name: 'फारसी (इराण)'
+			language_name: 'फारसी'
 		},
 		{
 			locale_code: 'fan-GQ',
 			locale_id: 'mr-IN',
-			language_name: 'फँग (इक्वेटोरियल गिनी)'
+			language_name: 'फँग'
 		},
 		{
 			locale_code: 'ff-SN',
 			locale_id: 'mr-IN',
-			language_name: 'फुलाह (सेनेगल)'
+			language_name: 'फुलाह'
 		},
 		{
 			locale_code: 'ff-GN',
 			locale_id: 'mr-IN',
-			language_name: 'फुलाह (गिनी)'
+			language_name: 'फुलाह'
 		},
 		{
 			locale_code: 'fi-FI',
 			locale_id: 'mr-IN',
-			language_name: 'फिनिश (फिनलंड)'
+			language_name: 'फिनिश'
 		},
 		{
 			locale_code: 'fil-PH',
 			locale_id: 'mr-IN',
-			language_name: 'फिलिपिनो (फिलिपिन्स)'
+			language_name: 'फिलिपिनो'
 		},
 		{
 			locale_code: 'fit-SE',
@@ -897,37 +897,37 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'fj-FJ',
 			locale_id: 'mr-IN',
-			language_name: 'फिजियन (फिजी)'
+			language_name: 'फिजियन'
 		},
 		{
 			locale_code: 'fo-FO',
 			locale_id: 'mr-IN',
-			language_name: 'फरोइज (फेरो बेटे)'
+			language_name: 'फरोइज'
 		},
 		{
 			locale_code: 'fon-BJ',
 			locale_id: 'mr-IN',
-			language_name: 'फॉन (बेनिन)'
+			language_name: 'फॉन'
 		},
 		{
 			locale_code: 'fr-FR',
 			locale_id: 'mr-IN',
-			language_name: 'फ्रेंच (फ्रान्स)'
+			language_name: 'फ्रेंच'
 		},
 		{
 			locale_code: 'frc-US',
 			locale_id: 'mr-IN',
-			language_name: 'केजॉन फ्रेंच (युनायटेड स्टेट्स)'
+			language_name: 'केजॉन फ्रेंच'
 		},
 		{
 			locale_code: 'frm-FR',
 			locale_id: 'mr-IN',
-			language_name: 'मिडल फ्रेंच (फ्रान्स)'
+			language_name: 'मिडल फ्रेंच'
 		},
 		{
 			locale_code: 'fro-FR',
 			locale_id: 'mr-IN',
-			language_name: 'पुरातन फ्रेंच (फ्रान्स)'
+			language_name: 'पुरातन फ्रेंच'
 		},
 		{
 			locale_code: 'frp-FR',
@@ -937,52 +937,52 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'frr-DE',
 			locale_id: 'mr-IN',
-			language_name: 'उत्तरी फ्रिशियन (जर्मनी)'
+			language_name: 'उत्तरी फ्रिशियन'
 		},
 		{
 			locale_code: 'frs-DE',
 			locale_id: 'mr-IN',
-			language_name: 'पौर्वात्य फ्रिशियन (जर्मनी)'
+			language_name: 'पौर्वात्य फ्रिशियन'
 		},
 		{
 			locale_code: 'fur-IT',
 			locale_id: 'mr-IN',
-			language_name: 'फ्रियुलियान (इटली)'
+			language_name: 'फ्रियुलियान'
 		},
 		{
 			locale_code: 'fy-NL',
 			locale_id: 'mr-IN',
-			language_name: 'पश्चिमी फ्रिशियन (नेदरलँड)'
+			language_name: 'पश्चिमी फ्रिशियन'
 		},
 		{
 			locale_code: 'ga-IE',
 			locale_id: 'mr-IN',
-			language_name: 'आयरिश (आयर्लंड)'
+			language_name: 'आयरिश'
 		},
 		{
 			locale_code: 'gaa-GH',
 			locale_id: 'mr-IN',
-			language_name: 'गा (घाना)'
+			language_name: 'गा'
 		},
 		{
 			locale_code: 'gag-MD',
 			locale_id: 'mr-IN',
-			language_name: 'गागाउझ (मोल्डोव्हा)'
+			language_name: 'गागाउझ'
 		},
 		{
 			locale_code: 'gan-CN',
 			locale_id: 'mr-IN',
-			language_name: 'गॅन चिनी (चीन)'
+			language_name: 'गॅन चिनी'
 		},
 		{
 			locale_code: 'gay-ID',
 			locale_id: 'mr-IN',
-			language_name: 'गायो (इंडोनेशिया)'
+			language_name: 'गायो'
 		},
 		{
 			locale_code: 'gba-CF',
 			locale_id: 'mr-IN',
-			language_name: 'बाया (केंद्रीय अफ्रिकी प्रजासत्ताक)'
+			language_name: 'बाया'
 		},
 		{
 			locale_code: 'gbz-IR',
@@ -992,22 +992,22 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'gd-GB',
 			locale_id: 'mr-IN',
-			language_name: 'स्कॉटिश गेलिक (युनायटेड किंगडम)'
+			language_name: 'स्कॉटिश गेलिक'
 		},
 		{
 			locale_code: 'gez-ET',
 			locale_id: 'mr-IN',
-			language_name: 'गीझ (इथिओपिया)'
+			language_name: 'गीझ'
 		},
 		{
 			locale_code: 'gil-KI',
 			locale_id: 'mr-IN',
-			language_name: 'जिल्बरटीज (किरीबाटी)'
+			language_name: 'जिल्बरटीज'
 		},
 		{
 			locale_code: 'gl-ES',
 			locale_id: 'mr-IN',
-			language_name: 'गॅलिशियन (स्पेन)'
+			language_name: 'गॅलिशियन'
 		},
 		{
 			locale_code: 'glk-IR',
@@ -1017,57 +1017,57 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'gmh-DE',
 			locale_id: 'mr-IN',
-			language_name: 'मिडल हाय जर्मन (जर्मनी)'
+			language_name: 'मिडल हाय जर्मन'
 		},
 		{
 			locale_code: 'gn-PY',
 			locale_id: 'mr-IN',
-			language_name: 'गुआरनी (पराग्वे)'
+			language_name: 'गुआरनी'
 		},
 		{
 			locale_code: 'goh-DE',
 			locale_id: 'mr-IN',
-			language_name: 'पुरातन हाइ जर्मन (जर्मनी)'
+			language_name: 'पुरातन हाइ जर्मन'
 		},
 		{
 			locale_code: 'gon-IN',
 			locale_id: 'mr-IN',
-			language_name: 'गाँडी (भारत)'
+			language_name: 'गाँडी'
 		},
 		{
 			locale_code: 'gor-ID',
 			locale_id: 'mr-IN',
-			language_name: 'गोरोन्तालो (इंडोनेशिया)'
+			language_name: 'गोरोन्तालो'
 		},
 		{
 			locale_code: 'got-UA',
 			locale_id: 'mr-IN',
-			language_name: 'गॉथिक (युक्रेन)'
+			language_name: 'गॉथिक'
 		},
 		{
 			locale_code: 'grb-LR',
 			locale_id: 'mr-IN',
-			language_name: 'ग्रेबो (लायबेरिया)'
+			language_name: 'ग्रेबो'
 		},
 		{
 			locale_code: 'grc-GR',
 			locale_id: 'mr-IN',
-			language_name: 'प्राचीन ग्रीक (ग्रीस)'
+			language_name: 'प्राचीन ग्रीक'
 		},
 		{
 			locale_code: 'gsw-CH',
 			locale_id: 'mr-IN',
-			language_name: 'स्विस जर्मन (स्वित्झर्लंड)'
+			language_name: 'स्विस जर्मन'
 		},
 		{
 			locale_code: 'gu-IN',
 			locale_id: 'mr-IN',
-			language_name: 'गुजराती (भारत)'
+			language_name: 'गुजराती'
 		},
 		{
 			locale_code: 'guc-CO',
 			locale_id: 'mr-IN',
-			language_name: 'Wayuu'
+			language_name: 'वायू'
 		},
 		{
 			locale_code: 'gur-GH',
@@ -1077,67 +1077,67 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'guz-KE',
 			locale_id: 'mr-IN',
-			language_name: 'गसी (केनिया)'
+			language_name: 'गसी'
 		},
 		{
 			locale_code: 'gv-IM',
 			locale_id: 'mr-IN',
-			language_name: 'मांक्स (आयल ऑफ मॅन)'
+			language_name: 'मांक्स'
 		},
 		{
 			locale_code: 'gwi-CA',
 			locale_id: 'mr-IN',
-			language_name: 'ग्विच’इन (कॅनडा)'
+			language_name: 'ग्विच’इन'
 		},
 		{
 			locale_code: 'ha-NG',
 			locale_id: 'mr-IN',
-			language_name: 'हौसा (नायजेरिया)'
+			language_name: 'हौसा'
 		},
 		{
 			locale_code: 'ha-CM',
 			locale_id: 'mr-IN',
-			language_name: 'हौसा (कॅमेरून)'
+			language_name: 'हौसा'
 		},
 		{
 			locale_code: 'ha-SD',
 			locale_id: 'mr-IN',
-			language_name: 'हौसा (सुदान)'
+			language_name: 'हौसा'
 		},
 		{
 			locale_code: 'hai-CA',
 			locale_id: 'mr-IN',
-			language_name: 'हैडा (कॅनडा)'
+			language_name: 'हैडा'
 		},
 		{
 			locale_code: 'hak-CN',
 			locale_id: 'mr-IN',
-			language_name: 'हाक्का चिनी (चीन)'
+			language_name: 'हाक्का चिनी'
 		},
 		{
 			locale_code: 'hak-TW',
 			locale_id: 'mr-IN',
-			language_name: 'हाक्का चिनी (तैवान)'
+			language_name: 'हाक्का चिनी'
 		},
 		{
 			locale_code: 'haw-US',
 			locale_id: 'mr-IN',
-			language_name: 'हवाईयन (युनायटेड स्टेट्स)'
+			language_name: 'हवाईयन'
 		},
 		{
 			locale_code: 'hax-CA',
 			locale_id: 'mr-IN',
-			language_name: 'दक्षिणात्य हैडा (कॅनडा)'
+			language_name: 'दक्षिणात्य हैडा'
 		},
 		{
 			locale_code: 'he-IL',
 			locale_id: 'mr-IN',
-			language_name: 'हिब्रू (इस्त्राइल)'
+			language_name: 'हिब्रू'
 		},
 		{
 			locale_code: 'hi-IN',
 			locale_id: 'mr-IN',
-			language_name: 'हिंदी (भारत)'
+			language_name: 'हिंदी'
 		},
 		{
 			locale_code: 'hif-FJ',
@@ -1147,17 +1147,17 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'hil-PH',
 			locale_id: 'mr-IN',
-			language_name: 'हिलीगेनॉन (फिलिपिन्स)'
+			language_name: 'हिलीगेनॉन'
 		},
 		{
 			locale_code: 'hit-TR',
 			locale_id: 'mr-IN',
-			language_name: 'हिट्टिते (तुर्किये)'
+			language_name: 'हिट्टिते'
 		},
 		{
 			locale_code: 'hmn-CN',
 			locale_id: 'mr-IN',
-			language_name: 'माँग (चीन)'
+			language_name: 'माँग'
 		},
 		{
 			locale_code: 'hnj-US',
@@ -1172,117 +1172,117 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'ho-PG',
 			locale_id: 'mr-IN',
-			language_name: 'हिरी मॉटू (पापुआ न्यू गिनी)'
+			language_name: 'हिरी मॉटू'
 		},
 		{
 			locale_code: 'hr-HR',
 			locale_id: 'mr-IN',
-			language_name: 'क्रोएशियन (क्रोएशिया)'
+			language_name: 'क्रोएशियन'
 		},
 		{
 			locale_code: 'hsb-DE',
 			locale_id: 'mr-IN',
-			language_name: 'अप्पर सॉर्बियन (जर्मनी)'
+			language_name: 'अप्पर सॉर्बियन'
 		},
 		{
 			locale_code: 'hsn-CN',
 			locale_id: 'mr-IN',
-			language_name: 'शियांग चिनी (चीन)'
+			language_name: 'शियांग चिनी'
 		},
 		{
 			locale_code: 'ht-HT',
 			locale_id: 'mr-IN',
-			language_name: 'हैतीयन क्रेओल (हैती)'
+			language_name: 'हैतीयन क्रेओल'
 		},
 		{
 			locale_code: 'hu-HU',
 			locale_id: 'mr-IN',
-			language_name: 'हंगेरियन (हंगेरी)'
+			language_name: 'हंगेरियन'
 		},
 		{
 			locale_code: 'hup-US',
 			locale_id: 'mr-IN',
-			language_name: 'हूपा (युनायटेड स्टेट्स)'
+			language_name: 'हूपा'
 		},
 		{
 			locale_code: 'hur-CA',
 			locale_id: 'mr-IN',
-			language_name: 'हॉल्कमेलम (कॅनडा)'
+			language_name: 'हॉल्कमेलम'
 		},
 		{
 			locale_code: 'hy-AM',
 			locale_id: 'mr-IN',
-			language_name: 'अर्मेनियन (अर्मेनिया)'
+			language_name: 'अर्मेनियन'
 		},
 		{
 			locale_code: 'hz-NA',
 			locale_id: 'mr-IN',
-			language_name: 'हरेरो (नामिबिया)'
+			language_name: 'हरेरो'
 		},
 		{
 			locale_code: 'iba-MY',
 			locale_id: 'mr-IN',
-			language_name: 'इबान (मलेशिया)'
+			language_name: 'इबान'
 		},
 		{
 			locale_code: 'ibb-NG',
 			locale_id: 'mr-IN',
-			language_name: 'इबिबिओ (नायजेरिया)'
+			language_name: 'इबिबिओ'
 		},
 		{
 			locale_code: 'id-ID',
 			locale_id: 'mr-IN',
-			language_name: 'इंडोनेशियन (इंडोनेशिया)'
+			language_name: 'इंडोनेशियन'
 		},
 		{
 			locale_code: 'ie-EE',
 			locale_id: 'mr-IN',
-			language_name: 'इंटरलिंग (एस्टोनिया)'
+			language_name: 'इंटरलिंग'
 		},
 		{
 			locale_code: 'ig-NG',
 			locale_id: 'mr-IN',
-			language_name: 'ईग्बो (नायजेरिया)'
+			language_name: 'ईग्बो'
 		},
 		{
 			locale_code: 'ii-CN',
 			locale_id: 'mr-IN',
-			language_name: 'सिचुआन यी (चीन)'
+			language_name: 'सिचुआन यी'
 		},
 		{
 			locale_code: 'ik-US',
 			locale_id: 'mr-IN',
-			language_name: 'इनूपियाक (युनायटेड स्टेट्स)'
+			language_name: 'इनूपियाक'
 		},
 		{
 			locale_code: 'ikt-CA',
 			locale_id: 'mr-IN',
-			language_name: 'वेस्टर्न कॅनेडियन इनुकिटुट (कॅनडा)'
+			language_name: 'वेस्टर्न कॅनेडियन इनुकिटुट'
 		},
 		{
 			locale_code: 'ilo-PH',
 			locale_id: 'mr-IN',
-			language_name: 'इलोको (फिलिपिन्स)'
+			language_name: 'इलोको'
 		},
 		{
 			locale_code: 'inh-RU',
 			locale_id: 'mr-IN',
-			language_name: 'इंगुश (रशिया)'
+			language_name: 'इंगुश'
 		},
 		{
 			locale_code: 'is-IS',
 			locale_id: 'mr-IN',
-			language_name: 'आईसलँडिक (आइसलँड)'
+			language_name: 'आईसलँडिक'
 		},
 		{
 			locale_code: 'it-IT',
 			locale_id: 'mr-IN',
-			language_name: 'इटालियन (इटली)'
+			language_name: 'इटालियन'
 		},
 		{
 			locale_code: 'iu-CA',
 			locale_id: 'mr-IN',
-			language_name: 'इनुक्तीटुट (कॅनडा)'
+			language_name: 'इनुक्तीटुट'
 		},
 		{
 			locale_code: 'izh-RU',
@@ -1292,7 +1292,7 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'ja-JP',
 			locale_id: 'mr-IN',
-			language_name: 'जपानी (जपान)'
+			language_name: 'जपानी'
 		},
 		{
 			locale_code: 'jam-JM',
@@ -1302,22 +1302,22 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'jgo-CM',
 			locale_id: 'mr-IN',
-			language_name: 'गोम्बा (कॅमेरून)'
+			language_name: 'गोम्बा'
 		},
 		{
 			locale_code: 'jmc-TZ',
 			locale_id: 'mr-IN',
-			language_name: 'मशामे (टांझानिया)'
+			language_name: 'मशामे'
 		},
 		{
 			locale_code: 'jpr-IL',
 			locale_id: 'mr-IN',
-			language_name: 'जुदेओ-फारसी (इस्त्राइल)'
+			language_name: 'जुदेओ-फारसी'
 		},
 		{
 			locale_code: 'jrb-IL',
 			locale_id: 'mr-IN',
-			language_name: 'जुदेओ-अरबी (इस्त्राइल)'
+			language_name: 'जुदेओ-अरबी'
 		},
 		{
 			locale_code: 'jut-DK',
@@ -1327,47 +1327,47 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'jv-ID',
 			locale_id: 'mr-IN',
-			language_name: 'जावानीज (इंडोनेशिया)'
+			language_name: 'जावानीज'
 		},
 		{
 			locale_code: 'ka-GE',
 			locale_id: 'mr-IN',
-			language_name: 'जॉर्जियन (जॉर्जिया)'
+			language_name: 'जॉर्जियन'
 		},
 		{
 			locale_code: 'kaa-UZ',
 			locale_id: 'mr-IN',
-			language_name: 'कारा-कल्पक (उझबेकिस्तान)'
+			language_name: 'कारा-कल्पक'
 		},
 		{
 			locale_code: 'kab-DZ',
 			locale_id: 'mr-IN',
-			language_name: 'कबाइल (अल्जीरिया)'
+			language_name: 'कबाइल'
 		},
 		{
 			locale_code: 'kac-MM',
 			locale_id: 'mr-IN',
-			language_name: 'काचिन (म्यानमार [बर्मा])'
+			language_name: 'काचिन'
 		},
 		{
 			locale_code: 'kaj-NG',
 			locale_id: 'mr-IN',
-			language_name: 'ज्जु (नायजेरिया)'
+			language_name: 'ज्जु'
 		},
 		{
 			locale_code: 'kam-KE',
 			locale_id: 'mr-IN',
-			language_name: 'काम्बा (केनिया)'
+			language_name: 'काम्बा'
 		},
 		{
 			locale_code: 'kaw-ID',
 			locale_id: 'mr-IN',
-			language_name: 'कावी (इंडोनेशिया)'
+			language_name: 'कावी'
 		},
 		{
 			locale_code: 'kbd-RU',
 			locale_id: 'mr-IN',
-			language_name: 'कबार्डियन (रशिया)'
+			language_name: 'कबार्डियन'
 		},
 		{
 			locale_code: 'kbl-TD',
@@ -1377,17 +1377,17 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'kcg-NG',
 			locale_id: 'mr-IN',
-			language_name: 'त्याप (नायजेरिया)'
+			language_name: 'त्याप'
 		},
 		{
 			locale_code: 'kde-TZ',
 			locale_id: 'mr-IN',
-			language_name: 'माकोन्दे (टांझानिया)'
+			language_name: 'माकोन्दे'
 		},
 		{
 			locale_code: 'kea-CV',
 			locale_id: 'mr-IN',
-			language_name: 'काबवर्दियानु (केप व्हर्डे)'
+			language_name: 'काबवर्दियानु'
 		},
 		{
 			locale_code: 'kek-GT',
@@ -1402,32 +1402,32 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'kfo-CI',
 			locale_id: 'mr-IN',
-			language_name: 'कोरो (कोत द’ईवोआर)'
+			language_name: 'कोरो'
 		},
 		{
 			locale_code: 'kg-CD',
 			locale_id: 'mr-IN',
-			language_name: 'काँगो (काँगो - किंशासा)'
+			language_name: 'काँगो'
 		},
 		{
 			locale_code: 'kgp-BR',
 			locale_id: 'mr-IN',
-			language_name: 'काइंगांग (ब्राझिल)'
+			language_name: 'काइंगांग'
 		},
 		{
 			locale_code: 'kha-IN',
 			locale_id: 'mr-IN',
-			language_name: 'खासी (भारत)'
+			language_name: 'खासी'
 		},
 		{
 			locale_code: 'kho-IR',
 			locale_id: 'mr-IN',
-			language_name: 'खोतानीस (इराण)'
+			language_name: 'खोतानीस'
 		},
 		{
 			locale_code: 'khq-ML',
 			locale_id: 'mr-IN',
-			language_name: 'कोयरा चीनी (माली)'
+			language_name: 'कोयरा चीनी'
 		},
 		{
 			locale_code: 'khw-PK',
@@ -1437,7 +1437,7 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'ki-KE',
 			locale_id: 'mr-IN',
-			language_name: 'किकुयू (केनिया)'
+			language_name: 'किकुयू'
 		},
 		{
 			locale_code: 'kiu-TR',
@@ -1447,97 +1447,97 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'kj-NA',
 			locale_id: 'mr-IN',
-			language_name: 'क्वान्यामा (नामिबिया)'
+			language_name: 'क्वान्यामा'
 		},
 		{
 			locale_code: 'kk-KZ',
 			locale_id: 'mr-IN',
-			language_name: 'कझाक (कझाकस्तान)'
+			language_name: 'कझाक'
 		},
 		{
 			locale_code: 'kk-AF',
 			locale_id: 'mr-IN',
-			language_name: 'कझाक (अफगाणिस्तान)'
+			language_name: 'कझाक'
 		},
 		{
 			locale_code: 'kk-CN',
 			locale_id: 'mr-IN',
-			language_name: 'कझाक (चीन)'
+			language_name: 'कझाक'
 		},
 		{
 			locale_code: 'kk-IR',
 			locale_id: 'mr-IN',
-			language_name: 'कझाक (इराण)'
+			language_name: 'कझाक'
 		},
 		{
 			locale_code: 'kk-MN',
 			locale_id: 'mr-IN',
-			language_name: 'कझाक (मंगोलिया)'
+			language_name: 'कझाक'
 		},
 		{
 			locale_code: 'kkj-CM',
 			locale_id: 'mr-IN',
-			language_name: 'काको (कॅमेरून)'
+			language_name: 'काको'
 		},
 		{
 			locale_code: 'kl-GL',
 			locale_id: 'mr-IN',
-			language_name: 'कलाल्लिसत (ग्रीनलंड)'
+			language_name: 'कलाल्लिसत'
 		},
 		{
 			locale_code: 'kln-KE',
 			locale_id: 'mr-IN',
-			language_name: 'कालेंजीन (केनिया)'
+			language_name: 'कालेंजीन'
 		},
 		{
 			locale_code: 'km-KH',
 			locale_id: 'mr-IN',
-			language_name: 'ख्मेर (कंबोडिया)'
+			language_name: 'ख्मेर'
 		},
 		{
 			locale_code: 'kmb-AO',
 			locale_id: 'mr-IN',
-			language_name: 'किम्बन्दु (अंगोला)'
+			language_name: 'किम्बन्दु'
 		},
 		{
 			locale_code: 'kn-IN',
 			locale_id: 'mr-IN',
-			language_name: 'कन्नड (भारत)'
+			language_name: 'कन्नड'
 		},
 		{
 			locale_code: 'ko-KR',
 			locale_id: 'mr-IN',
-			language_name: 'कोरियन (दक्षिण कोरिया)'
+			language_name: 'कोरियन'
 		},
 		{
 			locale_code: 'koi-RU',
 			locale_id: 'mr-IN',
-			language_name: 'कोमी-परम्याक (रशिया)'
+			language_name: 'कोमी-परम्याक'
 		},
 		{
 			locale_code: 'kok-IN',
 			locale_id: 'mr-IN',
-			language_name: 'कोंकणी (भारत)'
+			language_name: 'कोंकणी'
 		},
 		{
 			locale_code: 'kos-FM',
 			locale_id: 'mr-IN',
-			language_name: 'कोसरियन (मायक्रोनेशिया)'
+			language_name: 'कोसरियन'
 		},
 		{
 			locale_code: 'kpe-LR',
 			locale_id: 'mr-IN',
-			language_name: 'क्पेल्ले (लायबेरिया)'
+			language_name: 'क्पेल्ले'
 		},
 		{
 			locale_code: 'kr-NG',
 			locale_id: 'mr-IN',
-			language_name: 'कनुरी (नायजेरिया)'
+			language_name: 'कनुरी'
 		},
 		{
 			locale_code: 'krc-RU',
 			locale_id: 'mr-IN',
-			language_name: 'कराचय-बाल्कर (रशिया)'
+			language_name: 'कराचय-बाल्कर'
 		},
 		{
 			locale_code: 'kri-SL',
@@ -1552,172 +1552,172 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'krl-RU',
 			locale_id: 'mr-IN',
-			language_name: 'करेलियन (रशिया)'
+			language_name: 'करेलियन'
 		},
 		{
 			locale_code: 'kru-IN',
 			locale_id: 'mr-IN',
-			language_name: 'कुरूख (भारत)'
+			language_name: 'कुरूख'
 		},
 		{
 			locale_code: 'ks-IN',
 			locale_id: 'mr-IN',
-			language_name: 'काश्मिरी (भारत)'
+			language_name: 'काश्मिरी'
 		},
 		{
 			locale_code: 'ksb-TZ',
 			locale_id: 'mr-IN',
-			language_name: 'शांबाला (टांझानिया)'
+			language_name: 'शांबाला'
 		},
 		{
 			locale_code: 'ksf-CM',
 			locale_id: 'mr-IN',
-			language_name: 'बाफिया (कॅमेरून)'
+			language_name: 'बाफिया'
 		},
 		{
 			locale_code: 'ksh-DE',
 			locale_id: 'mr-IN',
-			language_name: 'कोलोग्नियन (जर्मनी)'
+			language_name: 'कोलोग्नियन'
 		},
 		{
 			locale_code: 'ku-TR',
 			locale_id: 'mr-IN',
-			language_name: 'कुर्दिश (तुर्किये)'
+			language_name: 'कुर्दिश'
 		},
 		{
 			locale_code: 'ku-AM',
 			locale_id: 'mr-IN',
-			language_name: 'कुर्दिश (अर्मेनिया)'
+			language_name: 'कुर्दिश'
 		},
 		{
 			locale_code: 'ku-IQ',
 			locale_id: 'mr-IN',
-			language_name: 'कुर्दिश (इराक)'
+			language_name: 'कुर्दिश'
 		},
 		{
 			locale_code: 'ku-AZ',
 			locale_id: 'mr-IN',
-			language_name: 'कुर्दिश (अझरबैजान)'
+			language_name: 'कुर्दिश'
 		},
 		{
 			locale_code: 'ku-GE',
 			locale_id: 'mr-IN',
-			language_name: 'कुर्दिश (जॉर्जिया)'
+			language_name: 'कुर्दिश'
 		},
 		{
 			locale_code: 'ku-IR',
 			locale_id: 'mr-IN',
-			language_name: 'कुर्दिश (इराण)'
+			language_name: 'कुर्दिश'
 		},
 		{
 			locale_code: 'ku-LB',
 			locale_id: 'mr-IN',
-			language_name: 'कुर्दिश (लेबनॉन)'
+			language_name: 'कुर्दिश'
 		},
 		{
 			locale_code: 'ku-TM',
 			locale_id: 'mr-IN',
-			language_name: 'कुर्दिश (तुर्कमेनिस्तान)'
+			language_name: 'कुर्दिश'
 		},
 		{
 			locale_code: 'kum-RU',
 			locale_id: 'mr-IN',
-			language_name: 'कुमीक (रशिया)'
+			language_name: 'कुमीक'
 		},
 		{
 			locale_code: 'kut-CA',
 			locale_id: 'mr-IN',
-			language_name: 'कुतेनाई (कॅनडा)'
+			language_name: 'कुतेनाई'
 		},
 		{
 			locale_code: 'kv-RU',
 			locale_id: 'mr-IN',
-			language_name: 'कोमी (रशिया)'
+			language_name: 'कोमी'
 		},
 		{
 			locale_code: 'kw-GB',
 			locale_id: 'mr-IN',
-			language_name: 'कोर्निश (युनायटेड किंगडम)'
+			language_name: 'कोर्निश'
 		},
 		{
 			locale_code: 'kwk-CA',
 			locale_id: 'mr-IN',
-			language_name: 'क्वक्क्वाला (कॅनडा)'
+			language_name: 'क्वक्क्वाला'
 		},
 		{
 			locale_code: 'kxv-IN',
 			locale_id: 'mr-IN',
-			language_name: 'कुवी (भारत)'
+			language_name: 'कुवी'
 		},
 		{
 			locale_code: 'ky-KG',
 			locale_id: 'mr-IN',
-			language_name: 'किरगीझ (किरगिझस्तान)'
+			language_name: 'किरगीझ'
 		},
 		{
 			locale_code: 'ky-CN',
 			locale_id: 'mr-IN',
-			language_name: 'किरगीझ (चीन)'
+			language_name: 'किरगीझ'
 		},
 		{
 			locale_code: 'ky-TR',
 			locale_id: 'mr-IN',
-			language_name: 'किरगीझ (तुर्किये)'
+			language_name: 'किरगीझ'
 		},
 		{
 			locale_code: 'la-VA',
 			locale_id: 'mr-IN',
-			language_name: 'लॅटिन (व्हॅटिकन सिटी)'
+			language_name: 'लॅटिन'
 		},
 		{
 			locale_code: 'lad-IL',
 			locale_id: 'mr-IN',
-			language_name: 'लादीनो (इस्त्राइल)'
+			language_name: 'लादीनो'
 		},
 		{
 			locale_code: 'lag-TZ',
 			locale_id: 'mr-IN',
-			language_name: 'लांगी (टांझानिया)'
+			language_name: 'लांगी'
 		},
 		{
 			locale_code: 'lah-PK',
 			locale_id: 'mr-IN',
-			language_name: 'लाह्न्डा (पाकिस्तान)'
+			language_name: 'लाह्न्डा'
 		},
 		{
 			locale_code: 'lam-ZM',
 			locale_id: 'mr-IN',
-			language_name: 'लाम्बा (झाम्बिया)'
+			language_name: 'लाम्बा'
 		},
 		{
 			locale_code: 'lb-LU',
 			locale_id: 'mr-IN',
-			language_name: 'लक्झेंबर्गिश (लक्झेंबर्ग)'
+			language_name: 'लक्झेंबर्गिश'
 		},
 		{
 			locale_code: 'lez-RU',
 			locale_id: 'mr-IN',
-			language_name: 'लेझ्घीयन (रशिया)'
+			language_name: 'लेझ्घीयन'
 		},
 		{
 			locale_code: 'lg-UG',
 			locale_id: 'mr-IN',
-			language_name: 'गांडा (युगांडा)'
+			language_name: 'गांडा'
 		},
 		{
 			locale_code: 'li-NL',
 			locale_id: 'mr-IN',
-			language_name: 'लिंबूर्गिश (नेदरलँड)'
+			language_name: 'लिंबूर्गिश'
 		},
 		{
 			locale_code: 'lij-IT',
 			locale_id: 'mr-IN',
-			language_name: 'लिगुरिअन (इटली)'
+			language_name: 'लिगुरिअन'
 		},
 		{
 			locale_code: 'lil-CA',
 			locale_id: 'mr-IN',
-			language_name: 'लिलूएट (कॅनडा)'
+			language_name: 'लिलूएट'
 		},
 		{
 			locale_code: 'liv-LV',
@@ -1727,52 +1727,52 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'lkt-US',
 			locale_id: 'mr-IN',
-			language_name: 'लाकोटा (युनायटेड स्टेट्स)'
+			language_name: 'लाकोटा'
 		},
 		{
 			locale_code: 'lmo-IT',
 			locale_id: 'mr-IN',
-			language_name: 'लोंबार्ड (इटली)'
+			language_name: 'लोंबार्ड'
 		},
 		{
 			locale_code: 'ln-CD',
 			locale_id: 'mr-IN',
-			language_name: 'लिंगाला (काँगो - किंशासा)'
+			language_name: 'लिंगाला'
 		},
 		{
 			locale_code: 'lo-LA',
 			locale_id: 'mr-IN',
-			language_name: 'लाओ (लाओस)'
+			language_name: 'लाओ'
 		},
 		{
 			locale_code: 'lol-CD',
 			locale_id: 'mr-IN',
-			language_name: 'मोंगो (काँगो - किंशासा)'
+			language_name: 'मोंगो'
 		},
 		{
 			locale_code: 'lou-US',
 			locale_id: 'mr-IN',
-			language_name: 'ल्युसियाना क्रिओल (युनायटेड स्टेट्स)'
+			language_name: 'ल्युसियाना क्रिओल'
 		},
 		{
 			locale_code: 'loz-ZM',
 			locale_id: 'mr-IN',
-			language_name: 'लोझि (झाम्बिया)'
+			language_name: 'लोझि'
 		},
 		{
 			locale_code: 'lrc-IR',
 			locale_id: 'mr-IN',
-			language_name: 'उत्तरी ल्युरी (इराण)'
+			language_name: 'उत्तरी ल्युरी'
 		},
 		{
 			locale_code: 'lsm-UG',
 			locale_id: 'mr-IN',
-			language_name: 'सामिया (युगांडा)'
+			language_name: 'सामिया'
 		},
 		{
 			locale_code: 'lt-LT',
 			locale_id: 'mr-IN',
-			language_name: 'लिथुआनियन (लिथुआनिया)'
+			language_name: 'लिथुआनियन'
 		},
 		{
 			locale_code: 'ltg-LV',
@@ -1782,42 +1782,42 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'lu-CD',
 			locale_id: 'mr-IN',
-			language_name: 'ल्यूबा-कटांगा (काँगो - किंशासा)'
+			language_name: 'ल्यूबा-कटांगा'
 		},
 		{
 			locale_code: 'lua-CD',
 			locale_id: 'mr-IN',
-			language_name: 'लुबा-लुलुआ (काँगो - किंशासा)'
+			language_name: 'लुबा-लुलुआ'
 		},
 		{
 			locale_code: 'lui-US',
 			locale_id: 'mr-IN',
-			language_name: 'लुइसेनो (युनायटेड स्टेट्स)'
+			language_name: 'लुइसेनो'
 		},
 		{
 			locale_code: 'lun-ZM',
 			locale_id: 'mr-IN',
-			language_name: 'लुन्डा (झाम्बिया)'
+			language_name: 'लुन्डा'
 		},
 		{
 			locale_code: 'luo-KE',
 			locale_id: 'mr-IN',
-			language_name: 'ल्युओ (केनिया)'
+			language_name: 'ल्युओ'
 		},
 		{
 			locale_code: 'lus-IN',
 			locale_id: 'mr-IN',
-			language_name: 'मिझो (भारत)'
+			language_name: 'मिझो'
 		},
 		{
 			locale_code: 'luy-KE',
 			locale_id: 'mr-IN',
-			language_name: 'ल्युइया (केनिया)'
+			language_name: 'ल्युइया'
 		},
 		{
 			locale_code: 'lv-LV',
 			locale_id: 'mr-IN',
-			language_name: 'लात्व्हियन (लाटव्हिया)'
+			language_name: 'लात्व्हियन'
 		},
 		{
 			locale_code: 'lzh-CN',
@@ -1837,7 +1837,7 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'mad-ID',
 			locale_id: 'mr-IN',
-			language_name: 'मादुरीस (इंडोनेशिया)'
+			language_name: 'मादुरीस'
 		},
 		{
 			locale_code: 'maf-CM',
@@ -1847,32 +1847,32 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'mag-IN',
 			locale_id: 'mr-IN',
-			language_name: 'मगही (भारत)'
+			language_name: 'मगही'
 		},
 		{
 			locale_code: 'mai-IN',
 			locale_id: 'mr-IN',
-			language_name: 'मैथिली (भारत)'
+			language_name: 'मैथिली'
 		},
 		{
 			locale_code: 'mak-ID',
 			locale_id: 'mr-IN',
-			language_name: 'मकस्सर (इंडोनेशिया)'
+			language_name: 'मकस्सर'
 		},
 		{
 			locale_code: 'man-GM',
 			locale_id: 'mr-IN',
-			language_name: 'मन्डिन्गो (गाम्बिया)'
+			language_name: 'मन्डिन्गो'
 		},
 		{
 			locale_code: 'man-GN',
 			locale_id: 'mr-IN',
-			language_name: 'मन्डिन्गो (गिनी)'
+			language_name: 'मन्डिन्गो'
 		},
 		{
 			locale_code: 'mas-KE',
 			locale_id: 'mr-IN',
-			language_name: 'मसाई (केनिया)'
+			language_name: 'मसाई'
 		},
 		{
 			locale_code: 'mde-TD',
@@ -1882,117 +1882,117 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'mdf-RU',
 			locale_id: 'mr-IN',
-			language_name: 'मोक्ष (रशिया)'
+			language_name: 'मोक्ष'
 		},
 		{
 			locale_code: 'mdr-ID',
 			locale_id: 'mr-IN',
-			language_name: 'मंडार (इंडोनेशिया)'
+			language_name: 'मंडार'
 		},
 		{
 			locale_code: 'men-SL',
 			locale_id: 'mr-IN',
-			language_name: 'मेन्डे (सिएरा लिओन)'
+			language_name: 'मेन्डे'
 		},
 		{
 			locale_code: 'mer-KE',
 			locale_id: 'mr-IN',
-			language_name: 'मेरू (केनिया)'
+			language_name: 'मेरू'
 		},
 		{
 			locale_code: 'mfe-MU',
 			locale_id: 'mr-IN',
-			language_name: 'मोरिस्येन (मॉरिशस)'
+			language_name: 'मोरिस्येन'
 		},
 		{
 			locale_code: 'mg-MG',
 			locale_id: 'mr-IN',
-			language_name: 'मलागसी (मादागास्कर)'
+			language_name: 'मलागसी'
 		},
 		{
 			locale_code: 'mga-IE',
 			locale_id: 'mr-IN',
-			language_name: 'मिडल आयरिश (आयर्लंड)'
+			language_name: 'मिडल आयरिश'
 		},
 		{
 			locale_code: 'mgh-MZ',
 			locale_id: 'mr-IN',
-			language_name: 'माखुव्हा-मीट्टो (मोझाम्बिक)'
+			language_name: 'माखुव्हा-मीट्टो'
 		},
 		{
 			locale_code: 'mgo-CM',
 			locale_id: 'mr-IN',
-			language_name: 'मीटा (कॅमेरून)'
+			language_name: 'मीटा'
 		},
 		{
 			locale_code: 'mh-MH',
 			locale_id: 'mr-IN',
-			language_name: 'मार्शलीज (मार्शल बेटे)'
+			language_name: 'मार्शलीज'
 		},
 		{
 			locale_code: 'mi-NZ',
 			locale_id: 'mr-IN',
-			language_name: 'माओरी (न्यूझीलंड)'
+			language_name: 'माओरी'
 		},
 		{
 			locale_code: 'mic-CA',
 			locale_id: 'mr-IN',
-			language_name: 'मिकमॅक (कॅनडा)'
+			language_name: 'मिकमॅक'
 		},
 		{
 			locale_code: 'min-ID',
 			locale_id: 'mr-IN',
-			language_name: 'मिनांग्काबाउ (इंडोनेशिया)'
+			language_name: 'मिनांग्काबाउ'
 		},
 		{
 			locale_code: 'mk-MK',
 			locale_id: 'mr-IN',
-			language_name: 'मॅसेडोनियन (उत्तर मॅसेडोनिया)'
+			language_name: 'मॅसेडोनियन'
 		},
 		{
 			locale_code: 'ml-IN',
 			locale_id: 'mr-IN',
-			language_name: 'मल्याळम (भारत)'
+			language_name: 'मल्याळम'
 		},
 		{
 			locale_code: 'mn-MN',
 			locale_id: 'mr-IN',
-			language_name: 'मंगोलियन (मंगोलिया)'
+			language_name: 'मंगोलियन'
 		},
 		{
 			locale_code: 'mn-CN',
 			locale_id: 'mr-IN',
-			language_name: 'मंगोलियन (चीन)'
+			language_name: 'मंगोलियन'
 		},
 		{
 			locale_code: 'mnc-CN',
 			locale_id: 'mr-IN',
-			language_name: 'मान्चु (चीन)'
+			language_name: 'मान्चु'
 		},
 		{
 			locale_code: 'mni-IN',
 			locale_id: 'mr-IN',
-			language_name: 'मणिपुरी (भारत)'
+			language_name: 'मणिपुरी'
 		},
 		{
 			locale_code: 'moe-CA',
 			locale_id: 'mr-IN',
-			language_name: 'इन्नू-ॲमन (कॅनडा)'
+			language_name: 'इन्नू-ॲमन'
 		},
 		{
 			locale_code: 'moh-CA',
 			locale_id: 'mr-IN',
-			language_name: 'मोहॉक (कॅनडा)'
+			language_name: 'मोहॉक'
 		},
 		{
 			locale_code: 'mos-BF',
 			locale_id: 'mr-IN',
-			language_name: 'मोस्सी (बुर्किना फासो)'
+			language_name: 'मोस्सी'
 		},
 		{
 			locale_code: 'mr-IN',
 			locale_id: 'mr-IN',
-			language_name: 'मराठी (भारत)'
+			language_name: 'मराठी'
 		},
 		{
 			locale_code: 'mrj-RU',
@@ -2002,37 +2002,37 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'ms-MY',
 			locale_id: 'mr-IN',
-			language_name: 'मलय (मलेशिया)'
+			language_name: 'मलय'
 		},
 		{
 			locale_code: 'ms-CC',
 			locale_id: 'mr-IN',
-			language_name: 'मलय (कोकोस [कीलिंग] बेटे)'
+			language_name: 'मलय'
 		},
 		{
 			locale_code: 'mt-MT',
 			locale_id: 'mr-IN',
-			language_name: 'माल्टिज् (माल्टा)'
+			language_name: 'माल्टिज्'
 		},
 		{
 			locale_code: 'mua-CM',
 			locale_id: 'mr-IN',
-			language_name: 'मुंडांग (कॅमेरून)'
+			language_name: 'मुंडांग'
 		},
 		{
 			locale_code: 'mus-US',
 			locale_id: 'mr-IN',
-			language_name: 'क्रीक (युनायटेड स्टेट्स)'
+			language_name: 'क्रीक'
 		},
 		{
 			locale_code: 'mwl-PT',
 			locale_id: 'mr-IN',
-			language_name: 'मिरांडिज् (पोर्तुगाल)'
+			language_name: 'मिरांडिज्'
 		},
 		{
 			locale_code: 'mwr-IN',
 			locale_id: 'mr-IN',
-			language_name: 'मारवाडी (भारत)'
+			language_name: 'मारवाडी'
 		},
 		{
 			locale_code: 'mwv-ID',
@@ -2042,7 +2042,7 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'my-MM',
 			locale_id: 'mr-IN',
-			language_name: 'बर्मी (म्यानमार [बर्मा])'
+			language_name: 'बर्मी'
 		},
 		{
 			locale_code: 'mye-GA',
@@ -2052,82 +2052,82 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'myv-RU',
 			locale_id: 'mr-IN',
-			language_name: 'एर्झ्या (रशिया)'
+			language_name: 'एर्झ्या'
 		},
 		{
 			locale_code: 'mzn-IR',
 			locale_id: 'mr-IN',
-			language_name: 'माझानदेरानी (इराण)'
+			language_name: 'माझानदेरानी'
 		},
 		{
 			locale_code: 'na-NR',
 			locale_id: 'mr-IN',
-			language_name: 'नउरू (नाउरू)'
+			language_name: 'नउरू'
 		},
 		{
 			locale_code: 'nan-CN',
 			locale_id: 'mr-IN',
-			language_name: 'मिन नान चिनी (चीन)'
+			language_name: 'मिन नान चिनी'
 		},
 		{
 			locale_code: 'nan-TW',
 			locale_id: 'mr-IN',
-			language_name: 'मिन नान चिनी (तैवान)'
+			language_name: 'मिन नान चिनी'
 		},
 		{
 			locale_code: 'nan-MO',
 			locale_id: 'mr-IN',
-			language_name: 'मिन नान चिनी (मकाओ एसएआर चीन)'
+			language_name: 'मिन नान चिनी'
 		},
 		{
 			locale_code: 'nap-IT',
 			locale_id: 'mr-IN',
-			language_name: 'नेपोलिटान (इटली)'
+			language_name: 'नेपोलिटान'
 		},
 		{
 			locale_code: 'naq-NA',
 			locale_id: 'mr-IN',
-			language_name: 'नामा (नामिबिया)'
+			language_name: 'नामा'
 		},
 		{
 			locale_code: 'nb-NO',
 			locale_id: 'mr-IN',
-			language_name: 'नॉर्वेजियन बोकमाल (नॉर्वे)'
+			language_name: 'नॉर्वेजियन बोकमाल'
 		},
 		{
 			locale_code: 'nd-ZW',
 			locale_id: 'mr-IN',
-			language_name: 'उत्तर देबेली (झिम्बाब्वे)'
+			language_name: 'उत्तर देबेली'
 		},
 		{
 			locale_code: 'nds-DE',
 			locale_id: 'mr-IN',
-			language_name: 'लो जर्मन (जर्मनी)'
+			language_name: 'लो जर्मन'
 		},
 		{
 			locale_code: 'ne-NP',
 			locale_id: 'mr-IN',
-			language_name: 'नेपाळी (नेपाळ)'
+			language_name: 'नेपाळी'
 		},
 		{
 			locale_code: 'new-NP',
 			locale_id: 'mr-IN',
-			language_name: 'नेवारी (नेपाळ)'
+			language_name: 'नेवारी'
 		},
 		{
 			locale_code: 'ng-NA',
 			locale_id: 'mr-IN',
-			language_name: 'डोंगा (नामिबिया)'
+			language_name: 'डोंगा'
 		},
 		{
 			locale_code: 'nia-ID',
 			locale_id: 'mr-IN',
-			language_name: 'नियास (इंडोनेशिया)'
+			language_name: 'नियास'
 		},
 		{
 			locale_code: 'niu-NU',
 			locale_id: 'mr-IN',
-			language_name: 'नियुआन (नीयू)'
+			language_name: 'नियुआन'
 		},
 		{
 			locale_code: 'njo-IN',
@@ -2137,192 +2137,192 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'nl-NL',
 			locale_id: 'mr-IN',
-			language_name: 'डच (नेदरलँड)'
+			language_name: 'डच'
 		},
 		{
 			locale_code: 'nmg-CM',
 			locale_id: 'mr-IN',
-			language_name: 'क्वासिओ (कॅमेरून)'
+			language_name: 'क्वासिओ'
 		},
 		{
 			locale_code: 'nn-NO',
 			locale_id: 'mr-IN',
-			language_name: 'नॉर्वेजियन न्योर्स्क (नॉर्वे)'
+			language_name: 'नॉर्वेजियन न्योर्स्क'
 		},
 		{
 			locale_code: 'nnh-CM',
 			locale_id: 'mr-IN',
-			language_name: 'जिएम्बून (कॅमेरून)'
+			language_name: 'जिएम्बून'
 		},
 		{
 			locale_code: 'no-NO',
 			locale_id: 'mr-IN',
-			language_name: 'नॉर्वेजियन (नॉर्वे)'
+			language_name: 'नॉर्वेजियन'
 		},
 		{
 			locale_code: 'nog-RU',
 			locale_id: 'mr-IN',
-			language_name: 'नोगाई (रशिया)'
+			language_name: 'नोगाई'
 		},
 		{
 			locale_code: 'non-SE',
 			locale_id: 'mr-IN',
-			language_name: 'पुरातन नॉर्स (स्वीडन)'
+			language_name: 'पुरातन नॉर्स'
 		},
 		{
 			locale_code: 'nqo-GN',
 			locale_id: 'mr-IN',
-			language_name: 'एन्को (गिनी)'
+			language_name: 'एन्को'
 		},
 		{
 			locale_code: 'nr-ZA',
 			locale_id: 'mr-IN',
-			language_name: 'दक्षिणात्य देबेली (दक्षिण आफ्रिका)'
+			language_name: 'दक्षिणात्य देबेली'
 		},
 		{
 			locale_code: 'nso-ZA',
 			locale_id: 'mr-IN',
-			language_name: 'उत्तरी सोथो (दक्षिण आफ्रिका)'
+			language_name: 'उत्तरी सोथो'
 		},
 		{
 			locale_code: 'nus-SS',
 			locale_id: 'mr-IN',
-			language_name: 'नुएर (दक्षिण सुदान)'
+			language_name: 'नुएर'
 		},
 		{
 			locale_code: 'nv-US',
 			locale_id: 'mr-IN',
-			language_name: 'नावाजो (युनायटेड स्टेट्स)'
+			language_name: 'नावाजो'
 		},
 		{
 			locale_code: 'nwc-NP',
 			locale_id: 'mr-IN',
-			language_name: 'अभिजात नेवारी (नेपाळ)'
+			language_name: 'अभिजात नेवारी'
 		},
 		{
 			locale_code: 'ny-MW',
 			locale_id: 'mr-IN',
-			language_name: 'न्यान्जा (मलावी)'
+			language_name: 'न्यान्जा'
 		},
 		{
 			locale_code: 'nym-TZ',
 			locale_id: 'mr-IN',
-			language_name: 'न्यामवेझी (टांझानिया)'
+			language_name: 'न्यामवेझी'
 		},
 		{
 			locale_code: 'nyn-UG',
 			locale_id: 'mr-IN',
-			language_name: 'न्यानकोल (युगांडा)'
+			language_name: 'न्यानकोल'
 		},
 		{
 			locale_code: 'nyo-UG',
 			locale_id: 'mr-IN',
-			language_name: 'न्योरो (युगांडा)'
+			language_name: 'न्योरो'
 		},
 		{
 			locale_code: 'nzi-GH',
 			locale_id: 'mr-IN',
-			language_name: 'न्झिमा (घाना)'
+			language_name: 'न्झिमा'
 		},
 		{
 			locale_code: 'oc-FR',
 			locale_id: 'mr-IN',
-			language_name: 'ऑक्सितान (फ्रान्स)'
+			language_name: 'ऑक्सितान'
 		},
 		{
 			locale_code: 'oj-CA',
 			locale_id: 'mr-IN',
-			language_name: 'ओजिब्वा (कॅनडा)'
+			language_name: 'ओजिब्वा'
 		},
 		{
 			locale_code: 'ojb-CA',
 			locale_id: 'mr-IN',
-			language_name: 'नॉर्थवेस्टर्न ओजिब्वा (कॅनडा)'
+			language_name: 'नॉर्थवेस्टर्न ओजिब्वा'
 		},
 		{
 			locale_code: 'ojc-CA',
 			locale_id: 'mr-IN',
-			language_name: 'सेंट्रल ओजिब्वा (कॅनडा)'
+			language_name: 'सेंट्रल ओजिब्वा'
 		},
 		{
 			locale_code: 'ojs-CA',
 			locale_id: 'mr-IN',
-			language_name: 'ओजी-क्री (कॅनडा)'
+			language_name: 'ओजी-क्री'
 		},
 		{
 			locale_code: 'ojw-CA',
 			locale_id: 'mr-IN',
-			language_name: 'वेस्टर्न ओजिबवा (कॅनडा)'
+			language_name: 'वेस्टर्न ओजिबवा'
 		},
 		{
 			locale_code: 'oka-CA',
 			locale_id: 'mr-IN',
-			language_name: 'ओकनागन (कॅनडा)'
+			language_name: 'ओकनागन'
 		},
 		{
 			locale_code: 'om-ET',
 			locale_id: 'mr-IN',
-			language_name: 'ओरोमो (इथिओपिया)'
+			language_name: 'ओरोमो'
 		},
 		{
 			locale_code: 'or-IN',
 			locale_id: 'mr-IN',
-			language_name: 'उडिया (भारत)'
+			language_name: 'उडिया'
 		},
 		{
 			locale_code: 'os-GE',
 			locale_id: 'mr-IN',
-			language_name: 'ओस्सेटिक (जॉर्जिया)'
+			language_name: 'ओस्सेटिक'
 		},
 		{
 			locale_code: 'osa-US',
 			locale_id: 'mr-IN',
-			language_name: 'ओसेज (युनायटेड स्टेट्स)'
+			language_name: 'ओसेज'
 		},
 		{
 			locale_code: 'ota-TR',
 			locale_id: 'mr-IN',
-			language_name: 'ओटोमान तुर्किश (तुर्किये)'
+			language_name: 'ओटोमान तुर्किश'
 		},
 		{
 			locale_code: 'pa-IN',
 			locale_id: 'mr-IN',
-			language_name: 'पंजाबी (भारत)'
+			language_name: 'पंजाबी'
 		},
 		{
 			locale_code: 'pa-PK',
 			locale_id: 'mr-IN',
-			language_name: 'पंजाबी (पाकिस्तान)'
+			language_name: 'पंजाबी'
 		},
 		{
 			locale_code: 'pag-PH',
 			locale_id: 'mr-IN',
-			language_name: 'पंगासीनान (फिलिपिन्स)'
+			language_name: 'पंगासीनान'
 		},
 		{
 			locale_code: 'pal-IR',
 			locale_id: 'mr-IN',
-			language_name: 'पहलवी (इराण)'
+			language_name: 'पहलवी'
 		},
 		{
 			locale_code: 'pal-CN',
 			locale_id: 'mr-IN',
-			language_name: 'पहलवी (चीन)'
+			language_name: 'पहलवी'
 		},
 		{
 			locale_code: 'pam-PH',
 			locale_id: 'mr-IN',
-			language_name: 'पाम्पान्गा (फिलिपिन्स)'
+			language_name: 'पाम्पान्गा'
 		},
 		{
 			locale_code: 'pap-CW',
 			locale_id: 'mr-IN',
-			language_name: 'पापियामेन्टो (क्युरासाओ)'
+			language_name: 'पापियामेन्टो'
 		},
 		{
 			locale_code: 'pau-PW',
 			locale_id: 'mr-IN',
-			language_name: 'पालाउआन (पलाऊ)'
+			language_name: 'पालाउआन'
 		},
 		{
 			locale_code: 'pcd-FR',
@@ -2332,7 +2332,7 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'pcm-NG',
 			locale_id: 'mr-IN',
-			language_name: 'नायजिरिअन पिजिन (नायजेरिया)'
+			language_name: 'नायजिरिअन पिजिन'
 		},
 		{
 			locale_code: 'pdc-US',
@@ -2342,12 +2342,12 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'pdt-CA',
 			locale_id: 'mr-IN',
-			language_name: 'Plautdietsch'
+			language_name: 'प्लॉटडाइट्श'
 		},
 		{
 			locale_code: 'peo-IR',
 			locale_id: 'mr-IN',
-			language_name: 'पुरातन फारसी (इराण)'
+			language_name: 'पुरातन फारसी'
 		},
 		{
 			locale_code: 'pfl-DE',
@@ -2357,42 +2357,42 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'phn-LB',
 			locale_id: 'mr-IN',
-			language_name: 'फोनिशियन (लेबनॉन)'
+			language_name: 'फोनिशियन'
 		},
 		{
 			locale_code: 'pi-GB',
 			locale_id: 'mr-IN',
-			language_name: 'पाली (युनायटेड किंगडम)'
+			language_name: 'पाली'
 		},
 		{
 			locale_code: 'pi-IN',
 			locale_id: 'mr-IN',
-			language_name: 'पाली (भारत)'
+			language_name: 'पाली'
 		},
 		{
 			locale_code: 'pi-LK',
 			locale_id: 'mr-IN',
-			language_name: 'पाली (श्रीलंका)'
+			language_name: 'पाली'
 		},
 		{
 			locale_code: 'pi-MM',
 			locale_id: 'mr-IN',
-			language_name: 'पाली (म्यानमार [बर्मा])'
+			language_name: 'पाली'
 		},
 		{
 			locale_code: 'pi-TH',
 			locale_id: 'mr-IN',
-			language_name: 'पाली (थायलंड)'
+			language_name: 'पाली'
 		},
 		{
 			locale_code: 'pis-SB',
 			locale_id: 'mr-IN',
-			language_name: 'पिजिन (सोलोमन बेटे)'
+			language_name: 'पिजिन'
 		},
 		{
 			locale_code: 'pl-PL',
 			locale_id: 'mr-IN',
-			language_name: 'पोलिश (पोलंड)'
+			language_name: 'पोलिश'
 		},
 		{
 			locale_code: 'pms-IT',
@@ -2417,27 +2417,27 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'pon-FM',
 			locale_id: 'mr-IN',
-			language_name: 'पोह्नपियन (मायक्रोनेशिया)'
+			language_name: 'पोह्नपियन'
 		},
 		{
 			locale_code: 'pqm-CA',
 			locale_id: 'mr-IN',
-			language_name: 'मालीसेट-पासामाक्वाड्डी (कॅनडा)'
+			language_name: 'मालीसेट-पासामाक्वाड्डी'
 		},
 		{
 			locale_code: 'prg-PL',
 			locale_id: 'mr-IN',
-			language_name: 'प्रुशियन (पोलंड)'
+			language_name: 'प्रुशियन'
 		},
 		{
 			locale_code: 'pro-FR',
 			locale_id: 'mr-IN',
-			language_name: 'पुरातन प्रोव्हेन्सल (फ्रान्स)'
+			language_name: 'पुरातन प्रोव्हेन्सल'
 		},
 		{
 			locale_code: 'ps-AF',
 			locale_id: 'mr-IN',
-			language_name: 'पश्तो (अफगाणिस्तान)'
+			language_name: 'पश्तो'
 		},
 		{
 			locale_code: 'pt-BR',
@@ -2447,12 +2447,12 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'qu-PE',
 			locale_id: 'mr-IN',
-			language_name: 'क्वेचुआ (पेरू)'
+			language_name: 'क्वेचुआ'
 		},
 		{
 			locale_code: 'quc-GT',
 			locale_id: 'mr-IN',
-			language_name: 'कीशेइ (ग्वाटेमाला)'
+			language_name: 'कीशेइ'
 		},
 		{
 			locale_code: 'qug-EC',
@@ -2462,17 +2462,17 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'raj-IN',
 			locale_id: 'mr-IN',
-			language_name: 'राजस्थानी (भारत)'
+			language_name: 'राजस्थानी'
 		},
 		{
 			locale_code: 'rap-CL',
 			locale_id: 'mr-IN',
-			language_name: 'रापानुई (चिली)'
+			language_name: 'रापानुई'
 		},
 		{
 			locale_code: 'rar-CK',
 			locale_id: 'mr-IN',
-			language_name: 'रारोटोंगन (कुक बेटे)'
+			language_name: 'रारोटोंगन'
 		},
 		{
 			locale_code: 'rgn-IT',
@@ -2482,7 +2482,7 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'rhg-MM',
 			locale_id: 'mr-IN',
-			language_name: 'रोहिंग्या (म्यानमार [बर्मा])'
+			language_name: 'रोहिंग्या'
 		},
 		{
 			locale_code: 'rif-MA',
@@ -2492,27 +2492,27 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'rm-CH',
 			locale_id: 'mr-IN',
-			language_name: 'रोमान्श (स्वित्झर्लंड)'
+			language_name: 'रोमान्श'
 		},
 		{
 			locale_code: 'rn-BI',
 			locale_id: 'mr-IN',
-			language_name: 'रुन्दी (बुरुंडी)'
+			language_name: 'रुन्दी'
 		},
 		{
 			locale_code: 'ro-RO',
 			locale_id: 'mr-IN',
-			language_name: 'रोमानियन (रोमानिया)'
+			language_name: 'रोमानियन'
 		},
 		{
 			locale_code: 'rof-TZ',
 			locale_id: 'mr-IN',
-			language_name: 'रोम्बो (टांझानिया)'
+			language_name: 'रोम्बो'
 		},
 		{
 			locale_code: 'rom-RO',
 			locale_id: 'mr-IN',
-			language_name: 'रोमानी (रोमानिया)'
+			language_name: 'रोमानी'
 		},
 		{
 			locale_code: 'rtm-FJ',
@@ -2522,7 +2522,7 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'ru-RU',
 			locale_id: 'mr-IN',
-			language_name: 'रशियन (रशिया)'
+			language_name: 'रशियन'
 		},
 		{
 			locale_code: 'rue-UA',
@@ -2537,52 +2537,52 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'rup-RO',
 			locale_id: 'mr-IN',
-			language_name: 'अरोमानियन (रोमानिया)'
+			language_name: 'अरोमानियन'
 		},
 		{
 			locale_code: 'rw-RW',
 			locale_id: 'mr-IN',
-			language_name: 'किन्यार्वान्डा (रवांडा)'
+			language_name: 'किन्यार्वान्डा'
 		},
 		{
 			locale_code: 'rwk-TZ',
 			locale_id: 'mr-IN',
-			language_name: 'रव्हा (टांझानिया)'
+			language_name: 'रव्हा'
 		},
 		{
 			locale_code: 'sa-IN',
 			locale_id: 'mr-IN',
-			language_name: 'संस्कृत (भारत)'
+			language_name: 'संस्कृत'
 		},
 		{
 			locale_code: 'sad-TZ',
 			locale_id: 'mr-IN',
-			language_name: 'सँडवे (टांझानिया)'
+			language_name: 'सँडवे'
 		},
 		{
 			locale_code: 'sah-RU',
 			locale_id: 'mr-IN',
-			language_name: 'साखा (रशिया)'
+			language_name: 'साखा'
 		},
 		{
 			locale_code: 'sam-PS',
 			locale_id: 'mr-IN',
-			language_name: 'सामरिटान अरॅमिक (पॅलेस्टिनियन प्रदेश)'
+			language_name: 'सामरिटान अरॅमिक'
 		},
 		{
 			locale_code: 'saq-KE',
 			locale_id: 'mr-IN',
-			language_name: 'सांबुरू (केनिया)'
+			language_name: 'सांबुरू'
 		},
 		{
 			locale_code: 'sas-ID',
 			locale_id: 'mr-IN',
-			language_name: 'सासाक (इंडोनेशिया)'
+			language_name: 'सासाक'
 		},
 		{
 			locale_code: 'sat-IN',
 			locale_id: 'mr-IN',
-			language_name: 'संताली (भारत)'
+			language_name: 'संताली'
 		},
 		{
 			locale_code: 'saz-IN',
@@ -2592,37 +2592,37 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'sba-TD',
 			locale_id: 'mr-IN',
-			language_name: 'गाम्बे (चाड)'
+			language_name: 'गाम्बे'
 		},
 		{
 			locale_code: 'sbp-TZ',
 			locale_id: 'mr-IN',
-			language_name: 'सांगु (टांझानिया)'
+			language_name: 'सांगु'
 		},
 		{
 			locale_code: 'sc-IT',
 			locale_id: 'mr-IN',
-			language_name: 'सर्दिनियन (इटली)'
+			language_name: 'सर्दिनियन'
 		},
 		{
 			locale_code: 'scn-IT',
 			locale_id: 'mr-IN',
-			language_name: 'सिसिलियन (इटली)'
+			language_name: 'सिसिलियन'
 		},
 		{
 			locale_code: 'sco-GB',
 			locale_id: 'mr-IN',
-			language_name: 'स्कॉट्स (युनायटेड किंगडम)'
+			language_name: 'स्कॉट्स'
 		},
 		{
 			locale_code: 'sd-PK',
 			locale_id: 'mr-IN',
-			language_name: 'सिंधी (पाकिस्तान)'
+			language_name: 'सिंधी'
 		},
 		{
 			locale_code: 'sd-IN',
 			locale_id: 'mr-IN',
-			language_name: 'सिंधी (भारत)'
+			language_name: 'सिंधी'
 		},
 		{
 			locale_code: 'sdc-IT',
@@ -2632,12 +2632,12 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'sdh-IR',
 			locale_id: 'mr-IN',
-			language_name: 'दक्षिणी कुर्दिश (इराण)'
+			language_name: 'दक्षिणी कुर्दिश'
 		},
 		{
 			locale_code: 'se-NO',
 			locale_id: 'mr-IN',
-			language_name: 'उत्तरी सामी (नॉर्वे)'
+			language_name: 'उत्तरी सामी'
 		},
 		{
 			locale_code: 'see-US',
@@ -2647,7 +2647,7 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'seh-MZ',
 			locale_id: 'mr-IN',
-			language_name: 'सेना (मोझाम्बिक)'
+			language_name: 'सेना'
 		},
 		{
 			locale_code: 'sei-MX',
@@ -2657,22 +2657,22 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'sel-RU',
 			locale_id: 'mr-IN',
-			language_name: 'सेल्कप (रशिया)'
+			language_name: 'सेल्कप'
 		},
 		{
 			locale_code: 'ses-ML',
 			locale_id: 'mr-IN',
-			language_name: 'कोयराबोरो सेन्नी (माली)'
+			language_name: 'कोयराबोरो सेन्नी'
 		},
 		{
 			locale_code: 'sg-CF',
 			locale_id: 'mr-IN',
-			language_name: 'सांगो (केंद्रीय अफ्रिकी प्रजासत्ताक)'
+			language_name: 'सांगो'
 		},
 		{
 			locale_code: 'sga-IE',
 			locale_id: 'mr-IN',
-			language_name: 'पुरातन आयरिश (आयर्लंड)'
+			language_name: 'पुरातन आयरिश'
 		},
 		{
 			locale_code: 'sgs-LT',
@@ -2682,12 +2682,12 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'shi-MA',
 			locale_id: 'mr-IN',
-			language_name: 'ताशेल्हिट (मोरोक्को)'
+			language_name: 'ताशेल्हिट'
 		},
 		{
 			locale_code: 'shn-MM',
 			locale_id: 'mr-IN',
-			language_name: 'शॅन (म्यानमार [बर्मा])'
+			language_name: 'शॅन'
 		},
 		{
 			locale_code: 'shu-TD',
@@ -2697,27 +2697,27 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'si-LK',
 			locale_id: 'mr-IN',
-			language_name: 'सिंहला (श्रीलंका)'
+			language_name: 'सिंहला'
 		},
 		{
 			locale_code: 'sid-ET',
 			locale_id: 'mr-IN',
-			language_name: 'सिदामो (इथिओपिया)'
+			language_name: 'सिदामो'
 		},
 		{
 			locale_code: 'sk-SK',
 			locale_id: 'mr-IN',
-			language_name: 'स्लोव्हाक (स्लोव्हाकिया)'
+			language_name: 'स्लोव्हाक'
 		},
 		{
 			locale_code: 'sl-SI',
 			locale_id: 'mr-IN',
-			language_name: 'स्लोव्हेनियन (स्लोव्हेनिया)'
+			language_name: 'स्लोव्हेनियन'
 		},
 		{
 			locale_code: 'slh-US',
 			locale_id: 'mr-IN',
-			language_name: 'दक्षिणात्य लुशूटसीड (युनायटेड स्टेट्स)'
+			language_name: 'दक्षिणात्य लुशूटसीड'
 		},
 		{
 			locale_code: 'sli-PL',
@@ -2732,162 +2732,162 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'sm-WS',
 			locale_id: 'mr-IN',
-			language_name: 'सामोअन (सामोआ)'
+			language_name: 'सामोअन'
 		},
 		{
 			locale_code: 'sma-SE',
 			locale_id: 'mr-IN',
-			language_name: 'दक्षिणात्य सामी (स्वीडन)'
+			language_name: 'दक्षिणात्य सामी'
 		},
 		{
 			locale_code: 'smj-SE',
 			locale_id: 'mr-IN',
-			language_name: 'ल्युल सामी (स्वीडन)'
+			language_name: 'ल्युल सामी'
 		},
 		{
 			locale_code: 'smn-FI',
 			locale_id: 'mr-IN',
-			language_name: 'इनारी सामी (फिनलंड)'
+			language_name: 'इनारी सामी'
 		},
 		{
 			locale_code: 'sms-FI',
 			locale_id: 'mr-IN',
-			language_name: 'स्कोल्ट सामी (फिनलंड)'
+			language_name: 'स्कोल्ट सामी'
 		},
 		{
 			locale_code: 'sn-ZW',
 			locale_id: 'mr-IN',
-			language_name: 'शोना (झिम्बाब्वे)'
+			language_name: 'शोना'
 		},
 		{
 			locale_code: 'snk-ML',
 			locale_id: 'mr-IN',
-			language_name: 'सोनिन्के (माली)'
+			language_name: 'सोनिन्के'
 		},
 		{
 			locale_code: 'so-SO',
 			locale_id: 'mr-IN',
-			language_name: 'सोमाली (सोमालिया)'
+			language_name: 'सोमाली'
 		},
 		{
 			locale_code: 'sog-UZ',
 			locale_id: 'mr-IN',
-			language_name: 'सोग्डिएन (उझबेकिस्तान)'
+			language_name: 'सोग्डिएन'
 		},
 		{
 			locale_code: 'sq-AL',
 			locale_id: 'mr-IN',
-			language_name: 'अल्बानियन (अल्बानिया)'
+			language_name: 'अल्बानियन'
 		},
 		{
 			locale_code: 'sr-RS',
 			locale_id: 'mr-IN',
-			language_name: 'सर्बियन (सर्बिया)'
+			language_name: 'सर्बियन'
 		},
 		{
 			locale_code: 'sr-ME',
 			locale_id: 'mr-IN',
-			language_name: 'सर्बियन (मोंटेनेग्रो)'
+			language_name: 'सर्बियन'
 		},
 		{
 			locale_code: 'sr-RO',
 			locale_id: 'mr-IN',
-			language_name: 'सर्बियन (रोमानिया)'
+			language_name: 'सर्बियन'
 		},
 		{
 			locale_code: 'sr-TR',
 			locale_id: 'mr-IN',
-			language_name: 'सर्बियन (तुर्किये)'
+			language_name: 'सर्बियन'
 		},
 		{
 			locale_code: 'srn-SR',
 			locale_id: 'mr-IN',
-			language_name: 'स्रानान टॉन्गो (सुरिनाम)'
+			language_name: 'स्रानान टॉन्गो'
 		},
 		{
 			locale_code: 'srr-SN',
 			locale_id: 'mr-IN',
-			language_name: 'सेरेर (सेनेगल)'
+			language_name: 'सेरेर'
 		},
 		{
 			locale_code: 'ss-ZA',
 			locale_id: 'mr-IN',
-			language_name: 'स्वाती (दक्षिण आफ्रिका)'
+			language_name: 'स्वाती'
 		},
 		{
 			locale_code: 'ssy-ER',
 			locale_id: 'mr-IN',
-			language_name: 'साहो (एरिट्रिया)'
+			language_name: 'साहो'
 		},
 		{
 			locale_code: 'st-ZA',
 			locale_id: 'mr-IN',
-			language_name: 'दक्षिणी सोथो (दक्षिण आफ्रिका)'
+			language_name: 'दक्षिणी सोथो'
 		},
 		{
 			locale_code: 'stq-DE',
 			locale_id: 'mr-IN',
-			language_name: 'Saterland Frisian'
+			language_name: 'सॅटरलँड फ्रिसियन'
 		},
 		{
 			locale_code: 'str-CA',
 			locale_id: 'mr-IN',
-			language_name: 'स्ट्राइट्स सालीश (कॅनडा)'
+			language_name: 'स्ट्राइट्स सालीश'
 		},
 		{
 			locale_code: 'su-ID',
 			locale_id: 'mr-IN',
-			language_name: 'सुंदानीज (इंडोनेशिया)'
+			language_name: 'सुंदानीज'
 		},
 		{
 			locale_code: 'suk-TZ',
 			locale_id: 'mr-IN',
-			language_name: 'सुकुमा (टांझानिया)'
+			language_name: 'सुकुमा'
 		},
 		{
 			locale_code: 'sus-GN',
 			locale_id: 'mr-IN',
-			language_name: 'सुसु (गिनी)'
+			language_name: 'सुसु'
 		},
 		{
 			locale_code: 'sv-SE',
 			locale_id: 'mr-IN',
-			language_name: 'स्वीडिश (स्वीडन)'
+			language_name: 'स्वीडिश'
 		},
 		{
 			locale_code: 'sw-TZ',
 			locale_id: 'mr-IN',
-			language_name: 'स्वाहिली (टांझानिया)'
+			language_name: 'स्वाहिली'
 		},
 		{
 			locale_code: 'swb-YT',
 			locale_id: 'mr-IN',
-			language_name: 'कोमोरियन (मायोट्टे)'
+			language_name: 'कोमोरियन'
 		},
 		{
 			locale_code: 'syc-TR',
 			locale_id: 'mr-IN',
-			language_name: 'अभिजात सिरियाक (तुर्किये)'
+			language_name: 'अभिजात सिरियाक'
 		},
 		{
 			locale_code: 'syr-IQ',
 			locale_id: 'mr-IN',
-			language_name: 'सिरियाक (इराक)'
+			language_name: 'सिरियाक'
 		},
 		{
 			locale_code: 'szl-PL',
 			locale_id: 'mr-IN',
-			language_name: 'सिलेशियन (पोलंड)'
+			language_name: 'सिलेशियन'
 		},
 		{
 			locale_code: 'ta-IN',
 			locale_id: 'mr-IN',
-			language_name: 'तामिळ (भारत)'
+			language_name: 'तामिळ'
 		},
 		{
 			locale_code: 'tce-CA',
 			locale_id: 'mr-IN',
-			language_name: 'दक्षिणात्य टचोन (कॅनडा)'
+			language_name: 'दक्षिणात्य टचोन'
 		},
 		{
 			locale_code: 'tcy-IN',
@@ -2897,77 +2897,77 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'te-IN',
 			locale_id: 'mr-IN',
-			language_name: 'तेलगू (भारत)'
+			language_name: 'तेलगू'
 		},
 		{
 			locale_code: 'tem-SL',
 			locale_id: 'mr-IN',
-			language_name: 'टिम्ने (सिएरा लिओन)'
+			language_name: 'टिम्ने'
 		},
 		{
 			locale_code: 'teo-UG',
 			locale_id: 'mr-IN',
-			language_name: 'तेसो (युगांडा)'
+			language_name: 'तेसो'
 		},
 		{
 			locale_code: 'ter-BR',
 			locale_id: 'mr-IN',
-			language_name: 'तेरेनो (ब्राझिल)'
+			language_name: 'तेरेनो'
 		},
 		{
 			locale_code: 'tet-TL',
 			locale_id: 'mr-IN',
-			language_name: 'तेतुम (तिमोर-लेस्ते)'
+			language_name: 'तेतुम'
 		},
 		{
 			locale_code: 'tg-TJ',
 			locale_id: 'mr-IN',
-			language_name: 'ताजिक (ताजिकिस्तान)'
+			language_name: 'ताजिक'
 		},
 		{
 			locale_code: 'tg-PK',
 			locale_id: 'mr-IN',
-			language_name: 'ताजिक (पाकिस्तान)'
+			language_name: 'ताजिक'
 		},
 		{
 			locale_code: 'tgx-CA',
 			locale_id: 'mr-IN',
-			language_name: 'टॅगिश (कॅनडा)'
+			language_name: 'टॅगिश'
 		},
 		{
 			locale_code: 'th-TH',
 			locale_id: 'mr-IN',
-			language_name: 'थाई (थायलंड)'
+			language_name: 'थाई'
 		},
 		{
 			locale_code: 'tht-CA',
 			locale_id: 'mr-IN',
-			language_name: 'तहल्टन (कॅनडा)'
+			language_name: 'तहल्टन'
 		},
 		{
 			locale_code: 'ti-ET',
 			locale_id: 'mr-IN',
-			language_name: 'तिग्रिन्या (इथिओपिया)'
+			language_name: 'तिग्रिन्या'
 		},
 		{
 			locale_code: 'tig-ER',
 			locale_id: 'mr-IN',
-			language_name: 'टाइग्रे (एरिट्रिया)'
+			language_name: 'टाइग्रे'
 		},
 		{
 			locale_code: 'tiv-NG',
 			locale_id: 'mr-IN',
-			language_name: 'तिव (नायजेरिया)'
+			language_name: 'तिव'
 		},
 		{
 			locale_code: 'tk-TM',
 			locale_id: 'mr-IN',
-			language_name: 'तुर्कमेन (तुर्कमेनिस्तान)'
+			language_name: 'तुर्कमेन'
 		},
 		{
 			locale_code: 'tkl-TK',
 			locale_id: 'mr-IN',
-			language_name: 'टोकेलाऊ (तोकेलाउ)'
+			language_name: 'टोकेलाऊ'
 		},
 		{
 			locale_code: 'tkr-AZ',
@@ -2977,12 +2977,12 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'tl-PH',
 			locale_id: 'mr-IN',
-			language_name: 'फिलिपिनो (फिलिपिन्स)'
+			language_name: 'फिलिपिनो'
 		},
 		{
 			locale_code: 'tli-US',
 			locale_id: 'mr-IN',
-			language_name: 'लिंगित (युनायटेड स्टेट्स)'
+			language_name: 'लिंगित'
 		},
 		{
 			locale_code: 'tly-AZ',
@@ -2992,32 +2992,32 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'tmh-NE',
 			locale_id: 'mr-IN',
-			language_name: 'तामाशेक (नाइजर)'
+			language_name: 'तामाशेक'
 		},
 		{
 			locale_code: 'tn-ZA',
 			locale_id: 'mr-IN',
-			language_name: 'त्स्वाना (दक्षिण आफ्रिका)'
+			language_name: 'त्स्वाना'
 		},
 		{
 			locale_code: 'to-TO',
 			locale_id: 'mr-IN',
-			language_name: 'टोंगन (टोंगा)'
+			language_name: 'टोंगन'
 		},
 		{
 			locale_code: 'tog-MW',
 			locale_id: 'mr-IN',
-			language_name: 'न्यासा टोन्गा (मलावी)'
+			language_name: 'न्यासा टोन्गा'
 		},
 		{
 			locale_code: 'tpi-PG',
 			locale_id: 'mr-IN',
-			language_name: 'टोक पिसिन (पापुआ न्यू गिनी)'
+			language_name: 'टोक पिसिन'
 		},
 		{
 			locale_code: 'tr-TR',
 			locale_id: 'mr-IN',
-			language_name: 'तुर्की (तुर्किये)'
+			language_name: 'तुर्की'
 		},
 		{
 			locale_code: 'tru-TR',
@@ -3027,7 +3027,7 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'trv-TW',
 			locale_id: 'mr-IN',
-			language_name: 'तारोको (तैवान)'
+			language_name: 'तारोको'
 		},
 		{
 			locale_code: 'trw-PK',
@@ -3037,7 +3037,7 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'ts-ZA',
 			locale_id: 'mr-IN',
-			language_name: 'सोंगा (दक्षिण आफ्रिका)'
+			language_name: 'सोंगा'
 		},
 		{
 			locale_code: 'tsd-GR',
@@ -3047,17 +3047,17 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'tsi-CA',
 			locale_id: 'mr-IN',
-			language_name: 'सिम्शियन (कॅनडा)'
+			language_name: 'सिम्शियन'
 		},
 		{
 			locale_code: 'tt-RU',
 			locale_id: 'mr-IN',
-			language_name: 'तातर (रशिया)'
+			language_name: 'तातर'
 		},
 		{
 			locale_code: 'ttm-CA',
 			locale_id: 'mr-IN',
-			language_name: 'नॉर्दर्न टचोन (कॅनडा)'
+			language_name: 'नॉर्दर्न टचोन'
 		},
 		{
 			locale_code: 'ttt-AZ',
@@ -3067,77 +3067,77 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'tum-MW',
 			locale_id: 'mr-IN',
-			language_name: 'तुम्बुका (मलावी)'
+			language_name: 'तुम्बुका'
 		},
 		{
 			locale_code: 'tvl-TV',
 			locale_id: 'mr-IN',
-			language_name: 'टुवालु (टुवालु)'
+			language_name: 'टुवालु'
 		},
 		{
 			locale_code: 'twq-NE',
 			locale_id: 'mr-IN',
-			language_name: 'तासाव्हाक (नाइजर)'
+			language_name: 'तासाव्हाक'
 		},
 		{
 			locale_code: 'ty-PF',
 			locale_id: 'mr-IN',
-			language_name: 'ताहितीयन (फ्रेंच पॉलिनेशिया)'
+			language_name: 'ताहितीयन'
 		},
 		{
 			locale_code: 'tyv-RU',
 			locale_id: 'mr-IN',
-			language_name: 'टुवीनियन (रशिया)'
+			language_name: 'टुवीनियन'
 		},
 		{
 			locale_code: 'tzm-MA',
 			locale_id: 'mr-IN',
-			language_name: 'मध्य अ‍ॅटलास तॅमाझाइट (मोरोक्को)'
+			language_name: 'मध्य अ‍ॅटलास तॅमाझाइट'
 		},
 		{
 			locale_code: 'udm-RU',
 			locale_id: 'mr-IN',
-			language_name: 'उदमुर्त (रशिया)'
+			language_name: 'उदमुर्त'
 		},
 		{
 			locale_code: 'ug-CN',
 			locale_id: 'mr-IN',
-			language_name: 'उइगुर (चीन)'
+			language_name: 'उइगुर'
 		},
 		{
 			locale_code: 'ug-KZ',
 			locale_id: 'mr-IN',
-			language_name: 'उइगुर (कझाकस्तान)'
+			language_name: 'उइगुर'
 		},
 		{
 			locale_code: 'ug-MN',
 			locale_id: 'mr-IN',
-			language_name: 'उइगुर (मंगोलिया)'
+			language_name: 'उइगुर'
 		},
 		{
 			locale_code: 'uga-SY',
 			locale_id: 'mr-IN',
-			language_name: 'युगॅरिटिक (सीरिया)'
+			language_name: 'युगॅरिटिक'
 		},
 		{
 			locale_code: 'uk-UA',
 			locale_id: 'mr-IN',
-			language_name: 'युक्रेनियन (युक्रेन)'
+			language_name: 'युक्रेनियन'
 		},
 		{
 			locale_code: 'umb-AO',
 			locale_id: 'mr-IN',
-			language_name: 'उम्बुन्डु (अंगोला)'
+			language_name: 'उम्बुन्डु'
 		},
 		{
 			locale_code: 'ca-AD',
 			locale_id: 'mr-IN',
-			language_name: 'कातालान (अँडोरा)'
+			language_name: 'कातालान'
 		},
 		{
 			locale_code: 'ar-AE',
 			locale_id: 'mr-IN',
-			language_name: 'अरबी (संयुक्त अरब अमिराती)'
+			language_name: 'अरबी'
 		},
 		{
 			locale_code: 'fa-AF',
@@ -3147,52 +3147,52 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'pt-AO',
 			locale_id: 'mr-IN',
-			language_name: 'पोर्तुगीज (अंगोला)'
+			language_name: 'पोर्तुगीज'
 		},
 		{
 			locale_code: 'es-AR',
 			locale_id: 'mr-IN',
-			language_name: 'स्पॅनिश (अर्जेंटिना)'
+			language_name: 'स्पॅनिश'
 		},
 		{
 			locale_code: 'ms-BN',
 			locale_id: 'mr-IN',
-			language_name: 'मलय (ब्रुनेई)'
+			language_name: 'मलय'
 		},
 		{
 			locale_code: 'ur-GB',
 			locale_id: 'mr-IN',
-			language_name: 'उर्दू (युनायटेड किंगडम)'
+			language_name: 'उर्दू'
 		},
 		{
 			locale_code: 'ms-ID',
 			locale_id: 'mr-IN',
-			language_name: 'मलय (इंडोनेशिया)'
+			language_name: 'मलय'
 		},
 		{
 			locale_code: 'ur-IN',
 			locale_id: 'mr-IN',
-			language_name: 'उर्दू (भारत)'
+			language_name: 'उर्दू'
 		},
 		{
 			locale_code: 'ur-MU',
 			locale_id: 'mr-IN',
-			language_name: 'उर्दू (मॉरिशस)'
+			language_name: 'उर्दू'
 		},
 		{
 			locale_code: 'ur-PK',
 			locale_id: 'mr-IN',
-			language_name: 'उर्दू (पाकिस्तान)'
+			language_name: 'उर्दू'
 		},
 		{
 			locale_code: 'fa-TJ',
 			locale_id: 'mr-IN',
-			language_name: 'फारसी (ताजिकिस्तान)'
+			language_name: 'फारसी'
 		},
 		{
 			locale_code: 'sm-AS',
 			locale_id: 'mr-IN',
-			language_name: 'सामोअन (अमेरिकन सामोआ)'
+			language_name: 'सामोअन'
 		},
 		{
 			locale_code: 'de-AT',
@@ -3202,12 +3202,12 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'nl-AW',
 			locale_id: 'mr-IN',
-			language_name: 'डच (अरुबा)'
+			language_name: 'डच'
 		},
 		{
 			locale_code: 'sv-AX',
 			locale_id: 'mr-IN',
-			language_name: 'स्वीडिश (अ‍ॅलँड बेटे)'
+			language_name: 'स्वीडिश'
 		},
 		{
 			locale_code: 'nl-BE',
@@ -3217,57 +3217,57 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'fr-BF',
 			locale_id: 'mr-IN',
-			language_name: 'फ्रेंच (बुर्किना फासो)'
+			language_name: 'फ्रेंच'
 		},
 		{
 			locale_code: 'ar-BH',
 			locale_id: 'mr-IN',
-			language_name: 'अरबी (बहारीन)'
+			language_name: 'अरबी'
 		},
 		{
 			locale_code: 'fr-BJ',
 			locale_id: 'mr-IN',
-			language_name: 'फ्रेंच (बेनिन)'
+			language_name: 'फ्रेंच'
 		},
 		{
 			locale_code: 'fr-BL',
 			locale_id: 'mr-IN',
-			language_name: 'फ्रेंच (सेंट बार्थेलेमी)'
+			language_name: 'फ्रेंच'
 		},
 		{
 			locale_code: 'es-BO',
 			locale_id: 'mr-IN',
-			language_name: 'स्पॅनिश (बोलिव्हिया)'
+			language_name: 'स्पॅनिश'
 		},
 		{
 			locale_code: 'zh-TW',
 			locale_id: 'mr-IN',
-			language_name: 'चीनी (तैवान)'
+			language_name: 'चीनी'
 		},
 		{
 			locale_code: 'pap-BQ',
 			locale_id: 'mr-IN',
-			language_name: 'पापियामेन्टो (कॅरिबियन नेदरलँड्स)'
+			language_name: 'पापियामेन्टो'
 		},
 		{
 			locale_code: 'no-BV',
 			locale_id: 'mr-IN',
-			language_name: 'नॉर्वेजियन (बोउवेट बेट)'
+			language_name: 'नॉर्वेजियन'
 		},
 		{
 			locale_code: 'ru-BY',
 			locale_id: 'mr-IN',
-			language_name: 'रशियन (बेलारूस)'
+			language_name: 'रशियन'
 		},
 		{
 			locale_code: 'fr-CD',
 			locale_id: 'mr-IN',
-			language_name: 'फ्रेंच (काँगो - किंशासा)'
+			language_name: 'फ्रेंच'
 		},
 		{
 			locale_code: 'fr-CG',
 			locale_id: 'mr-IN',
-			language_name: 'फ्रेंच (काँगो - ब्राझाविले)'
+			language_name: 'फ्रेंच'
 		},
 		{
 			locale_code: 'de-CH',
@@ -3277,212 +3277,212 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'fr-CI',
 			locale_id: 'mr-IN',
-			language_name: 'फ्रेंच (कोत द’ईवोआर)'
+			language_name: 'फ्रेंच'
 		},
 		{
 			locale_code: 'es-CL',
 			locale_id: 'mr-IN',
-			language_name: 'स्पॅनिश (चिली)'
+			language_name: 'स्पॅनिश'
 		},
 		{
 			locale_code: 'fr-CM',
 			locale_id: 'mr-IN',
-			language_name: 'फ्रेंच (कॅमेरून)'
+			language_name: 'फ्रेंच'
 		},
 		{
 			locale_code: 'zh-CN',
 			locale_id: 'mr-IN',
-			language_name: 'चीनी (चीन)'
+			language_name: 'चीनी'
 		},
 		{
 			locale_code: 'es-CO',
 			locale_id: 'mr-IN',
-			language_name: 'स्पॅनिश (कोलम्बिया)'
+			language_name: 'स्पॅनिश'
 		},
 		{
 			locale_code: 'und-CY',
 			locale_id: 'mr-IN',
-			language_name: 'root (सायप्रस)'
+			language_name: 'root'
 		},
 		{
 			locale_code: 'es-CR',
 			locale_id: 'mr-IN',
-			language_name: 'स्पॅनिश (कोस्टा रिका)'
+			language_name: 'स्पॅनिश'
 		},
 		{
 			locale_code: 'es-CU',
 			locale_id: 'mr-IN',
-			language_name: 'स्पॅनिश (क्यूबा)'
+			language_name: 'स्पॅनिश'
 		},
 		{
 			locale_code: 'pt-CV',
 			locale_id: 'mr-IN',
-			language_name: 'पोर्तुगीज (केप व्हर्डे)'
+			language_name: 'पोर्तुगीज'
 		},
 		{
 			locale_code: 'el-CY',
 			locale_id: 'mr-IN',
-			language_name: 'ग्रीक (सायप्रस)'
+			language_name: 'ग्रीक'
 		},
 		{
 			locale_code: 'kaa-AF',
 			locale_id: 'mr-IN',
-			language_name: 'कारा-कल्पक (अफगाणिस्तान)'
+			language_name: 'कारा-कल्पक'
 		},
 		{
 			locale_code: 'mk-AL',
 			locale_id: 'mr-IN',
-			language_name: 'मॅसेडोनियन (अल्बानिया)'
+			language_name: 'मॅसेडोनियन'
 		},
 		{
 			locale_code: 'sr-BA',
 			locale_id: 'mr-IN',
-			language_name: 'सर्बियन (बोस्निया अणि हर्जेगोविना)'
+			language_name: 'सर्बियन'
 		},
 		{
 			locale_code: 'mk-GR',
 			locale_id: 'mr-IN',
-			language_name: 'मॅसेडोनियन (ग्रीस)'
+			language_name: 'मॅसेडोनियन'
 		},
 		{
 			locale_code: 'kaa-IR',
 			locale_id: 'mr-IN',
-			language_name: 'कारा-कल्पक (इराण)'
+			language_name: 'कारा-कल्पक'
 		},
 		{
 			locale_code: 'uk-MD',
 			locale_id: 'mr-IN',
-			language_name: 'युक्रेनियन (मोल्डोव्हा)'
+			language_name: 'युक्रेनियन'
 		},
 		{
 			locale_code: 'bg-RO',
 			locale_id: 'mr-IN',
-			language_name: 'बल्गेरियन (रोमानिया)'
+			language_name: 'बल्गेरियन'
 		},
 		{
 			locale_code: 'uk-SK',
 			locale_id: 'mr-IN',
-			language_name: 'युक्रेनियन (स्लोव्हाकिया)'
+			language_name: 'युक्रेनियन'
 		},
 		{
 			locale_code: 'kbd-TR',
 			locale_id: 'mr-IN',
-			language_name: 'कबार्डियन (तुर्किये)'
+			language_name: 'कबार्डियन'
 		},
 		{
 			locale_code: 'uz-UZ',
 			locale_id: 'mr-IN',
-			language_name: 'उझ्बेक (उझबेकिस्तान)'
+			language_name: 'उझ्बेक'
 		},
 		{
 			locale_code: 'ne-BT',
 			locale_id: 'mr-IN',
-			language_name: 'नेपाळी (भूतान)'
+			language_name: 'नेपाळी'
 		},
 		{
 			locale_code: 'bho-MU',
 			locale_id: 'mr-IN',
-			language_name: 'भोजपुरी (मॉरिशस)'
+			language_name: 'भोजपुरी'
 		},
 		{
 			locale_code: 'fr-DJ',
 			locale_id: 'mr-IN',
-			language_name: 'फ्रेंच (जिबौटी)'
+			language_name: 'फ्रेंच'
 		},
 		{
 			locale_code: 'es-DO',
 			locale_id: 'mr-IN',
-			language_name: 'स्पॅनिश (डोमिनिकन प्रजासत्ताक)'
+			language_name: 'स्पॅनिश'
 		},
 		{
 			locale_code: 'ar-DZ',
 			locale_id: 'mr-IN',
-			language_name: 'अरबी (अल्जीरिया)'
+			language_name: 'अरबी'
 		},
 		{
 			locale_code: 'es-EC',
 			locale_id: 'mr-IN',
-			language_name: 'स्पॅनिश (इक्वाडोर)'
+			language_name: 'स्पॅनिश'
 		},
 		{
 			locale_code: 'ar-EH',
 			locale_id: 'mr-IN',
-			language_name: 'अरबी (पश्चिम सहारा)'
+			language_name: 'अरबी'
 		},
 		{
 			locale_code: 'ti-ER',
 			locale_id: 'mr-IN',
-			language_name: 'तिग्रिन्या (एरिट्रिया)'
+			language_name: 'तिग्रिन्या'
 		},
 		{
 			locale_code: 'fr-GA',
 			locale_id: 'mr-IN',
-			language_name: 'फ्रेंच (गॅबॉन)'
+			language_name: 'फ्रेंच'
 		},
 		{
 			locale_code: 'wo-SN',
 			locale_id: 'mr-IN',
-			language_name: 'वोलोफ (सेनेगल)'
+			language_name: 'वोलोफ'
 		},
 		{
 			locale_code: 'fr-GF',
 			locale_id: 'mr-IN',
-			language_name: 'फ्रेंच (फ्रेंच गयाना)'
+			language_name: 'फ्रेंच'
 		},
 		{
 			locale_code: 'fr-GN',
 			locale_id: 'mr-IN',
-			language_name: 'फ्रेंच (गिनी)'
+			language_name: 'फ्रेंच'
 		},
 		{
 			locale_code: 'fr-GP',
 			locale_id: 'mr-IN',
-			language_name: 'फ्रेंच (ग्वाडेलोउपे)'
+			language_name: 'फ्रेंच'
 		},
 		{
 			locale_code: 'es-GQ',
 			locale_id: 'mr-IN',
-			language_name: 'स्पॅनिश (इक्वेटोरियल गिनी)'
+			language_name: 'स्पॅनिश'
 		},
 		{
 			locale_code: 'es-GT',
 			locale_id: 'mr-IN',
-			language_name: 'स्पॅनिश (ग्वाटेमाला)'
+			language_name: 'स्पॅनिश'
 		},
 		{
 			locale_code: 'pt-GW',
 			locale_id: 'mr-IN',
-			language_name: 'पोर्तुगीज (गिनी-बिसाउ)'
+			language_name: 'पोर्तुगीज'
 		},
 		{
 			locale_code: 'yue-CA',
 			locale_id: 'mr-IN',
-			language_name: 'कँटोनीज (कॅनडा)'
+			language_name: 'कँटोनीज'
 		},
 		{
 			locale_code: 'yue-CN',
 			locale_id: 'mr-IN',
-			language_name: 'कँटोनीज (चीन)'
+			language_name: 'कँटोनीज'
 		},
 		{
 			locale_code: 'yi-SE',
 			locale_id: 'mr-IN',
-			language_name: 'यिद्दिश (स्वीडन)'
+			language_name: 'यिद्दिश'
 		},
 		{
 			locale_code: 'yi-UA',
 			locale_id: 'mr-IN',
-			language_name: 'यिद्दिश (युक्रेन)'
+			language_name: 'यिद्दिश'
 		},
 		{
 			locale_code: 'yi-US',
 			locale_id: 'mr-IN',
-			language_name: 'यिद्दिश (युनायटेड स्टेट्स)'
+			language_name: 'यिद्दिश'
 		},
 		{
 			locale_code: 'zh-HK',
 			locale_id: 'mr-IN',
-			language_name: 'चीनी (हाँगकाँग एसएआर चीन)'
+			language_name: 'चीनी'
 		},
 		{
 			locale_code: 'hnj-AU',
@@ -3517,262 +3517,262 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'es-HN',
 			locale_id: 'mr-IN',
-			language_name: 'स्पॅनिश (होंडुरास)'
+			language_name: 'स्पॅनिश'
 		},
 		{
 			locale_code: 'ar-IQ',
 			locale_id: 'mr-IN',
-			language_name: 'अरबी (इराक)'
+			language_name: 'अरबी'
 		},
 		{
 			locale_code: 'ar-JO',
 			locale_id: 'mr-IN',
-			language_name: 'अरबी (जॉर्डन)'
+			language_name: 'अरबी'
 		},
 		{
 			locale_code: 'sw-KE',
 			locale_id: 'mr-IN',
-			language_name: 'स्वाहिली (केनिया)'
+			language_name: 'स्वाहिली'
 		},
 		{
 			locale_code: 'ar-KM',
 			locale_id: 'mr-IN',
-			language_name: 'अरबी (कोमोरोज)'
+			language_name: 'अरबी'
 		},
 		{
 			locale_code: 'ko-KP',
 			locale_id: 'mr-IN',
-			language_name: 'कोरियन (उत्तर कोरिया)'
+			language_name: 'कोरियन'
 		},
 		{
 			locale_code: 'ar-KW',
 			locale_id: 'mr-IN',
-			language_name: 'अरबी (कुवेत)'
+			language_name: 'अरबी'
 		},
 		{
 			locale_code: 'ru-KZ',
 			locale_id: 'mr-IN',
-			language_name: 'रशियन (कझाकस्तान)'
+			language_name: 'रशियन'
 		},
 		{
 			locale_code: 'en-AE',
 			locale_id: 'mr-IN',
-			language_name: 'इंग्रजी (संयुक्त अरब अमिराती)'
+			language_name: 'इंग्रजी'
 		},
 		{
 			locale_code: 'tk-AF',
 			locale_id: 'mr-IN',
-			language_name: 'तुर्कमेन (अफगाणिस्तान)'
+			language_name: 'तुर्कमेन'
 		},
 		{
 			locale_code: 'en-BD',
 			locale_id: 'mr-IN',
-			language_name: 'इंग्रजी (बांगलादेश)'
+			language_name: 'इंग्रजी'
 		},
 		{
 			locale_code: 'en-BG',
 			locale_id: 'mr-IN',
-			language_name: 'इंग्रजी (बल्गेरिया)'
+			language_name: 'इंग्रजी'
 		},
 		{
 			locale_code: 'en-BT',
 			locale_id: 'mr-IN',
-			language_name: 'इंग्रजी (भूतान)'
+			language_name: 'इंग्रजी'
 		},
 		{
 			locale_code: 'en-CC',
 			locale_id: 'mr-IN',
-			language_name: 'इंग्रजी (कोकोस [कीलिंग] बेटे)'
+			language_name: 'इंग्रजी'
 		},
 		{
 			locale_code: 'za-CN',
 			locale_id: 'mr-IN',
-			language_name: 'झुआंग (चीन)'
+			language_name: 'झुआंग'
 		},
 		{
 			locale_code: 'tr-CY',
 			locale_id: 'mr-IN',
-			language_name: 'तुर्की (सायप्रस)'
+			language_name: 'तुर्की'
 		},
 		{
 			locale_code: 'fr-DZ',
 			locale_id: 'mr-IN',
-			language_name: 'फ्रेंच (अल्जीरिया)'
+			language_name: 'फ्रेंच'
 		},
 		{
 			locale_code: 'en-EG',
 			locale_id: 'mr-IN',
-			language_name: 'इंग्रजी (इजिप्त)'
+			language_name: 'इंग्रजी'
 		},
 		{
 			locale_code: 'en-ER',
 			locale_id: 'mr-IN',
-			language_name: 'इंग्रजी (एरिट्रिया)'
+			language_name: 'इंग्रजी'
 		},
 		{
 			locale_code: 'en-ET',
 			locale_id: 'mr-IN',
-			language_name: 'इंग्रजी (इथिओपिया)'
+			language_name: 'इंग्रजी'
 		},
 		{
 			locale_code: 'en-GR',
 			locale_id: 'mr-IN',
-			language_name: 'इंग्रजी (ग्रीस)'
+			language_name: 'इंग्रजी'
 		},
 		{
 			locale_code: 'en-HK',
 			locale_id: 'mr-IN',
-			language_name: 'इंग्रजी (हाँगकाँग एसएआर चीन)'
+			language_name: 'इंग्रजी'
 		},
 		{
 			locale_code: 'en-IL',
 			locale_id: 'mr-IN',
-			language_name: 'इंग्रजी (इस्त्राइल)'
+			language_name: 'इंग्रजी'
 		},
 		{
 			locale_code: 'en-IQ',
 			locale_id: 'mr-IN',
-			language_name: 'इंग्रजी (इराक)'
+			language_name: 'इंग्रजी'
 		},
 		{
 			locale_code: 'tk-IR',
 			locale_id: 'mr-IN',
-			language_name: 'तुर्कमेन (इराण)'
+			language_name: 'तुर्कमेन'
 		},
 		{
 			locale_code: 'en-JO',
 			locale_id: 'mr-IN',
-			language_name: 'इंग्रजी (जॉर्डन)'
+			language_name: 'इंग्रजी'
 		},
 		{
 			locale_code: 'fr-KM',
 			locale_id: 'mr-IN',
-			language_name: 'फ्रेंच (कोमोरोज)'
+			language_name: 'फ्रेंच'
 		},
 		{
 			locale_code: 'en-KZ',
 			locale_id: 'mr-IN',
-			language_name: 'इंग्रजी (कझाकस्तान)'
+			language_name: 'इंग्रजी'
 		},
 		{
 			locale_code: 'en-LB',
 			locale_id: 'mr-IN',
-			language_name: 'इंग्रजी (लेबनॉन)'
+			language_name: 'इंग्रजी'
 		},
 		{
 			locale_code: 'en-LK',
 			locale_id: 'mr-IN',
-			language_name: 'इंग्रजी (श्रीलंका)'
+			language_name: 'इंग्रजी'
 		},
 		{
 			locale_code: 'fr-MA',
 			locale_id: 'mr-IN',
-			language_name: 'फ्रेंच (मोरोक्को)'
+			language_name: 'फ्रेंच'
 		},
 		{
 			locale_code: 'sq-MK',
 			locale_id: 'mr-IN',
-			language_name: 'अल्बानियन (उत्तर मॅसेडोनिया)'
+			language_name: 'अल्बानियन'
 		},
 		{
 			locale_code: 'en-MO',
 			locale_id: 'mr-IN',
-			language_name: 'इंग्रजी (मकाओ एसएआर चीन)'
+			language_name: 'इंग्रजी'
 		},
 		{
 			locale_code: 'fr-MR',
 			locale_id: 'mr-IN',
-			language_name: 'फ्रेंच (मॉरिटानिया)'
+			language_name: 'फ्रेंच'
 		},
 		{
 			locale_code: 'en-MV',
 			locale_id: 'mr-IN',
-			language_name: 'इंग्रजी (मालदीव)'
+			language_name: 'इंग्रजी'
 		},
 		{
 			locale_code: 'en-NP',
 			locale_id: 'mr-IN',
-			language_name: 'इंग्रजी (नेपाळ)'
+			language_name: 'इंग्रजी'
 		},
 		{
 			locale_code: 'en-PK',
 			locale_id: 'mr-IN',
-			language_name: 'इंग्रजी (पाकिस्तान)'
+			language_name: 'इंग्रजी'
 		},
 		{
 			locale_code: 'en-SD',
 			locale_id: 'mr-IN',
-			language_name: 'इंग्रजी (सुदान)'
+			language_name: 'इंग्रजी'
 		},
 		{
 			locale_code: 'en-SS',
 			locale_id: 'mr-IN',
-			language_name: 'इंग्रजी (दक्षिण सुदान)'
+			language_name: 'इंग्रजी'
 		},
 		{
 			locale_code: 'ku-SY',
 			locale_id: 'mr-IN',
-			language_name: 'कुर्दिश (सीरिया)'
+			language_name: 'कुर्दिश'
 		},
 		{
 			locale_code: 'fr-TD',
 			locale_id: 'mr-IN',
-			language_name: 'फ्रेंच (चाड)'
+			language_name: 'फ्रेंच'
 		},
 		{
 			locale_code: 'en-TH',
 			locale_id: 'mr-IN',
-			language_name: 'इंग्रजी (थायलंड)'
+			language_name: 'इंग्रजी'
 		},
 		{
 			locale_code: 'fr-TN',
 			locale_id: 'mr-IN',
-			language_name: 'फ्रेंच (ट्यूनिशिया)'
+			language_name: 'फ्रेंच'
 		},
 		{
 			locale_code: 'pl-UA',
 			locale_id: 'mr-IN',
-			language_name: 'पोलिश (युक्रेन)'
+			language_name: 'पोलिश'
 		},
 		{
 			locale_code: 'en-YE',
 			locale_id: 'mr-IN',
-			language_name: 'इंग्रजी (येमेन)'
+			language_name: 'इंग्रजी'
 		},
 		{
 			locale_code: 'ar-LB',
 			locale_id: 'mr-IN',
-			language_name: 'अरबी (लेबनॉन)'
+			language_name: 'अरबी'
 		},
 		{
 			locale_code: 'de-LI',
 			locale_id: 'mr-IN',
-			language_name: 'जर्मन (लिक्टेनस्टाइन)'
+			language_name: 'जर्मन'
 		},
 		{
 			locale_code: 'st-LS',
 			locale_id: 'mr-IN',
-			language_name: 'दक्षिणी सोथो (लेसोथो)'
+			language_name: 'दक्षिणी सोथो'
 		},
 		{
 			locale_code: 'fr-LU',
 			locale_id: 'mr-IN',
-			language_name: 'फ्रेंच (लक्झेंबर्ग)'
+			language_name: 'फ्रेंच'
 		},
 		{
 			locale_code: 'ar-LY',
 			locale_id: 'mr-IN',
-			language_name: 'अरबी (लिबिया)'
+			language_name: 'अरबी'
 		},
 		{
 			locale_code: 'ar-MA',
 			locale_id: 'mr-IN',
-			language_name: 'अरबी (मोरोक्को)'
+			language_name: 'अरबी'
 		},
 		{
 			locale_code: 'fr-MC',
 			locale_id: 'mr-IN',
-			language_name: 'फ्रेंच (मोनॅको)'
+			language_name: 'फ्रेंच'
 		},
 		{
 			locale_code: 'ro-MD',
@@ -3782,27 +3782,27 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'fr-MF',
 			locale_id: 'mr-IN',
-			language_name: 'फ्रेंच (सेंट मार्टिन)'
+			language_name: 'फ्रेंच'
 		},
 		{
 			locale_code: 'zh-MO',
 			locale_id: 'mr-IN',
-			language_name: 'चीनी (मकाओ एसएआर चीन)'
+			language_name: 'चीनी'
 		},
 		{
 			locale_code: 'fr-MQ',
 			locale_id: 'mr-IN',
-			language_name: 'फ्रेंच (मार्टिनिक)'
+			language_name: 'फ्रेंच'
 		},
 		{
 			locale_code: 'ar-MR',
 			locale_id: 'mr-IN',
-			language_name: 'अरबी (मॉरिटानिया)'
+			language_name: 'अरबी'
 		},
 		{
 			locale_code: 'fr-MU',
 			locale_id: 'mr-IN',
-			language_name: 'फ्रेंच (मॉरिशस)'
+			language_name: 'फ्रेंच'
 		},
 		{
 			locale_code: 'es-MX',
@@ -3812,62 +3812,62 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'pt-MZ',
 			locale_id: 'mr-IN',
-			language_name: 'पोर्तुगीज (मोझाम्बिक)'
+			language_name: 'पोर्तुगीज'
 		},
 		{
 			locale_code: 'af-NA',
 			locale_id: 'mr-IN',
-			language_name: 'अफ्रिकान्स (नामिबिया)'
+			language_name: 'अफ्रिकान्स'
 		},
 		{
 			locale_code: 'fr-NC',
 			locale_id: 'mr-IN',
-			language_name: 'फ्रेंच (न्यू कॅलेडोनिया)'
+			language_name: 'फ्रेंच'
 		},
 		{
 			locale_code: 'ha-NE',
 			locale_id: 'mr-IN',
-			language_name: 'हौसा (नाइजर)'
+			language_name: 'हौसा'
 		},
 		{
 			locale_code: 'es-NI',
 			locale_id: 'mr-IN',
-			language_name: 'स्पॅनिश (निकाराग्वा)'
+			language_name: 'स्पॅनिश'
 		},
 		{
 			locale_code: 'ar-OM',
 			locale_id: 'mr-IN',
-			language_name: 'अरबी (ओमान)'
+			language_name: 'अरबी'
 		},
 		{
 			locale_code: 'es-PA',
 			locale_id: 'mr-IN',
-			language_name: 'स्पॅनिश (पनामा)'
+			language_name: 'स्पॅनिश'
 		},
 		{
 			locale_code: 'es-PE',
 			locale_id: 'mr-IN',
-			language_name: 'स्पॅनिश (पेरू)'
+			language_name: 'स्पॅनिश'
 		},
 		{
 			locale_code: 'fr-PF',
 			locale_id: 'mr-IN',
-			language_name: 'फ्रेंच (फ्रेंच पॉलिनेशिया)'
+			language_name: 'फ्रेंच'
 		},
 		{
 			locale_code: 'fr-PM',
 			locale_id: 'mr-IN',
-			language_name: 'फ्रेंच (सेंट पियरे आणि मिक्वेलोन)'
+			language_name: 'फ्रेंच'
 		},
 		{
 			locale_code: 'es-PR',
 			locale_id: 'mr-IN',
-			language_name: 'स्पॅनिश (प्युएर्तो रिको)'
+			language_name: 'स्पॅनिश'
 		},
 		{
 			locale_code: 'ar-PS',
 			locale_id: 'mr-IN',
-			language_name: 'अरबी (पॅलेस्टिनियन प्रदेश)'
+			language_name: 'अरबी'
 		},
 		{
 			locale_code: 'pt-PT',
@@ -3877,162 +3877,162 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'ar-QA',
 			locale_id: 'mr-IN',
-			language_name: 'अरबी (कतार)'
+			language_name: 'अरबी'
 		},
 		{
 			locale_code: 'fr-RE',
 			locale_id: 'mr-IN',
-			language_name: 'फ्रेंच (रियुनियन)'
+			language_name: 'फ्रेंच'
 		},
 		{
 			locale_code: 'ar-SA',
 			locale_id: 'mr-IN',
-			language_name: 'अरबी (सौदी अरब)'
+			language_name: 'अरबी'
 		},
 		{
 			locale_code: 'fr-SC',
 			locale_id: 'mr-IN',
-			language_name: 'फ्रेंच (सेशेल्स)'
+			language_name: 'फ्रेंच'
 		},
 		{
 			locale_code: 'ar-SD',
 			locale_id: 'mr-IN',
-			language_name: 'अरबी (सुदान)'
+			language_name: 'अरबी'
 		},
 		{
 			locale_code: 'nb-SJ',
 			locale_id: 'mr-IN',
-			language_name: 'नॉर्वेजियन बोकमाल (स्वालबर्ड आणि जान मायेन)'
+			language_name: 'नॉर्वेजियन बोकमाल'
 		},
 		{
 			locale_code: 'it-SM',
 			locale_id: 'mr-IN',
-			language_name: 'इटालियन (सॅन मरीनो)'
+			language_name: 'इटालियन'
 		},
 		{
 			locale_code: 'nl-SR',
 			locale_id: 'mr-IN',
-			language_name: 'डच (सुरिनाम)'
+			language_name: 'डच'
 		},
 		{
 			locale_code: 'ar-SS',
 			locale_id: 'mr-IN',
-			language_name: 'अरबी (दक्षिण सुदान)'
+			language_name: 'अरबी'
 		},
 		{
 			locale_code: 'pt-ST',
 			locale_id: 'mr-IN',
-			language_name: 'पोर्तुगीज (साओ टोम आणि प्रिंसिपे)'
+			language_name: 'पोर्तुगीज'
 		},
 		{
 			locale_code: 'es-SV',
 			locale_id: 'mr-IN',
-			language_name: 'स्पॅनिश (अल साल्वाडोर)'
+			language_name: 'स्पॅनिश'
 		},
 		{
 			locale_code: 'ar-SY',
 			locale_id: 'mr-IN',
-			language_name: 'अरबी (सीरिया)'
+			language_name: 'अरबी'
 		},
 		{
 			locale_code: 'ar-TD',
 			locale_id: 'mr-IN',
-			language_name: 'अरबी (चाड)'
+			language_name: 'अरबी'
 		},
 		{
 			locale_code: 'fr-TF',
 			locale_id: 'mr-IN',
-			language_name: 'फ्रेंच (फ्रेंच दाक्षिणात्य प्रदेश)'
+			language_name: 'फ्रेंच'
 		},
 		{
 			locale_code: 'zgh-MA',
 			locale_id: 'mr-IN',
-			language_name: 'प्रमाण मोरोक्कन तॅमॅझायट (मोरोक्को)'
+			language_name: 'प्रमाण मोरोक्कन तॅमॅझायट'
 		},
 		{
 			locale_code: 'fr-TG',
 			locale_id: 'mr-IN',
-			language_name: 'फ्रेंच (टोगो)'
+			language_name: 'फ्रेंच'
 		},
 		{
 			locale_code: 'pt-TL',
 			locale_id: 'mr-IN',
-			language_name: 'पोर्तुगीज (तिमोर-लेस्ते)'
+			language_name: 'पोर्तुगीज'
 		},
 		{
 			locale_code: 'ar-TN',
 			locale_id: 'mr-IN',
-			language_name: 'अरबी (ट्यूनिशिया)'
+			language_name: 'अरबी'
 		},
 		{
 			locale_code: 'sw-UG',
 			locale_id: 'mr-IN',
-			language_name: 'स्वाहिली (युगांडा)'
+			language_name: 'स्वाहिली'
 		},
 		{
 			locale_code: 'es-UY',
 			locale_id: 'mr-IN',
-			language_name: 'स्पॅनिश (उरुग्वे)'
+			language_name: 'स्पॅनिश'
 		},
 		{
 			locale_code: 'it-VA',
 			locale_id: 'mr-IN',
-			language_name: 'इटालियन (व्हॅटिकन सिटी)'
+			language_name: 'इटालियन'
 		},
 		{
 			locale_code: 'vai-LR',
 			locale_id: 'mr-IN',
-			language_name: 'वाई (लायबेरिया)'
+			language_name: 'वाई'
 		},
 		{
 			locale_code: 'es-VE',
 			locale_id: 'mr-IN',
-			language_name: 'स्पॅनिश (व्हेनेझुएला)'
+			language_name: 'स्पॅनिश'
 		},
 		{
 			locale_code: 'vi-VN',
 			locale_id: 'mr-IN',
-			language_name: 'व्हिएतनामी (व्हिएतनाम)'
+			language_name: 'व्हिएतनामी'
 		},
 		{
 			locale_code: 'fr-WF',
 			locale_id: 'mr-IN',
-			language_name: 'फ्रेंच (वालिस आणि फ्यूचूना)'
+			language_name: 'फ्रेंच'
 		},
 		{
 			locale_code: 'ar-YE',
 			locale_id: 'mr-IN',
-			language_name: 'अरबी (येमेन)'
+			language_name: 'अरबी'
 		},
 		{
 			locale_code: 'fr-YT',
 			locale_id: 'mr-IN',
-			language_name: 'फ्रेंच (मायोट्टे)'
+			language_name: 'फ्रेंच'
 		},
 		{
 			locale_code: 'uz-AF',
 			locale_id: 'mr-IN',
-			language_name: 'उझ्बेक (अफगाणिस्तान)'
+			language_name: 'उझ्बेक'
 		},
 		{
 			locale_code: 'uz-CN',
 			locale_id: 'mr-IN',
-			language_name: 'उझ्बेक (चीन)'
+			language_name: 'उझ्बेक'
 		},
 		{
 			locale_code: 've-ZA',
 			locale_id: 'mr-IN',
-			language_name: 'व्हेंदा (दक्षिण आफ्रिका)'
+			language_name: 'व्हेंदा'
 		},
 		{
 			locale_code: 'vec-IT',
 			locale_id: 'mr-IN',
-			language_name: 'व्हेनेशियन (इटली)'
+			language_name: 'व्हेनेशियन'
 		},
 		{
 			locale_code: 'vep-RU',
 			locale_id: 'mr-IN',
-			language_name: 'Veps'
+			language_name: 'वेप्स'
 		},
 		{
 			locale_code: 'vls-BE',
@@ -4047,12 +4047,12 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'vmw-MZ',
 			locale_id: 'mr-IN',
-			language_name: 'मखुवा (मोझाम्बिक)'
+			language_name: 'मखुवा'
 		},
 		{
 			locale_code: 'vot-RU',
 			locale_id: 'mr-IN',
-			language_name: 'वॉटिक (रशिया)'
+			language_name: 'वॉटिक'
 		},
 		{
 			locale_code: 'vro-EE',
@@ -4062,52 +4062,52 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'vun-TZ',
 			locale_id: 'mr-IN',
-			language_name: 'वुंजो (टांझानिया)'
+			language_name: 'वुंजो'
 		},
 		{
 			locale_code: 'wa-BE',
 			locale_id: 'mr-IN',
-			language_name: 'वालून (बेल्जियम)'
+			language_name: 'वालून'
 		},
 		{
 			locale_code: 'wae-CH',
 			locale_id: 'mr-IN',
-			language_name: 'वालसेर (स्वित्झर्लंड)'
+			language_name: 'वालसेर'
 		},
 		{
 			locale_code: 'wal-ET',
 			locale_id: 'mr-IN',
-			language_name: 'वोलायता (इथिओपिया)'
+			language_name: 'वोलायता'
 		},
 		{
 			locale_code: 'war-PH',
 			locale_id: 'mr-IN',
-			language_name: 'वारे (फिलिपिन्स)'
+			language_name: 'वारे'
 		},
 		{
 			locale_code: 'was-US',
 			locale_id: 'mr-IN',
-			language_name: 'वाशो (युनायटेड स्टेट्स)'
+			language_name: 'वाशो'
 		},
 		{
 			locale_code: 'wbp-AU',
 			locale_id: 'mr-IN',
-			language_name: 'वार्लपिरी (ऑस्ट्रेलिया)'
+			language_name: 'वार्लपिरी'
 		},
 		{
 			locale_code: 'wuu-CN',
 			locale_id: 'mr-IN',
-			language_name: 'व्हू चिनी (चीन)'
+			language_name: 'व्हू चिनी'
 		},
 		{
 			locale_code: 'xal-RU',
 			locale_id: 'mr-IN',
-			language_name: 'काल्मिक (रशिया)'
+			language_name: 'काल्मिक'
 		},
 		{
 			locale_code: 'xh-ZA',
 			locale_id: 'mr-IN',
-			language_name: 'खोसा (दक्षिण आफ्रिका)'
+			language_name: 'खोसा'
 		},
 		{
 			locale_code: 'xmf-GE',
@@ -4117,52 +4117,52 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'xnr-IN',
 			locale_id: 'mr-IN',
-			language_name: 'कांगरी (भारत)'
+			language_name: 'कांगरी'
 		},
 		{
 			locale_code: 'xog-UG',
 			locale_id: 'mr-IN',
-			language_name: 'सोगा (युगांडा)'
+			language_name: 'सोगा'
 		},
 		{
 			locale_code: 'yao-MZ',
 			locale_id: 'mr-IN',
-			language_name: 'याओ (मोझाम्बिक)'
+			language_name: 'याओ'
 		},
 		{
 			locale_code: 'yap-FM',
 			locale_id: 'mr-IN',
-			language_name: 'यापीस (मायक्रोनेशिया)'
+			language_name: 'यापीस'
 		},
 		{
 			locale_code: 'yav-CM',
 			locale_id: 'mr-IN',
-			language_name: 'यांगबेन (कॅमेरून)'
+			language_name: 'यांगबेन'
 		},
 		{
 			locale_code: 'ybb-CM',
 			locale_id: 'mr-IN',
-			language_name: 'येमबा (कॅमेरून)'
+			language_name: 'येमबा'
 		},
 		{
 			locale_code: 'yo-NG',
 			locale_id: 'mr-IN',
-			language_name: 'योरुबा (नायजेरिया)'
+			language_name: 'योरुबा'
 		},
 		{
 			locale_code: 'yrl-BR',
 			locale_id: 'mr-IN',
-			language_name: 'न्हेंगाटू (ब्राझिल)'
+			language_name: 'न्हेंगाटू'
 		},
 		{
 			locale_code: 'yue-HK',
 			locale_id: 'mr-IN',
-			language_name: 'कँटोनीज (हाँगकाँग एसएआर चीन)'
+			language_name: 'कँटोनीज'
 		},
 		{
 			locale_code: 'zap-MX',
 			locale_id: 'mr-IN',
-			language_name: 'झेपोटेक (मेक्सिको)'
+			language_name: 'झेपोटेक'
 		},
 		{
 			locale_code: 'zea-NL',
@@ -4172,82 +4172,82 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'zen-MR',
 			locale_id: 'mr-IN',
-			language_name: 'झेनान्गा (मॉरिटानिया)'
+			language_name: 'झेनान्गा'
 		},
 		{
 			locale_code: 'zh-AU',
 			locale_id: 'mr-IN',
-			language_name: 'चीनी (ऑस्ट्रेलिया)'
+			language_name: 'चीनी'
 		},
 		{
 			locale_code: 'zh-BN',
 			locale_id: 'mr-IN',
-			language_name: 'चीनी (ब्रुनेई)'
+			language_name: 'चीनी'
 		},
 		{
 			locale_code: 'zh-GB',
 			locale_id: 'mr-IN',
-			language_name: 'चीनी (युनायटेड किंगडम)'
+			language_name: 'चीनी'
 		},
 		{
 			locale_code: 'zh-GF',
 			locale_id: 'mr-IN',
-			language_name: 'चीनी (फ्रेंच गयाना)'
+			language_name: 'चीनी'
 		},
 		{
 			locale_code: 'zh-ID',
 			locale_id: 'mr-IN',
-			language_name: 'चीनी (इंडोनेशिया)'
+			language_name: 'चीनी'
 		},
 		{
 			locale_code: 'zh-PA',
 			locale_id: 'mr-IN',
-			language_name: 'चीनी (पनामा)'
+			language_name: 'चीनी'
 		},
 		{
 			locale_code: 'zh-PF',
 			locale_id: 'mr-IN',
-			language_name: 'चीनी (फ्रेंच पॉलिनेशिया)'
+			language_name: 'चीनी'
 		},
 		{
 			locale_code: 'zh-PH',
 			locale_id: 'mr-IN',
-			language_name: 'चीनी (फिलिपिन्स)'
+			language_name: 'चीनी'
 		},
 		{
 			locale_code: 'zh-SR',
 			locale_id: 'mr-IN',
-			language_name: 'चीनी (सुरिनाम)'
+			language_name: 'चीनी'
 		},
 		{
 			locale_code: 'zh-TH',
 			locale_id: 'mr-IN',
-			language_name: 'चीनी (थायलंड)'
+			language_name: 'चीनी'
 		},
 		{
 			locale_code: 'zh-US',
 			locale_id: 'mr-IN',
-			language_name: 'चीनी (युनायटेड स्टेट्स)'
+			language_name: 'चीनी'
 		},
 		{
 			locale_code: 'zh-VN',
 			locale_id: 'mr-IN',
-			language_name: 'चीनी (व्हिएतनाम)'
+			language_name: 'चीनी'
 		},
 		{
 			locale_code: 'zu-ZA',
 			locale_id: 'mr-IN',
-			language_name: 'झुलू (दक्षिण आफ्रिका)'
+			language_name: 'झुलू'
 		},
 		{
 			locale_code: 'zun-US',
 			locale_id: 'mr-IN',
-			language_name: 'झुनी (युनायटेड स्टेट्स)'
+			language_name: 'झुनी'
 		},
 		{
 			locale_code: 'zza-TR',
 			locale_id: 'mr-IN',
-			language_name: 'झाझा (तुर्किये)'
+			language_name: 'झाझा'
 		}
 	];
 

@@ -4,7 +4,7 @@
  *
  * This is a static version of the seed that includes pre-generated
  * country names for the gu-IN locale.
- *
+			country_name: 'મ્યાંમાર'
  * This seed depends on:
  * - 001-country-codes-seed.cjs (populates country_code_master)
  * - 002-locales-seed.cjs (populates locale_master)
@@ -753,7 +753,7 @@ exports.seed = async function (knex) {
 		{
 			iso_code: 'MMR',
 			locale_id: 'gu-IN',
-			country_name: 'મ્યાંમાર (બર્મા)'
+			country_name: 'મ્યાંમાર'
 		},
 		{
 			iso_code: 'MNG',

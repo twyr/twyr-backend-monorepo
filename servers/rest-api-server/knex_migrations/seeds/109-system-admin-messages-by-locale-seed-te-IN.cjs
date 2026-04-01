@@ -98,6 +98,10 @@ const insertSystemAdminMessagesByLocale =
 					'చెల్లని సంప్రదింపు నవీకరణ అభ్యర్థన: ఒకటి లేదా అంతకంటే ఎక్కువ లక్షణాలు చెల్లవు.'
 			},
 			{
+				message_id: 'SYSTEM_ADMIN::CONTACT::CANNOT_DELETE_PRIMARY',
+				message_text: 'ప్రాథమిక సంప్రదింపును తొలగించలేరు.'
+			},
+			{
 				message_id: 'SYSTEM_ADMIN::LOCALE::INVALID_CREATE_REQUEST',
 				message_text:
 					'చెల్లని లోకేల్ సృష్టి అభ్యర్థన: ఒకటి లేదా అంతకంటే ఎక్కువ లక్షణాలు చెల్లవు.'
@@ -106,6 +110,10 @@ const insertSystemAdminMessagesByLocale =
 				message_id: 'SYSTEM_ADMIN::LOCALE::INVALID_UPDATE_REQUEST',
 				message_text:
 					'చెల్లని లోకేಲ್ నవీకరణ అభ్యర్థన: ఒకటి లేదా అంతకంటే ఎక్కువ లక్షణాలు చెల్లవు.'
+			},
+			{
+				message_id: 'SYSTEM_ADMIN::LOCALE::CANNOT_DELETE_PRIMARY',
+				message_text: 'ప్రాథమిక లోకేల్‌ను త౏లగించలేరు.'
 			}
 		];
 

@@ -62,7 +62,7 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'aeb-TN',
 			locale_id: 'gu-IN',
-			language_name: 'Tunisian Arabic'
+			language_name: 'ટ્યુનિશિયન અરબી'
 		},
 		{
 			locale_code: 'af-ZA',
@@ -97,7 +97,7 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'akz-US',
 			locale_id: 'gu-IN',
-			language_name: 'Alabama'
+			language_name: 'અલાબામા'
 		},
 		{
 			locale_code: 'ale-US',
@@ -167,7 +167,7 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'aro-BO',
 			locale_id: 'gu-IN',
-			language_name: 'Araona'
+			language_name: 'અરાઓના'
 		},
 		{
 			locale_code: 'arp-US',
@@ -212,7 +212,7 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'ase-US',
 			locale_id: 'gu-IN',
-			language_name: 'American Sign Language'
+			language_name: 'અમેરિકન સાંકેતિક ભાષા'
 		},
 		{
 			locale_code: 'ast-ES',
@@ -277,7 +277,7 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'bar-AT',
 			locale_id: 'gu-IN',
-			language_name: 'Bavarian'
+			language_name: 'બાવેરિયન'
 		},
 		{
 			locale_code: 'bas-CM',
@@ -292,12 +292,12 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'bbc-ID',
 			locale_id: 'gu-IN',
-			language_name: 'Batak Toba'
+			language_name: 'બાટક ટોબા'
 		},
 		{
 			locale_code: 'bbj-CM',
 			locale_id: 'gu-IN',
-			language_name: 'Ghomala'
+			language_name: 'ઘોમાલા'
 		},
 		{
 			locale_code: 'be-BY',
@@ -317,7 +317,7 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'bew-ID',
 			locale_id: 'gu-IN',
-			language_name: 'Betawi'
+			language_name: 'બેટાવી'
 		},
 		{
 			locale_code: 'bez-TZ',
@@ -327,12 +327,12 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'bfd-CM',
 			locale_id: 'gu-IN',
-			language_name: 'Bafut'
+			language_name: 'બાફુત'
 		},
 		{
 			locale_code: 'bfq-IN',
 			locale_id: 'gu-IN',
-			language_name: 'Badaga'
+			language_name: 'બડાગા'
 		},
 		{
 			locale_code: 'bg-BG',
@@ -372,12 +372,12 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'bjn-ID',
 			locale_id: 'gu-IN',
-			language_name: 'Banjar'
+			language_name: 'બંજર'
 		},
 		{
 			locale_code: 'bkm-CM',
 			locale_id: 'gu-IN',
-			language_name: 'Kom'
+			language_name: 'કોમ'
 		},
 		{
 			locale_code: 'bla-CA',
@@ -392,7 +392,7 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'blt-VN',
 			locale_id: 'gu-IN',
-			language_name: 'Tai Dam'
+			language_name: 'તાઈ દામ'
 		},
 		{
 			locale_code: 'bm-ML',
@@ -417,7 +417,7 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'bqi-IR',
 			locale_id: 'gu-IN',
-			language_name: 'Bakhtiari'
+			language_name: 'બખ્તિયારી'
 		},
 		{
 			locale_code: 'br-FR',
@@ -447,7 +447,7 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'bss-CM',
 			locale_id: 'gu-IN',
-			language_name: 'Akoose'
+			language_name: 'અકૂસે'
 		},
 		{
 			locale_code: 'bua-RU',
@@ -462,7 +462,7 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'bum-CM',
 			locale_id: 'gu-IN',
-			language_name: 'Bulu'
+			language_name: 'બુલુ'
 		},
 		{
 			locale_code: 'byn-ER',
@@ -472,7 +472,7 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'byv-CM',
 			locale_id: 'gu-IN',
-			language_name: 'Medumba'
+			language_name: 'મેદુમ્બા'
 		},
 		{
 			locale_code: 'ca-ES',
@@ -572,7 +572,7 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'cic-US',
 			locale_id: 'gu-IN',
-			language_name: 'Chickasaw'
+			language_name: 'ચિકાસો'
 		},
 		{
 			locale_code: 'ckb-IQ',
@@ -597,7 +597,7 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'cps-PH',
 			locale_id: 'gu-IN',
-			language_name: 'Capiznon'
+			language_name: 'કાપિઝનોન'
 		},
 		{
 			locale_code: 'cr-CA',
@@ -737,7 +737,7 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'dtp-MY',
 			locale_id: 'gu-IN',
-			language_name: 'Central Dusun'
+			language_name: 'મધ્ય દુસુન'
 		},
 		{
 			locale_code: 'dua-CM',
@@ -792,7 +792,7 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'egl-IT',
 			locale_id: 'gu-IN',
-			language_name: 'Emilian'
+			language_name: 'એમિલિયન'
 		},
 		{
 			locale_code: 'egy-EG',
@@ -832,7 +832,7 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'esu-US',
 			locale_id: 'gu-IN',
-			language_name: 'Central Yupik'
+			language_name: 'મધ્ય યુપિક'
 		},
 		{
 			locale_code: 'et-EE',
@@ -852,7 +852,7 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'ext-ES',
 			locale_id: 'gu-IN',
-			language_name: 'Extremaduran'
+			language_name: 'એક્સ્ટ્રેમાદુરાન'
 		},
 		{
 			locale_code: 'fa-IR',
@@ -887,7 +887,7 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'fit-SE',
 			locale_id: 'gu-IN',
-			language_name: 'Tornedalen Finnish'
+			language_name: 'ટોર્નેડાલેન ફિનિશ'
 		},
 		{
 			locale_code: 'fj-FJ',
@@ -927,7 +927,7 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'frp-FR',
 			locale_id: 'gu-IN',
-			language_name: 'Arpitan'
+			language_name: 'આર્પિતાન'
 		},
 		{
 			locale_code: 'frr-DE',
@@ -967,7 +967,7 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'gan-CN',
 			locale_id: 'gu-IN',
-			language_name: 'Gan Chinese'
+			language_name: 'ગાન ચીની'
 		},
 		{
 			locale_code: 'gay-ID',
@@ -1007,7 +1007,7 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'glk-IR',
 			locale_id: 'gu-IN',
-			language_name: 'Gilaki'
+			language_name: 'ગિલાકી'
 		},
 		{
 			locale_code: 'gmh-DE',
@@ -1062,12 +1062,12 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'guc-CO',
 			locale_id: 'gu-IN',
-			language_name: 'Wayuu'
+			language_name: 'વાયુ'
 		},
 		{
 			locale_code: 'gur-GH',
 			locale_id: 'gu-IN',
-			language_name: 'Frafra'
+			language_name: 'ફ્રાફ્રા'
 		},
 		{
 			locale_code: 'guz-KE',
@@ -1107,12 +1107,12 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'hak-CN',
 			locale_id: 'gu-IN',
-			language_name: 'Hakka Chinese'
+			language_name: 'હક્કા ચીની'
 		},
 		{
 			locale_code: 'hak-TW',
 			locale_id: 'gu-IN',
-			language_name: 'Hakka Chinese'
+			language_name: 'હક્કા ચીની'
 		},
 		{
 			locale_code: 'haw-US',
@@ -1157,12 +1157,12 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'hnj-US',
 			locale_id: 'gu-IN',
-			language_name: 'Hmong Njua'
+			language_name: 'હ્મોંગ ન્જુઆ'
 		},
 		{
 			locale_code: 'hnj-LA',
 			locale_id: 'gu-IN',
-			language_name: 'Hmong Njua'
+			language_name: 'હ્મોંગ ન્જુઆ'
 		},
 		{
 			locale_code: 'ho-PG',
@@ -1182,7 +1182,7 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'hsn-CN',
 			locale_id: 'gu-IN',
-			language_name: 'Xiang Chinese'
+			language_name: 'શિયાન્ગ ચીની'
 		},
 		{
 			locale_code: 'ht-HT',
@@ -1282,7 +1282,7 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'izh-RU',
 			locale_id: 'gu-IN',
-			language_name: 'Ingrian'
+			language_name: 'ઇંગ્રિયન'
 		},
 		{
 			locale_code: 'ja-JP',
@@ -1292,7 +1292,7 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'jam-JM',
 			locale_id: 'gu-IN',
-			language_name: 'Jamaican Creole English'
+			language_name: 'જમૈકન ક્રિઓલ અંગ્રેજી'
 		},
 		{
 			locale_code: 'jgo-CM',
@@ -1317,7 +1317,7 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'jut-DK',
 			locale_id: 'gu-IN',
-			language_name: 'Jutish'
+			language_name: 'જુટિશ'
 		},
 		{
 			locale_code: 'jv-ID',
@@ -1367,7 +1367,7 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'kbl-TD',
 			locale_id: 'gu-IN',
-			language_name: 'Kanembu'
+			language_name: 'કાનેમ્બુ'
 		},
 		{
 			locale_code: 'kcg-NG',
@@ -1392,7 +1392,7 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'ken-CM',
 			locale_id: 'gu-IN',
-			language_name: 'Kenyang'
+			language_name: 'કેન્યાંગ'
 		},
 		{
 			locale_code: 'kfo-CI',
@@ -1427,7 +1427,7 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'khw-PK',
 			locale_id: 'gu-IN',
-			language_name: 'Khowar'
+			language_name: 'ખોવાર'
 		},
 		{
 			locale_code: 'ki-KE',
@@ -1437,7 +1437,7 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'kiu-TR',
 			locale_id: 'gu-IN',
-			language_name: 'Kirmanjki'
+			language_name: 'કિર્માન્જ્કી'
 		},
 		{
 			locale_code: 'kj-NA',
@@ -1537,12 +1537,12 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'kri-SL',
 			locale_id: 'gu-IN',
-			language_name: 'Krio'
+			language_name: 'ક્રિઓ'
 		},
 		{
 			locale_code: 'krj-PH',
 			locale_id: 'gu-IN',
-			language_name: 'Kinaray-a'
+			language_name: 'કિનારાય-અ'
 		},
 		{
 			locale_code: 'krl-RU',
@@ -1717,7 +1717,7 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'liv-LV',
 			locale_id: 'gu-IN',
-			language_name: 'Livonian'
+			language_name: 'લિવોનિયન'
 		},
 		{
 			locale_code: 'lkt-US',
@@ -1772,7 +1772,7 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'ltg-LV',
 			locale_id: 'gu-IN',
-			language_name: 'Latgalian'
+			language_name: 'લાત્ગાલિયન'
 		},
 		{
 			locale_code: 'lu-CD',
@@ -1817,17 +1817,17 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'lzh-CN',
 			locale_id: 'gu-IN',
-			language_name: 'Literary Chinese'
+			language_name: 'સાહિત્યિક ચીની'
 		},
 		{
 			locale_code: 'lzz-TR',
 			locale_id: 'gu-IN',
-			language_name: 'Laz'
+			language_name: 'લાઝ'
 		},
 		{
 			locale_code: 'lzz-GE',
 			locale_id: 'gu-IN',
-			language_name: 'Laz'
+			language_name: 'લાઝ'
 		},
 		{
 			locale_code: 'mad-ID',
@@ -1837,7 +1837,7 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'maf-CM',
 			locale_id: 'gu-IN',
-			language_name: 'Mafa'
+			language_name: 'માફા'
 		},
 		{
 			locale_code: 'mag-IN',
@@ -1872,7 +1872,7 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'mde-TD',
 			locale_id: 'gu-IN',
-			language_name: 'Maba'
+			language_name: 'માબા'
 		},
 		{
 			locale_code: 'mdf-RU',
@@ -2032,7 +2032,7 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'mwv-ID',
 			locale_id: 'gu-IN',
-			language_name: 'Mentawai'
+			language_name: 'મેન્ટાવાઈ'
 		},
 		{
 			locale_code: 'my-MM',
@@ -2042,7 +2042,7 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'mye-GA',
 			locale_id: 'gu-IN',
-			language_name: 'Myene'
+			language_name: 'માયેને'
 		},
 		{
 			locale_code: 'myv-RU',
@@ -2062,17 +2062,17 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'nan-CN',
 			locale_id: 'gu-IN',
-			language_name: 'Min Nan Chinese'
+			language_name: 'મિન નાન ચીની'
 		},
 		{
 			locale_code: 'nan-TW',
 			locale_id: 'gu-IN',
-			language_name: 'Min Nan Chinese'
+			language_name: 'મિન નાન ચીની'
 		},
 		{
 			locale_code: 'nan-MO',
 			locale_id: 'gu-IN',
-			language_name: 'Min Nan Chinese'
+			language_name: 'મિન નાન ચીની'
 		},
 		{
 			locale_code: 'nap-IT',
@@ -2127,7 +2127,7 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'njo-IN',
 			locale_id: 'gu-IN',
-			language_name: 'Ao Naga'
+			language_name: 'આઓ નાગા'
 		},
 		{
 			locale_code: 'nl-NL',
@@ -2322,7 +2322,7 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'pcd-FR',
 			locale_id: 'gu-IN',
-			language_name: 'Picard'
+			language_name: 'પિકાર્ડ'
 		},
 		{
 			locale_code: 'pcm-NG',
@@ -2332,12 +2332,12 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'pdc-US',
 			locale_id: 'gu-IN',
-			language_name: 'Pennsylvania German'
+			language_name: 'પેન્સિલ્વેનિયા જર્મન'
 		},
 		{
 			locale_code: 'pdt-CA',
 			locale_id: 'gu-IN',
-			language_name: 'Plautdietsch'
+			language_name: 'પ્લાઉટડાઇટ્શ'
 		},
 		{
 			locale_code: 'peo-IR',
@@ -2347,7 +2347,7 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'pfl-DE',
 			locale_id: 'gu-IN',
-			language_name: 'Palatine German'
+			language_name: 'પેલેટાઇન જર્મન'
 		},
 		{
 			locale_code: 'phn-LB',
@@ -2392,22 +2392,22 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'pms-IT',
 			locale_id: 'gu-IN',
-			language_name: 'Piedmontese'
+			language_name: 'પીડમોન્ટિઝ'
 		},
 		{
 			locale_code: 'pnt-GR',
 			locale_id: 'gu-IN',
-			language_name: 'Pontic'
+			language_name: 'પોન્ટિક'
 		},
 		{
 			locale_code: 'pnt-RU',
 			locale_id: 'gu-IN',
-			language_name: 'Pontic'
+			language_name: 'પોન્ટિક'
 		},
 		{
 			locale_code: 'pnt-TR',
 			locale_id: 'gu-IN',
-			language_name: 'Pontic'
+			language_name: 'પોન્ટિક'
 		},
 		{
 			locale_code: 'pon-FM',
@@ -2452,7 +2452,7 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'qug-EC',
 			locale_id: 'gu-IN',
-			language_name: 'Chimborazo Highland Quichua'
+			language_name: 'ચિમ્બોરાઝો હાઇલૅન્ડ કિચુઆ'
 		},
 		{
 			locale_code: 'raj-IN',
@@ -2472,7 +2472,7 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'rgn-IT',
 			locale_id: 'gu-IN',
-			language_name: 'Romagnol'
+			language_name: 'રોમાગ્નોલ'
 		},
 		{
 			locale_code: 'rhg-MM',
@@ -2482,7 +2482,7 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'rif-MA',
 			locale_id: 'gu-IN',
-			language_name: 'Riffian'
+			language_name: 'રિફિયન'
 		},
 		{
 			locale_code: 'rm-CH',
@@ -2512,7 +2512,7 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'rtm-FJ',
 			locale_id: 'gu-IN',
-			language_name: 'Rotuman'
+			language_name: 'રોટુમાન'
 		},
 		{
 			locale_code: 'ru-RU',
@@ -2522,12 +2522,12 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'rue-UA',
 			locale_id: 'gu-IN',
-			language_name: 'Rusyn'
+			language_name: 'રુસિન'
 		},
 		{
 			locale_code: 'rug-SB',
 			locale_id: 'gu-IN',
-			language_name: 'Roviana'
+			language_name: 'રોવિયાના'
 		},
 		{
 			locale_code: 'rup-RO',
@@ -2582,7 +2582,7 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'saz-IN',
 			locale_id: 'gu-IN',
-			language_name: 'Saurashtra'
+			language_name: 'સૌરાષ્ટ્ર'
 		},
 		{
 			locale_code: 'sba-TD',
@@ -2622,7 +2622,7 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'sdc-IT',
 			locale_id: 'gu-IN',
-			language_name: 'Sassarese Sardinian'
+			language_name: 'સાસ્સારેસ સાર્ડિનિયન'
 		},
 		{
 			locale_code: 'sdh-IR',
@@ -2637,7 +2637,7 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'see-US',
 			locale_id: 'gu-IN',
-			language_name: 'Seneca'
+			language_name: 'સેનેકા'
 		},
 		{
 			locale_code: 'seh-MZ',
@@ -2647,7 +2647,7 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'sei-MX',
 			locale_id: 'gu-IN',
-			language_name: 'Seri'
+			language_name: 'સેરી'
 		},
 		{
 			locale_code: 'sel-RU',
@@ -2672,7 +2672,7 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'sgs-LT',
 			locale_id: 'gu-IN',
-			language_name: 'Samogitian'
+			language_name: 'સામોગિશિયન'
 		},
 		{
 			locale_code: 'shi-MA',
@@ -2687,7 +2687,7 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'shu-TD',
 			locale_id: 'gu-IN',
-			language_name: 'Chadian Arabic'
+			language_name: 'ચેડિયન અરબી'
 		},
 		{
 			locale_code: 'si-LK',
@@ -2717,12 +2717,12 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'sli-PL',
 			locale_id: 'gu-IN',
-			language_name: 'Lower Silesian'
+			language_name: 'લોવર સિલેસિયન'
 		},
 		{
 			locale_code: 'sly-ID',
 			locale_id: 'gu-IN',
-			language_name: 'Selayar'
+			language_name: 'સેલાયાર'
 		},
 		{
 			locale_code: 'sm-WS',
@@ -2822,7 +2822,7 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'stq-DE',
 			locale_id: 'gu-IN',
-			language_name: 'Saterland Frisian'
+			language_name: 'સેટેર્લેન્ડ ફ્રિઝિયન'
 		},
 		{
 			locale_code: 'str-CA',
@@ -2967,7 +2967,7 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'tkr-AZ',
 			locale_id: 'gu-IN',
-			language_name: 'Tsakhur'
+			language_name: 'ત્સાખુર'
 		},
 		{
 			locale_code: 'tl-PH',
@@ -2982,7 +2982,7 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'tly-AZ',
 			locale_id: 'gu-IN',
-			language_name: 'Talysh'
+			language_name: 'તાલિશ'
 		},
 		{
 			locale_code: 'tmh-NE',
@@ -3017,7 +3017,7 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'tru-TR',
 			locale_id: 'gu-IN',
-			language_name: 'Turoyo'
+			language_name: 'તુરોયો'
 		},
 		{
 			locale_code: 'trv-TW',
@@ -3027,7 +3027,7 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'trw-PK',
 			locale_id: 'gu-IN',
-			language_name: 'Torwali'
+			language_name: 'તોરવાલી'
 		},
 		{
 			locale_code: 'ts-ZA',
@@ -3037,7 +3037,7 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'tsd-GR',
 			locale_id: 'gu-IN',
-			language_name: 'Tsakonian'
+			language_name: 'ત્સાકોનિયન'
 		},
 		{
 			locale_code: 'tsi-CA',
@@ -3482,32 +3482,32 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'hnj-AU',
 			locale_id: 'gu-IN',
-			language_name: 'Hmong Njua'
+			language_name: 'હ્મોંગ ન્જુઆ'
 		},
 		{
 			locale_code: 'hnj-FR',
 			locale_id: 'gu-IN',
-			language_name: 'Hmong Njua'
+			language_name: 'હ્મોંગ ન્જુઆ'
 		},
 		{
 			locale_code: 'hnj-GF',
 			locale_id: 'gu-IN',
-			language_name: 'Hmong Njua'
+			language_name: 'હ્મોંગ ન્જુઆ'
 		},
 		{
 			locale_code: 'hnj-MM',
 			locale_id: 'gu-IN',
-			language_name: 'Hmong Njua'
+			language_name: 'હ્મોંગ ન્જુઆ'
 		},
 		{
 			locale_code: 'hnj-SR',
 			locale_id: 'gu-IN',
-			language_name: 'Hmong Njua'
+			language_name: 'હ્મોંગ ન્જુઆ'
 		},
 		{
 			locale_code: 'hnj-TH',
 			locale_id: 'gu-IN',
-			language_name: 'Hmong Njua'
+			language_name: 'હ્મોંગ ન્જુઆ'
 		},
 		{
 			locale_code: 'es-HN',
@@ -4032,17 +4032,17 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'vep-RU',
 			locale_id: 'gu-IN',
-			language_name: 'Veps'
+			language_name: 'વેફ્સ'
 		},
 		{
 			locale_code: 'vls-BE',
 			locale_id: 'gu-IN',
-			language_name: 'West Flemish'
+			language_name: 'પશ્ચિમ ફ્લેમિશ'
 		},
 		{
 			locale_code: 'vmf-DE',
 			locale_id: 'gu-IN',
-			language_name: 'Main-Franconian'
+			language_name: 'મેઇન-ફ્રેન્કોનિયન'
 		},
 		{
 			locale_code: 'vmw-MZ',
@@ -4112,7 +4112,7 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'xmf-GE',
 			locale_id: 'gu-IN',
-			language_name: 'Mingrelian'
+			language_name: 'મિંગ્રેલિયન'
 		},
 		{
 			locale_code: 'xnr-IN',
@@ -4167,7 +4167,7 @@ exports.seed = async function (knex) {
 		{
 			locale_code: 'zea-NL',
 			locale_id: 'gu-IN',
-			language_name: 'Zeelandic'
+			language_name: 'ઝીલાન્ડિક'
 		},
 		{
 			locale_code: 'zen-MR',

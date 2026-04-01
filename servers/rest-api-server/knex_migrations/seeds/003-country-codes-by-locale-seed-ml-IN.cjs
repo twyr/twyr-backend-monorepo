@@ -4,7 +4,7 @@
  *
  * This is a static version of the seed that includes pre-generated
  * country names for the ml-IN locale.
- *
+			country_name: 'മ്യാൻമാർ'
  * This seed depends on:
  * - 001-country-codes-seed.cjs (populates country_code_master)
  * - 002-locales-seed.cjs (populates locale_master)
@@ -269,7 +269,7 @@ exports.seed = async function (knex) {
 		{
 			iso_code: 'MMR',
 			locale_id: 'ml-IN',
-			country_name: 'മ്യാൻമാർ (ബർമ്മ)'
+			country_name: 'മ്യാൻമാർ'
 		},
 		{ iso_code: 'MNG', locale_id: 'ml-IN', country_name: 'മംഗോളിയ' },
 		{

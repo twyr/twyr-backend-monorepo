@@ -4,7 +4,7 @@
  *
  * This is a static version of the seed that includes pre-generated
  * country names for the en-IN locale.
- *
+			country_name: 'Myanmar'
  * This seed depends on:
  * - 001-country-codes-seed.cjs (populates country_code_master)
  * - 002-locales-seed.cjs (populates locale_master)
@@ -249,7 +249,7 @@ exports.seed = async function (knex) {
 		{
 			iso_code: 'MMR',
 			locale_id: 'en-IN',
-			country_name: 'Myanmar (Burma)'
+			country_name: 'Myanmar'
 		},
 		{ iso_code: 'MNG', locale_id: 'en-IN', country_name: 'Mongolia' },
 		{

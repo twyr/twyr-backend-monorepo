@@ -4,7 +4,7 @@
  *
  * This is a static version of the seed that includes pre-generated
  * country names for the bn-BD locale.
- *
+			country_name: 'মায়ানমার'
  * This seed depends on:
  * - 001-country-codes-seed.cjs (populates country_code_master)
  * - 002-locales-seed.cjs (populates locale_master)
@@ -753,7 +753,7 @@ exports.seed = async function (knex) {
 		{
 			iso_code: 'MMR',
 			locale_id: 'bn-BD',
-			country_name: 'মায়ানমার (বার্মা)'
+			country_name: 'মায়ানমার'
 		},
 		{
 			iso_code: 'MNG',

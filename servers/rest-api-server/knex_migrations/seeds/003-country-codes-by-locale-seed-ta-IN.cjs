@@ -4,7 +4,7 @@
  *
  * This is a static version of the seed that includes pre-generated
  * country names for the ta-IN locale.
- *
+			country_name: 'மியான்மர்'
  * This seed depends on:
  * - 001-country-codes-seed.cjs (populates country_code_master)
  * - 002-locales-seed.cjs (populates locale_master)
@@ -281,7 +281,7 @@ exports.seed = async function (knex) {
 		{
 			iso_code: 'MMR',
 			locale_id: 'ta-IN',
-			country_name: 'மியான்மர் (பர்மா)'
+			country_name: 'மியான்மர்'
 		},
 		{ iso_code: 'MNG', locale_id: 'ta-IN', country_name: 'மங்கோலியா' },
 		{

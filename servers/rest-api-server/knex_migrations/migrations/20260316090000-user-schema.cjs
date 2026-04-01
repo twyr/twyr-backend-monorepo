@@ -14,6 +14,7 @@ exports.up = async function (knex) {
 					?.primary?.()
 					?.defaultTo?.(knex?.raw?.('gen_random_uuid()'));
 				userTable?.text?.('mobile_no')?.notNullable?.()?.unique?.();
+				userTable?.date?.('date_of_birth')?.nullable?.();
 				userTable
 					?.uuid?.('gender_id')
 					?.notNullable?.()
@@ -33,23 +34,6 @@ exports.up = async function (knex) {
 					?.timestamp?.('updated_at')
 					?.notNullable?.()
 					?.defaultTo?.(knex?.fn?.now?.());
-			});
-	}
-
-	let hasColumn = await knex?.schema
-		?.withSchema?.('public')
-		?.hasColumn?.('users', 'gender_id');
-	if (!hasColumn) {
-		await knex?.schema
-			?.withSchema?.('public')
-			?.alterTable?.('users', function (userTable) {
-				userTable
-					?.uuid?.('gender_id')
-					?.notNullable?.()
-					?.references?.('id')
-					?.inTable?.('gender_master')
-					?.onDelete?.('CASCADE')
-					?.onUpdate?.('CASCADE');
 			});
 	}
 
@@ -99,6 +83,88 @@ exports.up = async function (knex) {
 			});
 	}
 
+	await knex?.schema?.withSchema?.('public')?.raw?.(`
+CREATE OR REPLACE FUNCTION switch_user_primary_contact()
+RETURNS TRIGGER
+LANGUAGE plpgsql
+AS $$
+DECLARE
+	does_primary_exist	INTEGER;
+BEGIN
+	-- This is basically the switch primary contact case
+	IF NEW.is_primary = true
+	THEN
+		UPDATE
+			public.user_contacts
+		SET
+			is_primary = false
+		WHERE
+			user_id = NEW.user_id AND
+			id <> NEW.id;
+	END IF;
+
+	-- If there are no primaries, raise exception
+	does_primary_exist := 0;
+	SELECT
+		COUNT(id)
+	FROM
+		user_contacts
+	WHERE
+		user_id = NEW.user_id AND
+		is_primary = true
+	INTO
+		does_primary_exist;
+
+	IF does_primary_exist <= 0
+	THEN
+		RAISE SQLSTATE '2F003' USING MESSAGE = 'No primary contact detected';
+		RETURN NULL;
+	END IF;
+
+	RETURN NEW;
+END;
+$$;
+	`);
+
+	await knex?.schema?.withSchema?.('public')?.raw?.(`
+CREATE TRIGGER
+	trigger_switch_user_primary_contact
+AFTER
+	INSERT OR UPDATE
+ON
+	public.user_contacts
+FOR EACH ROW
+EXECUTE FUNCTION public.switch_user_primary_contact();
+	`);
+
+	await knex?.schema?.withSchema?.('public')?.raw?.(`
+CREATE OR REPLACE FUNCTION prevent_user_primary_contact_deletion()
+RETURNS TRIGGER
+LANGUAGE plpgsql
+AS $$
+BEGIN
+	IF OLD.is_primary = true
+	THEN
+		RAISE SQLSTATE '2F003' USING MESSAGE = 'EVASERVER::USERS::CONTACT::CANNOT_DELETE_PRIMARY';
+		RETURN NULL;
+	END IF;
+
+	RETURN OLD;
+END;
+$$;
+	`);
+
+	await knex?.schema?.withSchema?.('public')?.raw?.(`
+CREATE TRIGGER
+	trigger_prevent_user_primary_contact_deletion
+BEFORE
+	DELETE
+ON
+	public.user_contacts
+FOR EACH ROW
+EXECUTE FUNCTION public.prevent_user_primary_contact_deletion();
+	`);
+
 	exists = await knex?.schema
 		?.withSchema?.('public')
 		?.hasTable?.('user_locales');
@@ -139,6 +205,88 @@ exports.up = async function (knex) {
 					?.defaultTo?.(knex?.fn?.now?.());
 			});
 	}
+
+	await knex?.schema?.withSchema?.('public')?.raw?.(`
+CREATE OR REPLACE FUNCTION switch_user_primary_locale()
+RETURNS TRIGGER
+LANGUAGE plpgsql
+AS $$
+DECLARE
+	does_primary_exist	INTEGER;
+BEGIN
+	-- This is basically the switch primary locale case
+	IF NEW.is_primary = true
+	THEN
+		UPDATE
+			public.user_locales
+		SET
+			is_primary = false
+		WHERE
+			user_id = NEW.user_id AND
+			id <> NEW.id;
+	END IF;
+
+	-- If there are no primaries, raise exception
+	does_primary_exist := 0;
+	SELECT
+		COUNT(id)
+	FROM
+		user_locales
+	WHERE
+		user_id = NEW.user_id AND
+		is_primary = true
+	INTO
+		does_primary_exist;
+
+	IF does_primary_exist <= 0
+	THEN
+		RAISE SQLSTATE '2F003' USING MESSAGE = 'No primary locale detected';
+		RETURN NULL;
+	END IF;
+
+	RETURN NEW;
+END;
+$$;
+	`);
+
+	await knex?.schema?.withSchema?.('public')?.raw?.(`
+CREATE TRIGGER
+	trigger_switch_user_primary_locale
+AFTER
+	INSERT OR UPDATE
+ON
+	public.user_locales
+FOR EACH ROW
+EXECUTE FUNCTION public.switch_user_primary_locale();
+	`);
+
+	await knex?.schema?.withSchema?.('public')?.raw?.(`
+CREATE OR REPLACE FUNCTION prevent_user_primary_locale_deletion()
+RETURNS TRIGGER
+LANGUAGE plpgsql
+AS $$
+BEGIN
+	IF OLD.is_primary = true
+	THEN
+		RAISE SQLSTATE '2F003' USING MESSAGE = 'EVASERVER::USERS::LOCALE::CANNOT_DELETE_PRIMARY';
+		RETURN NULL;
+	END IF;
+
+	RETURN OLD;
+END;
+$$;
+	`);
+
+	await knex?.schema?.withSchema?.('public')?.raw?.(`
+CREATE TRIGGER
+	trigger_prevent_user_primary_locale_deletion
+BEFORE
+	DELETE
+ON
+	public.user_locales
+FOR EACH ROW
+EXECUTE FUNCTION public.prevent_user_primary_locale_deletion();
+	`);
 
 	exists = await knex?.schema
 		?.withSchema?.('public')
@@ -189,6 +337,12 @@ exports.down = async function (knex) {
 		'DROP TABLE IF EXISTS public.user_names_by_locale CASCADE;'
 	);
 	await knex?.raw?.('DROP TABLE IF EXISTS public.user_locales CASCADE;');
+	await knex?.raw?.(
+		'DROP FUNCTION IF EXISTS public.prevent_user_primary_locale_deletion();'
+	);
 	await knex?.raw?.('DROP TABLE IF EXISTS public.user_contacts CASCADE;');
+	await knex?.raw?.(
+		'DROP FUNCTION IF EXISTS public.prevent_user_primary_contact_deletion();'
+	);
 	await knex?.raw?.('DROP TABLE IF EXISTS public.users CASCADE;');
 };

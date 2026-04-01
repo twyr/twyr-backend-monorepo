@@ -30,7 +30,8 @@ exports.seed = async function (knex) {
 		userId = await knex?.('users')
 			?.insert({
 				mobile_no: '+919900000001',
-				gender_id: genderIds?.get?.('male')
+				gender_id: genderIds?.get?.('male'),
+				date_of_birth: '1990-01-15'
 			})
 			?.returning?.('id');
 		userId = userId?.[0]?.['id'];
@@ -38,7 +39,10 @@ exports.seed = async function (knex) {
 	}
 	await knex?.('users')
 		?.where?.('id', '=', userId)
-		?.update?.({ gender_id: genderIds?.get?.('male') });
+		?.update?.({
+			gender_id: genderIds?.get?.('male'),
+			date_of_birth: '1990-01-15'
+		});
 
 	if (isNewUser) {
 		await knex?.('user_contacts')?.insert?.([
@@ -83,7 +87,8 @@ exports.seed = async function (knex) {
 		userId = await knex?.('users')
 			?.insert({
 				mobile_no: '+919900000002',
-				gender_id: genderIds?.get?.('female')
+				gender_id: genderIds?.get?.('female'),
+				date_of_birth: '1992-07-20'
 			})
 			?.returning?.('id');
 		userId = userId?.[0]?.['id'];
@@ -91,7 +96,10 @@ exports.seed = async function (knex) {
 	}
 	await knex?.('users')
 		?.where?.('id', '=', userId)
-		?.update?.({ gender_id: genderIds?.get?.('female') });
+		?.update?.({
+			gender_id: genderIds?.get?.('female'),
+			date_of_birth: '1992-07-20'
+		});
 
 	if (isNewUser) {
 		await knex?.('user_contacts')?.insert?.([

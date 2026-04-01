@@ -50,6 +50,10 @@ const insertUserProfileMessagesByLocale =
 					'தவறான தொடர்பு புதுப்பிப்பு கோரிக்கை: ஒரு அல்லது அதற்கு மேற்பட்ட பண்புகள் தவறானவை.'
 			},
 			{
+				message_id: 'USERS::CONTACT::CANNOT_DELETE_PRIMARY',
+				message_text: 'முதன்மை தொடர்பை நீக்க முடியாது.'
+			},
+			{
 				message_id: 'USERS::LOCALE::INVALID_CREATE_REQUEST',
 				message_text:
 					'தவறான மொழிமுறை உருவாக்க கோரிக்கை: ஒரு அல்லது அதற்கு மேற்பட்ட பண்புகள் தவறானவை.'
@@ -58,6 +62,10 @@ const insertUserProfileMessagesByLocale =
 				message_id: 'USERS::LOCALE::INVALID_UPDATE_REQUEST',
 				message_text:
 					'தவறான மொழிமுறை புதுப்பிப்பு கோரிக்கை: ஒரு அல்லது அதற்கு மேற்பட்ட பண்புகள் தவறானவை.'
+			},
+			{
+				message_id: 'USERS::LOCALE::CANNOT_DELETE_PRIMARY',
+				message_text: 'முதன்மை மொழிமுறையை நீக்க முடியாது.'
 			}
 		];
 

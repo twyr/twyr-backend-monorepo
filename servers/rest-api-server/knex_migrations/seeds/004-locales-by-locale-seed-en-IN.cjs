@@ -405,11 +405,6 @@ exports.seed = async function (knex) {
 			language_name: 'Bangla'
 		},
 		{
-			locale_code: 'bn-IN',
-			locale_id: 'en-IN',
-			language_name: 'Bangla (India)'
-		},
-		{
 			locale_code: 'bo-CN',
 			locale_id: 'en-IN',
 			language_name: 'Tibetan'

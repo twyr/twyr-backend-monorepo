@@ -50,6 +50,10 @@ const insertUserProfileMessagesByLocale =
 					'Invalid contact update request: one or more attributes are invalid.'
 			},
 			{
+				message_id: 'USERS::CONTACT::CANNOT_DELETE_PRIMARY',
+				message_text: 'Cannot delete the primary contact.'
+			},
+			{
 				message_id: 'USERS::LOCALE::INVALID_CREATE_REQUEST',
 				message_text:
 					'Invalid locale create request: one or more attributes are invalid.'
@@ -58,6 +62,10 @@ const insertUserProfileMessagesByLocale =
 				message_id: 'USERS::LOCALE::INVALID_UPDATE_REQUEST',
 				message_text:
 					'Invalid locale update request: one or more attributes are invalid.'
+			},
+			{
+				message_id: 'USERS::LOCALE::CANNOT_DELETE_PRIMARY',
+				message_text: 'Cannot delete the primary locale.'
 			}
 		];
 

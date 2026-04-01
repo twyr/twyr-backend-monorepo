@@ -4,7 +4,7 @@
  *
  * This is a static version of the seed that includes pre-generated
  * country names for the kn-IN locale.
- *
+			country_name: 'ಮಯನ್ಮಾರ್'
  * This seed depends on:
  * - 001-country-codes-seed.cjs (populates country_code_master)
  * - 002-locales-seed.cjs (populates locale_master)
@@ -265,7 +265,7 @@ exports.seed = async function (knex) {
 		{
 			iso_code: 'MMR',
 			locale_id: 'kn-IN',
-			country_name: 'ಮಯನ್ಮಾರ್ (ಬರ್ಮಾ)'
+			country_name: 'ಮಯನ್ಮಾರ್'
 		},
 		{ iso_code: 'MNG', locale_id: 'kn-IN', country_name: 'ಮಂಗೋಲಿಯಾ' },
 		{

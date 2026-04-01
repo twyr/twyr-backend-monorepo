@@ -50,6 +50,10 @@ const insertUserProfileMessagesByLocale =
 					'અમાન્ય સંપર્ક અપડેટ વિનંતી: એક અથવા વધુ ગુણધર્મો અમાન્ય છે.'
 			},
 			{
+				message_id: 'USERS::CONTACT::CANNOT_DELETE_PRIMARY',
+				message_text: 'પ્રાથમિક સંપર્ક ભૂંસી શકાશે નહીં.'
+			},
+			{
 				message_id: 'USERS::LOCALE::INVALID_CREATE_REQUEST',
 				message_text:
 					'અમાન્ય લોકેલ બનાવવાની વિનંતી: એક અથવા વધુ ગુણધર્મો અમાન્ય છે.'
@@ -58,6 +62,10 @@ const insertUserProfileMessagesByLocale =
 				message_id: 'USERS::LOCALE::INVALID_UPDATE_REQUEST',
 				message_text:
 					'અમાન્ય લોકેલ અપડેટ વિનંતી: એક અથવા વધુ ગુણધર્મો અમાન્ય છે.'
+			},
+			{
+				message_id: 'USERS::LOCALE::CANNOT_DELETE_PRIMARY',
+				message_text: 'પ્રાથમિક લોકેલ ભૂંસી શકાશે નહીં.'
 			}
 		];
 

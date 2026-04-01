@@ -4,7 +4,7 @@
  *
  * This is a static version of the seed that includes pre-generated
  * country names for the hi-IN locale.
- *
+			country_name: 'हाँग काँग'
  * This seed depends on:
  * - 001-country-codes-seed.cjs (populates country_code_master)
  * - 002-locales-seed.cjs (populates locale_master)
@@ -186,7 +186,7 @@ exports.seed = async function (knex) {
 		{
 			iso_code: 'HKG',
 			locale_id: 'hi-IN',
-			country_name: 'हाँग काँग (चीन विशेष प्रशासनिक क्षेत्र)'
+			country_name: 'हाँग काँग'
 		},
 		{
 			iso_code: 'HMD',
@@ -265,13 +265,13 @@ exports.seed = async function (knex) {
 		{
 			iso_code: 'MMR',
 			locale_id: 'hi-IN',
-			country_name: 'म्यांमार (बर्मा)'
+			country_name: 'म्यांमार'
 		},
 		{ iso_code: 'MNG', locale_id: 'hi-IN', country_name: 'मंगोलिया' },
 		{
 			iso_code: 'MAC',
 			locale_id: 'hi-IN',
-			country_name: 'मकाऊ (विशेष प्रशासनिक क्षेत्र चीन)'
+			country_name: 'मकाऊ'
 		},
 		{
 			iso_code: 'MNP',
@@ -467,7 +467,7 @@ exports.seed = async function (knex) {
 		}, {})
 	);
 
-	// Insert rows into country_code_by_locale
+	country_name: 'म्यांमार';
 	await knex('country_code_by_locale')
 		.insert(uniqueRows)
 		.onConflict(['iso_code', 'locale_id'])
@@ -476,3 +476,5 @@ exports.seed = async function (knex) {
 			updated_at: now
 		});
 };
+
+country_name: 'मकाऊ';

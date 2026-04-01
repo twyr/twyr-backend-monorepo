@@ -4,7 +4,7 @@
  *
  * This is a static version of the seed that includes pre-generated
  * country names for the mr-IN locale.
- *
+			country_name: 'म्यानमार'
  * This seed depends on:
  * - 001-country-codes-seed.cjs (populates country_code_master)
  * - 002-locales-seed.cjs (populates locale_master)
@@ -245,7 +245,7 @@ exports.seed = async function (knex) {
 		{
 			iso_code: 'MMR',
 			locale_id: 'mr-IN',
-			country_name: 'म्यानमार (बर्मा)'
+			country_name: 'म्यानमार'
 		},
 		{ iso_code: 'MNG', locale_id: 'mr-IN', country_name: 'मंगोलिया' },
 		{ iso_code: 'MAC', locale_id: 'mr-IN', country_name: 'मकाओ एसएआर चीन' },

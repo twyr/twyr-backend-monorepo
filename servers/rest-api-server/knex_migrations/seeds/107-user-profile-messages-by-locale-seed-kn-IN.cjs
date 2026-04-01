@@ -50,6 +50,10 @@ const insertUserProfileMessagesByLocale =
 					'ಅಮಾನ್ಯ ಸಂಪರ್ಕ ನವೀಕರಣ ವಿನಂತಿ: ಒಂದು ಅಥವಾ ಹೆಚ್ಚು ಗುಣಲಕ್ಷಣಗಳು ಅಮಾನ್ಯವಾಗಿವೆ.'
 			},
 			{
+				message_id: 'USERS::CONTACT::CANNOT_DELETE_PRIMARY',
+				message_text: 'ಪ್ರಾಥಮಿಕ ಸಂಪರ್ಕವನ್ನು ಅಳಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ.'
+			},
+			{
 				message_id: 'USERS::LOCALE::INVALID_CREATE_REQUEST',
 				message_text:
 					'ಅಮಾನ್ಯ ಲೊಕೇಲ್ ರಚನೆ ವಿನಂತಿ: ಒಂದು ಅಥವಾ ಹೆಚ್ಚು ಗುಣಲಕ್ಷಣಗಳು ಅಮಾನ್ಯವಾಗಿವೆ.'
@@ -58,6 +62,10 @@ const insertUserProfileMessagesByLocale =
 				message_id: 'USERS::LOCALE::INVALID_UPDATE_REQUEST',
 				message_text:
 					'ಅಮಾನ್ಯ ಲೊಕೇಲ್ ನವೀಕರಣ ವಿನಂತಿ: ಒಂದು ಅಥವಾ ಹೆಚ್ಚು ಗುಣಲಕ್ಷಣಗಳು ಅಮಾನ್ಯವಾಗಿವೆ.'
+			},
+			{
+				message_id: 'USERS::LOCALE::CANNOT_DELETE_PRIMARY',
+				message_text: 'ಪ್ರಾಥಮಿಕ ಲೊಕೇಲ್ ಅನ್ನು ಅಳಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ.'
 			}
 		];
 

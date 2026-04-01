@@ -98,6 +98,10 @@ const insertSystemAdminMessagesByLocale =
 					'Invalid contact update request: one or more attributes are invalid.'
 			},
 			{
+				message_id: 'SYSTEM_ADMIN::CONTACT::CANNOT_DELETE_PRIMARY',
+				message_text: 'Cannot delete the primary contact.'
+			},
+			{
 				message_id: 'SYSTEM_ADMIN::LOCALE::INVALID_CREATE_REQUEST',
 				message_text:
 					'Invalid locale create request: one or more attributes are invalid.'
@@ -106,6 +110,10 @@ const insertSystemAdminMessagesByLocale =
 				message_id: 'SYSTEM_ADMIN::LOCALE::INVALID_UPDATE_REQUEST',
 				message_text:
 					'Invalid locale update request: one or more attributes are invalid.'
+			},
+			{
+				message_id: 'SYSTEM_ADMIN::LOCALE::CANNOT_DELETE_PRIMARY',
+				message_text: 'Cannot delete the primary locale.'
 			}
 		];
 

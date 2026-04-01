@@ -100,6 +100,10 @@ const insertSystemAdminMessagesByLocale =
 					'தவறான தொடர்பு புதுப்பிப்பு கோரிக்கை: ஒரு அல்லது அதற்கு மேற்பட்ட பண்புகள் தவறானவை.'
 			},
 			{
+				message_id: 'SYSTEM_ADMIN::CONTACT::CANNOT_DELETE_PRIMARY',
+				message_text: 'முதன்மை தொடர்பை நீக்க முடியாது.'
+			},
+			{
 				message_id: 'SYSTEM_ADMIN::LOCALE::INVALID_CREATE_REQUEST',
 				message_text:
 					'தவறான மொழிமுறை உருவாக்க கோரிக்கை: ஒரு அல்லது அதற்கு மேற்பட்ட பண்புகள் தவறானவை.'
@@ -108,6 +112,10 @@ const insertSystemAdminMessagesByLocale =
 				message_id: 'SYSTEM_ADMIN::LOCALE::INVALID_UPDATE_REQUEST',
 				message_text:
 					'தவறான மொழிமுறை புதுப்பிப்பு கோரிக்கை: ஒரு அல்லது அதற்கு மேற்பட்ட பண்புகள் தவறானவை.'
+			},
+			{
+				message_id: 'SYSTEM_ADMIN::LOCALE::CANNOT_DELETE_PRIMARY',
+				message_text: 'முதன்மை மொழிமுறையை நீக்க முடியாது.'
 			}
 		];
 

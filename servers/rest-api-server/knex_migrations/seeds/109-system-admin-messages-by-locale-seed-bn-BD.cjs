@@ -98,6 +98,10 @@ const insertSystemAdminMessagesByLocale =
 					'অবৈধ যোগাযোগ আপডেট অনুরোধ: এক বা একাধিক বৈশিষ্ট্য অবৈধ।'
 			},
 			{
+				message_id: 'SYSTEM_ADMIN::CONTACT::CANNOT_DELETE_PRIMARY',
+				message_text: 'প্রাথমিক যোগাযোগ মুছে ফেলা যাবে না।'
+			},
+			{
 				message_id: 'SYSTEM_ADMIN::LOCALE::INVALID_CREATE_REQUEST',
 				message_text:
 					'অবৈধ লোকেল তৈরির অনুরোধ: এক বা একাধিক বৈশিষ্ট্য অবৈধ।'
@@ -106,6 +110,10 @@ const insertSystemAdminMessagesByLocale =
 				message_id: 'SYSTEM_ADMIN::LOCALE::INVALID_UPDATE_REQUEST',
 				message_text:
 					'অবৈধ লোকেল আপডেট অনুরোধ: এক বা একাধিক বৈশিষ্ট্য অবৈধ।'
+			},
+			{
+				message_id: 'SYSTEM_ADMIN::LOCALE::CANNOT_DELETE_PRIMARY',
+				message_text: 'প্রাথমিক লোকেল মুছে ফেলা যাবে না।'
 			}
 		];
 

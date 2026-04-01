@@ -98,6 +98,10 @@ const insertSystemAdminMessagesByLocale =
 					'അസാധുവായ കോൺടാക്റ്റ് പുതുക്കൽ അഭ്യർത്ഥന: ഒരു അല്ലെങ്കിൽ കൂടുതൽ ഗുണങ്ങൾ അസാധുവാണ്.'
 			},
 			{
+				message_id: 'SYSTEM_ADMIN::CONTACT::CANNOT_DELETE_PRIMARY',
+				message_text: 'പ്രാഥമിക കോൺടാക്റ്റ് ഇല്ലാതാക്കാൻ കഴിയില്ല.'
+			},
+			{
 				message_id: 'SYSTEM_ADMIN::LOCALE::INVALID_CREATE_REQUEST',
 				message_text:
 					'അസാധുവായ ലോക്കേൽ സൃഷ്ടിക്കൽ അഭ്യർത്ഥന: ഒരു അല്ലെങ്കിൽ കൂടുതൽ ഗുണങ്ങൾ അസാധുവാണ്.'
@@ -106,6 +110,10 @@ const insertSystemAdminMessagesByLocale =
 				message_id: 'SYSTEM_ADMIN::LOCALE::INVALID_UPDATE_REQUEST',
 				message_text:
 					'അസാധുവായ ലോക്കേൽ പുതുക്കൽ അഭ്യർത്ഥന: ഒരു അല്ലെങ്കിൽ കൂടുതൽ ഗുണങ്ങൾ അസാധുവാണ്.'
+			},
+			{
+				message_id: 'SYSTEM_ADMIN::LOCALE::CANNOT_DELETE_PRIMARY',
+				message_text: 'പ്രാഥമിക ലോക്കേൽ ഇല്ലാതാക്കാൻ കഴിയില്ല.'
 			}
 		];
 

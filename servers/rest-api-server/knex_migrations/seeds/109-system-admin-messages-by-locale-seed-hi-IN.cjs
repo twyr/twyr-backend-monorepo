@@ -96,6 +96,10 @@ const insertSystemAdminMessagesByLocale =
 					'अमान्य संपर्क अद्यतन अनुरोध: एक या अधिक गुण अमान्य हैं।'
 			},
 			{
+				message_id: 'SYSTEM_ADMIN::CONTACT::CANNOT_DELETE_PRIMARY',
+				message_text: 'प्राथमिक संपर्क को हटाया नहीं जा सकता।'
+			},
+			{
 				message_id: 'SYSTEM_ADMIN::LOCALE::INVALID_CREATE_REQUEST',
 				message_text:
 					'अमान्य लोकेल निर्माण अनुरोध: एक या अधिक गुण अमान्य हैं।'
@@ -104,6 +108,10 @@ const insertSystemAdminMessagesByLocale =
 				message_id: 'SYSTEM_ADMIN::LOCALE::INVALID_UPDATE_REQUEST',
 				message_text:
 					'अमान्य लोकेल अद्यतन अनुरोध: एक या अधिक गुण अमान्य हैं।'
+			},
+			{
+				message_id: 'SYSTEM_ADMIN::LOCALE::CANNOT_DELETE_PRIMARY',
+				message_text: 'प्राथमिक लोकेल को हटाया नहीं जा सकता।'
 			}
 		];
 
