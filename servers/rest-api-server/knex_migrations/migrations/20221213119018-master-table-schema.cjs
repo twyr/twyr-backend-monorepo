@@ -29,6 +29,13 @@ exports.up = async function (knex) {
 						);
 
 					countryCodeMasterTable
+						?.text?.('country_calling_code')
+						?.nullable?.()
+						?.comment?.(
+							`The E.164 country calling code for each country/region (for example, +91)`
+						);
+
+					countryCodeMasterTable
 						?.boolean?.('is_enabled')
 						?.notNullable?.()
 						?.defaultTo?.(false);
