@@ -49,7 +49,7 @@
 		"url": "https://github.com/twyr/entity-value-aggregate-server"
 	},
 	"dependencies": {
-		"@aws-sdk/client-translate": "3.1021.0",
+		"@aws-sdk/client-translate": "3.1022.0",
 		"@twyr/api-registry": "*",
 		"@twyr/error-serializer": "*",
 		"@twyr/framework-classes": "*",
@@ -62,7 +62,7 @@
 		"boolean-parser": "0.0.2",
 		"convert-hrtime": "5.0.0",
 		"device": "0.3.12",
-		"dotenv": "17.3.1",
+		"dotenv": "17.4.0",
 		"ejs": "5.0.1",
 		"exponential-backoff": "3.1.3",
 		"generate-password": "1.7.1",
@@ -109,7 +109,7 @@
 		"eslint-config-prettier": "10.1.8",
 		"eslint-formatter-junit": "9.0.1",
 		"eslint-plugin-editorconfig": "4.0.3",
-		"eslint-plugin-jsdoc": "62.8.1",
+		"eslint-plugin-jsdoc": "62.9.0",
 		"eslint-plugin-json": "4.0.1",
 		"eslint-plugin-jsonc": "3.1.2",
 		"eslint-plugin-mocha": "11.2.0",
