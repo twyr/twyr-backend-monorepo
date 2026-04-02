@@ -52,6 +52,7 @@ export class Main extends SystemAdminBaseSurface {
 			version: 1,
 			httpMethod: 'POST',
 			path: '/create',
+			middlewares: [await this?._rbac?.('registered')],
 			handler: this.#createProfile?.bind?.(this)
 		});
 		baseRoutes?.push?.({
@@ -106,11 +107,7 @@ export class Main extends SystemAdminBaseSurface {
 						middle_names: Joi.string().optional(),
 						last_name: Joi.string().required(),
 						nickname: Joi.string().optional(),
-						locale_id: Joi.string().required(),
-						otp: Joi.string()
-							.length(4)
-							.pattern(/^\d{4}$/)
-							.required()
+						locale_id: Joi.string().required()
 					}).required()
 				}).required()
 			});

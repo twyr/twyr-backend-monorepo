@@ -23,6 +23,10 @@ export default async function serializeDeserialize(
 	cacheRepository,
 	databaseRepository
 ) {
+	const sessionCacheMap = new Map();
+	sessionCacheMap?.set('user', userSessionCache);
+	sessionCacheMap?.set('system_admin', systemAdminSessionCache);
+
 	passportInstance?.serializeUser?.(async (request, user, callback) => {
 		callback?.(undefined, user?.id);
 	});
@@ -30,21 +34,11 @@ export default async function serializeDeserialize(
 	passportInstance?.deserializeUser?.(
 		async (request, sessionUser, callback) => {
 			try {
-				let deserializedUser = undefined;
+				const sessionCacheMethod = sessionCacheMap?.get(
+					sessionUser?.role
+				);
 
-				if (sessionUser?.role === 'user') {
-					deserializedUser = await userSessionCache(
-						sessionUser?.id,
-						cacheRepository,
-						databaseRepository
-					);
-				} else if (sessionUser?.role === 'system_admin') {
-					deserializedUser = await systemAdminSessionCache(
-						sessionUser?.id,
-						cacheRepository,
-						databaseRepository
-					);
-				} else {
+				if (!sessionCacheMethod) {
 					const userError = new Error(
 						'EVASERVER::AUTH_REPOSITORY::UNSUPPORTED_USER_ROLE'
 					);
@@ -53,6 +47,12 @@ export default async function serializeDeserialize(
 
 					throw userError;
 				}
+
+				const deserializedUser = await sessionCacheMethod(
+					sessionUser?.id,
+					cacheRepository,
+					databaseRepository
+				);
 
 				callback?.(undefined, deserializedUser);
 			} catch (error) {

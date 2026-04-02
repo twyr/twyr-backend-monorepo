@@ -183,34 +183,22 @@ export class Basics extends SystemAdminBaseMiddleware {
 		const Models = await this?._getModelsFromDomain?.([
 			{ type: 'relational', name: 'system-admin' },
 			{ type: 'relational', name: 'system-admin-locale' },
-			{ type: 'relational', name: 'system-admin-name-by-locale' }
+			{ type: 'relational', name: 'system-admin-name-by-locale' },
+			{ type: 'relational', name: 'system-admin-contact' },
+			{ type: 'relational', name: 'contact-type-master' }
 		]);
 
 		const UserModel = Models?.[0];
 		const UserLocaleModel = Models?.[1];
 		const UserNameByLocaleModel = Models?.[2];
+		const UserContactModel = Models?.[3];
+		const ContactTypeMasterModel = Models?.[4];
 
 		const user =
 			await this?.domainInterface?.serializer?.deserializeAsync?.(
 				data?.data?.type,
 				data
 			);
-
-		const cacheRepository =
-			await this?.domainInterface?.iocContainer?.resolve?.('Cache');
-		const otpNumber = await this?._executeWithBackOff?.(async () => {
-			return cacheRepository?.get?.(
-				`system-admin-otp-${user?.mobile_no}`
-			);
-		});
-
-		if (user?.otp !== otpNumber) {
-			const userError = new Error(
-				'EVASERVER::SYSTEM_ADMIN::PROFILE::INVALID_OTP'
-			);
-			userError.code = 'EVASERVER::SYSTEM_ADMIN::PROFILE::INVALID_OTP';
-			throw userError;
-		}
 
 		const existingUser = await this?._executeWithBackOff?.(async () => {
 			return UserModel?.query?.()
@@ -241,9 +229,24 @@ export class Basics extends SystemAdminBaseMiddleware {
 
 		const localizedUserNames =
 			await this.#localizeUserNames?.(userNameFields);
+		const mobileContactType = await this?._executeWithBackOff?.(
+			async () => {
+				return ContactTypeMasterModel?.query?.()
+					?.where?.('name', '=', 'mobile')
+					?.first?.();
+			}
+		);
+
+		if (!mobileContactType?.id) {
+			const userError = new Error(
+				'EVASERVER::SYSTEM_ADMIN::PROFILE::MOBILE_CONTACT_TYPE_NOT_FOUND'
+			);
+			userError.code =
+				'EVASERVER::SYSTEM_ADMIN::PROFILE::MOBILE_CONTACT_TYPE_NOT_FOUND';
+			throw userError;
+		}
 
 		delete user.id;
-		delete user.otp;
 		delete user.first_name;
 		delete user.middle_names;
 		delete user.last_name;
@@ -280,6 +283,14 @@ export class Basics extends SystemAdminBaseMiddleware {
 						is_primary: true
 					});
 				}
+
+				await UserContactModel?.query?.(trx)?.insert?.({
+					system_admin_id: createdUser?.id,
+					contact_type_id: mobileContactType?.id,
+					contact: createdUser?.mobile_no,
+					verified: true,
+					is_primary: true
+				});
 
 				await trx?.commit?.();
 			} catch (error) {
@@ -726,6 +737,8 @@ export class Basics extends SystemAdminBaseMiddleware {
 
 	#localeCharacterRegexMap = new Map([
 		['en-IN', /^[\p{Script=Latin}\p{M}\d\s.'()/-]*$/u],
+		['bn-BD', /^[\p{Script=Bengali}\p{M}\d\s.'()/-]*$/u],
+		['gu-IN', /^[\p{Script=Gujarati}\p{M}\d\s.'()/-]*$/u],
 		['hi-IN', /^[\p{Script=Devanagari}\p{M}\d\s.'()/-]*$/u],
 		['kn-IN', /^[\p{Script=Kannada}\p{M}\d\s.'()/-]*$/u],
 		['ml-IN', /^[\p{Script=Malayalam}\p{M}\d\s.'()/-]*$/u],

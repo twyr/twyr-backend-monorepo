@@ -177,18 +177,23 @@ export class Basics extends UserBaseMiddleware {
 	 *
 	 * @param {object} payload - API payload containing profile creation data.
 	 * @param {object} payload.data - JSON:API payload for the user resource.
+	 * @param {string} payload.locale - The current context locale.
 	 * @returns {Promise<object>} HTTP response data for the created profile.
 	 */
-	async #createBasics({ data }) {
+	async #createBasics({ data, locale }) {
 		const Models = await this?._getModelsFromDomain?.([
 			{ type: 'relational', name: 'user' },
 			{ type: 'relational', name: 'user-locale' },
-			{ type: 'relational', name: 'user-name-by-locale' }
+			{ type: 'relational', name: 'user-name-by-locale' },
+			{ type: 'relational', name: 'user-contact' },
+			{ type: 'relational', name: 'contact-type-master' }
 		]);
 
 		const UserModel = Models?.[0];
 		const UserLocaleModel = Models?.[1];
 		const UserNameByLocaleModel = Models?.[2];
+		const UserContactModel = Models?.[3];
+		const ContactTypeMasterModel = Models?.[4];
 
 		const user =
 			await this?.domainInterface?.serializer?.deserializeAsync?.(
@@ -225,7 +230,7 @@ export class Basics extends UserBaseMiddleware {
 			throw userError;
 		}
 
-		const nameLocaleCode = user?.locale_id ?? user?.locale_code;
+		const nameLocaleCode = user?.locale_id ?? user?.locale_code ?? locale;
 		const userNameFields = {
 			locale_code: nameLocaleCode,
 			...(user?.first_name && { first_name: user?.first_name }),
@@ -238,6 +243,22 @@ export class Basics extends UserBaseMiddleware {
 
 		const localizedUserNames =
 			await this.#localizeUserNames?.(userNameFields);
+		const mobileContactType = await this?._executeWithBackOff?.(
+			async () => {
+				return ContactTypeMasterModel?.query?.()
+					?.where?.('name', '=', 'mobile')
+					?.first?.();
+			}
+		);
+
+		if (!mobileContactType?.id) {
+			const userError = new Error(
+				'EVASERVER::USERS::PROFILE::MOBILE_CONTACT_TYPE_NOT_FOUND'
+			);
+			userError.code =
+				'EVASERVER::USERS::PROFILE::MOBILE_CONTACT_TYPE_NOT_FOUND';
+			throw userError;
+		}
 
 		delete user.id;
 		delete user.otp;
@@ -277,6 +298,14 @@ export class Basics extends UserBaseMiddleware {
 						is_primary: true
 					});
 				}
+
+				await UserContactModel?.query?.(trx)?.insert?.({
+					user_id: createdUser?.id,
+					contact_type_id: mobileContactType?.id,
+					contact: createdUser?.mobile_no,
+					verified: true,
+					is_primary: true
+				});
 
 				await trx?.commit?.();
 			} catch (error) {
@@ -714,6 +743,8 @@ export class Basics extends UserBaseMiddleware {
 
 	#localeCharacterRegexMap = new Map([
 		['en-IN', /^[\p{Script=Latin}\p{M}\d\s.'()/-]*$/u],
+		['bn-BD', /^[\p{Script=Bengali}\p{M}\d\s.'()/-]*$/u],
+		['gu-IN', /^[\p{Script=Gujarati}\p{M}\d\s.'()/-]*$/u],
 		['hi-IN', /^[\p{Script=Devanagari}\p{M}\d\s.'()/-]*$/u],
 		['kn-IN', /^[\p{Script=Kannada}\p{M}\d\s.'()/-]*$/u],
 		['ml-IN', /^[\p{Script=Malayalam}\p{M}\d\s.'()/-]*$/u],
