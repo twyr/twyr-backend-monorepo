@@ -69,6 +69,7 @@
 		"SQLDATABASE",
 		"sqldb",
 		"SQLSTATE",
+		"SYSTEMADMIN",
 		"teardown",
 		"testsuite",
 		"Testsuites",

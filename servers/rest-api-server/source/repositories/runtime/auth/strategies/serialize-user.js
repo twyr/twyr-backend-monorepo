@@ -34,6 +34,11 @@ export default async function serializeDeserialize(
 	passportInstance?.deserializeUser?.(
 		async (request, sessionUser, callback) => {
 			try {
+				const sessionUserId =
+					sessionUser?.id ??
+					sessionUser?.profile?.data?.id ??
+					sessionUser?.profile?.data?.[0]?.id;
+
 				const sessionCacheMethod = sessionCacheMap?.get(
 					sessionUser?.role
 				);
@@ -49,7 +54,7 @@ export default async function serializeDeserialize(
 				}
 
 				const deserializedUser = await sessionCacheMethod(
-					sessionUser?.id,
+					sessionUserId,
 					cacheRepository,
 					databaseRepository
 				);

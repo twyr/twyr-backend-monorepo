@@ -327,13 +327,22 @@ export class Session extends BaseMiddleware {
 			userId: user?.id
 		});
 
+		const apiRegistry = this?.domainInterface?.apiRegistry;
+		const profileStatus = await apiRegistry?.execute?.(
+			'USERS::PROFILE::READ',
+			{
+				user,
+				locale: user?.locale_id ?? user?.locale_code
+			}
+		);
+
 		return {
 			status: 200,
 			sessionData: {
 				id: user?.id,
 				role: 'user'
 			},
-			body: user
+			body: profileStatus
 		};
 	}
 
@@ -349,7 +358,7 @@ export class Session extends BaseMiddleware {
 	 * @name #logout
 	 *
 	 * @param {object} payload - API payload for `LOGOUT`.
-	 * @param {string} payload.userId - Medico identifier whose cache should be invalidated.
+	 * @param {string} payload.userId - User identifier whose cache should be invalidated.
 	 * @param {string} payload.userName - Display name interpolated into the logout message.
 	 * @param {string} payload.locale - Locale code used for the logout response.
 	 *
