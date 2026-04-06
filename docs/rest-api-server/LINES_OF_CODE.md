@@ -116,7 +116,7 @@ File|blank|comment|code
 ./.jsdocrc.json|0|0|58
 ./source/repositories/runtime/auth/strategies/user-local.js|10|25|58
 ./source/repositories/runtime/audit/audit-trail-model.js|12|52|57
-./knex_migrations/knexfile.cjs|12|0|55
+./knex_migrations/knexfile.js|12|0|55
 ./source/domains/system_admin/bounded_contexts/session_manager/index.js|12|131|55
 ./source/domains/users/bounded_contexts/session_manager/index.js|12|131|55
 ./source/bounded_contexts/health/index.js|11|131|49

@@ -274,10 +274,14 @@ class MessageI18N extends EVASBaseRepository {
 		);
 
 		if (translatedMessage === key) {
-			this.#i18n = undefined;
-			await this.#setupI18N?.();
-			await this.#loadTranslations?.();
+			await this.#translationReloadMutex?.runExclusive?.(async () => {
+				this.#i18n = undefined;
+				await this.#setupI18N?.();
+				await this.#loadTranslations?.();
+			});
+		}
 
+		if (translatedMessage === key) {
 			translatedMessage = this.#i18n?.__?.(
 				{ phrase: key, locale: locale },
 				variables
@@ -374,6 +378,7 @@ class MessageI18N extends EVASBaseRepository {
 	// #region Private Fields
 	#i18n = undefined;
 	#enabledLocales = undefined;
+	#translationReloadMutex = new Mutex();
 	// #endregion
 }
 

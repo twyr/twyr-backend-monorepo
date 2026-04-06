@@ -9,6 +9,7 @@
 import safeJsonStringify from 'safe-json-stringify';
 
 import { Mutex } from 'async-mutex';
+import { Signer } from '@aws-sdk/rds-signer';
 
 import { errorSerializer } from '@twyr/error-serializer';
 import { EVASBaseRepository } from '@twyr/framework-classes';
@@ -34,6 +35,12 @@ const DEFAULT_SQLDB_DATABASE = 'postgres';
 
 const DEFAULT_SQLDB_MIN_POOL_SIZE = 0;
 const DEFAULT_SQLDB_MAX_POOL_SIZE = 2;
+
+const DEFAULT_AWS_RDS_REGION = 'ap-south-1';
+const DEFAULT_AWS_RDS_HOSTNAME =
+	'twyr-database-instance-1.cvcykw8em23m.ap-south-1.rds.amazonaws.com';
+const DEFAULT_AWS_RDS_PORT = 5432;
+const DEFAULT_AWS_RDS_USERNAME = 'postgres';
 
 /**
  * @category REST API Server/Repositories/Runtime
@@ -88,6 +95,7 @@ class SQLDatabase extends EVASBaseRepository {
 		pgError = pgError?.['default'];
 
 		const defaultConfiguration = {
+			region: DEFAULT_AWS_RDS_REGION,
 			debug: DEFAULT_SQLDB_DEBUG,
 			asyncStackTraces: DEFAULT_SQLDB_ASYNC_STACK_TRACES,
 
@@ -129,6 +137,24 @@ class SQLDatabase extends EVASBaseRepository {
 
 		const configuration =
 			await this?._mergeConfiguration?.(defaultConfiguration);
+
+		if (global?.serverEnvironment === 'production') {
+			const signer = new Signer({
+				region: configuration?.region ?? DEFAULT_AWS_RDS_REGION,
+				hostname:
+					configuration?.connection?.host ?? DEFAULT_AWS_RDS_HOSTNAME,
+				port: configuration?.connection?.port ?? DEFAULT_AWS_RDS_PORT,
+				username:
+					configuration?.connection?.user ?? DEFAULT_AWS_RDS_USERNAME
+			});
+
+			configuration.connection.password = await signer.getAuthToken({});
+			configuration.connection.ssl = {
+				rejectUnauthorized: false
+			};
+		}
+
+		delete configuration.region;
 
 		// Step 2: Setup the client
 		let Knex = await import('knex');
