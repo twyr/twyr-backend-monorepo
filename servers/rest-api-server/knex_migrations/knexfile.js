@@ -1,14 +1,3 @@
-import { Signer } from '@aws-sdk/rds-signer';
-const signer = new Signer({
-	region: 'ap-south-1',
-	hostname:
-		'twyr-db-serverless-instance-1.cvcykw8em23m.ap-south-1.rds.amazonaws.com',
-	port: 5432,
-	username: 'twyr'
-});
-
-const productionDatabasePassword = await signer.getAuthToken({});
-
 export default {
 	development: {
 		client: 'pg',
@@ -67,7 +56,7 @@ export default {
 			port: 5432,
 			database: 'twyr',
 			user: 'twyr',
-			password: productionDatabasePassword,
+			password: 'HBpiDtWA2BzWEpG',
 			ssl: { rejectUnauthorized: false }
 		},
 
