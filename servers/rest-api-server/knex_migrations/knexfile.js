@@ -56,7 +56,7 @@ export default {
 			port: 5432,
 			database: 'twyr',
 			user: 'twyr',
-			password: 'HBpiDtWA2BzWEpG',
+			password: 'twyr',
 			ssl: { rejectUnauthorized: false }
 		},
 
