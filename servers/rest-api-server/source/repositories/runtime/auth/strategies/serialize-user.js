@@ -47,6 +47,7 @@ export default async function serializeDeserialize(
 					const userError = new Error(
 						'EVASERVER::AUTH_REPOSITORY::UNSUPPORTED_USER_ROLE'
 					);
+					userError.status = 404;
 					userError.code =
 						'EVASERVER::AUTH_REPOSITORY::UNSUPPORTED_USER_ROLE';
 
