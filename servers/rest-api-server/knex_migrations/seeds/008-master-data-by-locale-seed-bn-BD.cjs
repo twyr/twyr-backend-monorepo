@@ -143,6 +143,10 @@ const insertSystemMessageMasterData =
 				message_text: 'সিস্টেমে ব্যবহারকারীকে পাওয়া যায়নি।'
 			},
 			{
+				message_id: 'AUTH_REPOSITORY::UNSUPPORTED_USER_ROLE',
+				message_text: 'অসমর্থিত ব্যবহারকারী ভূমিকা।'
+			},
+			{
 				message_id: 'AUTH_REPOSITORY::OTP_EXPIRED_OR_INVALID',
 				message_text: 'OTP অবৈধ অথবা এর মেয়াদ শেষ হয়ে গেছে।'
 			},

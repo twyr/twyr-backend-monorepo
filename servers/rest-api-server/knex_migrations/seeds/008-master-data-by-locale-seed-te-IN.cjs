@@ -136,6 +136,10 @@ const insertSystemMessageMasterData =
 				message_text: 'సిస్టమ్‌లో వినియోగదారు కనబడలేదు.'
 			},
 			{
+				message_id: 'AUTH_REPOSITORY::UNSUPPORTED_USER_ROLE',
+				message_text: 'మద్దతు లేని వినియోగదారు పాత్ర.'
+			},
+			{
 				message_id: 'AUTH_REPOSITORY::OTP_EXPIRED_OR_INVALID',
 				message_text: 'ఓటీపీ గడువు ముగిసింది లేదా చెల్లదు.'
 			},

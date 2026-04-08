@@ -143,6 +143,10 @@ const insertSystemMessageMasterData =
 				message_text: 'સિસ્ટમમાં વપરાશકર્તા મળ્યો નથી.'
 			},
 			{
+				message_id: 'AUTH_REPOSITORY::UNSUPPORTED_USER_ROLE',
+				message_text: 'અસમર્થિત વપરાશકર્તા ભૂમિકા.'
+			},
+			{
 				message_id: 'AUTH_REPOSITORY::OTP_EXPIRED_OR_INVALID',
 				message_text:
 					'OTP અમાન્ય છે અથવા તેની સમયમર્યાદા સમાપ્ત થઈ ગઈ છે.'

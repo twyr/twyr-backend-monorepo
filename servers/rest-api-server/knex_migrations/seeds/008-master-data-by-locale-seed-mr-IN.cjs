@@ -136,6 +136,10 @@ const insertSystemMessageMasterData =
 				message_text: 'प्रणालीमध्ये वापरकर्ता सापडला नाही.'
 			},
 			{
+				message_id: 'AUTH_REPOSITORY::UNSUPPORTED_USER_ROLE',
+				message_text: 'असमर्थित वापरकर्ता भूमिका.'
+			},
+			{
 				message_id: 'AUTH_REPOSITORY::OTP_EXPIRED_OR_INVALID',
 				message_text: 'ओटीपी कालबाह्य झाला आहे किंवा अवैध आहे.'
 			},

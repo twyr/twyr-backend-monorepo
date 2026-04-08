@@ -136,6 +136,10 @@ const insertSystemMessageMasterData =
 				message_text: 'ಸಿಸ್ಟಮ್‌ನಲ್ಲಿ ಬಳಕೆದಾರರನ್ನು ಕಂಡುಹಿಡಿಯಲಾಗಲಿಲ್ಲ.'
 			},
 			{
+				message_id: 'AUTH_REPOSITORY::UNSUPPORTED_USER_ROLE',
+				message_text: 'ಬೆಂಬಲಿಸದ ಬಳಕೆದಾರ ಪಾತ್ರ.'
+			},
+			{
 				message_id: 'AUTH_REPOSITORY::OTP_EXPIRED_OR_INVALID',
 				message_text: 'OTP ಅವಧಿ ಮುಗಿದಿದೆ ಅಥವಾ ಅಮಾನ್ಯವಾಗಿದೆ.'
 			},

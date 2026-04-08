@@ -136,6 +136,10 @@ const insertSystemMessageMasterData =
 				message_text: 'பயனர் கணினியில் காணப்படவில்லை.'
 			},
 			{
+				message_id: 'AUTH_REPOSITORY::UNSUPPORTED_USER_ROLE',
+				message_text: 'ஆதரிக்கப்படாத பயனர் பங்கு.'
+			},
+			{
 				message_id: 'AUTH_REPOSITORY::OTP_EXPIRED_OR_INVALID',
 				message_text: 'OTP காலாவதியானது அல்லது தவறானது.'
 			},

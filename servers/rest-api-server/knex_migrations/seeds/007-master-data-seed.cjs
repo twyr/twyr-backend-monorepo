@@ -103,6 +103,10 @@ const insertSystemMessageMasterData =
 				message_text: 'User not found in the system.'
 			},
 			{
+				message_id: 'AUTH_REPOSITORY::UNSUPPORTED_USER_ROLE',
+				message_text: 'Unsupported user role.'
+			},
+			{
 				message_id: 'AUTH_REPOSITORY::OTP_EXPIRED_OR_INVALID',
 				message_text: 'OTP expired or invalid.'
 			},

@@ -136,6 +136,10 @@ const insertSystemMessageMasterData =
 				message_text: 'സിസ്റ്റത്തിൽ ഉപയോക്താവിനെ കണ്ടെത്താനായില്ല.'
 			},
 			{
+				message_id: 'AUTH_REPOSITORY::UNSUPPORTED_USER_ROLE',
+				message_text: 'പിന്തുണയ്ക്കാത്ത ഉപയോക്തൃ പങ്ക്.'
+			},
+			{
 				message_id: 'AUTH_REPOSITORY::OTP_EXPIRED_OR_INVALID',
 				message_text: 'OTP കാലഹരണപ്പെട്ടു അല്ലെങ്കിൽ അസാധുവാണ്.'
 			},
