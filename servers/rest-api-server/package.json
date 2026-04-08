@@ -49,8 +49,8 @@
 		"url": "https://github.com/twyr/entity-value-aggregate-server"
 	},
 	"dependencies": {
-		"@aws-sdk/client-translate": "3.1025.0",
-		"@aws-sdk/rds-signer": "3.1025.0",
+		"@aws-sdk/client-translate": "3.1026.0",
+		"@aws-sdk/rds-signer": "3.1026.0",
 		"@twyr/api-registry": "*",
 		"@twyr/error-serializer": "*",
 		"@twyr/framework-classes": "*",
@@ -83,7 +83,7 @@
 		"luxon": "3.7.2",
 		"mongodb": "7.1.1",
 		"mongoose": "9.4.1",
-		"nodemailer": "8.0.4",
+		"nodemailer": "8.0.5",
 		"objection": "3.1.5",
 		"overload-protection": "1.2.3",
 		"passport": "0.7.0",
