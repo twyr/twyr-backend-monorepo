@@ -86,7 +86,7 @@
 		"mocha": "11.7.5",
 		"mocha-junit-reporter": "2.2.1",
 		"nyc": "18.0.0",
-		"prettier": "3.8.1",
+		"prettier": "3.8.2",
 		"sloc": "0.3.2"
 	},
 	"scripts": {
