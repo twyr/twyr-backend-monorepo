@@ -61,24 +61,23 @@ Finalize the signoff document, present it to the user, guide through the approva
 1. **Present the signoff**: "Your signoff document is ready at `docs/wds-1-project-brief/signoff.md`."
 
 2. **Explain next steps**:
-    - "Share with stakeholders for approval"
-    - "Follow your company's approval workflow"
-    - "Get all required signatures"
-    - "Once approved, we can proceed to the Project Brief workflow"
+   - "Share with stakeholders for approval"
+   - "Follow your company's approval workflow"
+   - "Get all required signatures"
+   - "Once approved, we can proceed to the Project Brief workflow"
 
 3. **Ask**: "Does everything look good? Any adjustments needed before seeking approval?"
 
 ### 2. Handle Post-Approval
 
 **Once signoff document is approved**:
-
 - Internal alignment achieved
 - Budget/resources committed
 - Stakeholders on board
 - Ready to proceed to Project Brief
 
 **Next**: Full Project Brief workflow
-`{project-root}/_bmad/wds/workflows/wds-1-project-brief/workflow.md`
+`skill:wds-1-project-brief`
 
 ### 3. Update State
 
@@ -89,12 +88,10 @@ Update frontmatter of signoff file with completion status.
 Display: "**Select an Option:** [M] Return to Activity Menu"
 
 #### Menu Handling Logic:
-
 - IF M: Return to {workflowFile} or {activityWorkflowFile}
 - IF Any other comments or queries: help user respond then [Redisplay Menu Options]
 
 #### EXECUTION RULES:
-
 - ALWAYS halt and wait for user input after presenting menu
 - User can chat or ask questions - always respond and then redisplay menu options
 
@@ -107,14 +104,12 @@ ONLY WHEN the signoff document is finalized, reviewed, and user is satisfied wil
 ## 🚨 SYSTEM SUCCESS/FAILURE METRICS
 
 ### ✅ SUCCESS:
-
 - Signoff document is reviewed and user is satisfied
 - Approval workflow and next steps are clearly explained
 - Document is saved to correct location
 - Route to Project Brief is clear
 
 ### ❌ SYSTEM FAILURE:
-
 - Skipping the review
 - Not explaining the approval workflow
 - Not saving to correct location

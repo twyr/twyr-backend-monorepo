@@ -35,8 +35,8 @@ Store the preference in the project context:
 ```yaml
 # In project-context.md or .wds-project-outline.yaml
 user_preferences:
-    expertise_level: [1-4]
-    set_date: [today]
+  expertise_level: [1-4]
+  set_date: [today]
 ```
 
 Confirm the selection briefly, then return to the main menu or proceed with

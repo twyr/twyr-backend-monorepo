@@ -12,8 +12,8 @@ description: Open design system components in Figma for visual editing
 ## INITIALIZATION
 
 ### Design Log
-
 Read `{output_folder}/_progress/00-design-log.md`. Check Current and Backlog for context.
+
 
 ## Steps
 
@@ -56,9 +56,9 @@ When the user signals completion:
 1. Read updated component data from Figma (via MCP or user export)
 2. Diff against current WDS specifications
 3. Present changes for approval:
-    - Token values changed
-    - New variants added
-    - Properties modified
+   - Token values changed
+   - New variants added
+   - Properties modified
 4. Update WDS design system files with approved changes
 
 ### Step 5: Validate Sync
@@ -77,5 +77,5 @@ Report any issues for resolution.
 
 1. Update design log
 1. Run catalog generation to update component catalog
-1. Suggest [V] View Components to verify changes
-1. Return to Phase 7 Activity Menu
+2. Suggest [V] View Components to verify changes
+3. Return to Phase 7 Activity Menu

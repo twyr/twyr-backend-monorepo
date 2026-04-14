@@ -356,26 +356,26 @@ Your design philosophy will guide this decision:
 
 ```json
 {
-	"opportunities": {
-		"reuse": {
-			"consistency": "high",
-			"maintenance": "high",
-			"development": "medium",
-			"strongest": ["consistency", "maintenance"]
-		},
-		"variant": {
-			"flexibility": "high",
-			"family": "medium",
-			"scalability": "high",
-			"strongest": ["flexibility", "scalability"]
-		},
-		"new": {
-			"clarity": "high",
-			"independence": "high",
-			"specificity": "medium",
-			"strongest": ["clarity", "independence"]
-		}
-	}
+  "opportunities": {
+    "reuse": {
+      "consistency": "high",
+      "maintenance": "high",
+      "development": "medium",
+      "strongest": ["consistency", "maintenance"]
+    },
+    "variant": {
+      "flexibility": "high",
+      "family": "medium",
+      "scalability": "high",
+      "strongest": ["flexibility", "scalability"]
+    },
+    "new": {
+      "clarity": "high",
+      "independence": "high",
+      "specificity": "medium",
+      "strongest": ["clarity", "independence"]
+    }
+  }
 }
 ```
 

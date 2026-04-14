@@ -43,12 +43,10 @@ Ship → Monitor → Learn → Improve → Ship → Monitor → Learn...
 ## Kaizen Principle 1: Focus on Process, Not Just Results
 
 **Bad:**
-
 - "We need to increase usage!"
 - (Pressure, no learning)
 
 **Good:**
-
 - "Let's understand why usage is low, test a hypothesis, measure impact, and learn."
 - (Process, continuous learning)
 
@@ -95,47 +93,44 @@ Ship → Monitor → Learn → Improve → Ship → Monitor → Learn...
 
 1. **Document it**
 
-    ```markdown
-    # Pattern: Onboarding for Complex Features
+   ```markdown
+   # Pattern: Onboarding for Complex Features
 
-    **When to use:**
+   **When to use:**
+   - Feature has low usage (<30%)
+   - User feedback indicates confusion
+   - Feature is complex or non-obvious
 
-    - Feature has low usage (<30%)
-    - User feedback indicates confusion
-    - Feature is complex or non-obvious
+   **How to implement:**
+   1. Inline tooltip explaining purpose
+   2. Step-by-step guide for first action
+   3. Success celebration
+   4. Help button for future reference
 
-    **How to implement:**
-
-    1. Inline tooltip explaining purpose
-    2. Step-by-step guide for first action
-    3. Success celebration
-    4. Help button for future reference
-
-    **Expected impact:**
-
-    - Usage increase: 3-4x
-    - Drop-off decrease: 50-70%
-    - Effort: 2-3 days
-    ```
+   **Expected impact:**
+   - Usage increase: 3-4x
+   - Drop-off decrease: 50-70%
+   - Effort: 2-3 days
+   ```
 
 2. **Create reusable components**
 
-    ```
-    D-Design-System/03-Atomic-Components/
-    ├── Tooltips/Tooltip-Inline.md
-    ├── Guides/Guide-Step.md
-    └── Celebrations/Celebration-Success.md
-    ```
+   ```
+   D-Design-System/03-Atomic-Components/
+   ├── Tooltips/Tooltip-Inline.md
+   ├── Guides/Guide-Step.md
+   └── Celebrations/Celebration-Success.md
+   ```
 
 3. **Share with team**
-    - Document in shared knowledge
-    - Train team on pattern
-    - Apply consistently
+   - Document in shared knowledge
+   - Train team on pattern
+   - Apply consistently
 
 4. **Improve the pattern**
-    - Learn from each application
-    - Refine based on feedback
-    - Evolve over time
+   - Learn from each application
+   - Refine based on feedback
+   - Evolve over time
 
 ---
 
@@ -144,19 +139,16 @@ Ship → Monitor → Learn → Improve → Ship → Monitor → Learn...
 ### Priority = Impact × Effort × Learning
 
 **Impact:** How much will this improve the product?
-
 - High: Solves major user pain, improves key metric
 - Medium: Improves experience, minor metric impact
 - Low: Nice to have, minimal impact
 
 **Effort:** How hard is this to implement?
-
 - Low: 1-2 days
 - Medium: 3-5 days
 - High: 1-2 weeks
 
 **Learning:** How much will we learn?
-
 - High: Tests important hypothesis
 - Medium: Validates assumption
 - Low: Incremental improvement
@@ -175,19 +167,16 @@ Ship → Monitor → Learn → Improve → Ship → Monitor → Learn...
 **Success Rate:** 78% (7/9 successful)
 
 **Impact:**
-
 - Feature usage improvements: 6 features (+40% avg)
 - Performance improvements: 2 features (+15% avg)
 - User satisfaction: 3.2/5 → 4.1/5 (+28%)
 
 **Learnings:**
-
 - 12 patterns documented
 - 8 reusable components created
 - 3 hypotheses validated
 
 **Team Growth:**
-
 - Designer: Faster iteration
 - Developer: Better collaboration
 - Product: Data-driven decisions
@@ -200,19 +189,16 @@ Ship → Monitor → Learn → Improve → Ship → Monitor → Learn...
 **Kaizen never stops, but you might pause for:**
 
 ### 1. Major Strategic Shift
-
 - New product direction
 - Pivot or rebrand
 - Complete redesign needed
 
 ### 2. Team Capacity
-
 - Team overwhelmed
 - Need to catch up on backlog
 - Need to stabilize
 
 ### 3. Measurement Period
-
 - Waiting for data
 - Seasonal variations
 - External factors

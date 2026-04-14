@@ -247,21 +247,21 @@ This component has no variants.
 
 ```yaml
 colors:
-    background: primary-500
-    text: white
-    border: primary-600
+  background: primary-500
+  text: white
+  border: primary-600
 
 typography:
-    font-size: text-base
-    font-weight: semibold
+  font-size: text-base
+  font-weight: semibold
 
 spacing:
-    padding-x: 4
-    padding-y: 2
+  padding-x: 4
+  padding-y: 2
 
 effects:
-    border-radius: md
-    shadow: sm
+  border-radius: md
+  shadow: sm
 ```
 ````
 
@@ -662,10 +662,10 @@ Generate reference for page spec:
 
 ```yaml
 component_reference:
-    id: btn-003
-    name: Button
-    variant: primary
-    file: D-Design-System/components/button.md
+  id: btn-003
+  name: Button
+  variant: primary
+  file: D-Design-System/components/button.md
 ```
 
 ---

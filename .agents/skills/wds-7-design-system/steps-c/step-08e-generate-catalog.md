@@ -186,19 +186,19 @@ Display:
 
 ```html
 <div class="nav-section">
-	<h4 class="nav-section-title">Interactive</h4>
-	<ul class="nav-list">
-		<li><a href="#button" class="nav-link">Button</a></li>
-		<li><a href="#link" class="nav-link">Link</a></li>
-	</ul>
+  <h4 class="nav-section-title">Interactive</h4>
+  <ul class="nav-list">
+    <li><a href="#button" class="nav-link">Button</a></li>
+    <li><a href="#link" class="nav-link">Link</a></li>
+  </ul>
 </div>
 
 <div class="nav-section">
-	<h4 class="nav-section-title">Form</h4>
-	<ul class="nav-list">
-		<li><a href="#input" class="nav-link">Input</a></li>
-		<li><a href="#select" class="nav-link">Select</a></li>
-	</ul>
+  <h4 class="nav-section-title">Form</h4>
+  <ul class="nav-list">
+    <li><a href="#input" class="nav-link">Input</a></li>
+    <li><a href="#select" class="nav-link">Select</a></li>
+  </ul>
 </div>
 ```
 
@@ -218,38 +218,38 @@ Read and format design tokens:
 
 ```yaml
 Colors:
-    primary-500: #3b82f6
-    primary-600: #2563eb
-    gray-900: #111827
+  primary-500: #3b82f6
+  primary-600: #2563eb
+  gray-900: #111827
 
 Typography:
-    text-display: 3.75rem
-    text-heading-1: 3rem
-    text-body: 1rem
+  text-display: 3.75rem
+  text-heading-1: 3rem
+  text-body: 1rem
 
 Spacing:
-    spacing-2: 0.5rem
-    spacing-4: 1rem
-    spacing-6: 1.5rem
+  spacing-2: 0.5rem
+  spacing-4: 1rem
+  spacing-6: 1.5rem
 ```
 
 **Generate color swatches:**
 
 ```html
 <div class="component-card">
-	<h3 class="text-lg font-semibold mb-4">Primary Colors</h3>
-	<div class="variant-grid">
-		<div>
-			<div class="token-swatch" style="background: #3b82f6;"></div>
-			<p class="text-sm font-mono mt-2">primary-500</p>
-			<p class="text-xs text-gray-500">#3b82f6</p>
-		</div>
-		<div>
-			<div class="token-swatch" style="background: #2563eb;"></div>
-			<p class="text-sm font-mono mt-2">primary-600</p>
-			<p class="text-xs text-gray-500">#2563eb</p>
-		</div>
-	</div>
+  <h3 class="text-lg font-semibold mb-4">Primary Colors</h3>
+  <div class="variant-grid">
+    <div>
+      <div class="token-swatch" style="background: #3b82f6;"></div>
+      <p class="text-sm font-mono mt-2">primary-500</p>
+      <p class="text-xs text-gray-500">#3b82f6</p>
+    </div>
+    <div>
+      <div class="token-swatch" style="background: #2563eb;"></div>
+      <p class="text-sm font-mono mt-2">primary-600</p>
+      <p class="text-xs text-gray-500">#2563eb</p>
+    </div>
+  </div>
 </div>
 ```
 
@@ -257,21 +257,17 @@ Spacing:
 
 ```html
 <div class="component-card">
-	<h3 class="text-lg font-semibold mb-4">Typography Scale</h3>
-	<div class="space-y-4">
-		<div>
-			<p class="text-sm text-gray-500 mb-1">text-display (3.75rem)</p>
-			<p style="font-size: 3.75rem; font-weight: 800; line-height: 1.1;">
-				Display Text
-			</p>
-		</div>
-		<div>
-			<p class="text-sm text-gray-500 mb-1">text-heading-1 (3rem)</p>
-			<p style="font-size: 3rem; font-weight: 700; line-height: 1.2;">
-				Heading 1
-			</p>
-		</div>
-	</div>
+  <h3 class="text-lg font-semibold mb-4">Typography Scale</h3>
+  <div class="space-y-4">
+    <div>
+      <p class="text-sm text-gray-500 mb-1">text-display (3.75rem)</p>
+      <p style="font-size: 3.75rem; font-weight: 800; line-height: 1.1;">Display Text</p>
+    </div>
+    <div>
+      <p class="text-sm text-gray-500 mb-1">text-heading-1 (3rem)</p>
+      <p style="font-size: 3rem; font-weight: 700; line-height: 1.2;">Heading 1</p>
+    </div>
+  </div>
 </div>
 ```
 
@@ -325,93 +321,75 @@ For each component, generate interactive showcase:
 
 ```html
 <section id="button" class="mb-16" style="scroll-margin-top: 2rem;">
-	<h2 class="text-3xl font-bold text-gray-900 mb-6">
-		Button
-		<span class="version-badge">[btn-001]</span>
-		<span class="usage-badge">Used in 12 pages</span>
-	</h2>
+  <h2 class="text-3xl font-bold text-gray-900 mb-6">
+    Button
+    <span class="version-badge">[btn-001]</span>
+    <span class="usage-badge">Used in 12 pages</span>
+  </h2>
 
-	<!-- Component Description -->
-	<div class="component-card">
-		<p class="text-gray-700 mb-4">{{COMPONENT_DESCRIPTION}}</p>
-		<div class="flex gap-2">
-			<span class="text-sm text-gray-600">
-				<strong>Type:</strong> Interactive
-			</span>
-			<span class="text-sm text-gray-600">
-				<strong>Category:</strong> Action
-			</span>
-		</div>
-	</div>
+  <!-- Component Description -->
+  <div class="component-card">
+    <p class="text-gray-700 mb-4">{{COMPONENT_DESCRIPTION}}</p>
+    <div class="flex gap-2">
+      <span class="text-sm text-gray-600"> <strong>Type:</strong> Interactive </span>
+      <span class="text-sm text-gray-600"> <strong>Category:</strong> Action </span>
+    </div>
+  </div>
 
-	<!-- Variants -->
-	<div class="component-card">
-		<h3 class="text-xl font-semibold mb-4">Variants</h3>
-		<div class="component-preview">
-			<div class="variant-grid">{{VARIANT_EXAMPLES}}</div>
-		</div>
-	</div>
+  <!-- Variants -->
+  <div class="component-card">
+    <h3 class="text-xl font-semibold mb-4">Variants</h3>
+    <div class="component-preview">
+      <div class="variant-grid">{{VARIANT_EXAMPLES}}</div>
+    </div>
+  </div>
 
-	<!-- States -->
-	<div class="component-card">
-		<h3 class="text-xl font-semibold mb-4">States</h3>
-		<div class="component-preview">
-			<div class="state-grid">{{STATE_EXAMPLES}}</div>
-		</div>
+  <!-- States -->
+  <div class="component-card">
+    <h3 class="text-xl font-semibold mb-4">States</h3>
+    <div class="component-preview">
+      <div class="state-grid">{{STATE_EXAMPLES}}</div>
+    </div>
 
-		<!-- Interactive State Toggle -->
-		<div class="mt-4">
-			<p class="text-sm text-gray-600 mb-2">Try it:</p>
-			<div class="flex gap-2 mb-4">
-				<button
-					onclick="toggleState(this, 'demo-button', 'default')"
-					class="px-3 py-1 rounded text-sm bg-blue-500 text-white"
-				>
-					Default
-				</button>
-				<button
-					onclick="toggleState(this, 'demo-button', 'hover')"
-					class="px-3 py-1 rounded text-sm bg-gray-200 text-gray-700"
-				>
-					Hover
-				</button>
-				<button
-					onclick="toggleState(this, 'demo-button', 'active')"
-					class="px-3 py-1 rounded text-sm bg-gray-200 text-gray-700"
-				>
-					Active
-				</button>
-				<button
-					onclick="toggleState(this, 'demo-button', 'disabled')"
-					class="px-3 py-1 rounded text-sm bg-gray-200 text-gray-700"
-				>
-					Disabled
-				</button>
-			</div>
-			<div class="component-preview">
-				<button id="demo-button" class="state-default">
-					Interactive Button
-				</button>
-			</div>
-		</div>
-	</div>
+    <!-- Interactive State Toggle -->
+    <div class="mt-4">
+      <p class="text-sm text-gray-600 mb-2">Try it:</p>
+      <div class="flex gap-2 mb-4">
+        <button onclick="toggleState(this, 'demo-button', 'default')" class="px-3 py-1 rounded text-sm bg-blue-500 text-white">
+          Default
+        </button>
+        <button onclick="toggleState(this, 'demo-button', 'hover')" class="px-3 py-1 rounded text-sm bg-gray-200 text-gray-700">
+          Hover
+        </button>
+        <button onclick="toggleState(this, 'demo-button', 'active')" class="px-3 py-1 rounded text-sm bg-gray-200 text-gray-700">
+          Active
+        </button>
+        <button onclick="toggleState(this, 'demo-button', 'disabled')" class="px-3 py-1 rounded text-sm bg-gray-200 text-gray-700">
+          Disabled
+        </button>
+      </div>
+      <div class="component-preview">
+        <button id="demo-button" class="state-default">Interactive Button</button>
+      </div>
+    </div>
+  </div>
 
-	<!-- Code Example -->
-	<div class="component-card">
-		<h3 class="text-xl font-semibold mb-4">Code Example</h3>
-		<div class="code-block">
-			<pre>{{CODE_EXAMPLE}}</pre>
-		</div>
-	</div>
+  <!-- Code Example -->
+  <div class="component-card">
+    <h3 class="text-xl font-semibold mb-4">Code Example</h3>
+    <div class="code-block">
+      <pre>{{CODE_EXAMPLE}}</pre>
+    </div>
+  </div>
 
-	<!-- Usage Guidelines -->
-	<div class="component-card">
-		<h3 class="text-xl font-semibold mb-4">Usage Guidelines</h3>
-		{{USAGE_GUIDELINES}}
-	</div>
+  <!-- Usage Guidelines -->
+  <div class="component-card">
+    <h3 class="text-xl font-semibold mb-4">Usage Guidelines</h3>
+    {{USAGE_GUIDELINES}}
+  </div>
 
-	<!-- Figma Link (if Mode B) -->
-	{{FIGMA_COMPONENT_LINK}}
+  <!-- Figma Link (if Mode B) -->
+  {{FIGMA_COMPONENT_LINK}}
 </section>
 ```
 
@@ -421,13 +399,13 @@ For each component, generate interactive showcase:
 
 ```html
 <div>
-	<button class="btn-primary btn-medium">Primary Button</button>
-	<p class="text-xs text-gray-500 mt-2">primary</p>
+  <button class="btn-primary btn-medium">Primary Button</button>
+  <p class="text-xs text-gray-500 mt-2">primary</p>
 </div>
 
 <div>
-	<button class="btn-secondary btn-medium">Secondary Button</button>
-	<p class="text-xs text-gray-500 mt-2">secondary</p>
+  <button class="btn-secondary btn-medium">Secondary Button</button>
+  <p class="text-xs text-gray-500 mt-2">secondary</p>
 </div>
 ```
 
@@ -437,13 +415,13 @@ For each component, generate interactive showcase:
 
 ```html
 <div>
-	<button class="btn-primary btn-medium state-default">Default</button>
-	<p class="text-xs text-gray-500 mt-2">default</p>
+  <button class="btn-primary btn-medium state-default">Default</button>
+  <p class="text-xs text-gray-500 mt-2">default</p>
 </div>
 
 <div>
-	<button class="btn-primary btn-medium state-hover">Hover</button>
-	<p class="text-xs text-gray-500 mt-2">hover</p>
+  <button class="btn-primary btn-medium state-hover">Hover</button>
+  <p class="text-xs text-gray-500 mt-2">hover</p>
 </div>
 ```
 
@@ -492,20 +470,20 @@ Build changelog from component version histories:
 
 ```html
 <div class="space-y-4">
-	<div class="border-l-4 border-blue-500 pl-4">
-		<p class="font-semibold">December 9, 2024</p>
-		<ul class="text-sm text-gray-600 mt-1">
-			<li>• Button: Updated hover animation</li>
-			<li>• Input: Added success state</li>
-		</ul>
-	</div>
+  <div class="border-l-4 border-blue-500 pl-4">
+    <p class="font-semibold">December 9, 2024</p>
+    <ul class="text-sm text-gray-600 mt-1">
+      <li>• Button: Updated hover animation</li>
+      <li>• Input: Added success state</li>
+    </ul>
+  </div>
 
-	<div class="border-l-4 border-gray-300 pl-4">
-		<p class="font-semibold">October 1, 2024</p>
-		<ul class="text-sm text-gray-600 mt-1">
-			<li>• Button: Added loading state</li>
-		</ul>
-	</div>
+  <div class="border-l-4 border-gray-300 pl-4">
+    <p class="font-semibold">October 1, 2024</p>
+    <ul class="text-sm text-gray-600 mt-1">
+      <li>• Button: Added loading state</li>
+    </ul>
+  </div>
 </div>
 ```
 
@@ -533,20 +511,14 @@ Input [inp-001] → figma://file/abc123/node/456:790
 ```html
 <h3 class="text-lg font-semibold mb-4">Figma Components</h3>
 <div class="space-y-2">
-	<a
-		href="figma://file/abc123/node/456:789"
-		class="flex items-center gap-2 text-blue-600 hover:text-blue-800"
-	>
-		<svg><!-- Figma icon --></svg>
-		Button [btn-001]
-	</a>
-	<a
-		href="figma://file/abc123/node/456:790"
-		class="flex items-center gap-2 text-blue-600 hover:text-blue-800"
-	>
-		<svg><!-- Figma icon --></svg>
-		Input [inp-001]
-	</a>
+  <a href="figma://file/abc123/node/456:789" class="flex items-center gap-2 text-blue-600 hover:text-blue-800">
+    <svg><!-- Figma icon --></svg>
+    Button [btn-001]
+  </a>
+  <a href="figma://file/abc123/node/456:790" class="flex items-center gap-2 text-blue-600 hover:text-blue-800">
+    <svg><!-- Figma icon --></svg>
+    Input [inp-001]
+  </a>
 </div>
 ```
 

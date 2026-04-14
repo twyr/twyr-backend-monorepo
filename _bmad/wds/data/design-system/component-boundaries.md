@@ -51,10 +51,10 @@ This is the most common design system challenge.
 
 ```yaml
 Button Component:
-    variants:
-        - with-icon-left
-        - with-icon-right
-        - icon-only
+  variants:
+    - with-icon-left
+    - with-icon-right
+    - icon-only
 ```
 
 **When:** Icon is always the same type (e.g., always arrow for navigation)
@@ -81,11 +81,11 @@ Composition: Button + Icon
 
 ```yaml
 Input Field Component:
-    includes:
-        - Label
-        - Input element
-        - Helper text
-        - Error message
+  includes:
+    - Label
+    - Input element
+    - Helper text
+    - Error message
 ```
 
 **Reason:** These always appear together in forms, form a semantic unit.
@@ -118,7 +118,7 @@ Composition: Card contains Button
 
 ```yaml
 Navigation Bar Component:
-    includes: All nav items as configuration
+  includes: All nav items as configuration
 ```
 
 **Complex (Composition):**
@@ -138,20 +138,20 @@ Composition: Nav Bar contains Nav Items
 ### Step 1: Ask These Questions
 
 1. **Can it exist independently?**
-    - Yes → Probably separate component
-    - No → Probably part of parent
+   - Yes → Probably separate component
+   - No → Probably part of parent
 
 2. **Does it have its own states/behaviors?**
-    - Yes → Probably separate component
-    - No → Probably part of parent
+   - Yes → Probably separate component
+   - No → Probably part of parent
 
 3. **Is it reused in different contexts?**
-    - Yes → Definitely separate component
-    - No → Could be part of parent
+   - Yes → Definitely separate component
+   - No → Could be part of parent
 
 4. **Does it have a clear single purpose?**
-    - Yes → Good component candidate
-    - No → Might need to split further
+   - Yes → Good component candidate
+   - No → Might need to split further
 
 ### Step 2: Consider Complexity
 
@@ -199,10 +199,10 @@ Card Component: (container)
 
 ```yaml
 Accordion Component:
-    - Accordion Container
-    - Accordion Item
-    - Accordion Header
-    - Accordion Content
+  - Accordion Container
+  - Accordion Item
+  - Accordion Header
+  - Accordion Content
 ```
 
 ### Pattern 3: Atomic Component
@@ -211,8 +211,8 @@ Accordion Component:
 
 ```yaml
 Button Component:
-    - Cannot be broken down further
-    - Self-contained
+  - Cannot be broken down further
+  - Self-contained
 ```
 
 ---
@@ -253,8 +253,8 @@ Button Component:
 
 ```yaml
 Button:
-    variants: primary, secondary, ghost
-    states: default, hover, active, disabled, loading
+  variants: primary, secondary, ghost
+  states: default, hover, active, disabled, loading
 ```
 
 **Reason:** All variants serve same purpose (trigger action), share behavior

@@ -372,28 +372,28 @@ I'll present Variant vs New as the viable options.
 
 ```json
 {
-	"risks": {
-		"reuse": {
-			"semantic_confusion": "high",
-			"accessibility": "high",
-			"developer_confusion": "medium",
-			"deal_breaker": true
-		},
-		"variant": {
-			"complexity": "medium",
-			"variant_explosion": "high",
-			"maintenance": "medium",
-			"deal_breaker": false,
-			"mitigation": "strict_guidelines"
-		},
-		"new": {
-			"visual_inconsistency": "medium",
-			"duplication": "low",
-			"proliferation": "medium",
-			"deal_breaker": false,
-			"mitigation": "shared_tokens"
-		}
-	}
+  "risks": {
+    "reuse": {
+      "semantic_confusion": "high",
+      "accessibility": "high",
+      "developer_confusion": "medium",
+      "deal_breaker": true
+    },
+    "variant": {
+      "complexity": "medium",
+      "variant_explosion": "high",
+      "maintenance": "medium",
+      "deal_breaker": false,
+      "mitigation": "strict_guidelines"
+    },
+    "new": {
+      "visual_inconsistency": "medium",
+      "duplication": "low",
+      "proliferation": "medium",
+      "deal_breaker": false,
+      "mitigation": "shared_tokens"
+    }
+  }
 }
 ```
 

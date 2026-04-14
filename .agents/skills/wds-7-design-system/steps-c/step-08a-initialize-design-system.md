@@ -227,10 +227,10 @@ Format: `WDS Component → Library Component`
 
 ```json
 {
-	"colors": {},
-	"typography": {},
-	"spacing": {},
-	"borderRadius": {}
+  "colors": {},
+  "typography": {},
+  "spacing": {},
+  "borderRadius": {}
 }
 ```
 ````
@@ -358,13 +358,13 @@ Mark design system as initialized:
 
 ```yaml
 design_system:
-    enabled: true
-    mode: [mode]
-    initialized: true
-    initialized_date: [date]
-    folder: D-Design-System/
-    first_component: [component-id]
-    catalog: D-Design-System/catalog.html
+  enabled: true
+  mode: [mode]
+  initialized: true
+  initialized_date: [date]
+  folder: D-Design-System/
+  first_component: [component-id]
+  catalog: D-Design-System/catalog.html
 ```
 
 ---

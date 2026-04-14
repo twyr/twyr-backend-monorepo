@@ -34,19 +34,19 @@
 
 ```json
 {
-	"colors": {
-		"primary": "#2563eb",
-		"secondary": "#64748b"
-	},
-	"typography": {
-		"fontFamily": "Inter, sans-serif"
-	},
-	"spacing": {
-		"unit": "0.25rem"
-	},
-	"borderRadius": {
-		"default": "0.375rem"
-	}
+  "colors": {
+    "primary": "#2563eb",
+    "secondary": "#64748b"
+  },
+  "typography": {
+    "fontFamily": "Inter, sans-serif"
+  },
+  "spacing": {
+    "unit": "0.25rem"
+  },
+  "borderRadius": {
+    "default": "0.375rem"
+  }
 }
 ```
 

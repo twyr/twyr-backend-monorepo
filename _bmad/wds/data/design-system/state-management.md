@@ -66,11 +66,11 @@
 
 ```yaml
 Button States: default → hover (mouse enters)
-    hover → active (mouse down)
-    active → hover (mouse up)
-    hover → default (mouse leaves)
-    any → disabled (programmatically)
-    any → loading (action triggered)
+  hover → active (mouse down)
+  active → hover (mouse up)
+  hover → default (mouse leaves)
+  any → disabled (programmatically)
+  any → loading (action triggered)
 ```
 
 ---
@@ -81,11 +81,11 @@ Button States: default → hover (mouse enters)
 
 ```yaml
 Button:
-    default: blue background
-    hover: darker blue + scale 1.02
-    active: darkest blue + scale 0.98
-    disabled: gray + opacity 0.6
-    loading: disabled + spinner
+  default: blue background
+  hover: darker blue + scale 1.02
+  active: darkest blue + scale 0.98
+  disabled: gray + opacity 0.6
+  loading: disabled + spinner
 ```
 
 ---

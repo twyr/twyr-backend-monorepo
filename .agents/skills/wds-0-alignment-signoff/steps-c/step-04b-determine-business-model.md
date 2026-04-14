@@ -63,23 +63,23 @@ Determine how the service will be paid for before building contract sections - t
 **What business model fits this project?**
 
 1. **Fixed-Price Project** - Set price for a defined scope of work
-    - Best for: Projects with clear deliverables and scope
-    - Includes: Not-to-exceed clause, upfront payment recommended
-    - Example: "$50,000 for complete website redesign with 5 pages"
+   - Best for: Projects with clear deliverables and scope
+   - Includes: Not-to-exceed clause, upfront payment recommended
+   - Example: "$50,000 for complete website redesign with 5 pages"
 
 2. **Hourly/Time-Based** - Pay for actual time worked
-    - Best for: Ongoing work, uncertain scope, flexible requirements
-    - Includes: Hourly rate, time tracking, optional not-to-exceed cap
-    - Example: "$150/hour, estimated 200 hours"
+   - Best for: Ongoing work, uncertain scope, flexible requirements
+   - Includes: Hourly rate, time tracking, optional not-to-exceed cap
+   - Example: "$150/hour, estimated 200 hours"
 
 3. **Retainer** - Monthly commitment with minimum hours
-    - Best for: Ongoing support, regular availability needed
-    - Includes: Monthly retainer amount, minimum hours, availability expectations, hourly rate for overage
-    - Example: "$5,000/month retainer for 20 hours minimum, $200/hour for additional hours"
+   - Best for: Ongoing support, regular availability needed
+   - Includes: Monthly retainer amount, minimum hours, availability expectations, hourly rate for overage
+   - Example: "$5,000/month retainer for 20 hours minimum, $200/hour for additional hours"
 
 4. **Hybrid** - Combination of models (e.g., retainer + project work)
-    - Best for: Complex arrangements with multiple work types
-    - Includes: Multiple payment structures combined
+   - Best for: Complex arrangements with multiple work types
+   - Includes: Multiple payment structures combined
 
 Which model fits your situation?"
 
@@ -94,13 +94,11 @@ Which model fits your situation?"
 Display: "**Select an Option:** [C] Continue to step-05a-contract-overview"
 
 #### Menu Handling Logic:
-
 - IF C: Load, read entire file, then execute {nextStepFile}
 - IF M: Return to {workflowFile}
 - IF Any other comments or queries: help user respond then [Redisplay Menu Options]
 
 #### EXECUTION RULES:
-
 - ALWAYS halt and wait for user input after presenting menu
 - ONLY proceed to next step when user selects 'C'
 - User can chat or ask questions - always respond and then redisplay menu options
@@ -114,13 +112,11 @@ ONLY WHEN the business model is selected and confirmed will you then load and re
 ## 🚨 SYSTEM SUCCESS/FAILURE METRICS
 
 ### ✅ SUCCESS:
-
 - All business model options are clearly presented with examples
 - User's selection is captured and confirmed
 - Implications for contract structure are understood
 
 ### ❌ SYSTEM FAILURE:
-
 - Choosing the business model for the user
 - Not explaining what each model means for the contract
 - Proceeding without confirmation

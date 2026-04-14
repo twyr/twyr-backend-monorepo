@@ -155,16 +155,16 @@ Calculate overall similarity:
    - Contextual: 15%
 
 2. Convert dimension scores to numeric:
-    - High = 1.0
-    - Medium = 0.6
-    - Low = 0.2
+   - High = 1.0
+   - Medium = 0.6
+   - Low = 0.2
 
 3. Calculate weighted average:
-    - Overall = (Visual × 0.3) + (Functional × 0.3) + (Behavioral × 0.25) + (Contextual × 0.15)
+   - Overall = (Visual × 0.3) + (Functional × 0.3) + (Behavioral × 0.25) + (Contextual × 0.15)
 
 4. Convert to percentage:
-    - Similarity % = Overall × 100
-      </action>
+   - Similarity % = Overall × 100
+     </action>
 
 **Example:**
 

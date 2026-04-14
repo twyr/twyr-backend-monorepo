@@ -68,8 +68,8 @@ Read existing component file:
 ```yaml
 Component: Button [btn-001]
 Current Variants:
-    - primary (submit actions)
-    - secondary (cancel actions)
+  - primary (submit actions)
+  - secondary (cancel actions)
 ```
 
 <output>
@@ -343,10 +343,10 @@ Generate reference for page spec:
 
 ```yaml
 component_reference:
-    id: btn-001
-    name: Button
-    variant: navigation  ← New variant
-    file: D-Design-System/components/button.md
+  id: btn-001
+  name: Button
+  variant: navigation  ← New variant
+  file: D-Design-System/components/button.md
 ```
 
 ---

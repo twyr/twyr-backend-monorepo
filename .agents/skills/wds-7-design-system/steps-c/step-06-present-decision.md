@@ -237,24 +237,24 @@ Based on analysis, provide recommendation with reasoning
 **Reasoning:**
 
 1. **Semantic Distinction Matters**
-    - Navigation and submission are fundamentally different actions
-    - Users and developers benefit from clear distinction
-    - Accessibility is better with separate components
+   - Navigation and submission are fundamentally different actions
+   - Users and developers benefit from clear distinction
+   - Accessibility is better with separate components
 
 2. **Manageable Risks**
-    - Visual inconsistency can be prevented with shared tokens
-    - Duplication is minimal and acceptable
-    - Proliferation can be monitored
+   - Visual inconsistency can be prevented with shared tokens
+   - Duplication is minimal and acceptable
+   - Proliferation can be monitored
 
 3. **Future Flexibility**
-    - Each component can evolve independently
-    - No risk of variant explosion
-    - Clear component boundaries
+   - Each component can evolve independently
+   - No risk of variant explosion
+   - Clear component boundaries
 
 4. **Your Project Context**
-    - Design system is new (only 3 components)
-    - Better to establish clear patterns now
-    - Easier to merge later than split
+   - Design system is new (only 3 components)
+   - Better to establish clear patterns now
+   - Easier to merge later than split
 
 **However:** If you expect many button types (delete, cancel, save, etc.),
 Option 2 (variant) might be better for organization.

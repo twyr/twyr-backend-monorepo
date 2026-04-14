@@ -511,55 +511,55 @@ Changes for Design Delivery DD-011 (v1.1):
 
 ```yaml
 delivery:
-    id: 'DD-010'
-    name: 'Product Update v1.1'
-    type: 'incremental_improvement'
-    scope: 'update'
-    status: 'ready'
-    priority: 'high'
-    version: '1.1'
+  id: 'DD-010'
+  name: 'Product Update v1.1'
+  type: 'incremental_improvement'
+  scope: 'update'
+  status: 'ready'
+  priority: 'high'
+  version: '1.1'
 
 description: |
-    Incremental improvements with bug fixes, refinements, and enhancements
-    based on user feedback from v1.0 launch.
+  Incremental improvements with bug fixes, refinements, and enhancements
+  based on user feedback from v1.0 launch.
 
 changes:
-    bug_fixes:
-        - 'Fixed login button alignment on iPad'
-        - 'Added loading spinner to all async actions'
-        - 'Fixed family invite code validation'
+  bug_fixes:
+    - 'Fixed login button alignment on iPad'
+    - 'Added loading spinner to all async actions'
+    - 'Fixed family invite code validation'
 
-    enhancements:
-        - "Added 'Remember me' checkbox on login"
-        - 'Improved error messages (clearer wording)'
-        - 'Better empty state for task list'
+  enhancements:
+    - "Added 'Remember me' checkbox on login"
+    - 'Improved error messages (clearer wording)'
+    - 'Better empty state for task list'
 
-    design_system_updates:
-        - 'Button component: Added loading state'
-        - 'Input component: Improved error styling'
+  design_system_updates:
+    - 'Button component: Added loading state'
+    - 'Input component: Improved error styling'
 
 affected_scenarios:
-    - id: '02-login'
-      path: 'C-UX-Scenarios/02-login/'
-      changes: "Added 'Remember me' checkbox, fixed alignment"
+  - id: '02-login'
+    path: 'C-UX-Scenarios/02-login/'
+    changes: "Added 'Remember me' checkbox, fixed alignment"
 
-    - id: '06-task-list'
-      path: 'C-UX-Scenarios/06-task-list/'
-      changes: 'Improved empty state design'
+  - id: '06-task-list'
+    path: 'C-UX-Scenarios/06-task-list/'
+    changes: 'Improved empty state design'
 
 user_value:
-    problem: 'Users experiencing bugs and requesting improvements'
-    solution: 'Bug fixes and enhancements based on feedback'
-    success_criteria:
-        - 'Bug reports decrease by 50%'
-        - 'User satisfaction score increases'
-        - 'Onboarding completion rate improves'
+  problem: 'Users experiencing bugs and requesting improvements'
+  solution: 'Bug fixes and enhancements based on feedback'
+  success_criteria:
+    - 'Bug reports decrease by 50%'
+    - 'User satisfaction score increases'
+    - 'Onboarding completion rate improves'
 
 estimated_complexity:
-    size: 'small'
-    effort: '1 week'
-    risk: 'low'
-    dependencies: []
+  size: 'small'
+  effort: '1 week'
+  risk: 'low'
+  dependencies: []
 ```
 
 ---

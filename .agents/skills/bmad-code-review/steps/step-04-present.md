@@ -54,16 +54,16 @@ If `patch` findings exist (including any resolved from step 4), HALT. Ask the us
 
 If `{spec_file}` is set, present all three options (if >3 `patch` findings exist, also show option 0):
 
-> **How would you like to handle the <Z> `patch` findings?** 0. **Batch-apply all** — automatically fix every non-controversial patch (recommended when there are many)
->
+> **How would you like to handle the <Z> `patch` findings?**
+> 0. **Batch-apply all** — automatically fix every non-controversial patch (recommended when there are many)
 > 1. **Fix them automatically** — I will apply fixes now
 > 2. **Leave as action items** — they are already in the story file
 > 3. **Walk through each** — let me show details before deciding
 
 If `{spec_file}` is **not** set, present only options 1 and 3 (omit option 2 — findings were not written to a file). If >3 `patch` findings exist, also show option 0:
 
-> **How would you like to handle the <Z> `patch` findings?** 0. **Batch-apply all** — automatically fix every non-controversial patch (recommended when there are many)
->
+> **How would you like to handle the <Z> `patch` findings?**
+> 0. **Batch-apply all** — automatically fix every non-controversial patch (recommended when there are many)
 > 1. **Fix them automatically** — I will apply fixes now
 > 2. **Walk through each** — let me show details before deciding
 
@@ -74,7 +74,7 @@ If `{spec_file}` is **not** set, present only options 1 and 3 (omit option 2 —
 - **Option 2** (only when `{spec_file}` is set): Done — findings are already written to the story.
 - **Walk through each**: Present each finding with full detail, diff context, and suggested fix. After walkthrough, re-offer the applicable options above.
 
-    **HALT** — I am waiting for your numbered choice. Reply with only the number (or "0" for batch). Do not proceed until you select an option.
+  **HALT** — I am waiting for your numbered choice. Reply with only the number (or "0" for batch). Do not proceed until you select an option.
 
 **✅ Code review actions complete**
 
@@ -122,7 +122,6 @@ If `{sprint_status}` file does not exist, note that story status was updated in 
 Present the user with follow-up options:
 
 > **What would you like to do next?**
->
 > 1. **Start the next story** — run `dev-story` to pick up the next `ready-for-dev` story
 > 2. **Re-run code review** — address findings and review again
 > 3. **Done** — end the workflow

@@ -82,19 +82,19 @@ Card/Content
 **Every component must have:**
 
 1. **Description**
-    - Component purpose
-    - When to use
-    - WDS component ID (e.g., "btn-001")
+   - Component purpose
+   - When to use
+   - WDS component ID (e.g., "btn-001")
 
 2. **Variants**
-    - Organized by property
-    - Clear naming
-    - All states included
+   - Organized by property
+   - Clear naming
+   - All states included
 
 3. **Auto Layout**
-    - Proper spacing
-    - Responsive behavior
-    - Padding/gap values
+   - Proper spacing
+   - Responsive behavior
+   - Padding/gap values
 
 **Example Description:**
 
@@ -471,11 +471,11 @@ Input [inp-001] → figma://file/abc123/node/456:790
 2. Designer adds WDS component ID to description
 3. MCP reads component via Figma API
 4. MCP extracts:
-    - Component structure
-    - Variants
-    - States
-    - Properties
-    - Design tokens used
+   - Component structure
+   - Variants
+   - States
+   - Properties
+   - Design tokens used
 5. MCP generates/updates WDS specification
 6. Designer reviews and confirms
 

@@ -50,9 +50,9 @@ They should be independent!
 
 ```css
 .heading-section {
-	font-size: var(--text-4xl);
-	font-weight: var(--font-bold);
-	color: var(--color-primary-600);
+  font-size: var(--text-4xl);
+  font-weight: var(--font-bold);
+  color: var(--color-primary-600);
 }
 ```
 
@@ -103,9 +103,9 @@ They should be independent!
 
 ```yaml
 Page Structure:
-    - Section Heading (h2)
-    - Body text (p)
-    - Primary button (button)
+  - Section Heading (h2)
+  - Body text (p)
+  - Primary button (button)
 ```
 
 **NOT visual styling:**
@@ -113,9 +113,9 @@ Page Structure:
 ```yaml
 # ❌ Don't do this
 Page Structure:
-    - Large blue bold text
-    - 16px gray text
-    - Blue rounded button
+  - Large blue bold text
+  - 16px gray text
+  - Blue rounded button
 ```
 
 ### In Design System
@@ -124,14 +124,14 @@ Page Structure:
 
 ```yaml
 Section Heading:
-    html_element: h2
-    design_token: heading-section
+  html_element: h2
+  design_token: heading-section
 
 Design Token Definition:
-    heading-section:
-        font-size: text-4xl
-        font-weight: bold
-        color: primary-600
+  heading-section:
+    font-size: text-4xl
+    font-weight: bold
+    color: primary-600
 ```
 
 ---
@@ -143,19 +143,19 @@ Design Token Definition:
 **When specifying a heading:**
 
 1. **Identify semantic level** (h1-h6)
-    - h1 = Page title
-    - h2 = Section heading
-    - h3 = Subsection heading
-    - etc.
+   - h1 = Page title
+   - h2 = Section heading
+   - h3 = Subsection heading
+   - etc.
 
 2. **Map to design token**
-    - h1 → display-large
-    - h2 → heading-section
-    - h3 → heading-subsection
+   - h1 → display-large
+   - h2 → heading-section
+   - h3 → heading-subsection
 
 3. **Store separately**
-    - Page spec: `<h2>` (semantic)
-    - Design system: `heading-section` token (visual)
+   - Page spec: `<h2>` (semantic)
+   - Design system: `heading-section` token (visual)
 
 **Example Output:**
 
@@ -163,21 +163,21 @@ Design Token Definition:
 
 ```yaml
 Hero Section:
-    heading:
-        element: h2
-        token: heading-section
-        content: 'Welcome to Our Product'
+  heading:
+    element: h2
+    token: heading-section
+    content: 'Welcome to Our Product'
 ```
 
 **Design System:**
 
 ```yaml
 Tokens:
-    heading-section:
-        font-size: 2.25rem
-        font-weight: 700
-        line-height: 1.2
-        color: gray-900
+  heading-section:
+    font-size: 2.25rem
+    font-weight: 700
+    line-height: 1.2
+    color: gray-900
 ```
 
 ---
@@ -187,16 +187,16 @@ Tokens:
 **When specifying a button:**
 
 1. **Identify semantic element**
-    - `<button>` for actions
-    - `<a>` for navigation (even if styled as button)
+   - `<button>` for actions
+   - `<a>` for navigation (even if styled as button)
 
 2. **Map to component**
-    - Action → Button component
-    - Navigation → Link component (button variant)
+   - Action → Button component
+   - Navigation → Link component (button variant)
 
 3. **Store separately**
-    - Page spec: `<button>` + purpose
-    - Design system: Button component styling
+   - Page spec: `<button>` + purpose
+   - Design system: Button component styling
 
 **Example Output:**
 
@@ -204,23 +204,23 @@ Tokens:
 
 ```yaml
 Login Form:
-    submit_button:
-        element: button
-        type: submit
-        component: Button.primary
-        label: 'Log in'
+  submit_button:
+    element: button
+    type: submit
+    component: Button.primary
+    label: 'Log in'
 ```
 
 **Design System:**
 
 ```yaml
 Button Component:
-    variants:
-        primary:
-            background: primary-600
-            color: white
-            padding: spacing-2 spacing-4
-            border-radius: radius-md
+  variants:
+    primary:
+      background: primary-600
+      color: white
+      padding: spacing-2 spacing-4
+      border-radius: radius-md
 ```
 
 ---
@@ -230,17 +230,17 @@ Button Component:
 **When specifying an input:**
 
 1. **Identify semantic type**
-    - `<input type="text">` for text
-    - `<input type="email">` for email
-    - `<input type="password">` for password
+   - `<input type="text">` for text
+   - `<input type="email">` for email
+   - `<input type="password">` for password
 
 2. **Map to component**
-    - Text input → Input Field component
-    - Email input → Input Field.email variant
+   - Text input → Input Field component
+   - Email input → Input Field.email variant
 
 3. **Store separately**
-    - Page spec: Input type + validation + labels
-    - Design system: Input Field styling
+   - Page spec: Input type + validation + labels
+   - Design system: Input Field styling
 
 **Example Output:**
 
@@ -248,31 +248,31 @@ Button Component:
 
 ```yaml
 Login Form:
-    email_field:
-        element: input
-        type: email
-        component: InputField.email
-        label: 'Email address'
-        placeholder: 'you@example.com'
-        required: true
-        validation: email_format
+  email_field:
+    element: input
+    type: email
+    component: InputField.email
+    label: 'Email address'
+    placeholder: 'you@example.com'
+    required: true
+    validation: email_format
 ```
 
 **Design System:**
 
 ```yaml
 Input Field Component:
-    base_styling:
-        height: 2.5rem
-        padding: spacing-2 spacing-3
-        border: 1px solid gray-300
-        border-radius: radius-md
-        font-size: text-base
+  base_styling:
+    height: 2.5rem
+    padding: spacing-2 spacing-3
+    border: 1px solid gray-300
+    border-radius: radius-md
+    font-size: text-base
 
-    variants:
-        email:
-            icon: envelope
-            autocomplete: email
+  variants:
+    email:
+      icon: envelope
+      autocomplete: email
 ```
 
 ---
@@ -317,7 +317,7 @@ Page:
 
 ```yaml
 Page:
-    - Section heading (h2 → heading-section token)
+  - Section heading (h2 → heading-section token)
 ```
 
 ### Mistake 2: Hardcoding Visual Values
@@ -326,16 +326,16 @@ Page:
 
 ```yaml
 Button:
-    background: #2563eb
-    padding: 16px
+  background: #2563eb
+  padding: 16px
 ```
 
 **✅ Good:**
 
 ```yaml
 Button:
-    background: primary-600
-    padding: spacing-4
+  background: primary-600
+  padding: spacing-4
 ```
 
 ### Mistake 3: Using Visual Names for Semantic Elements
@@ -429,20 +429,20 @@ Button:
 
 ```yaml
 Hero:
-    heading:
-        element: h2
-        token: heading-hero  ← Reference to design system
-        content: 'Welcome'
+  heading:
+    element: h2
+    token: heading-hero  ← Reference to design system
+    content: 'Welcome'
 ```
 
 **Design system defines token:**
 
 ```yaml
 Tokens:
-    heading-hero:
-        font-size: 3rem
-        font-weight: 800
-        color: gray-900
+  heading-hero:
+    font-size: 3rem
+    font-weight: 800
+    color: gray-900
 ```
 
 ---

@@ -115,9 +115,9 @@ Create reference to existing component:
 # C-UX-Scenarios/onboarding-page.md
 
 Continue Button:
-    component: Button.primary [btn-001]
-    why: Navigate to next step in onboarding
-    label: 'Continue'
+  component: Button.primary [btn-001]
+  why: Navigate to next step in onboarding
+  label: 'Continue'
 ```
 
 ### Step 4: Update Component Usage
@@ -134,10 +134,10 @@ Update design system component to track usage:
 # D-Design-System/components/button.md
 
 Used In:
-    - Login page (login button)
-    - Signup page (create account button)
-    - Dashboard (action buttons)
-    - Onboarding page (continue button)  ← Added
+  - Login page (login button)
+  - Signup page (create account button)
+  - Dashboard (action buttons)
+  - Onboarding page (continue button)  ← Added
 ```
 
 ### Step 5: Complete
@@ -202,19 +202,19 @@ Add variant to existing component:
 # D-Design-System/components/button.md
 
 Button Component [btn-001]:
-    variants:
-        - primary (submit actions)
-        - secondary (cancel actions)
-        - navigation (continue/next actions)  ← Added
+  variants:
+    - primary (submit actions)
+    - secondary (cancel actions)
+    - navigation (continue/next actions)  ← Added
 
-    shared_states:
-        - default, hover, active, disabled
+  shared_states:
+    - default, hover, active, disabled
 
-    variant_specific:
-        navigation:
-            icon: arrow-right
-            loading_state: true
-            hover_animation: icon_shift
+  variant_specific:
+    navigation:
+      icon: arrow-right
+      loading_state: true
+      hover_animation: icon_shift
 ```
 
 ### Step 4: Create Reference
@@ -229,9 +229,9 @@ Create reference with variant specified:
 # C-UX-Scenarios/onboarding-page.md
 
 Continue Button:
-    component: Button.navigation [btn-001]  ← Variant specified
-    why: Navigate to next step in onboarding
-    label: 'Continue'
+  component: Button.navigation [btn-001]  ← Variant specified
+  why: Navigate to next step in onboarding
+  label: 'Continue'
 ```
 
 ### Step 5: Update Usage Tracking
@@ -246,9 +246,9 @@ Track variant usage:
 # D-Design-System/components/button.md
 
 Variant Usage:
-    primary: 5 pages
-    secondary: 3 pages
-    navigation: 1 page  ← Added
+  primary: 5 pages
+  secondary: 3 pages
+  navigation: 1 page  ← Added
 ```
 
 ### Step 6: Complete
@@ -372,9 +372,9 @@ Create reference in page spec:
 # C-UX-Scenarios/onboarding-page.md
 
 Continue Button:
-    component: NavigationButton [btn-002]
-    why: Navigate to next step in onboarding
-    label: 'Continue'
+  component: NavigationButton [btn-002]
+  why: Navigate to next step in onboarding
+  label: 'Continue'
 ```
 
 ### Step 6: Update Design System Index
@@ -389,10 +389,10 @@ Add to design system component list:
 # D-Design-System/components/README.md
 
 Components:
-    - Button [btn-001] - Primary action buttons
-    - Input Field [inp-001] - Text input fields
-    - Card [crd-001] - Content cards
-    - Navigation Button [btn-002] - Navigation actions  ← Added
+  - Button [btn-001] - Primary action buttons
+  - Input Field [inp-001] - Text input fields
+  - Card [crd-001] - Content cards
+  - Navigation Button [btn-002] - Navigation actions  ← Added
 ```
 
 ### Step 7: Complete
