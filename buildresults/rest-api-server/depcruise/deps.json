@@ -8303,6 +8303,147 @@
       "valid": true
     },
     {
+      "source": "tests/optional-chaining.spec.cjs",
+      "dependencies": [
+        {
+          "module": "../source/ingress_surfaces/rest_api/koa-middlewares/error-log.js",
+          "moduleSystem": "es6",
+          "dynamic": true,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "dynamic-import"
+          ],
+          "resolved": "source/ingress_surfaces/rest_api/koa-middlewares/error-log.js",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "../source/repositories/init/configuration/index.js",
+          "moduleSystem": "es6",
+          "dynamic": true,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "dynamic-import"
+          ],
+          "resolved": "source/repositories/init/configuration/index.js",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "../source/repositories/runtime/renderer/index.js",
+          "moduleSystem": "es6",
+          "dynamic": true,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "dynamic-import"
+          ],
+          "resolved": "source/repositories/runtime/renderer/index.js",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "@twyr/api-registry",
+          "moduleSystem": "es6",
+          "dynamic": true,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "undetermined",
+            "dynamic-import"
+          ],
+          "resolved": "../../packages/api-registry/index.js",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "@twyr/error-serializer",
+          "moduleSystem": "es6",
+          "dynamic": true,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "undetermined",
+            "dynamic-import"
+          ],
+          "resolved": "../../packages/error-serializer/index.js",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "@twyr/server-dependency-manager",
+          "moduleSystem": "es6",
+          "dynamic": true,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "undetermined",
+            "dynamic-import"
+          ],
+          "resolved": "../../packages/server-dependency-manager/index.js",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "assert/strict",
+          "moduleSystem": "es6",
+          "dynamic": true,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "core",
+            "dynamic-import"
+          ],
+          "protocol": "node:",
+          "resolved": "assert/strict",
+          "coreModule": true,
+          "followable": false,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        }
+      ],
+      "orphan": false,
+      "valid": true
+    },
+    {
+      "source": "assert/strict",
+      "followable": false,
+      "coreModule": true,
+      "couldNotResolve": false,
+      "matchesDoNotFollow": false,
+      "dependencyTypes": [
+        "core",
+        "dynamic-import"
+      ],
+      "dependencies": [],
+      "orphan": false,
+      "valid": true
+    },
+    {
       "source": "tests/setup-mocks.cjs",
       "dependencies": [],
       "orphan": true,
@@ -9324,8 +9465,8 @@
     "info": 0,
     "ignore": 0,
     "advisedExitCode": 44,
-    "totalCruised": 171,
-    "totalDependenciesCruised": 349,
+    "totalCruised": 173,
+    "totalDependenciesCruised": 356,
     "optionsUsed": {
       "baseDir": "/home/vish/Work/twyr/code/twyr-backend-monorepo/servers/rest-api-server",
       "combinedDependencies": false,
@@ -9370,7 +9511,12 @@
           "collapsePattern": "node_modules/(?:@[^/]+/[^/]+|[^/]+)"
         },
         "archi": {
-          "collapsePattern": "^(?:packages|src|lib(s?)|app(s?)|bin|test(s?)|spec(s?))/[^/]+|node_modules/(?:@[^/]+/[^/]+|[^/]+)"
+          "collapsePattern": "^(?:packages|src|lib(s?)|app(s?)|bin|test(s?)|spec(s?))/[^/]+|node_modules/(?:@[^/]+/[^/]+|[^/]+)",
+          "theme": {
+            "graph": {
+              "splines": "line"
+            }
+          }
         },
         "text": {
           "highlightFocused": true

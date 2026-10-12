@@ -1,9 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="Mocha Tests" time="0.413" tests="1" failures="0">
-	<testsuite name="Root Suite" timestamp="2026-10-12T08:55:00" tests="0" time="0.000" failures="0">
+<testsuites name="Mocha Tests" time="0.451" tests="14" failures="0">
+	<testsuite name="Root Suite" timestamp="2026-10-12T09:48:40" tests="0" time="0.000" failures="0">
 	</testsuite>
-	<testsuite name="REST API Server Test Cases" timestamp="2026-10-12T08:55:00" tests="1" file="/home/vish/Work/twyr/code/twyr-backend-monorepo/servers/rest-api-server/tests/index.spec.cjs" time="0.412" failures="0">
-		<testcase name="REST API Server Test Cases Global Snooze for 400ms" time="0.410" classname="Global Snooze for 400ms">
+	<testsuite name="REST API Server Test Cases" timestamp="2026-10-12T09:48:40" tests="1" file="/home/vish/Work/twyr/code/twyr-backend-monorepo/servers/rest-api-server/tests/index.spec.cjs" time="0.414" failures="0">
+		<testcase name="REST API Server Test Cases Global Snooze for 400ms" time="0.411" classname="Global Snooze for 400ms">
+		</testcase>
+	</testsuite>
+	<testsuite name="Explicit access and call regression cases" timestamp="2026-10-12T09:48:41" tests="13" file="/home/vish/Work/twyr/code/twyr-backend-monorepo/servers/rest-api-server/tests/optional-chaining.spec.cjs" time="0.035" failures="0">
+		<testcase name="Explicit access and call regression cases serializes absent errors and errors without usable stack frames" time="0.002" classname="serializes absent errors and errors without usable stack frames">
+		</testcase>
+		<testcase name="Explicit access and call regression cases retains nested error details and trimmed stack frames" time="0.001" classname="retains nested error details and trimmed stack frames">
+		</testcase>
+		<testcase name="Explicit access and call regression cases resolves root, child, and parent APIs and returns null for missing APIs" time="0.001" classname="resolves root, child, and parent APIs and returns null for missing APIs">
+		</testcase>
+		<testcase name="Explicit access and call regression cases executes all registered APIs and propagates handler failures" time="0.000" classname="executes all registered APIs and propagates handler failures">
+		</testcase>
+		<testcase name="Explicit access and call regression cases reports a missing root repository and resolves repositories through a parent" time="0.000" classname="reports a missing root repository and resolves repositories through a parent">
+		</testcase>
+		<testcase name="Explicit access and call regression cases loads a user session without a primary locale or contact" time="0.002" classname="loads a user session without a primary locale or contact">
+		</testcase>
+		<testcase name="Explicit access and call regression cases returns the domain error for an absent user session record" time="0.000" classname="returns the domain error for an absent user session record">
+		</testcase>
+		<testcase name="Explicit access and call regression cases loads a system-admin session without a primary locale or contact" time="0.002" classname="loads a system-admin session without a primary locale or contact">
+		</testcase>
+		<testcase name="Explicit access and call regression cases returns the domain error for an absent system-admin session record" time="0.000" classname="returns the domain error for an absent system-admin session record">
+		</testcase>
+		<testcase name="Explicit access and call regression cases localizes an ordinary error without a code or nested errors" time="0.001" classname="localizes an ordinary error without a code or nested errors">
+		</testcase>
+		<testcase name="Explicit access and call regression cases localizes aggregate errors with and without custom field metadata" time="0.000" classname="localizes aggregate errors with and without custom field metadata">
+		</testcase>
+		<testcase name="Explicit access and call regression cases supports repeated renderer cleanup and recreation" time="0.006" classname="supports repeated renderer cleanup and recreation">
+		</testcase>
+		<testcase name="Explicit access and call regression cases allows configuration cleanup before initialization" time="0.001" classname="allows configuration cleanup before initialization">
 		</testcase>
 	</testsuite>
 </testsuites>
