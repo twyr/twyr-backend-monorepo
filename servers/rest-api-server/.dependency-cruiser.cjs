@@ -350,7 +350,13 @@ module.exports = {
 			archi: {
 				// Pattern of modules to consolidate to.
 				collapsePattern:
-					'^(?:packages|src|lib(s?)|app(s?)|bin|test(s?)|spec(s?))/[^/]+|node_modules/(?:@[^/]+/[^/]+|[^/]+)'
+					'^(?:packages|src|lib(s?)|app(s?)|bin|test(s?)|spec(s?))/[^/]+|node_modules/(?:@[^/]+/[^/]+|[^/]+)',
+				theme: {
+					graph: {
+						// Avoid Graphviz spline routing failures on this clustered graph.
+						splines: 'line'
+					}
+				}
 
 				// Options to tweak the appearance of your graph. If you don't specify a
 				// theme for 'archi' dependency-cruiser will use the one specified in the
