@@ -31,14 +31,14 @@ const errorSerializer = function errorSerializer(error) {
 	const serializedError = {
 		code: error?.code,
 		message: error?.message,
-		location: error?.stack?.split?.('\n')?.[1]?.trim?.()
+		location: error?.stack?.split?.('\n')?.[1]?.trim()
 	};
 
 	if (error instanceof AggregateError) {
 		printFullStack = false;
 		serializedError['errors'] = [];
-		for (const subError of error?.errors ?? []) {
-			serializedError?.['errors']?.push?.(errorSerializer?.(subError));
+		for (const subError of error.errors ?? []) {
+			serializedError['errors'].push(errorSerializer(subError));
 		}
 	}
 
@@ -46,10 +46,10 @@ const errorSerializer = function errorSerializer(error) {
 		printFullStack = printFullStack && false;
 
 		if (error.cause instanceof Error) {
-			serializedError['cause'] = errorSerializer?.(error.cause);
+			serializedError['cause'] = errorSerializer(error.cause);
 		} else {
 			printFullStack = true;
-			serializedError['cause'] = safeJsonStringify?.(
+			serializedError['cause'] = safeJsonStringify(
 				error.cause,
 				undefined,
 				'\t'
@@ -63,21 +63,21 @@ const errorSerializer = function errorSerializer(error) {
 		if (customProperty === 'errors') continue;
 		if (customProperty === 'message') continue;
 
-		if (!Object?.hasOwn?.(error, customProperty)) continue;
+		if (!Object.hasOwn(error, customProperty)) continue;
 		// eslint-disable-next-line security/detect-object-injection
 		if (error[customProperty] instanceof Error) {
 			printFullStack = false;
 
 			// eslint-disable-next-line security/detect-object-injection
-			serializedError[customProperty] = errorSerializer?.(
+			serializedError[customProperty] = errorSerializer(
 				// eslint-disable-next-line security/detect-object-injection
-				error?.[customProperty]
+				error[customProperty]
 			);
 		} else {
 			// eslint-disable-next-line security/detect-object-injection
-			serializedError[customProperty] = safeJsonStringify?.(
+			serializedError[customProperty] = safeJsonStringify(
 				// eslint-disable-next-line security/detect-object-injection
-				error?.[customProperty],
+				error[customProperty],
 				undefined,
 				'\t'
 			);
@@ -85,14 +85,12 @@ const errorSerializer = function errorSerializer(error) {
 	}
 
 	if (printFullStack) {
-		const stackArray = error?.stack
-			?.split?.('\n')
-			?.map?.((stackLocation) => {
-				return stackLocation?.trim?.();
-			});
+		const stackArray = error?.stack?.split?.('\n')?.map((stackLocation) => {
+			return stackLocation.trim();
+		});
 
 		// The first line is redundant...
-		stackArray?.shift?.();
+		stackArray?.shift();
 		serializedError['stack'] = stackArray;
 	}
 
@@ -115,23 +113,23 @@ const createErrorForPropagation = function createErrorForPropagation(
 ) {
 	let propagatedError;
 
-	if (!Array?.isArray?.(errors)) {
+	if (!Array.isArray(errors)) {
 		errors = [errors];
 	}
 
-	if (errors?.length === 0) {
+	if (errors.length === 0) {
 		propagatedError = new Error(message);
 	}
 
-	if (errors?.length === 1) {
+	if (errors.length === 1) {
 		propagatedError = errors[0]
 			? new Error(message, {
-					cause: errors?.pop?.()
+					cause: errors.pop()
 				})
 			: new Error(message);
 	}
 
-	if (errors?.length > 1) {
+	if (errors.length > 1) {
 		propagatedError = new AggregateError(errors, message);
 	}
 

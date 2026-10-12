@@ -1,92 +1,86 @@
 'use strict';
 
 exports.up = async function (knex) {
-	let exists = await knex?.schema
-		?.withSchema?.('public')
-		?.hasTable?.('system_admins');
+	let exists = await knex.schema
+		.withSchema('public')
+		.hasTable('system_admins');
 	if (!exists) {
-		await knex?.schema
-			?.withSchema?.('public')
-			?.createTable?.('system_admins', function (systemAdminTable) {
+		await knex.schema
+			.withSchema('public')
+			.createTable('system_admins', function (systemAdminTable) {
 				systemAdminTable
-					?.uuid?.('id')
-					?.notNullable?.()
-					?.primary?.()
-					?.defaultTo?.(knex?.raw?.('gen_random_uuid()'));
+					.uuid('id')
+					.notNullable()
+					.primary()
+					.defaultTo(knex.raw('gen_random_uuid()'));
+				systemAdminTable.text('mobile_no').notNullable().unique();
+				systemAdminTable.date('date_of_birth').nullable();
 				systemAdminTable
-					?.text?.('mobile_no')
-					?.notNullable?.()
-					?.unique?.();
-				systemAdminTable?.date?.('date_of_birth')?.nullable?.();
+					.uuid('gender_id')
+					.notNullable()
+					.references('id')
+					.inTable('gender_master')
+					.onDelete('CASCADE')
+					.onUpdate('CASCADE');
 				systemAdminTable
-					?.uuid?.('gender_id')
-					?.notNullable?.()
-					?.references?.('id')
-					?.inTable?.('gender_master')
-					?.onDelete?.('CASCADE')
-					?.onUpdate?.('CASCADE');
+					.boolean('is_deleted')
+					.notNullable()
+					.defaultTo(false);
 				systemAdminTable
-					?.boolean?.('is_deleted')
-					?.notNullable?.()
-					?.defaultTo?.(false);
+					.timestamp('created_at')
+					.notNullable()
+					.defaultTo(knex.fn.now());
 				systemAdminTable
-					?.timestamp?.('created_at')
-					?.notNullable?.()
-					?.defaultTo?.(knex?.fn?.now?.());
-				systemAdminTable
-					?.timestamp?.('updated_at')
-					?.notNullable?.()
-					?.defaultTo?.(knex?.fn?.now?.());
+					.timestamp('updated_at')
+					.notNullable()
+					.defaultTo(knex.fn.now());
 			});
 	}
 
-	exists = await knex?.schema
-		?.withSchema?.('public')
-		?.hasTable?.('system_admin_contacts');
+	exists = await knex.schema
+		.withSchema('public')
+		.hasTable('system_admin_contacts');
 	if (!exists) {
-		await knex?.schema
-			?.withSchema?.('public')
-			?.createTable?.('system_admin_contacts', function (contactTable) {
+		await knex.schema
+			.withSchema('public')
+			.createTable('system_admin_contacts', function (contactTable) {
 				contactTable
-					?.uuid?.('id')
-					?.notNullable?.()
-					?.primary?.()
-					?.defaultTo?.(knex?.raw?.('gen_random_uuid()'));
+					.uuid('id')
+					.notNullable()
+					.primary()
+					.defaultTo(knex.raw('gen_random_uuid()'));
 				contactTable
-					?.uuid?.('system_admin_id')
-					?.notNullable?.()
-					?.references?.('id')
-					?.inTable?.('system_admins')
-					?.onDelete?.('CASCADE')
-					?.onUpdate?.('CASCADE');
+					.uuid('system_admin_id')
+					.notNullable()
+					.references('id')
+					.inTable('system_admins')
+					.onDelete('CASCADE')
+					.onUpdate('CASCADE');
 				contactTable
-					?.uuid?.('contact_type_id')
-					?.notNullable?.()
-					?.references?.('id')
-					?.inTable?.('contact_type_master')
-					?.onDelete?.('CASCADE')
-					?.onUpdate?.('CASCADE');
-				contactTable?.text?.('contact')?.notNullable?.();
+					.uuid('contact_type_id')
+					.notNullable()
+					.references('id')
+					.inTable('contact_type_master')
+					.onDelete('CASCADE')
+					.onUpdate('CASCADE');
+				contactTable.text('contact').notNullable();
+				contactTable.boolean('verified').notNullable().defaultTo(false);
 				contactTable
-					?.boolean?.('verified')
-					?.notNullable?.()
-					?.defaultTo?.(false);
+					.boolean('is_primary')
+					.notNullable()
+					.defaultTo(false);
 				contactTable
-					?.boolean?.('is_primary')
-					?.notNullable?.()
-					?.defaultTo?.(false);
+					.timestamp('created_at')
+					.notNullable()
+					.defaultTo(knex.fn.now());
 				contactTable
-					?.timestamp?.('created_at')
-					?.notNullable?.()
-					?.defaultTo?.(knex?.fn?.now?.());
-				contactTable
-					?.timestamp?.('updated_at')
-					?.notNullable?.()
-					?.defaultTo?.(knex?.fn?.now?.());
+					.timestamp('updated_at')
+					.notNullable()
+					.defaultTo(knex.fn.now());
 			});
 	}
 
-	await knex?.schema?.withSchema?.('public')?.raw?.(`
+	await knex.schema.withSchema('public').raw(`
 CREATE OR REPLACE FUNCTION switch_system_admin_primary_contact()
 RETURNS TRIGGER
 LANGUAGE plpgsql
@@ -129,7 +123,7 @@ END;
 $$;
 	`);
 
-	await knex?.schema?.withSchema?.('public')?.raw?.(`
+	await knex.schema.withSchema('public').raw(`
 CREATE TRIGGER
 	trigger_switch_system_admin_primary_contact
 AFTER
@@ -140,7 +134,7 @@ FOR EACH ROW
 EXECUTE FUNCTION public.switch_system_admin_primary_contact();
 	`);
 
-	await knex?.schema?.withSchema?.('public')?.raw?.(`
+	await knex.schema.withSchema('public').raw(`
 CREATE OR REPLACE FUNCTION prevent_system_admin_primary_contact_deletion()
 RETURNS TRIGGER
 LANGUAGE plpgsql
@@ -157,7 +151,7 @@ END;
 $$;
 	`);
 
-	await knex?.schema?.withSchema?.('public')?.raw?.(`
+	await knex.schema.withSchema('public').raw(`
 CREATE TRIGGER
 	trigger_prevent_system_admin_primary_contact_deletion
 BEFORE
@@ -168,48 +162,48 @@ FOR EACH ROW
 EXECUTE FUNCTION public.prevent_system_admin_primary_contact_deletion();
 	`);
 
-	exists = await knex?.schema
-		?.withSchema?.('public')
-		?.hasTable?.('system_admin_locales');
+	exists = await knex.schema
+		.withSchema('public')
+		.hasTable('system_admin_locales');
 	if (!exists) {
-		await knex?.schema
-			?.withSchema?.('public')
-			?.createTable?.('system_admin_locales', function (localeTable) {
+		await knex.schema
+			.withSchema('public')
+			.createTable('system_admin_locales', function (localeTable) {
 				localeTable
-					?.uuid?.('id')
-					?.notNullable?.()
-					?.primary?.()
-					?.defaultTo?.(knex?.raw?.('gen_random_uuid()'));
+					.uuid('id')
+					.notNullable()
+					.primary()
+					.defaultTo(knex.raw('gen_random_uuid()'));
 				localeTable
-					?.uuid?.('system_admin_id')
-					?.notNullable?.()
-					?.references?.('id')
-					?.inTable?.('system_admins')
-					?.onDelete?.('CASCADE')
-					?.onUpdate?.('CASCADE');
+					.uuid('system_admin_id')
+					.notNullable()
+					.references('id')
+					.inTable('system_admins')
+					.onDelete('CASCADE')
+					.onUpdate('CASCADE');
 				localeTable
-					?.text?.('locale_id')
-					?.notNullable?.()
-					?.references?.('code')
-					?.inTable?.('locale_master')
-					?.onDelete?.('CASCADE')
-					?.onUpdate?.('CASCADE');
+					.text('locale_id')
+					.notNullable()
+					.references('code')
+					.inTable('locale_master')
+					.onDelete('CASCADE')
+					.onUpdate('CASCADE');
 				localeTable
-					?.boolean?.('is_primary')
-					?.notNullable?.()
-					?.defaultTo?.(false);
+					.boolean('is_primary')
+					.notNullable()
+					.defaultTo(false);
 				localeTable
-					?.timestamp?.('created_at')
-					?.notNullable?.()
-					?.defaultTo?.(knex?.fn?.now?.());
+					.timestamp('created_at')
+					.notNullable()
+					.defaultTo(knex.fn.now());
 				localeTable
-					?.timestamp?.('updated_at')
-					?.notNullable?.()
-					?.defaultTo?.(knex?.fn?.now?.());
+					.timestamp('updated_at')
+					.notNullable()
+					.defaultTo(knex.fn.now());
 			});
 	}
 
-	await knex?.schema?.withSchema?.('public')?.raw?.(`
+	await knex.schema.withSchema('public').raw(`
 CREATE OR REPLACE FUNCTION switch_system_admin_primary_locale()
 RETURNS TRIGGER
 LANGUAGE plpgsql
@@ -252,7 +246,7 @@ END;
 $$;
 	`);
 
-	await knex?.schema?.withSchema?.('public')?.raw?.(`
+	await knex.schema.withSchema('public').raw(`
 CREATE TRIGGER
 	trigger_switch_system_admin_primary_locale
 AFTER
@@ -263,7 +257,7 @@ FOR EACH ROW
 EXECUTE FUNCTION public.switch_system_admin_primary_locale();
 	`);
 
-	await knex?.schema?.withSchema?.('public')?.raw?.(`
+	await knex.schema.withSchema('public').raw(`
 CREATE OR REPLACE FUNCTION prevent_system_admin_primary_locale_deletion()
 RETURNS TRIGGER
 LANGUAGE plpgsql
@@ -280,7 +274,7 @@ END;
 $$;
 	`);
 
-	await knex?.schema?.withSchema?.('public')?.raw?.(`
+	await knex.schema.withSchema('public').raw(`
 CREATE TRIGGER
 	trigger_prevent_system_admin_primary_locale_deletion
 BEFORE
@@ -291,68 +285,63 @@ FOR EACH ROW
 EXECUTE FUNCTION public.prevent_system_admin_primary_locale_deletion();
 	`);
 
-	exists = await knex?.schema
-		?.withSchema?.('public')
-		?.hasTable?.('system_admin_names_by_locale');
+	exists = await knex.schema
+		.withSchema('public')
+		.hasTable('system_admin_names_by_locale');
 	if (!exists) {
-		await knex?.schema
-			?.withSchema?.('public')
-			?.createTable?.(
-				'system_admin_names_by_locale',
-				function (nameTable) {
-					nameTable
-						?.uuid?.('id')
-						?.notNullable?.()
-						?.primary?.()
-						?.defaultTo?.(knex?.raw?.('gen_random_uuid()'));
-					nameTable
-						?.uuid?.('system_admin_id')
-						?.notNullable?.()
-						?.references?.('id')
-						?.inTable?.('system_admins')
-						?.onDelete?.('CASCADE')
-						?.onUpdate?.('CASCADE');
-					nameTable
-						?.text?.('locale_id')
-						?.notNullable?.()
-						?.references?.('code')
-						?.inTable?.('locale_master')
-						?.onDelete?.('CASCADE')
-						?.onUpdate?.('CASCADE');
-					nameTable?.text?.('first_name')?.notNullable?.();
-					nameTable?.text?.('middle_names')?.nullable?.();
-					nameTable?.text?.('last_name')?.notNullable?.();
-					nameTable?.text?.('nickname')?.nullable?.();
-					nameTable
-						?.timestamp?.('created_at')
-						?.notNullable?.()
-						?.defaultTo?.(knex?.fn?.now?.());
-					nameTable
-						?.timestamp?.('updated_at')
-						?.notNullable?.()
-						?.defaultTo?.(knex?.fn?.now?.());
+		await knex.schema
+			.withSchema('public')
+			.createTable('system_admin_names_by_locale', function (nameTable) {
+				nameTable
+					.uuid('id')
+					.notNullable()
+					.primary()
+					.defaultTo(knex.raw('gen_random_uuid()'));
+				nameTable
+					.uuid('system_admin_id')
+					.notNullable()
+					.references('id')
+					.inTable('system_admins')
+					.onDelete('CASCADE')
+					.onUpdate('CASCADE');
+				nameTable
+					.text('locale_id')
+					.notNullable()
+					.references('code')
+					.inTable('locale_master')
+					.onDelete('CASCADE')
+					.onUpdate('CASCADE');
+				nameTable.text('first_name').notNullable();
+				nameTable.text('middle_names').nullable();
+				nameTable.text('last_name').notNullable();
+				nameTable.text('nickname').nullable();
+				nameTable
+					.timestamp('created_at')
+					.notNullable()
+					.defaultTo(knex.fn.now());
+				nameTable
+					.timestamp('updated_at')
+					.notNullable()
+					.defaultTo(knex.fn.now());
 
-					nameTable?.unique?.(['system_admin_id', 'locale_id']);
-				}
-			);
+				nameTable.unique(['system_admin_id', 'locale_id']);
+			});
 	}
 };
 
 exports.down = async function (knex) {
-	await knex?.raw?.(
+	await knex.raw(
 		'DROP TABLE IF EXISTS public.system_admin_names_by_locale CASCADE;'
 	);
-	await knex?.raw?.(
-		'DROP TABLE IF EXISTS public.system_admin_locales CASCADE;'
-	);
-	await knex?.raw?.(
+	await knex.raw('DROP TABLE IF EXISTS public.system_admin_locales CASCADE;');
+	await knex.raw(
 		'DROP FUNCTION IF EXISTS public.prevent_system_admin_primary_locale_deletion();'
 	);
-	await knex?.raw?.(
+	await knex.raw(
 		'DROP TABLE IF EXISTS public.system_admin_contacts CASCADE;'
 	);
-	await knex?.raw?.(
+	await knex.raw(
 		'DROP FUNCTION IF EXISTS public.prevent_system_admin_primary_contact_deletion();'
 	);
-	await knex?.raw?.('DROP TABLE IF EXISTS public.system_admins CASCADE;');
+	await knex.raw('DROP TABLE IF EXISTS public.system_admins CASCADE;');
 };

@@ -40,7 +40,7 @@ export class EVASBaseLifecycleManager extends EVASBaseClass {
 		this.#domainInterface = domainInterface;
 
 		if (serverEnvironment === 'production') return;
-		console?.info?.(`\n${location}\n${this?.name}::constructor`);
+		console.info(`\n${location}\n${this.name}::constructor`);
 	}
 	// #endregion
 
@@ -63,7 +63,7 @@ export class EVASBaseLifecycleManager extends EVASBaseClass {
 	 */
 	async load() {
 		if (serverEnvironment === 'production') return;
-		console?.info?.(`${this?.name}::load`);
+		console.info(`${this.name}::load`);
 	}
 
 	/**
@@ -84,7 +84,7 @@ export class EVASBaseLifecycleManager extends EVASBaseClass {
 	 */
 	async unload() {
 		if (serverEnvironment !== 'production') {
-			console?.info?.(`\n${this?.__dirname}\n${this?.name}::unload`);
+			console.info(`\n${this.__dirname}\n${this.name}::unload`);
 		}
 
 		this.#domainInterface = undefined;
@@ -110,8 +110,8 @@ export class EVASBaseLifecycleManager extends EVASBaseClass {
 	 * @returns {Map} - A Map of the loaded / instantiated artifacts.
 	 */
 	async _loadArtifacts(path, allFiles = false) {
-		const artifactsLocation = join?.(this.#__dirname, path);
-		const ArtifactFactories = await loader?.(artifactsLocation, allFiles);
+		const artifactsLocation = join(this.#__dirname, path);
+		const ArtifactFactories = await loader(artifactsLocation, allFiles);
 
 		return ArtifactFactories;
 	}
@@ -138,22 +138,22 @@ export class EVASBaseLifecycleManager extends EVASBaseClass {
 			let artifactUnloadResolutions = [];
 			// eslint-disable-next-line no-unused-vars
 			for (const [artifactName, artifactInstance] of artifacts) {
-				artifactUnloadResolutions?.push?.(artifactInstance?.unload?.());
+				artifactUnloadResolutions.push(artifactInstance.unload());
 			}
 
-			artifactUnloadResolutions = await Promise?.allSettled?.(
+			artifactUnloadResolutions = await Promise.allSettled(
 				artifactUnloadResolutions
 			);
 
 			for (const unloadResolution of artifactUnloadResolutions) {
-				if (unloadResolution?.status === 'fulfilled') continue;
-				errors?.push?.(unloadResolution?.reason);
+				if (unloadResolution.status === 'fulfilled') continue;
+				errors.push(unloadResolution.reason);
 			}
 		} catch (error) {
-			errors?.push?.(error);
+			errors.push(error);
 		}
 
-		if (!errors?.length) return;
+		if (!errors.length) return;
 
 		throw new AggregateError(errors, `Unload Artifacts Error`);
 	}

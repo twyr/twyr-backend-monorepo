@@ -1,10 +1,10 @@
 exports.seed = async function seedCountryCodes(knex) {
 	console.log('Processing 001-country-codes-seed.cjs');
 	// Step 0: If the data is already in there, skip...
-	const countryCount = await knex?.raw?.(
+	const countryCount = await knex.raw(
 		`SELECT count(iso_code) AS country_count FROM country_code_master`
 	);
-	if (Number?.(countryCount?.rows?.[0]['country_count'])) return;
+	if (Number(countryCount?.rows?.[0]['country_count'])) return;
 
 	// Insert all country/region codes (base table). Each entry has
 	//   iso_code: ISO 3166-1 alpha-3 code

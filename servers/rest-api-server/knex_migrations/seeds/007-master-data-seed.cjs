@@ -5,10 +5,10 @@ const insertContactTypeMasterData = async function insertContactTypeMasterData(
 	knex
 ) {
 	// Step 0: If the data is already in there for this locale, skip...
-	const artifactCount = await knex?.raw?.(
+	const artifactCount = await knex.raw(
 		`SELECT count(id) AS masterdata_count FROM contact_type_master`
 	);
-	if (Number?.(artifactCount?.rows?.[0]['masterdata_count'])) return;
+	if (Number(artifactCount?.rows?.[0]['masterdata_count'])) return;
 
 	const now = knex.fn.now();
 
@@ -53,10 +53,10 @@ const insertContactTypeMasterData = async function insertContactTypeMasterData(
 
 const insertGenderMasterData = async function insertGenderMasterData(knex) {
 	// Step 0: If the data is already in the master, skip...
-	const artifactCount = await knex?.raw?.(
+	const artifactCount = await knex.raw(
 		`SELECT count(id) AS masterdata_count FROM gender_master`
 	);
-	if (Number?.(artifactCount?.rows?.[0]['masterdata_count'])) return;
+	if (Number(artifactCount?.rows?.[0]['masterdata_count'])) return;
 
 	const now = knex.fn.now();
 
@@ -83,10 +83,10 @@ const insertGenderMasterData = async function insertGenderMasterData(knex) {
 const insertSystemMessageMasterData =
 	async function insertSystemMessageMasterData(knex) {
 		// Step 0: If the data is already in the master, skip...
-		const artifactCount = await knex?.raw?.(
+		const artifactCount = await knex.raw(
 			`SELECT count(id) AS masterdata_count FROM system_message_master`
 		);
-		if (Number?.(artifactCount?.rows?.[0]['masterdata_count'])) return;
+		if (Number(artifactCount?.rows?.[0]['masterdata_count'])) return;
 
 		const now = knex.fn.now();
 

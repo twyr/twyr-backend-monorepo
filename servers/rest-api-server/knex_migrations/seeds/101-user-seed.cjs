@@ -3,49 +3,49 @@
 exports.seed = async function (knex) {
 	console.log('Processing 101-user-seed.cjs');
 
-	let mobileContactTypeId = await knex?.raw?.(
+	let mobileContactTypeId = await knex.raw(
 		`SELECT id FROM contact_type_master WHERE name = 'mobile'`
 	);
 	mobileContactTypeId = mobileContactTypeId?.rows?.[0]?.['id'];
 
-	let emailContactTypeId = await knex?.raw?.(
+	let emailContactTypeId = await knex.raw(
 		`SELECT id FROM contact_type_master WHERE name = 'email'`
 	);
 	emailContactTypeId = emailContactTypeId?.rows?.[0]?.['id'];
 
-	let genderIds = await knex?.raw?.(
+	let genderIds = await knex.raw(
 		`SELECT id, name FROM gender_master WHERE name = ANY (?)`,
 		[['male', 'female']]
 	);
 	genderIds = new Map(
-		(genderIds?.rows ?? [])?.map?.((row) => [row?.name, row?.id])
+		(genderIds.rows ?? []).map((row) => [row.name, row.id])
 	);
 
-	let existingUser = await knex?.raw?.(
+	let existingUser = await knex.raw(
 		`SELECT id FROM users WHERE mobile_no = '+919900000001'`
 	);
 	let userId = existingUser?.rows?.[0]?.['id'];
 	let isNewUser = false;
 	if (!userId) {
-		userId = await knex?.('users')
-			?.insert({
+		userId = await knex('users')
+			.insert({
 				mobile_no: '+919900000001',
-				gender_id: genderIds?.get?.('male'),
+				gender_id: genderIds.get('male'),
 				date_of_birth: '1990-01-15'
 			})
-			?.returning?.('id');
-		userId = userId?.[0]?.['id'];
+			.returning('id');
+		userId = userId[0]['id'];
 		isNewUser = true;
 	}
-	await knex?.('users')
-		?.where?.('id', '=', userId)
-		?.update?.({
-			gender_id: genderIds?.get?.('male'),
+	await knex('users')
+		.where('id', '=', userId)
+		.update({
+			gender_id: genderIds.get('male'),
 			date_of_birth: '1990-01-15'
 		});
 
 	if (isNewUser) {
-		await knex?.('user_contacts')?.insert?.([
+		await knex('user_contacts').insert([
 			{
 				user_id: userId,
 				contact_type_id: mobileContactTypeId,
@@ -62,13 +62,13 @@ exports.seed = async function (knex) {
 			}
 		]);
 
-		await knex?.('user_locales')?.insert?.({
+		await knex('user_locales').insert({
 			user_id: userId,
 			locale_id: 'en-IN',
 			is_primary: true
 		});
 
-		await knex?.('user_names_by_locale')?.insert?.({
+		await knex('user_names_by_locale').insert({
 			user_id: userId,
 			locale_id: 'en-IN',
 			first_name: 'John',
@@ -78,31 +78,31 @@ exports.seed = async function (knex) {
 		});
 	}
 
-	existingUser = await knex?.raw?.(
+	existingUser = await knex.raw(
 		`SELECT id FROM users WHERE mobile_no = '+919900000002'`
 	);
 	userId = existingUser?.rows?.[0]?.['id'];
 	isNewUser = false;
 	if (!userId) {
-		userId = await knex?.('users')
-			?.insert({
+		userId = await knex('users')
+			.insert({
 				mobile_no: '+919900000002',
-				gender_id: genderIds?.get?.('female'),
+				gender_id: genderIds.get('female'),
 				date_of_birth: '1992-07-20'
 			})
-			?.returning?.('id');
-		userId = userId?.[0]?.['id'];
+			.returning('id');
+		userId = userId[0]['id'];
 		isNewUser = true;
 	}
-	await knex?.('users')
-		?.where?.('id', '=', userId)
-		?.update?.({
-			gender_id: genderIds?.get?.('female'),
+	await knex('users')
+		.where('id', '=', userId)
+		.update({
+			gender_id: genderIds.get('female'),
 			date_of_birth: '1992-07-20'
 		});
 
 	if (isNewUser) {
-		await knex?.('user_contacts')?.insert?.([
+		await knex('user_contacts').insert([
 			{
 				user_id: userId,
 				contact_type_id: mobileContactTypeId,
@@ -119,13 +119,13 @@ exports.seed = async function (knex) {
 			}
 		]);
 
-		await knex?.('user_locales')?.insert?.({
+		await knex('user_locales').insert({
 			user_id: userId,
 			locale_id: 'en-IN',
 			is_primary: true
 		});
 
-		await knex?.('user_names_by_locale')?.insert?.({
+		await knex('user_names_by_locale').insert({
 			user_id: userId,
 			locale_id: 'en-IN',
 			first_name: 'Jane',

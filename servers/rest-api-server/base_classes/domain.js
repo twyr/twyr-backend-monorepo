@@ -40,17 +40,14 @@ export class BaseDomain extends EVASBaseDomain {
 	constructor(location, parentDomainInterface) {
 		super(location, parentDomainInterface);
 
-		this.#modelMethods?.set?.(
+		this.#modelMethods.set(
 			'relational',
-			this.#getRelationalModel?.bind?.(this)
+			this.#getRelationalModel.bind(this)
 		);
 
-		this.#modelMethods?.set?.(
-			'mongo',
-			this.#getMongooseModel?.bind?.(this)
-		);
+		this.#modelMethods.set('mongo', this.#getMongooseModel.bind(this));
 
-		this.#modelMethods?.set?.('cache', this.#getRedisEntity?.bind?.(this));
+		this.#modelMethods.set('cache', this.#getRedisEntity.bind(this));
 	}
 	// #endregion
 
@@ -72,36 +69,36 @@ export class BaseDomain extends EVASBaseDomain {
 	 */
 	async load() {
 		const domainApiRegistry = new APIRegistry(
-			this?.name,
-			super.domainInterface?.apiRegistry
+			this.name,
+			super.domainInterface.apiRegistry
 		);
 
 		const domainIocContainer = new IocContainer(
-			this?.name,
-			super.domainInterface?.iocContainer
+			this.name,
+			super.domainInterface.iocContainer
 		);
 
 		// Call derived class method with the JSON Serializer
 		// instance to register types, etc. that are domain
 		// specific
 		let JSONAPISerializer = await import('json-api-serializer');
-		JSONAPISerializer = JSONAPISerializer?.['default'];
+		JSONAPISerializer = JSONAPISerializer['default'];
 
 		this.#jsonapiSerializer = new JSONAPISerializer({
 			'convert-case': 'kebab-case'
 		});
 
-		this?._registerSerializerTypes?.(this.#jsonapiSerializer);
+		this._registerSerializerTypes(this.#jsonapiSerializer);
 
-		this.#domainInterface = merge?.({}, super.domainInterface, {
+		this.#domainInterface = merge({}, super.domainInterface, {
 			apiRegistry: domainApiRegistry,
 			iocContainer: domainIocContainer,
-			models: this.#getModels?.bind?.(this),
-			templates: this.#getTemplates?.bind?.(this),
+			models: this.#getModels.bind(this),
+			templates: this.#getTemplates.bind(this),
 			serializer: this.#jsonapiSerializer
 		});
 
-		await super.load?.();
+		await super.load();
 		return;
 	}
 
@@ -124,10 +121,10 @@ export class BaseDomain extends EVASBaseDomain {
 		// Un-instantiate / clean-up references;
 		this.#domainInterface = undefined;
 		this.#jsonapiSerializer = undefined;
-		this.#modelMethods?.clear?.();
+		this.#modelMethods.clear();
 
 		// Finally, Basic un-init
-		await super.unload?.();
+		await super.unload();
 		return;
 	}
 	// #endregion
@@ -182,29 +179,28 @@ export class BaseDomain extends EVASBaseDomain {
 	async #getModels(modelList) {
 		let loadModelResolutions = [];
 
-		if (!Array?.isArray?.(modelList)) modelList = [modelList];
+		if (!Array.isArray(modelList)) modelList = [modelList];
 
 		for (const model of modelList) {
-			if (model?.model || model?.error) continue;
+			if (model.model || model.error) continue;
 
-			const modelMethod = this.#modelMethods?.get?.(model?.type);
-			loadModelResolutions?.push?.(
-				modelMethod?.(model?.name, model?.configuration)
+			const modelMethod = this.#modelMethods.get(model.type);
+			loadModelResolutions.push(
+				modelMethod(model.name, model.configuration)
 			);
 		}
 
-		loadModelResolutions =
-			await Promise?.allSettled?.(loadModelResolutions);
+		loadModelResolutions = await Promise.allSettled(loadModelResolutions);
 
-		loadModelResolutions?.forEach?.((loadedModel, index) => {
-			if (loadedModel?.status !== 'fulfilled') {
+		loadModelResolutions.forEach((loadedModel, index) => {
+			if (loadedModel.status !== 'fulfilled') {
 				// eslint-disable-next-line security/detect-object-injection
-				modelList[index].error = loadedModel?.reason;
+				modelList[index].error = loadedModel.reason;
 				return;
 			}
 
 			// eslint-disable-next-line security/detect-object-injection
-			modelList[index].model = loadedModel?.value;
+			modelList[index].model = loadedModel.value;
 		});
 
 		return modelList;
@@ -230,30 +226,30 @@ export class BaseDomain extends EVASBaseDomain {
 		let readTemplateResolutions = [];
 
 		for (const template of templateList) {
-			const templateFilePath = join?.(
-				this?.__dirname,
+			const templateFilePath = join(
+				this.__dirname,
 				'templates',
-				template?.type,
-				`${template?.action?.toLowerCase?.()}.ejs`
+				template.type,
+				`${template.action.toLowerCase()}.ejs`
 			);
 
 			// eslint-disable-next-line security/detect-non-literal-fs-filename
-			readTemplateResolutions?.push?.(readFile?.(templateFilePath));
+			readTemplateResolutions.push(readFile(templateFilePath));
 		}
 
-		readTemplateResolutions = await Promise?.allSettled?.(
+		readTemplateResolutions = await Promise.allSettled(
 			readTemplateResolutions
 		);
 
-		readTemplateResolutions?.forEach?.((templateFile, index) => {
-			if (templateFile?.status !== 'fulfilled') {
+		readTemplateResolutions.forEach((templateFile, index) => {
+			if (templateFile.status !== 'fulfilled') {
 				// eslint-disable-next-line security/detect-object-injection
-				templateList[index].error = templateFile?.reason;
+				templateList[index].error = templateFile.reason;
 				return;
 			}
 
 			// eslint-disable-next-line security/detect-object-injection
-			templateList[index].template = templateFile?.value;
+			templateList[index].template = templateFile.value;
 		});
 
 		return templateList;
@@ -278,20 +274,20 @@ export class BaseDomain extends EVASBaseDomain {
 	 */
 	async #getRelationalModel(name, configuration) {
 		const modelFile = join(
-			this?.__dirname,
+			this.__dirname,
 			'models/relational',
-			`${name?.trim?.()?.toLowerCase?.()}.cjs`
+			`${name.trim().toLowerCase()}.cjs`
 		);
 
 		let ModelClass = await import(modelFile);
-		ModelClass = ModelClass?.['Model'];
+		ModelClass = ModelClass['Model'];
 
-		const database = await this.#domainInterface?.iocContainer?.resolve?.(
+		const database = await this.#domainInterface.iocContainer.resolve(
 			'SQLDatabase',
 			configuration
 		);
 
-		const model = ModelClass?.bindKnex?.(database);
+		const model = ModelClass.bindKnex(database);
 		return model;
 	}
 
@@ -314,22 +310,22 @@ export class BaseDomain extends EVASBaseDomain {
 	 */
 	async #getMongooseModel(name, configuration) {
 		const modelFile = join(
-			this?.__dirname,
+			this.__dirname,
 			'models/mongo',
-			`${name?.trim?.()?.toLowerCase?.()}.js`
+			`${name.trim().toLowerCase()}.js`
 		);
 
 		let ModelClassFactory = await import(modelFile);
-		ModelClassFactory = ModelClassFactory?.['default'];
+		ModelClassFactory = ModelClassFactory['default'];
 
 		const mongooseInstance =
-			await this.#domainInterface?.iocContainer?.resolve?.(
+			await this.#domainInterface.iocContainer.resolve(
 				'MongoDB',
 				configuration
 			);
 
 		const ModelClass =
-			await ModelClassFactory?.createInstance?.(mongooseInstance);
+			await ModelClassFactory.createInstance(mongooseInstance);
 
 		return ModelClass;
 	}
@@ -352,8 +348,8 @@ export class BaseDomain extends EVASBaseDomain {
 	 * @returns {Promise<void>} Nothing until Redis OM integration is implemented.
 	 */
 	async #getRedisEntity(name, configuration) {
-		console?.info?.(
-			`TODO: Implement Redis Om to get entity for ${name} with configuration: ${safeJsonStringify?.(
+		console.info(
+			`TODO: Implement Redis Om to get entity for ${name} with configuration: ${safeJsonStringify(
 				configuration,
 				undefined,
 				'\t'

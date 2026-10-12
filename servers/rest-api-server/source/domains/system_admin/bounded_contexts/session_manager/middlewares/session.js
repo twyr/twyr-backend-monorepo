@@ -62,49 +62,48 @@ export class Session extends BaseMiddleware {
 		const errors = [];
 
 		try {
-			const apiRegistry = this?.domainInterface?.apiRegistry;
+			const apiRegistry = this.domainInterface.apiRegistry;
 			let registerResolutions = [];
 
-			const baseApis = await super._registerApi?.();
+			const baseApis = await super._registerApi();
 			for (const baseApi of baseApis ?? []) {
-				registerResolutions?.push?.(
-					apiRegistry?.register?.(baseApi?.pattern, baseApi?.handler)
+				registerResolutions.push(
+					apiRegistry.register(baseApi.pattern, baseApi.handler)
 				);
 			}
 
-			registerResolutions?.push?.(
-				apiRegistry?.register?.(
+			registerResolutions.push(
+				apiRegistry.register(
 					'GENERATE_OTP',
-					this.#generateOtp?.bind?.(this)
+					this.#generateOtp.bind(this)
 				)
 			);
-			registerResolutions?.push?.(
-				apiRegistry?.register?.(
+			registerResolutions.push(
+				apiRegistry.register(
 					'VALIDATE_OTP',
-					this.#validateOtp?.bind?.(this)
+					this.#validateOtp.bind(this)
 				)
 			);
-			registerResolutions?.push?.(
-				apiRegistry?.register?.('LOGIN', this.#login?.bind?.(this))
+			registerResolutions.push(
+				apiRegistry.register('LOGIN', this.#login.bind(this))
 			);
-			registerResolutions?.push?.(
-				apiRegistry?.register?.('LOGOUT', this.#logout?.bind?.(this))
+			registerResolutions.push(
+				apiRegistry.register('LOGOUT', this.#logout.bind(this))
 			);
 
-			registerResolutions =
-				await Promise?.allSettled?.(registerResolutions);
+			registerResolutions = await Promise.allSettled(registerResolutions);
 			for (const registerResolution of registerResolutions) {
-				if (registerResolution?.status === 'fulfilled') continue;
-				errors?.push?.(registerResolution?.reason);
+				if (registerResolution.status === 'fulfilled') continue;
+				errors.push(registerResolution.reason);
 			}
 		} catch (error) {
-			errors?.push?.(error);
+			errors.push(error);
 		}
 
-		if (!errors?.length) return;
+		if (!errors.length) return;
 
-		const propagatedError = createErrorForPropagation?.(
-			`${this?.name}::_registerApi error`,
+		const propagatedError = createErrorForPropagation(
+			`${this.name}::_registerApi error`,
 			errors
 		);
 
@@ -130,45 +129,45 @@ export class Session extends BaseMiddleware {
 		const errors = [];
 
 		try {
-			const apiRegistry = this?.domainInterface?.apiRegistry;
+			const apiRegistry = this.domainInterface.apiRegistry;
 			let unregisterResolutions = [];
 
-			unregisterResolutions?.push?.(
-				apiRegistry?.unregister?.('LOGIN', this.#login?.bind?.(this))
+			unregisterResolutions.push(
+				apiRegistry.unregister('LOGIN', this.#login.bind(this))
 			);
-			unregisterResolutions?.push?.(
-				apiRegistry?.unregister?.('LOGOUT', this.#logout?.bind?.(this))
+			unregisterResolutions.push(
+				apiRegistry.unregister('LOGOUT', this.#logout.bind(this))
 			);
-			unregisterResolutions?.push?.(
-				apiRegistry?.unregister?.(
+			unregisterResolutions.push(
+				apiRegistry.unregister(
 					'VALIDATE_OTP',
-					this.#validateOtp?.bind?.(this)
+					this.#validateOtp.bind(this)
 				)
 			);
-			unregisterResolutions?.push?.(
-				apiRegistry?.unregister?.(
+			unregisterResolutions.push(
+				apiRegistry.unregister(
 					'GENERATE_OTP',
-					this.#generateOtp?.bind?.(this)
+					this.#generateOtp.bind(this)
 				)
 			);
 
-			unregisterResolutions = await Promise?.allSettled?.(
+			unregisterResolutions = await Promise.allSettled(
 				unregisterResolutions
 			);
 			for (const unregisterResolution of unregisterResolutions) {
-				if (unregisterResolution?.status === 'fulfilled') continue;
-				errors?.push?.(unregisterResolution?.reason);
+				if (unregisterResolution.status === 'fulfilled') continue;
+				errors.push(unregisterResolution.reason);
 			}
 
-			await super._unregisterApi?.();
+			await super._unregisterApi();
 		} catch (error) {
-			errors?.push?.(error);
+			errors.push(error);
 		}
 
-		if (!errors?.length) return;
+		if (!errors.length) return;
 
-		const propagatedError = createErrorForPropagation?.(
-			`${this?.name}::_unregisterApi error`,
+		const propagatedError = createErrorForPropagation(
+			`${this.name}::_unregisterApi error`,
 			errors
 		);
 
@@ -206,26 +205,26 @@ export class Session extends BaseMiddleware {
 		}
 
 		const cacheRepository =
-			await this?.domainInterface?.iocContainer?.resolve?.('Cache');
+			await this.domainInterface.iocContainer.resolve('Cache');
 
-		const cacheMulti = await cacheRepository?.multi?.();
-		cacheMulti?.set?.(`system-admin-otp-${username}`, secureOtp);
-		cacheMulti?.expire?.(`system-admin-otp-${username}`, 600);
+		const cacheMulti = await cacheRepository.multi();
+		cacheMulti.set(`system-admin-otp-${username}`, secureOtp);
+		cacheMulti.expire(`system-admin-otp-${username}`, 600);
 
-		await this?._executeWithBackOff?.(async () => {
-			return cacheMulti?.exec?.();
+		await this._executeWithBackOff(async () => {
+			return cacheMulti.exec();
 		});
 
-		let expiryTime = DateTime?.now?.()?.plus?.({ minutes: 10 });
+		let expiryTime = DateTime.now().plus({ minutes: 10 });
 		expiryTime = expiryTime
-			?.setLocale(locale)
-			?.toLocaleString?.(DateTime?.TIME_WITH_SHORT_OFFSET)
-			?.toLocaleUpperCase?.();
+			.setLocale(locale)
+			.toLocaleString(DateTime.TIME_WITH_SHORT_OFFSET)
+			.toLocaleUpperCase();
 
 		const i18nRepository =
-			await this?.domainInterface?.iocContainer?.resolve?.('MessageI18N');
+			await this.domainInterface.iocContainer.resolve('MessageI18N');
 
-		const otpMessage = await i18nRepository?.translate?.(
+		const otpMessage = await i18nRepository.translate(
 			'SYSTEM_ADMIN::SESSION_MANAGER::OTP_MESSAGE_SMS',
 			locale,
 			{
@@ -234,7 +233,7 @@ export class Session extends BaseMiddleware {
 			}
 		);
 
-		const responseMessage = await i18nRepository?.translate?.(
+		const responseMessage = await i18nRepository.translate(
 			'SYSTEM_ADMIN::SESSION_MANAGER::OTP_MESSAGE_RESPONSE',
 			locale
 		);
@@ -277,22 +276,22 @@ export class Session extends BaseMiddleware {
 	 */
 	async #validateOtp({ username, password, locale }) {
 		const cacheRepository =
-			await this?.domainInterface?.iocContainer?.resolve?.('Cache');
+			await this.domainInterface.iocContainer.resolve('Cache');
 
-		const storedOtp = await this?._executeWithBackOff?.(async () => {
-			return cacheRepository?.get?.(`system-admin-otp-${username}`);
+		const storedOtp = await this._executeWithBackOff(async () => {
+			return cacheRepository.get(`system-admin-otp-${username}`);
 		});
 
 		const isOtpValid = (storedOtp ?? '') === password;
 
 		const i18nRepository =
-			await this?.domainInterface?.iocContainer?.resolve?.('MessageI18N');
+			await this.domainInterface.iocContainer.resolve('MessageI18N');
 
 		let isValidMessage;
 		if (isOtpValid) {
 			isValidMessage = 'OKAY';
 		} else {
-			isValidMessage = await i18nRepository?.translate?.(
+			isValidMessage = await i18nRepository.translate(
 				'AUTH_REPOSITORY::OTP_EXPIRED_OR_INVALID',
 				locale
 			);
@@ -325,23 +324,23 @@ export class Session extends BaseMiddleware {
 	 * authenticated session.
 	 */
 	async #login({ user }) {
-		this?.domainInterface?.eventEmitter?.emit?.('SYSTEM_ADMIN_LOGIN', {
-			userId: user?.id
+		this.domainInterface.eventEmitter.emit('SYSTEM_ADMIN_LOGIN', {
+			userId: user.id
 		});
 
-		const apiRegistry = this?.domainInterface?.apiRegistry;
-		const profileStatus = await apiRegistry?.execute?.(
+		const apiRegistry = this.domainInterface.apiRegistry;
+		const profileStatus = await apiRegistry.execute(
 			'SYSTEMADMIN::PROFILE::READ',
 			{
 				user,
-				locale: user?.locale_id ?? user?.locale_code
+				locale: user.locale_id ?? user.locale_code
 			}
 		);
 
 		return {
 			status: 200,
 			sessionData: {
-				id: user?.id,
+				id: user.id,
 				role: 'system_admin'
 			},
 			body: profileStatus
@@ -370,7 +369,7 @@ export class Session extends BaseMiddleware {
 	 * Emits the user cache invalidation event and returns the localized logout response.
 	 */
 	async #logout({ userId, userName, locale }) {
-		this?.domainInterface?.eventEmitter?.emit?.(
+		this.domainInterface.eventEmitter.emit(
 			'SYSTEM_ADMIN::INVALIDATE_CACHE',
 			{
 				userId: userId
@@ -378,9 +377,9 @@ export class Session extends BaseMiddleware {
 		);
 
 		const i18nRepository =
-			await this?.domainInterface?.iocContainer?.resolve?.('MessageI18N');
+			await this.domainInterface.iocContainer.resolve('MessageI18N');
 
-		const responseMessage = await i18nRepository?.translate?.(
+		const responseMessage = await i18nRepository.translate(
 			'SYSTEM_ADMIN::SESSION_MANAGER::LOGOUT_MESSAGE',
 			locale,
 			{ userName: userName }
@@ -434,21 +433,19 @@ export default class SessionMiddlewareFactory extends EVASBaseFactory {
 	 * @returns {Promise<Session>} Resolves to the Session middleware instance.
 	 */
 	static async createInstances(domainInterface) {
-		return await SessionMiddlewareFactory.#mutex?.runExclusive?.(
-			async () => {
-				if (!SessionMiddlewareFactory.#sessionInstance) {
-					const sessionInstance = new Session(
-						SessionMiddlewareFactory['$disk_unc'],
-						domainInterface
-					);
+		return await SessionMiddlewareFactory.#mutex.runExclusive(async () => {
+			if (!SessionMiddlewareFactory.#sessionInstance) {
+				const sessionInstance = new Session(
+					SessionMiddlewareFactory['$disk_unc'],
+					domainInterface
+				);
 
-					await sessionInstance?.load?.();
-					SessionMiddlewareFactory.#sessionInstance = sessionInstance;
-				}
-
-				return SessionMiddlewareFactory.#sessionInstance;
+				await sessionInstance.load();
+				SessionMiddlewareFactory.#sessionInstance = sessionInstance;
 			}
-		);
+
+			return SessionMiddlewareFactory.#sessionInstance;
+		});
 	}
 
 	/**
@@ -467,8 +464,8 @@ export default class SessionMiddlewareFactory extends EVASBaseFactory {
 	 * @description Destroys the cached Session middleware instance.
 	 */
 	static async destroyInstances() {
-		await SessionMiddlewareFactory.#mutex?.runExclusive?.(async () => {
-			await SessionMiddlewareFactory.#sessionInstance?.unload?.();
+		await SessionMiddlewareFactory.#mutex.runExclusive(async () => {
+			await SessionMiddlewareFactory.#sessionInstance?.unload();
 			SessionMiddlewareFactory.#sessionInstance = undefined;
 
 			return;

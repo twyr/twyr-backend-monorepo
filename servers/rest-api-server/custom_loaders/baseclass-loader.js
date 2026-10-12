@@ -39,19 +39,17 @@ export function resolve(specifier, context, nextResolve) {
 	}
 
 	const baseclassFolder = './base_classes';
-	const baseclassFile = specifier?.replace?.('baseclass:', '')?.trim?.();
+	const baseclassFile = specifier.replace('baseclass:', '').trim();
 
-	const serverRootParent = dirname?.(
-		dirname?.(fileURLToPath?.(import.meta.url))
-	);
-	const requesterSource = fileURLToPath?.(context?.parentURL);
-	const requesterDirname = dirname?.(requesterSource);
+	const serverRootParent = dirname(dirname(fileURLToPath(import.meta.url)));
+	const requesterSource = fileURLToPath(context.parentURL);
+	const requesterDirname = dirname(requesterSource);
 
 	let baseclassFilePath = undefined;
 	let currentSearchDirname = requesterDirname;
 
 	while (!baseclassFilePath) {
-		baseclassFilePath = join?.(
+		baseclassFilePath = join(
 			currentSearchDirname,
 			baseclassFolder,
 			`${baseclassFile}.js`
@@ -61,12 +59,12 @@ export function resolve(specifier, context, nextResolve) {
 		if (existsSync(baseclassFilePath)) break;
 
 		baseclassFilePath = undefined;
-		currentSearchDirname = dirname?.(currentSearchDirname);
+		currentSearchDirname = dirname(currentSearchDirname);
 
-		if (join?.(currentSearchDirname, baseclassFolder) === requesterDirname)
-			currentSearchDirname = dirname?.(currentSearchDirname);
+		if (join(currentSearchDirname, baseclassFolder) === requesterDirname)
+			currentSearchDirname = dirname(currentSearchDirname);
 
-		if (currentSearchDirname === dirname?.(serverRootParent)) break;
+		if (currentSearchDirname === dirname(serverRootParent)) break;
 	}
 
 	if (!baseclassFilePath) {
@@ -101,8 +99,8 @@ export function load(url, context, nextLoad) {
 	}
 
 	try {
-		const baseclassUrl = url?.replace?.('baseclass:', 'file:')?.trim?.();
-		const baseclassFilePath = fileURLToPath?.(baseclassUrl);
+		const baseclassUrl = url.replace('baseclass:', 'file:').trim();
+		const baseclassFilePath = fileURLToPath(baseclassUrl);
 
 		// eslint-disable-next-line security/detect-non-literal-fs-filename
 		const baseClass = readFileSync(baseclassFilePath);
@@ -113,9 +111,9 @@ export function load(url, context, nextLoad) {
 			source: baseClass
 		};
 	} catch (error) {
-		const serializedError = errorSerializer?.(error);
+		const serializedError = errorSerializer(error);
 
-		console?.error?.(
+		console.error(
 			`Error Loading Base Class File::${url}: ${serializedError}`
 		);
 

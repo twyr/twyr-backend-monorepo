@@ -55,7 +55,7 @@ export class Main extends UserBaseSurface {
 	 * @description Loads the surface and its inherited route infrastructure.
 	 */
 	async load() {
-		await super.load?.();
+		await super.load();
 	}
 
 	/**
@@ -74,7 +74,7 @@ export class Main extends UserBaseSurface {
 	 * @description Unloads the surface and releases inherited resources.
 	 */
 	async unload() {
-		await super.unload?.();
+		await super.unload();
 	}
 	// #endregion
 
@@ -95,13 +95,13 @@ export class Main extends UserBaseSurface {
 	 * @description Registers the `GET /validate-session` route for user sessions.
 	 */
 	async _registerSurface() {
-		const baseRoutes = await super._registerSurface?.();
+		const baseRoutes = await super._registerSurface();
 
-		baseRoutes?.push?.({
+		baseRoutes.push({
 			version: 1,
 			httpMethod: 'GET',
 			path: '/validate-session',
-			handler: this.#validateSession?.bind?.(this)
+			handler: this.#validateSession.bind(this)
 		});
 
 		return baseRoutes;
@@ -123,7 +123,7 @@ export class Main extends UserBaseSurface {
 	 * @description Removes the query surface routes from the REST API router.
 	 */
 	async _unregisterSurface() {
-		await super._unregisterSurface?.();
+		await super._unregisterSurface();
 		return;
 	}
 	// #endregion
@@ -155,7 +155,7 @@ export class Main extends UserBaseSurface {
 	 * Session is authenticated or not authenticated, depending on the active cookie.
 	 */
 	async #validateSession(ctxt) {
-		if (ctxt?.state?.user) {
+		if (ctxt.state.user) {
 			ctxt.status = 200;
 			ctxt.body = {
 				message: 'Session is authenticated',
@@ -218,14 +218,14 @@ export default class MainSurfaceFactory extends EVASBaseFactory {
 	 * @returns {Promise<Main>} Resolves to the Main surface instance.
 	 */
 	static async createInstances(domainInterface) {
-		return await MainSurfaceFactory.#mutex?.runExclusive?.(async () => {
+		return await MainSurfaceFactory.#mutex.runExclusive(async () => {
 			if (!MainSurfaceFactory.#mainInstance) {
 				const mainInstance = new Main(
 					MainSurfaceFactory['$disk_unc'],
 					domainInterface
 				);
 
-				await mainInstance?.load?.();
+				await mainInstance.load();
 				MainSurfaceFactory.#mainInstance = mainInstance;
 			}
 
@@ -249,8 +249,8 @@ export default class MainSurfaceFactory extends EVASBaseFactory {
 	 * @description Destroys the cached Main query surface instance.
 	 */
 	static async destroyInstances() {
-		await MainSurfaceFactory.#mutex?.runExclusive?.(async () => {
-			await MainSurfaceFactory.#mainInstance?.unload?.();
+		await MainSurfaceFactory.#mutex.runExclusive(async () => {
+			await MainSurfaceFactory.#mainInstance?.unload();
 			MainSurfaceFactory.#mainInstance = undefined;
 
 			return;

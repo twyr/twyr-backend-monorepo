@@ -22,15 +22,13 @@ exports.seed = async function (knex) {
 		 * @category REST API Server/Data
 		 * @subcategory Seed Data
 		 */
-		const doesMainLanguageExist = await knex?.raw?.(
+		const doesMainLanguageExist = await knex.raw(
 			`SELECT code FROM locale_master WHERE code = ?;`,
-			[
-				`${code?.split('-')?.[0]}-${code?.split('-')?.[0]?.toUpperCase?.()}`
-			]
+			[`${code.split('-')[0]}-${code.split('-')[0].toUpperCase()}`]
 		);
 
 		if (
-			doesMainLanguageExist?.rows?.length &&
+			doesMainLanguageExist.rows.length &&
 			doesMainLanguageExist?.rows?.[0]?.code !== code
 		) {
 			rows.push({

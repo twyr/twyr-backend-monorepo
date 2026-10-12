@@ -55,7 +55,7 @@ export class EVASBaseSurface extends EVASBaseArtifact {
 	 * start logic
 	 */
 	async load() {
-		await super.load?.();
+		await super.load();
 	}
 
 	/**
@@ -77,7 +77,7 @@ export class EVASBaseSurface extends EVASBaseArtifact {
 	 */
 	async unload() {
 		this.#domainInterface = undefined;
-		await super.unload?.();
+		await super.unload();
 	}
 	// #endregion
 

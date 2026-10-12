@@ -55,7 +55,7 @@ class Masterdata extends BaseBoundedContext {
 	 * @description Loads / Initializes / Starts-up sub-artifacts.
 	 */
 	async load() {
-		await super.load?.();
+		await super.load();
 		return;
 	}
 
@@ -75,7 +75,7 @@ class Masterdata extends BaseBoundedContext {
 	 * @description Shuts-down / Un-initializes / Un-loads sub-artifacts.
 	 */
 	async unload() {
-		await super.unload?.();
+		await super.unload();
 		return;
 	}
 	// #endregion
@@ -121,14 +121,14 @@ export default class BoundedContextFactory extends EVASBaseFactory {
 	 * @returns {Masterdata} - The Masterdata module instance.
 	 */
 	static async createInstances(domainInterface) {
-		return await BoundedContextFactory.#mutex?.runExclusive?.(async () => {
+		return await BoundedContextFactory.#mutex.runExclusive(async () => {
 			if (!BoundedContextFactory.#masterdataInstance) {
 				const masterdataInstance = new Masterdata(
 					BoundedContextFactory['$disk_unc'],
 					domainInterface
 				);
 
-				await masterdataInstance?.load?.();
+				await masterdataInstance.load();
 				BoundedContextFactory.#masterdataInstance = masterdataInstance;
 			}
 
@@ -152,8 +152,8 @@ export default class BoundedContextFactory extends EVASBaseFactory {
 	 * @description Clears the Masterdata instance
 	 */
 	static async destroyInstances() {
-		await BoundedContextFactory.#mutex?.runExclusive?.(async () => {
-			await BoundedContextFactory.#masterdataInstance?.unload?.();
+		await BoundedContextFactory.#mutex.runExclusive(async () => {
+			await BoundedContextFactory.#masterdataInstance?.unload();
 			BoundedContextFactory.#masterdataInstance = undefined;
 
 			return;

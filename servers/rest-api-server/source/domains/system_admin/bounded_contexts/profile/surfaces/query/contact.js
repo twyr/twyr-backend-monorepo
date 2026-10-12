@@ -57,7 +57,7 @@ export class Contact extends SystemAdminBaseSurface {
 	 * by passing it in to the base class load method
 	 */
 	async load() {
-		await super.load?.();
+		await super.load();
 	}
 	// #endregion
 
@@ -80,21 +80,21 @@ export class Contact extends SystemAdminBaseSurface {
 	 * the Rest API Router
 	 */
 	async _registerSurface() {
-		const baseRoutes = await super._registerSurface?.();
+		const baseRoutes = await super._registerSurface();
 
-		baseRoutes?.push?.({
+		baseRoutes.push({
 			version: 1,
 			httpMethod: 'GET',
 			path: '/',
-			middlewares: [await this?._rbac?.('registered')],
-			handler: this.#getContact?.bind?.(this)
+			middlewares: [await this._rbac('registered')],
+			handler: this.#getContact.bind(this)
 		});
-		baseRoutes?.push?.({
+		baseRoutes.push({
 			version: 1,
 			httpMethod: 'GET',
 			path: '/:contactId',
-			middlewares: [await this?._rbac?.('registered')],
-			handler: this.#getContact?.bind?.(this)
+			middlewares: [await this._rbac('registered')],
+			handler: this.#getContact.bind(this)
 		});
 
 		return baseRoutes;
@@ -118,7 +118,7 @@ export class Contact extends SystemAdminBaseSurface {
 	 * the Rest API Router
 	 */
 	async _unregisterSurface() {
-		await super._unregisterSurface?.();
+		await super._unregisterSurface();
 		return;
 	}
 	// #endregion
@@ -146,15 +146,15 @@ export class Contact extends SystemAdminBaseSurface {
 	 * $ curl -X GET -H "Content-Type: application/json" -b ./cookies.txt ${base_url}/api/v1/system_admin/profile/contact/${contactId}
 	 */
 	async #getContact(ctxt) {
-		const apiRegistry = this?.domainInterface?.apiRegistry;
-		const contactStatus = await apiRegistry?.execute?.('READ_CONTACT', {
-			user: ctxt?.state?.user,
-			contactId: ctxt?.params?.contactId,
-			locale: ctxt?.locale
+		const apiRegistry = this.domainInterface.apiRegistry;
+		const contactStatus = await apiRegistry.execute('READ_CONTACT', {
+			user: ctxt.state.user,
+			contactId: ctxt.params.contactId,
+			locale: ctxt.locale
 		});
 
-		ctxt.status = contactStatus?.status;
-		ctxt.body = contactStatus?.body;
+		ctxt.status = contactStatus.status;
+		ctxt.body = contactStatus.body;
 	}
 	// #endregion
 }
@@ -199,14 +199,14 @@ export default class ContactSurfaceFactory extends EVASBaseFactory {
 	 * @returns {Contact} - The Contact surface instance.
 	 */
 	static async createInstances(domainInterface) {
-		return await ContactSurfaceFactory.#mutex?.runExclusive?.(async () => {
+		return await ContactSurfaceFactory.#mutex.runExclusive(async () => {
 			if (!ContactSurfaceFactory.#contactInstance) {
 				const contactInstance = new Contact(
 					ContactSurfaceFactory['$disk_unc'],
 					domainInterface
 				);
 
-				await contactInstance?.load?.();
+				await contactInstance.load();
 				ContactSurfaceFactory.#contactInstance = contactInstance;
 			}
 
@@ -230,8 +230,8 @@ export default class ContactSurfaceFactory extends EVASBaseFactory {
 	 * @description Clears the Contact instance
 	 */
 	static async destroyInstances() {
-		await ContactSurfaceFactory.#mutex?.runExclusive?.(async () => {
-			await ContactSurfaceFactory.#contactInstance?.unload?.();
+		await ContactSurfaceFactory.#mutex.runExclusive(async () => {
+			await ContactSurfaceFactory.#contactInstance?.unload();
 			ContactSurfaceFactory.#contactInstance = undefined;
 			return;
 		});

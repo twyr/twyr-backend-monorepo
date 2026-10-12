@@ -4,7 +4,7 @@ exports.seed = async function (knex) {
 	console.log('Processing 106-user-profile-messages-seed.cjs');
 
 	const firstMessageId = 'USERS::PROFILE::INSUFFICIENT_PERMISSIONS';
-	const existingMessage = await knex?.raw?.(
+	const existingMessage = await knex.raw(
 		`SELECT id FROM system_message_master WHERE id = ?`,
 		[firstMessageId]
 	);

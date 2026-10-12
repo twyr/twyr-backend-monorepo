@@ -46,16 +46,16 @@ export class SystemAdmin extends BaseDomain {
 	 * @returns {void} Nothing.
 	 */
 	_registerSerializerTypes(serializer) {
-		super._registerSerializerTypes?.(serializer);
+		super._registerSerializerTypes(serializer);
 
-		serializer?.register?.('contact_type_master', {
+		serializer.register('contact_type_master', {
 			blacklist: ['created_at', 'updated_at'],
 			relationships: {
 				userContacts: { type: 'system_admin_contact' }
 			}
 		});
 
-		serializer?.register?.('locale_master', {
+		serializer.register('locale_master', {
 			id: 'code',
 			blacklist: ['created_at', 'updated_at'],
 			relationships: {
@@ -64,7 +64,7 @@ export class SystemAdmin extends BaseDomain {
 			}
 		});
 
-		serializer?.register?.('system_admin', {
+		serializer.register('system_admin', {
 			blacklist: ['created_at', 'updated_at', 'is_deleted'],
 			relationships: {
 				contacts: { type: 'system_admin_contact' },
@@ -73,7 +73,7 @@ export class SystemAdmin extends BaseDomain {
 			}
 		});
 
-		serializer?.register?.('system_admin_contact', {
+		serializer.register('system_admin_contact', {
 			blacklist: ['created_at', 'updated_at'],
 			relationships: {
 				user: { type: 'system_admin' },
@@ -81,7 +81,7 @@ export class SystemAdmin extends BaseDomain {
 			}
 		});
 
-		serializer?.register?.('system_admin_locale', {
+		serializer.register('system_admin_locale', {
 			blacklist: ['created_at', 'updated_at'],
 			relationships: {
 				user: { type: 'system_admin' },
@@ -89,7 +89,7 @@ export class SystemAdmin extends BaseDomain {
 			}
 		});
 
-		serializer?.register?.('system_admin_name_by_locale', {
+		serializer.register('system_admin_name_by_locale', {
 			blacklist: ['created_at', 'updated_at'],
 			relationships: {
 				user: { type: 'system_admin' },
@@ -138,22 +138,20 @@ export default class SystemAdminDomainFactory extends EVASBaseFactory {
 	 * @returns {Promise<SystemAdmin>} The singleton domain instance.
 	 */
 	static async createInstances(domainInterface) {
-		return await SystemAdminDomainFactory.#mutex?.runExclusive?.(
-			async () => {
-				if (!SystemAdminDomainFactory.#systemAdminDomainInstance) {
-					const usersDomainInstance = new SystemAdmin(
-						SystemAdminDomainFactory['$disk_unc'],
-						domainInterface
-					);
+		return await SystemAdminDomainFactory.#mutex.runExclusive(async () => {
+			if (!SystemAdminDomainFactory.#systemAdminDomainInstance) {
+				const usersDomainInstance = new SystemAdmin(
+					SystemAdminDomainFactory['$disk_unc'],
+					domainInterface
+				);
 
-					await usersDomainInstance?.load?.();
-					SystemAdminDomainFactory.#systemAdminDomainInstance =
-						usersDomainInstance;
-				}
-
-				return SystemAdminDomainFactory.#systemAdminDomainInstance;
+				await usersDomainInstance.load();
+				SystemAdminDomainFactory.#systemAdminDomainInstance =
+					usersDomainInstance;
 			}
-		);
+
+			return SystemAdminDomainFactory.#systemAdminDomainInstance;
+		});
 	}
 
 	/**
@@ -170,8 +168,8 @@ export default class SystemAdminDomainFactory extends EVASBaseFactory {
 	 * @returns {Promise<void>} Resolves after the instance is unloaded.
 	 */
 	static async destroyInstances() {
-		await SystemAdminDomainFactory.#mutex?.runExclusive?.(async () => {
-			await SystemAdminDomainFactory.#systemAdminDomainInstance?.unload?.();
+		await SystemAdminDomainFactory.#mutex.runExclusive(async () => {
+			await SystemAdminDomainFactory.#systemAdminDomainInstance?.unload();
 			SystemAdminDomainFactory.#systemAdminDomainInstance = undefined;
 		});
 	}

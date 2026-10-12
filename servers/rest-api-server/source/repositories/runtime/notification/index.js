@@ -59,7 +59,7 @@ class Notification extends EVASBaseRepository {
 	 * start logic
 	 */
 	async load() {
-		await super.load?.();
+		await super.load();
 	}
 
 	/**
@@ -80,7 +80,7 @@ class Notification extends EVASBaseRepository {
 	 * stop logic
 	 */
 	async unload() {
-		await super.unload?.();
+		await super.unload();
 	}
 	// #endregion
 
@@ -103,9 +103,9 @@ class Notification extends EVASBaseRepository {
 	 * Sends out notifications based on the input data.
 	 */
 	async send(notificationData) {
-		const logger = await this?.iocContainer?.resolve?.('Logger');
-		logger?.info?.(
-			`\nTODO: IMPLEMENT ACTUAL NOTIFICATION MECHANISM\nSending notifications: ${safeJsonStringify?.(
+		const logger = await this.iocContainer.resolve('Logger');
+		logger.info(
+			`\nTODO: IMPLEMENT ACTUAL NOTIFICATION MECHANISM\nSending notifications: ${safeJsonStringify(
 				notificationData,
 				undefined,
 				'\t'
@@ -130,7 +130,7 @@ class Notification extends EVASBaseRepository {
 	 */
 	get interface() {
 		return {
-			send: this?.send?.bind?.(this)
+			send: this.send.bind(this)
 		};
 	}
 	// #endregion
@@ -183,7 +183,7 @@ export default class NotificationRepositoryFactory extends EVASBaseFactory {
 	 * @returns {Notification} - The Notification repository instance.
 	 */
 	static async createInstances(configuration, iocContainer) {
-		await NotificationRepositoryFactory.#mutex?.runExclusive?.(async () => {
+		await NotificationRepositoryFactory.#mutex.runExclusive(async () => {
 			if (!NotificationRepositoryFactory.#notificationInstance) {
 				const notificationInstance = new Notification(
 					NotificationRepositoryFactory['$disk_unc'],
@@ -191,13 +191,13 @@ export default class NotificationRepositoryFactory extends EVASBaseFactory {
 					configuration
 				);
 
-				await notificationInstance?.load?.();
+				await notificationInstance.load();
 				NotificationRepositoryFactory.#notificationInstance =
 					notificationInstance;
 			}
 		});
 
-		return NotificationRepositoryFactory.#notificationInstance?.interface;
+		return NotificationRepositoryFactory.#notificationInstance.interface;
 	}
 
 	/**
@@ -218,10 +218,10 @@ export default class NotificationRepositoryFactory extends EVASBaseFactory {
 	 * @description Clears the cached {Notification} instances
 	 */
 	static async destroyInstances(/*configuration*/) {
-		await NotificationRepositoryFactory.#mutex?.runExclusive?.(async () => {
+		await NotificationRepositoryFactory.#mutex.runExclusive(async () => {
 			if (!NotificationRepositoryFactory.#notificationInstance) return;
 
-			await NotificationRepositoryFactory.#notificationInstance?.unload?.();
+			await NotificationRepositoryFactory.#notificationInstance.unload();
 			NotificationRepositoryFactory.#notificationInstance = undefined;
 		});
 	}

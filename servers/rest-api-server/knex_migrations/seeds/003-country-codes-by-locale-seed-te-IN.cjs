@@ -18,10 +18,10 @@ exports.seed = async function (knex) {
 	const now = knex.fn.now();
 
 	// Check if data already exists to skip re-seeding
-	const byLocaleCount = await knex?.raw?.(
+	const byLocaleCount = await knex.raw(
 		`SELECT count(*) AS cnt FROM country_code_by_locale WHERE locale_id = 'te-IN'`
 	);
-	if (Number?.(byLocaleCount?.rows?.[0]?.cnt) > 0) return;
+	if (Number(byLocaleCount?.rows?.[0]?.cnt) > 0) return;
 
 	// Static data for te-IN locale
 	const rows = [

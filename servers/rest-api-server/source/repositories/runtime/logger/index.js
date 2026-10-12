@@ -74,7 +74,7 @@ class Logger extends EVASBaseRepository {
 	 * start logic
 	 */
 	async load() {
-		await super.load?.();
+		await super.load();
 
 		// Step 1: Setup the configuration
 		const defaultConfiguration = {
@@ -84,70 +84,70 @@ class Logger extends EVASBaseRepository {
 		};
 
 		const configuration =
-			await this?._mergeConfiguration?.(defaultConfiguration);
+			await this._mergeConfiguration(defaultConfiguration);
 
 		// Step 2: Setup the client
 		let winston = await import('winston');
-		winston = winston?.['default'];
+		winston = winston['default'];
 
-		const loggerLevel = configuration?.['loggerLevel'];
-		const logDirectory = join?.(
-			dirname?.(dirname?.(global.serverFilePath)),
+		const loggerLevel = configuration['loggerLevel'];
+		const logDirectory = join(
+			dirname(dirname(global.serverFilePath)),
 			'logs'
 		);
 
-		let loggerFormat = configuration?.['loggerFormat'];
-		loggerFormat = winston?.format?.combine?.(
-			winston?.format?.timestamp?.(),
+		let loggerFormat = configuration['loggerFormat'];
+		loggerFormat = winston.format.combine(
+			winston.format.timestamp(),
 			// eslint-disable-next-line security/detect-object-injection
-			winston?.format?.[loggerFormat]?.()
+			winston.format[loggerFormat]()
 		);
 
-		const loggerTransports = configuration?.['loggerTransports']?.map?.(
+		const loggerTransports = configuration['loggerTransports'].map(
 			(transport) => {
-				return new winston.transports[transport?.name](
-					transport?.options
+				return new winston.transports[transport.name](
+					transport.options
 				);
 			}
 		);
 
 		// TODO: Add log rotation to file transports
-		if (!loggerTransports?.length) {
-			loggerTransports?.push?.(
+		if (!loggerTransports.length) {
+			loggerTransports.push(
 				new winston.transports.File({
-					filename: join?.(logDirectory, 'error.log'),
+					filename: join(logDirectory, 'error.log'),
 					format: loggerFormat,
 					level: 'error'
 				})
 			);
 
-			loggerTransports?.push?.(
+			loggerTransports.push(
 				new winston.transports.File({
-					filename: join?.(logDirectory, 'combined.log'),
+					filename: join(logDirectory, 'combined.log'),
 					format: loggerFormat
 				})
 			);
 
-			loggerTransports?.push?.(
+			loggerTransports.push(
 				new winston.transports.Console({
-					format: winston?.format?.simple?.(),
+					format: winston.format.simple(),
 					forceConsole: true
 				})
 			);
 		}
 
 		const exceptionTransport = new winston.transports.File({
-			filename: join?.(logDirectory, 'exceptions.log'),
+			filename: join(logDirectory, 'exceptions.log'),
 			format: loggerFormat
 		});
 
 		const rejectionTransport = new winston.transports.File({
-			filename: join?.(logDirectory, 'rejections.log'),
+			filename: join(logDirectory, 'rejections.log'),
 			format: loggerFormat
 		});
 
 		// Step 3: Open the logger instance
-		this.#winston = winston?.createLogger?.({
+		this.#winston = winston.createLogger({
 			level: loggerLevel,
 			transports: loggerTransports,
 			exceptionHandlers: [exceptionTransport],
@@ -173,11 +173,11 @@ class Logger extends EVASBaseRepository {
 	 * stop logic
 	 */
 	async unload() {
-		this.#winston?.close?.();
-		this.#winston?.clear?.();
+		this.#winston?.close();
+		this.#winston?.clear();
 		this.#winston = undefined;
 
-		await super.unload?.();
+		await super.unload();
 	}
 	// #endregion
 
@@ -246,28 +246,28 @@ export default class LoggerRepositoryFactory extends EVASBaseFactory {
 	 * @returns {Logger} - The logger repository instance.
 	 */
 	static async createInstances(configuration, iocContainer) {
-		const repositoryKey = Buffer?.from?.(
-			safeJsonStringify?.(configuration ?? {})
-		)?.toString?.('base64');
+		const repositoryKey = Buffer.from(
+			safeJsonStringify(configuration ?? {})
+		).toString('base64');
 
-		await LoggerRepositoryFactory.#mutex?.runExclusive?.(async () => {
-			if (!LoggerRepositoryFactory.#loggerInstances?.has(repositoryKey)) {
+		await LoggerRepositoryFactory.#mutex.runExclusive(async () => {
+			if (!LoggerRepositoryFactory.#loggerInstances.has(repositoryKey)) {
 				const loggerInstance = new Logger(
 					LoggerRepositoryFactory['$disk_unc'],
 					iocContainer,
 					configuration
 				);
 
-				await loggerInstance?.load?.();
-				LoggerRepositoryFactory.#loggerInstances?.set?.(
+				await loggerInstance.load();
+				LoggerRepositoryFactory.#loggerInstances.set(
 					repositoryKey,
 					loggerInstance
 				);
 			}
 		});
 
-		return LoggerRepositoryFactory.#loggerInstances?.get(repositoryKey)
-			?.interface;
+		return LoggerRepositoryFactory.#loggerInstances.get(repositoryKey)
+			.interface;
 	}
 
 	/**
@@ -288,40 +288,34 @@ export default class LoggerRepositoryFactory extends EVASBaseFactory {
 	 * @description Clears the cached {Logger} instances
 	 */
 	static async destroyInstances(configuration) {
-		await LoggerRepositoryFactory.#mutex?.runExclusive?.(async () => {
+		await LoggerRepositoryFactory.#mutex.runExclusive(async () => {
 			if (configuration) {
-				const repositoryKey = Buffer?.from?.(
-					safeJsonStringify?.(configuration)
-				)?.toString?.('base64');
+				const repositoryKey = Buffer.from(
+					safeJsonStringify(configuration)
+				).toString('base64');
 
 				if (
-					!LoggerRepositoryFactory.#loggerInstances?.has(
-						repositoryKey
-					)
+					!LoggerRepositoryFactory.#loggerInstances.has(repositoryKey)
 				)
 					return;
 
 				const loggerInstance =
-					LoggerRepositoryFactory.#loggerInstances?.get(
-						repositoryKey
-					);
-				await loggerInstance?.unload?.();
+					LoggerRepositoryFactory.#loggerInstances.get(repositoryKey);
+				await loggerInstance.unload();
 
-				LoggerRepositoryFactory.#loggerInstances?.delete?.(
-					repositoryKey
-				);
+				LoggerRepositoryFactory.#loggerInstances.delete(repositoryKey);
 				return;
 			}
 
 			const destroyResolutions = [];
-			LoggerRepositoryFactory.#loggerInstances?.forEach?.(
+			LoggerRepositoryFactory.#loggerInstances.forEach(
 				(loggerInstance) => {
-					destroyResolutions?.push?.(loggerInstance?.unload?.());
+					destroyResolutions.push(loggerInstance.unload());
 				}
 			);
 
-			await Promise?.allSettled?.(destroyResolutions);
-			LoggerRepositoryFactory.#loggerInstances?.clear?.();
+			await Promise.allSettled(destroyResolutions);
+			LoggerRepositoryFactory.#loggerInstances.clear();
 
 			return;
 		});

@@ -53,7 +53,7 @@ class Profile extends BaseBoundedContext {
 	 * @returns {null} - Nothing.
 	 */
 	async load() {
-		await super.load?.();
+		await super.load();
 		return;
 	}
 
@@ -71,7 +71,7 @@ class Profile extends BaseBoundedContext {
 	 * @returns {null} - Nothing.
 	 */
 	async unload() {
-		await super.unload?.();
+		await super.unload();
 		return;
 	}
 	// #endregion
@@ -117,7 +117,7 @@ export default class ProfileBoundedContextFactory extends EVASBaseFactory {
 	 * @returns {Profile} - The Profile module instance.
 	 */
 	static async createInstances(domainInterface) {
-		return await ProfileBoundedContextFactory.#mutex?.runExclusive?.(
+		return await ProfileBoundedContextFactory.#mutex.runExclusive(
 			async () => {
 				if (!ProfileBoundedContextFactory.#profileInstance) {
 					const profileInstance = new Profile(
@@ -125,7 +125,7 @@ export default class ProfileBoundedContextFactory extends EVASBaseFactory {
 						domainInterface
 					);
 
-					await profileInstance?.load?.();
+					await profileInstance.load();
 					ProfileBoundedContextFactory.#profileInstance =
 						profileInstance;
 				}
@@ -151,8 +151,8 @@ export default class ProfileBoundedContextFactory extends EVASBaseFactory {
 	 * @description Clears the Profile instance
 	 */
 	static async destroyInstances() {
-		await ProfileBoundedContextFactory.#mutex?.runExclusive?.(async () => {
-			await ProfileBoundedContextFactory.#profileInstance?.unload?.();
+		await ProfileBoundedContextFactory.#mutex.runExclusive(async () => {
+			await ProfileBoundedContextFactory.#profileInstance?.unload();
 			ProfileBoundedContextFactory.#profileInstance = undefined;
 
 			return;

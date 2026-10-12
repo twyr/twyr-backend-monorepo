@@ -56,13 +56,13 @@ export class BaseSurface extends EVASBaseSurface {
 	 * start logic
 	 */
 	async load() {
-		await super.load?.();
+		await super.load();
 
 		// Step 1: Setup the surface router
-		await this.#setupRouter?.();
+		await this.#setupRouter();
 
 		// Step 2: Setup Joi validation schemas
-		await this._setupValidationSchemas?.();
+		await this._setupValidationSchemas();
 	}
 
 	/**
@@ -83,8 +83,8 @@ export class BaseSurface extends EVASBaseSurface {
 	 * stop logic
 	 */
 	async unload() {
-		await this?._unregisterSurface?.();
-		await super.unload?.();
+		await this._unregisterSurface();
+		await super.unload();
 	}
 	// #endregion
 
@@ -128,11 +128,11 @@ export class BaseSurface extends EVASBaseSurface {
 	 * the routes exposed by this surface
 	 */
 	async _unregisterSurface() {
-		this.#routers?.forEach((router) => {
+		this.#routers.forEach((router) => {
 			router.stack.length = 0;
 		});
 
-		this.#routers?.clear?.();
+		this.#routers.clear();
 		return;
 	}
 
@@ -170,11 +170,11 @@ export class BaseSurface extends EVASBaseSurface {
 		 */
 		const permissionCheckerMiddleware =
 			async function permissionCheckerMiddleware(ctxt, next) {
-				await next?.();
+				await next();
 			};
 
 		// Finally, return the middleware...
-		return permissionCheckerMiddleware?.bind?.(this);
+		return permissionCheckerMiddleware.bind(this);
 	}
 
 	/**
@@ -214,11 +214,11 @@ export class BaseSurface extends EVASBaseSurface {
 		 */
 		const assetAccessCheckerMiddleware =
 			async function assetAccessCheckerMiddleware(ctxt, next) {
-				await next?.();
+				await next();
 				return;
 			};
 
-		return assetAccessCheckerMiddleware?.bind?.(this);
+		return assetAccessCheckerMiddleware.bind(this);
 	}
 
 	/**
@@ -267,15 +267,15 @@ export class BaseSurface extends EVASBaseSurface {
 		let returnError = undefined;
 		if (!joiError) return returnError;
 
-		const errors = joiError?.details?.map?.((d) => {
-			const e = new Error(d?.message);
-			e.code = d?.message;
-			e.customInfo = d?.context;
+		const errors = joiError.details.map((d) => {
+			const e = new Error(d.message);
+			e.code = d.message;
+			e.customInfo = d.context;
 
 			return e;
 		});
 
-		returnError = createErrorForPropagation?.(errorCode, errors);
+		returnError = createErrorForPropagation(errorCode, errors);
 		return returnError;
 	}
 	// #endregion
@@ -298,17 +298,17 @@ export class BaseSurface extends EVASBaseSurface {
 	 */
 	async #computeSurfacePath() {
 		let inflection = await import('inflection');
-		inflection = inflection?.['default'];
+		inflection = inflection['default'];
 
 		// Step 1: Compute the URL Path
-		let surfacePath = relative?.(
+		let surfacePath = relative(
 			// eslint-disable-next-line no-undef
-			dirname?.(serverFilePath),
-			dirname?.(this?.__dirname)
+			dirname(serverFilePath),
+			dirname(this.__dirname)
 		);
 
 		// Step 2: Sanitize the URL Path - remove reserved words, and replace underscores with hyphens
-		surfacePath = surfacePath?.replaceAll?.('_', '-');
+		surfacePath = surfacePath.replaceAll('_', '-');
 		[
 			'server',
 			'domains',
@@ -318,17 +318,17 @@ export class BaseSurface extends EVASBaseSurface {
 			'query',
 			'middlewares',
 			'repositories'
-		]?.forEach?.((reservedWord) => {
-			surfacePath = surfacePath?.replaceAll?.(reservedWord, '');
+		].forEach((reservedWord) => {
+			surfacePath = surfacePath.replaceAll(reservedWord, '');
 		});
 
-		surfacePath = inflection?.transform?.(surfacePath, [
+		surfacePath = inflection.transform(surfacePath, [
 			'foreignKey',
 			'dasherize'
 		]);
 
 		// Step 2: Setup the surface router, and add the surface
-		let inflectedName = inflection?.transform?.(this?.name, [
+		let inflectedName = inflection.transform(this.name, [
 			'foreignKey',
 			'dasherize'
 		]);
@@ -336,12 +336,11 @@ export class BaseSurface extends EVASBaseSurface {
 		surfacePath =
 			inflectedName === 'main-id'
 				? surfacePath
-				: join?.(surfacePath, inflectedName);
+				: join(surfacePath, inflectedName);
 
-		surfacePath = surfacePath?.replaceAll?.('-id', '');
-		surfacePath = normalize?.(surfacePath);
-		if (surfacePath?.endsWith?.('/'))
-			surfacePath = surfacePath?.slice?.(0, -1);
+		surfacePath = surfacePath.replaceAll('-id', '');
+		surfacePath = normalize(surfacePath);
+		if (surfacePath.endsWith('/')) surfacePath = surfacePath.slice(0, -1);
 
 		return surfacePath;
 	}
@@ -365,47 +364,47 @@ export class BaseSurface extends EVASBaseSurface {
 		// Step 1: Compute the surface path based on the file location
 		// of the surface artifact - to be used as the prefix for all routes
 		// registered by this surface
-		const surfacePath = await this.#computeSurfacePath?.();
+		const surfacePath = await this.#computeSurfacePath();
 
 		// Step 2: Get the surface surface definition by calling the _registerSurface
 		// method implemented by the artifact implementation - which returns an array
 		// of route definitions for this surface
-		const surface = await this?._registerSurface?.();
+		const surface = await this._registerSurface();
 
 		// Step 3: For each route definition returned by the surface, add the route to
 		// the surface router
 		let Router = await import('@koa/router');
-		Router = Router?.['default'];
+		Router = Router['default'];
 
 		for (const restApi of surface) {
-			const restApiVersion = restApi?.version ?? 1;
+			const restApiVersion = restApi.version ?? 1;
 
-			const httpMethod = restApi?.httpMethod?.toLowerCase?.();
-			const restPath = normalize?.(restApi?.path);
+			const httpMethod = restApi.httpMethod.toLowerCase();
+			const restPath = normalize(restApi.path);
 
-			const routeMiddlewares = restApi?.middlewares?.slice?.() ?? [];
-			routeMiddlewares?.push?.(restApi?.handler);
+			const routeMiddlewares = restApi.middlewares?.slice() ?? [];
+			routeMiddlewares.push(restApi.handler);
 
-			let router = this.#routers?.get?.(`v${restApiVersion}`) ?? null;
+			let router = this.#routers.get(`v${restApiVersion}`) ?? null;
 			if (!router) {
 				router = new Router({
 					prefix: `${surfacePath}`
 				});
 
-				this.#routers?.set?.(`v${restApiVersion}`, router);
+				this.#routers.set(`v${restApiVersion}`, router);
 			}
 
 			// eslint-disable-next-line security/detect-object-injection
-			router?.[httpMethod]?.(restPath, ...routeMiddlewares);
+			router[httpMethod](restPath, ...routeMiddlewares);
 		}
 
 		// Finally, add this router to the RESTApi Ingress Surface...
 		const restApiInstance =
-			await this?.domainInterface?.iocContainer?.resolve?.('RestApi');
-		const mainRouters = restApiInstance?.routers;
+			await this.domainInterface.iocContainer.resolve('RestApi');
+		const mainRouters = restApiInstance.routers;
 
-		this.#routers?.forEach((router, key) => {
-			mainRouters?.get?.(key)?.use?.(router?.routes?.());
+		this.#routers.forEach((router, key) => {
+			mainRouters.get(key).use(router.routes());
 		});
 	}
 	// #endregion

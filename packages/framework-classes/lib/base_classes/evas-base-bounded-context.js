@@ -56,12 +56,12 @@ export class EVASBaseBoundedContext extends EVASBaseArtifact {
 	 */
 	async load() {
 		// Step 1: Basic init
-		await super.load?.();
+		await super.load();
 
 		// Step 2: Instantiate the loader
-		await BoundedContextLifecycleManagerFactory?.createInstances?.(
-			this?.__dirname,
-			this?.domainInterface
+		await BoundedContextLifecycleManagerFactory.createInstances(
+			this.__dirname,
+			this.domainInterface
 		);
 
 		return;
@@ -85,15 +85,15 @@ export class EVASBaseBoundedContext extends EVASBaseArtifact {
 	 */
 	async unload() {
 		// Step 1: Unload the sub-artifacts
-		await BoundedContextLifecycleManagerFactory?.destroyInstances?.(
-			this?.__dirname
+		await BoundedContextLifecycleManagerFactory.destroyInstances(
+			this.__dirname
 		);
 
 		// Step 2: Un-instantiate.
 		this.#domainInterface = undefined;
 
 		// Step 3: Basic un-init
-		await super.unload?.();
+		await super.unload();
 		return;
 	}
 	// #endregion

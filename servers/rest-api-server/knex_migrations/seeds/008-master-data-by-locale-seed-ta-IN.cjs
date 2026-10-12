@@ -7,11 +7,11 @@ const insertContactTypeMasterData = async function insertContactTypeMasterData(
 	const localeId = 'ta-IN'; // Default locale for English display names
 
 	// Step 0: If the data is already in there for this locale, skip...
-	const artifactCount = await knex?.raw?.(
+	const artifactCount = await knex.raw(
 		`SELECT count(contact_type_id) AS masterdata_count FROM contact_type_by_locale WHERE locale_id = ?`,
 		[localeId]
 	);
-	if (Number?.(artifactCount?.rows?.[0]['masterdata_count'])) return;
+	if (Number(artifactCount?.rows?.[0]['masterdata_count'])) return;
 
 	const now = knex.fn.now();
 
@@ -45,12 +45,12 @@ const insertContactTypeMasterData = async function insertContactTypeMasterData(
 	];
 
 	// Insert base contact type names and get back generated IDs
-	const baseContactTypes = await knex?.raw?.(
+	const baseContactTypes = await knex.raw(
 		`SELECT id, name FROM contact_type_master WHERE name = ANY (?)`,
 		[contactTypes.map((ct) => ct.name)]
 	);
 	const contactTypeIdByName = new Map(
-		baseContactTypes?.rows?.map((ct) => [ct.name, ct.id])
+		baseContactTypes.rows.map((ct) => [ct.name, ct.id])
 	);
 
 	// Step 2: Insert localized contact type display names into contact_type_by_locale
@@ -70,11 +70,11 @@ const insertGenderMasterData = async function insertGenderMasterData(knex) {
 	const localeId = 'ta-IN'; // Default locale for English display names
 
 	// Step 0: If the data is already in there for this locale, skip...
-	const artifactCount = await knex?.raw?.(
+	const artifactCount = await knex.raw(
 		`SELECT count(gender_id) AS masterdata_count FROM gender_by_locale WHERE locale_id = ?`,
 		[localeId]
 	);
-	if (Number?.(artifactCount?.rows?.[0]['masterdata_count'])) return;
+	if (Number(artifactCount?.rows?.[0]['masterdata_count'])) return;
 
 	const now = knex.fn.now();
 
@@ -89,13 +89,11 @@ const insertGenderMasterData = async function insertGenderMasterData(knex) {
 		{ name: 'other', display_name: 'மற்றவை', description: 'மற்றவை' }
 	];
 
-	const baseGenders = await knex?.raw?.(
+	const baseGenders = await knex.raw(
 		`SELECT id, name FROM gender_master WHERE name = ANY (?)`,
 		[genders.map((g) => g.name)]
 	);
-	const genderIdByName = new Map(
-		baseGenders?.rows?.map((g) => [g.name, g.id])
-	);
+	const genderIdByName = new Map(baseGenders.rows.map((g) => [g.name, g.id]));
 
 	// Step 2: Insert localized gender display names into gender_by_locale
 	const localizedGenders = genders.map((g) => ({
@@ -115,11 +113,11 @@ const insertSystemMessageMasterData =
 		const localeId = 'ta-IN'; // Default locale for English messages
 
 		// Step 0: If the data is already in there for this locale, skip...
-		const artifactCount = await knex?.raw?.(
+		const artifactCount = await knex.raw(
 			`SELECT count(message_id) AS masterdata_count FROM system_message_by_locale WHERE locale_id = ?`,
 			[localeId]
 		);
-		if (Number?.(artifactCount?.rows?.[0]['masterdata_count'])) return;
+		if (Number(artifactCount?.rows?.[0]['masterdata_count'])) return;
 
 		const now = knex.fn.now();
 
@@ -590,12 +588,12 @@ const insertSystemMessageMasterData =
 			}
 		];
 
-		const baseMessages = await knex?.raw?.(
+		const baseMessages = await knex.raw(
 			`SELECT id FROM system_message_master WHERE id = ANY (?)`,
 			[messages.map((m) => m.message_id)]
 		);
 		const messageIdByCode = new Map(
-			baseMessages?.rows?.map((m) => [m.id, m.id])
+			baseMessages.rows.map((m) => [m.id, m.id])
 		);
 
 		// Step 2: Insert localized message text into system_message_by_locale

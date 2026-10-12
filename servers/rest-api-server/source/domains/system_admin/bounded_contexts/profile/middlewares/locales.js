@@ -60,54 +60,53 @@ export class Locales extends SystemAdminBaseMiddleware {
 		const errors = [];
 
 		try {
-			const apiRegistry = this?.domainInterface?.apiRegistry;
+			const apiRegistry = this.domainInterface.apiRegistry;
 			let registerResolutions = [];
-			const baseApis = await super._registerApi?.();
+			const baseApis = await super._registerApi();
 
 			for (const baseApi of baseApis ?? []) {
-				registerResolutions?.push?.(
-					apiRegistry?.register?.(baseApi?.pattern, baseApi?.handler)
+				registerResolutions.push(
+					apiRegistry.register(baseApi.pattern, baseApi.handler)
 				);
 			}
 
-			registerResolutions?.push?.(
-				apiRegistry?.register?.(
+			registerResolutions.push(
+				apiRegistry.register(
 					'CREATE_LOCALE',
-					this.#createLocales?.bind?.(this)
+					this.#createLocales.bind(this)
 				)
 			);
-			registerResolutions?.push?.(
-				apiRegistry?.register?.(
+			registerResolutions.push(
+				apiRegistry.register(
 					'READ_LOCALE',
-					this.#readLocales?.bind?.(this)
+					this.#readLocales.bind(this)
 				)
 			);
-			registerResolutions?.push?.(
-				apiRegistry?.register?.(
+			registerResolutions.push(
+				apiRegistry.register(
 					'UPDATE_LOCALE',
-					this.#updateLocales?.bind?.(this)
+					this.#updateLocales.bind(this)
 				)
 			);
-			registerResolutions?.push?.(
-				apiRegistry?.register?.(
+			registerResolutions.push(
+				apiRegistry.register(
 					'DELETE_LOCALE',
-					this.#deleteLocales?.bind?.(this)
+					this.#deleteLocales.bind(this)
 				)
 			);
 
-			registerResolutions =
-				await Promise?.allSettled?.(registerResolutions);
+			registerResolutions = await Promise.allSettled(registerResolutions);
 			for (const registerResolution of registerResolutions) {
-				if (registerResolution?.status === 'fulfilled') continue;
-				errors?.push?.(registerResolution?.reason);
+				if (registerResolution.status === 'fulfilled') continue;
+				errors.push(registerResolution.reason);
 			}
 		} catch (error) {
-			errors?.push?.(error);
+			errors.push(error);
 		}
 
-		if (!errors?.length) return;
-		const propagatedError = createErrorForPropagation?.(
-			`${this?.name}::_registerApi error`,
+		if (!errors.length) return;
+		const propagatedError = createErrorForPropagation(
+			`${this.name}::_registerApi error`,
 			errors
 		);
 		if (propagatedError) throw propagatedError;
@@ -133,50 +132,50 @@ export class Locales extends SystemAdminBaseMiddleware {
 		const errors = [];
 
 		try {
-			const apiRegistry = this?.domainInterface?.apiRegistry;
+			const apiRegistry = this.domainInterface.apiRegistry;
 			let unregisterResolutions = [];
 
-			unregisterResolutions?.push?.(
-				apiRegistry?.unregister?.(
+			unregisterResolutions.push(
+				apiRegistry.unregister(
 					'DELETE_LOCALE',
-					this.#deleteLocales?.bind?.(this)
+					this.#deleteLocales.bind(this)
 				)
 			);
-			unregisterResolutions?.push?.(
-				apiRegistry?.unregister?.(
+			unregisterResolutions.push(
+				apiRegistry.unregister(
 					'UPDATE_LOCALE',
-					this.#updateLocales?.bind?.(this)
+					this.#updateLocales.bind(this)
 				)
 			);
-			unregisterResolutions?.push?.(
-				apiRegistry?.unregister?.(
+			unregisterResolutions.push(
+				apiRegistry.unregister(
 					'READ_LOCALE',
-					this.#readLocales?.bind?.(this)
+					this.#readLocales.bind(this)
 				)
 			);
-			unregisterResolutions?.push?.(
-				apiRegistry?.unregister?.(
+			unregisterResolutions.push(
+				apiRegistry.unregister(
 					'CREATE_LOCALE',
-					this.#createLocales?.bind?.(this)
+					this.#createLocales.bind(this)
 				)
 			);
 
-			unregisterResolutions = await Promise?.allSettled?.(
+			unregisterResolutions = await Promise.allSettled(
 				unregisterResolutions
 			);
 			for (const unregisterResolution of unregisterResolutions) {
-				if (unregisterResolution?.status === 'fulfilled') continue;
-				errors?.push?.(unregisterResolution?.reason);
+				if (unregisterResolution.status === 'fulfilled') continue;
+				errors.push(unregisterResolution.reason);
 			}
 
-			await super._unregisterApi?.();
+			await super._unregisterApi();
 		} catch (error) {
-			errors?.push?.(error);
+			errors.push(error);
 		}
 
-		if (!errors?.length) return;
-		const propagatedError = createErrorForPropagation?.(
-			`${this?.name}::_unregisterApi error`,
+		if (!errors.length) return;
+		const propagatedError = createErrorForPropagation(
+			`${this.name}::_unregisterApi error`,
 			errors
 		);
 		if (propagatedError) throw propagatedError;
@@ -204,7 +203,7 @@ export class Locales extends SystemAdminBaseMiddleware {
 	 * @description Creates a locale record for the logged in user.
 	 */
 	async #createLocales({ user, data }) {
-		return this?._createUserEntity?.({
+		return this._createUserEntity({
 			model: { type: 'relational', name: 'system-admin-locale' },
 			user,
 			payload: data,
@@ -232,7 +231,7 @@ export class Locales extends SystemAdminBaseMiddleware {
 	 * @description Reads locale data associated with the logged in user.
 	 */
 	async #readLocales({ user, localeId }) {
-		return this?._readUserEntity?.({
+		return this._readUserEntity({
 			model: { type: 'relational', name: 'system-admin-locale' },
 			user,
 			entityId: localeId,
@@ -261,7 +260,7 @@ export class Locales extends SystemAdminBaseMiddleware {
 	 * @description Updates a locale record for the logged in user.
 	 */
 	async #updateLocales({ user, data }) {
-		const returnValue = await this?._updateUserEntity?.({
+		const returnValue = await this._updateUserEntity({
 			model: { type: 'relational', name: 'system-admin-locale' },
 			user,
 			payload: data,
@@ -269,8 +268,8 @@ export class Locales extends SystemAdminBaseMiddleware {
 		});
 
 		return {
-			status: returnValue?.status,
-			body: returnValue?.body
+			status: returnValue.status,
+			body: returnValue.body
 		};
 	}
 
@@ -294,14 +293,14 @@ export class Locales extends SystemAdminBaseMiddleware {
 	 * @description Deletes a locale record for the logged in user.
 	 */
 	async #deleteLocales({ user, localeId }) {
-		const returnValue = await this?._deleteUserEntity?.({
+		const returnValue = await this._deleteUserEntity({
 			model: { type: 'relational', name: 'system-admin-locale' },
 			user,
 			entityId: localeId,
 			eventName: 'SYSTEM_ADMIN::LOCALE_DELETED'
 		});
 
-		return { status: returnValue?.status };
+		return { status: returnValue.status };
 	}
 	// #endregion
 }
@@ -346,21 +345,19 @@ export default class LocalesMiddlewareFactory extends EVASBaseFactory {
 	 * @returns {Locales} - The Locales middleware instance.
 	 */
 	static async createInstances(domainInterface) {
-		return await LocalesMiddlewareFactory.#mutex?.runExclusive?.(
-			async () => {
-				if (!LocalesMiddlewareFactory.#localesInstance) {
-					const localesInstance = new Locales(
-						LocalesMiddlewareFactory['$disk_unc'],
-						domainInterface
-					);
+		return await LocalesMiddlewareFactory.#mutex.runExclusive(async () => {
+			if (!LocalesMiddlewareFactory.#localesInstance) {
+				const localesInstance = new Locales(
+					LocalesMiddlewareFactory['$disk_unc'],
+					domainInterface
+				);
 
-					await localesInstance?.load?.();
-					LocalesMiddlewareFactory.#localesInstance = localesInstance;
-				}
-
-				return LocalesMiddlewareFactory.#localesInstance;
+				await localesInstance.load();
+				LocalesMiddlewareFactory.#localesInstance = localesInstance;
 			}
-		);
+
+			return LocalesMiddlewareFactory.#localesInstance;
+		});
 	}
 
 	/**
@@ -379,8 +376,8 @@ export default class LocalesMiddlewareFactory extends EVASBaseFactory {
 	 * @description Clears the Locales instance
 	 */
 	static async destroyInstances() {
-		await LocalesMiddlewareFactory.#mutex?.runExclusive?.(async () => {
-			await LocalesMiddlewareFactory.#localesInstance?.unload?.();
+		await LocalesMiddlewareFactory.#mutex.runExclusive(async () => {
+			await LocalesMiddlewareFactory.#localesInstance?.unload();
 			LocalesMiddlewareFactory.#localesInstance = undefined;
 			return;
 		});

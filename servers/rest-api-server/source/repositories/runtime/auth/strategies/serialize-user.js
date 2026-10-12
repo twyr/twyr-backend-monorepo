@@ -24,46 +24,42 @@ export default async function serializeDeserialize(
 	databaseRepository
 ) {
 	const sessionCacheMap = new Map();
-	sessionCacheMap?.set('user', userSessionCache);
-	sessionCacheMap?.set('system_admin', systemAdminSessionCache);
+	sessionCacheMap.set('user', userSessionCache);
+	sessionCacheMap.set('system_admin', systemAdminSessionCache);
 
-	passportInstance?.serializeUser?.(async (request, user, callback) => {
-		callback?.(undefined, user?.id);
+	passportInstance.serializeUser(async (request, user, callback) => {
+		callback(undefined, user.id);
 	});
 
-	passportInstance?.deserializeUser?.(
-		async (request, sessionUser, callback) => {
-			try {
-				const sessionUserId =
-					sessionUser?.id ??
-					sessionUser?.profile?.data?.id ??
-					sessionUser?.profile?.data?.[0]?.id;
+	passportInstance.deserializeUser(async (request, sessionUser, callback) => {
+		try {
+			const sessionUserId =
+				sessionUser?.id ??
+				sessionUser?.profile?.data?.id ??
+				sessionUser?.profile?.data?.[0]?.id;
 
-				const sessionCacheMethod = sessionCacheMap?.get(
-					sessionUser?.role
+			const sessionCacheMethod = sessionCacheMap.get(sessionUser?.role);
+
+			if (!sessionCacheMethod) {
+				const userError = new Error(
+					'EVASERVER::AUTH_REPOSITORY::UNSUPPORTED_USER_ROLE'
 				);
+				userError.status = 404;
+				userError.code =
+					'EVASERVER::AUTH_REPOSITORY::UNSUPPORTED_USER_ROLE';
 
-				if (!sessionCacheMethod) {
-					const userError = new Error(
-						'EVASERVER::AUTH_REPOSITORY::UNSUPPORTED_USER_ROLE'
-					);
-					userError.status = 404;
-					userError.code =
-						'EVASERVER::AUTH_REPOSITORY::UNSUPPORTED_USER_ROLE';
-
-					throw userError;
-				}
-
-				const deserializedUser = await sessionCacheMethod(
-					sessionUserId,
-					cacheRepository,
-					databaseRepository
-				);
-
-				callback?.(undefined, deserializedUser);
-			} catch (error) {
-				callback?.(error);
+				throw userError;
 			}
+
+			const deserializedUser = await sessionCacheMethod(
+				sessionUserId,
+				cacheRepository,
+				databaseRepository
+			);
+
+			callback(undefined, deserializedUser);
+		} catch (error) {
+			callback(error);
 		}
-	);
+	});
 }

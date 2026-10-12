@@ -74,7 +74,7 @@ class Translate extends EVASBaseRepository {
 	 * start logic
 	 */
 	async load() {
-		await super.load?.();
+		await super.load();
 
 		const defaultConfiguration = {
 			region: DEFAULT_TRANSLATE_REGION,
@@ -87,22 +87,22 @@ class Translate extends EVASBaseRepository {
 		};
 
 		const configuration =
-			await this?._mergeConfiguration?.(defaultConfiguration);
+			await this._mergeConfiguration(defaultConfiguration);
 
 		const translateConfiguration = {
-			region: configuration?.region,
-			maxAttempts: configuration?.maxAttempts
+			region: configuration.region,
+			maxAttempts: configuration.maxAttempts
 		};
 
 		if (
-			configuration?.credentials?.accessKeyId &&
-			configuration?.credentials?.secretAccessKey
+			configuration.credentials?.accessKeyId &&
+			configuration.credentials?.secretAccessKey
 		) {
 			translateConfiguration.credentials = {
-				accessKeyId: configuration?.credentials?.accessKeyId,
-				secretAccessKey: configuration?.credentials?.secretAccessKey,
-				...(configuration?.credentials?.sessionToken && {
-					sessionToken: configuration?.credentials?.sessionToken
+				accessKeyId: configuration.credentials.accessKeyId,
+				secretAccessKey: configuration.credentials.secretAccessKey,
+				...(configuration.credentials.sessionToken && {
+					sessionToken: configuration.credentials.sessionToken
 				})
 			};
 		}
@@ -128,10 +128,10 @@ class Translate extends EVASBaseRepository {
 	 * stop logic
 	 */
 	async unload() {
-		this.#translateClient?.destroy?.();
+		this.#translateClient?.destroy();
 		this.#translateClient = undefined;
 
-		await super.unload?.();
+		await super.unload();
 	}
 	// #endregion
 
@@ -159,7 +159,7 @@ class Translate extends EVASBaseRepository {
 		);
 
 		const translatedText =
-			await this.#translateClient?.send?.(translateCommand);
+			await this.#translateClient.send(translateCommand);
 		return translatedText;
 	}
 	// #endregion
@@ -181,7 +181,7 @@ class Translate extends EVASBaseRepository {
 	get interface() {
 		return {
 			// client: this.#translateClient,
-			translateText: this?.translateText?.bind?.(this)
+			translateText: this.translateText.bind(this)
 		};
 	}
 	// #endregion
@@ -232,13 +232,13 @@ export default class TranslateRepositoryFactory extends EVASBaseFactory {
 	 * @returns {Translate} - The Translate repository instance.
 	 */
 	static async createInstances(configuration, iocContainer) {
-		const repositoryKey = Buffer?.from?.(
-			safeJsonStringify?.(configuration ?? {})
-		)?.toString?.('base64');
+		const repositoryKey = Buffer.from(
+			safeJsonStringify(configuration ?? {})
+		).toString('base64');
 
-		await TranslateRepositoryFactory.#mutex?.runExclusive?.(async () => {
+		await TranslateRepositoryFactory.#mutex.runExclusive(async () => {
 			if (
-				!TranslateRepositoryFactory.#translateInstances?.has(
+				!TranslateRepositoryFactory.#translateInstances.has(
 					repositoryKey
 				)
 			) {
@@ -248,17 +248,16 @@ export default class TranslateRepositoryFactory extends EVASBaseFactory {
 					configuration
 				);
 
-				await translateInstance?.load?.();
-				TranslateRepositoryFactory.#translateInstances?.set?.(
+				await translateInstance.load();
+				TranslateRepositoryFactory.#translateInstances.set(
 					repositoryKey,
 					translateInstance
 				);
 			}
 		});
 
-		return TranslateRepositoryFactory.#translateInstances?.get(
-			repositoryKey
-		)?.interface;
+		return TranslateRepositoryFactory.#translateInstances.get(repositoryKey)
+			.interface;
 	}
 
 	/**
@@ -279,40 +278,40 @@ export default class TranslateRepositoryFactory extends EVASBaseFactory {
 	 * @description Clears the cached {Translate} instances
 	 */
 	static async destroyInstances(configuration) {
-		await TranslateRepositoryFactory.#mutex?.runExclusive?.(async () => {
+		await TranslateRepositoryFactory.#mutex.runExclusive(async () => {
 			if (configuration) {
-				const repositoryKey = Buffer?.from?.(
-					safeJsonStringify?.(configuration)
-				)?.toString?.('base64');
+				const repositoryKey = Buffer.from(
+					safeJsonStringify(configuration)
+				).toString('base64');
 
 				if (
-					!TranslateRepositoryFactory.#translateInstances?.has(
+					!TranslateRepositoryFactory.#translateInstances.has(
 						repositoryKey
 					)
 				)
 					return;
 
 				const translateInstance =
-					TranslateRepositoryFactory.#translateInstances?.get(
+					TranslateRepositoryFactory.#translateInstances.get(
 						repositoryKey
 					);
-				await translateInstance?.unload?.();
+				await translateInstance.unload();
 
-				TranslateRepositoryFactory.#translateInstances?.delete?.(
+				TranslateRepositoryFactory.#translateInstances.delete(
 					repositoryKey
 				);
 				return;
 			}
 
 			const destroyResolutions = [];
-			TranslateRepositoryFactory.#translateInstances?.forEach?.(
+			TranslateRepositoryFactory.#translateInstances.forEach(
 				(translateInstance) => {
-					destroyResolutions?.push?.(translateInstance?.unload?.());
+					destroyResolutions.push(translateInstance.unload());
 				}
 			);
 
-			await Promise?.allSettled?.(destroyResolutions);
-			TranslateRepositoryFactory.#translateInstances?.clear?.();
+			await Promise.allSettled(destroyResolutions);
+			TranslateRepositoryFactory.#translateInstances.clear();
 		});
 	}
 	// #endregion

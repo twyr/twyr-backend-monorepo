@@ -330,7 +330,7 @@ exports.seed = async function (knex) {
 	const rows = [];
 	// eslint-disable-next-line no-unused-vars
 	for (const [tag, expanded] of Object.entries(subtags)) {
-		const parts = expanded?.split?.('-');
+		const parts = expanded.split('-');
 		if (parts.length < 3) continue;
 
 		const [language, , territory] = parts;
@@ -360,7 +360,7 @@ exports.seed = async function (knex) {
 			characterOrder?.main?.[localeCode]?.layout?.orientation
 				?.characterOrder;
 
-		const countryCode = territoryToCountryISOCodeMap?.get?.(territory);
+		const countryCode = territoryToCountryISOCodeMap.get(territory);
 		if (!countryCode) {
 			console.log(`No country code found for territory: ${territory}`);
 			continue;

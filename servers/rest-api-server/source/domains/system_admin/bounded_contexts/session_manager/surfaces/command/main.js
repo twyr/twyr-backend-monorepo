@@ -60,7 +60,7 @@ export class Main extends SystemAdminBaseSurface {
 	 * @description Loads the surface and its inherited route infrastructure.
 	 */
 	async load() {
-		await super.load?.();
+		await super.load();
 	}
 
 	/**
@@ -79,8 +79,8 @@ export class Main extends SystemAdminBaseSurface {
 	 * @description Unloads the surface and clears the local Joi validation schema cache.
 	 */
 	async unload() {
-		await super.unload?.();
-		this.#validationSchemaMap?.clear?.();
+		await super.unload();
+		this.#validationSchemaMap.clear();
 	}
 	// #endregion
 
@@ -104,35 +104,35 @@ export class Main extends SystemAdminBaseSurface {
 	 * `POST /logout` where logout requires the `registered` RBAC middleware.
 	 */
 	async _registerSurface() {
-		const baseRoutes = await super._registerSurface?.();
+		const baseRoutes = await super._registerSurface();
 
-		baseRoutes?.push?.({
+		baseRoutes.push({
 			version: 1,
 			httpMethod: 'POST',
 			path: '/generate-otp',
-			handler: this.#generateOtp?.bind?.(this)
+			handler: this.#generateOtp.bind(this)
 		});
 
-		baseRoutes?.push?.({
+		baseRoutes.push({
 			version: 1,
 			httpMethod: 'POST',
 			path: '/validate-otp',
-			handler: this.#validateOtp?.bind?.(this)
+			handler: this.#validateOtp.bind(this)
 		});
 
-		baseRoutes?.push?.({
+		baseRoutes.push({
 			version: 1,
 			httpMethod: 'POST',
 			path: '/login',
-			handler: this.#login?.bind?.(this)
+			handler: this.#login.bind(this)
 		});
 
-		baseRoutes?.push?.({
+		baseRoutes.push({
 			version: 1,
 			httpMethod: 'POST',
 			path: '/logout',
-			middlewares: [await this?._rbac?.('registered')],
-			handler: this.#logout?.bind?.(this)
+			middlewares: [await this._rbac('registered')],
+			handler: this.#logout.bind(this)
 		});
 
 		return baseRoutes;
@@ -154,7 +154,7 @@ export class Main extends SystemAdminBaseSurface {
 	 * @description Removes the command surface routes from the REST API router.
 	 */
 	async _unregisterSurface() {
-		await super._unregisterSurface?.();
+		await super._unregisterSurface();
 		return;
 	}
 
@@ -181,11 +181,11 @@ export class Main extends SystemAdminBaseSurface {
 	 */
 	async _setupValidationSchemas(validationSchemaMap) {
 		validationSchemaMap = validationSchemaMap ?? this.#validationSchemaMap;
-		validationSchemaMap = await super._setupValidationSchemas?.(
+		validationSchemaMap = await super._setupValidationSchemas(
 			validationSchemaMap
 		);
 
-		let generateOtpSchema = validationSchemaMap?.get?.(
+		let generateOtpSchema = validationSchemaMap.get(
 			'GENERATE_OTP_VALIDATION_SCHEMA'
 		);
 		if (!generateOtpSchema) {
@@ -205,13 +205,13 @@ export class Main extends SystemAdminBaseSurface {
 					})
 			});
 
-			validationSchemaMap?.set?.(
+			validationSchemaMap.set(
 				'GENERATE_OTP_VALIDATION_SCHEMA',
 				generateOtpSchema
 			);
 		}
 
-		let validateOtpSchema = validationSchemaMap?.get?.(
+		let validateOtpSchema = validationSchemaMap.get(
 			'VALIDATE_OTP_VALIDATION_SCHEMA'
 		);
 
@@ -248,13 +248,13 @@ export class Main extends SystemAdminBaseSurface {
 					})
 			});
 
-			validationSchemaMap?.set?.(
+			validationSchemaMap.set(
 				'VALIDATE_OTP_VALIDATION_SCHEMA',
 				validateOtpSchema
 			);
 		}
 
-		let loginValidationSchema = validationSchemaMap?.get?.(
+		let loginValidationSchema = validationSchemaMap.get(
 			'LOGIN_VALIDATION_SCHEMA'
 		);
 
@@ -291,7 +291,7 @@ export class Main extends SystemAdminBaseSurface {
 					})
 			});
 
-			validationSchemaMap?.set?.(
+			validationSchemaMap.set(
 				'LOGIN_VALIDATION_SCHEMA',
 				loginValidationSchema
 			);
@@ -328,30 +328,29 @@ export class Main extends SystemAdminBaseSurface {
 	 */
 	async #generateOtp(ctxt) {
 		try {
-			const generateOtpSchema = this.#validationSchemaMap?.get?.(
+			const generateOtpSchema = this.#validationSchemaMap.get(
 				'GENERATE_OTP_VALIDATION_SCHEMA'
 			);
-			await generateOtpSchema.validateAsync(ctxt?.request?.body, {
+			await generateOtpSchema.validateAsync(ctxt.request.body, {
 				abortEarly: false
 			});
 		} catch (error) {
-			const validationError =
-				this?._convertValidationErrorToHandlerError?.(
-					error,
-					'EVASERVER::INPUT_VALIDATION_ERROR'
-				);
+			const validationError = this._convertValidationErrorToHandlerError(
+				error,
+				'EVASERVER::INPUT_VALIDATION_ERROR'
+			);
 			validationError.status = HTTP_ERROR_UNPROCESSABLE_CONTENT;
 			throw validationError;
 		}
 
-		const apiRegistry = this?.domainInterface?.apiRegistry;
-		const otpStatus = await apiRegistry?.execute?.('GENERATE_OTP', {
+		const apiRegistry = this.domainInterface.apiRegistry;
+		const otpStatus = await apiRegistry.execute('GENERATE_OTP', {
 			username: ctxt?.request?.body?.username,
-			locale: ctxt?.locale
+			locale: ctxt.locale
 		});
 
-		ctxt.status = otpStatus?.status;
-		ctxt.body = otpStatus?.body;
+		ctxt.status = otpStatus.status;
+		ctxt.body = otpStatus.body;
 	}
 
 	/**
@@ -383,31 +382,30 @@ export class Main extends SystemAdminBaseSurface {
 	 */
 	async #validateOtp(ctxt) {
 		try {
-			const validateOtpSchema = this.#validationSchemaMap?.get?.(
+			const validateOtpSchema = this.#validationSchemaMap.get(
 				'VALIDATE_OTP_VALIDATION_SCHEMA'
 			);
-			await validateOtpSchema.validateAsync(ctxt?.request?.body, {
+			await validateOtpSchema.validateAsync(ctxt.request.body, {
 				abortEarly: false
 			});
 		} catch (error) {
-			const validationError =
-				this?._convertValidationErrorToHandlerError?.(
-					error,
-					'EVASERVER::INPUT_VALIDATION_ERROR'
-				);
+			const validationError = this._convertValidationErrorToHandlerError(
+				error,
+				'EVASERVER::INPUT_VALIDATION_ERROR'
+			);
 			validationError.status = HTTP_ERROR_UNPROCESSABLE_CONTENT;
 			throw validationError;
 		}
 
-		const apiRegistry = this?.domainInterface?.apiRegistry;
-		const otpStatus = await apiRegistry?.execute?.('VALIDATE_OTP', {
+		const apiRegistry = this.domainInterface.apiRegistry;
+		const otpStatus = await apiRegistry.execute('VALIDATE_OTP', {
 			username: ctxt?.request?.body?.username,
 			password: ctxt?.request?.body?.password,
-			locale: ctxt?.locale
+			locale: ctxt.locale
 		});
 
-		ctxt.status = otpStatus?.status;
-		ctxt.body = otpStatus?.body;
+		ctxt.status = otpStatus.status;
+		ctxt.body = otpStatus.body;
 	}
 
 	/**
@@ -439,7 +437,7 @@ export class Main extends SystemAdminBaseSurface {
 	 * The authenticated user profile is returned and the session cookie is set.
 	 */
 	async #login(ctxt) {
-		if (ctxt?.isAuthenticated?.()) {
+		if (ctxt.isAuthenticated()) {
 			const userError = new Error(
 				'EVASERVER::SYSTEM_ADMIN::SESSION_MANAGER::EXISTING_ACTIVE_SESSION'
 			);
@@ -451,41 +449,39 @@ export class Main extends SystemAdminBaseSurface {
 		}
 
 		try {
-			const loginValidationSchema = this.#validationSchemaMap?.get?.(
+			const loginValidationSchema = this.#validationSchemaMap.get(
 				'LOGIN_VALIDATION_SCHEMA'
 			);
 
-			await loginValidationSchema.validateAsync(ctxt?.request?.body, {
+			await loginValidationSchema.validateAsync(ctxt.request.body, {
 				abortEarly: false
 			});
 		} catch (error) {
-			const validationError =
-				this?._convertValidationErrorToHandlerError?.(
-					error,
-					'EVASERVER::INPUT_VALIDATION_ERROR'
-				);
+			const validationError = this._convertValidationErrorToHandlerError(
+				error,
+				'EVASERVER::INPUT_VALIDATION_ERROR'
+			);
 			validationError.status = HTTP_ERROR_UNPROCESSABLE_CONTENT;
 			throw validationError;
 		}
 
 		const authRepository =
-			await this?.domainInterface?.iocContainer?.resolve?.('Auth');
-		const authenticator =
-			authRepository?.authenticate?.('system-admin-local');
+			await this.domainInterface.iocContainer.resolve('Auth');
+		const authenticator = authRepository.authenticate('system-admin-local');
 
-		await authenticator?.(ctxt, async () => {});
+		await authenticator(ctxt, async () => {});
 
-		const apiRegistry = this?.domainInterface?.apiRegistry;
-		const postLoginStatus = await apiRegistry?.execute?.('LOGIN', {
-			user: ctxt?.state?.user,
+		const apiRegistry = this.domainInterface.apiRegistry;
+		const postLoginStatus = await apiRegistry.execute('LOGIN', {
+			user: ctxt.state.user,
 			role: ctxt?.session?.passport?.user?.['role'],
-			locale: ctxt?.locale
+			locale: ctxt.locale
 		});
 
-		ctxt.session.passport.user = postLoginStatus?.sessionData;
-		ctxt.status = postLoginStatus?.status;
-		ctxt.body = postLoginStatus?.body;
-		ctxt.locale = postLoginStatus?.locale ?? ctxt?.locale;
+		ctxt.session.passport.user = postLoginStatus.sessionData;
+		ctxt.status = postLoginStatus.status;
+		ctxt.body = postLoginStatus.body;
+		ctxt.locale = postLoginStatus.locale ?? ctxt.locale;
 	}
 
 	/**
@@ -516,7 +512,7 @@ export class Main extends SystemAdminBaseSurface {
 	 */
 	async #logout(ctxt) {
 		const userId = ctxt?.state?.user?.id;
-		const userLocale = ctxt?.locale;
+		const userLocale = ctxt.locale;
 		const userRole = ctxt?.session?.passport?.user?.['role'];
 
 		const userName =
@@ -524,10 +520,10 @@ export class Main extends SystemAdminBaseSurface {
 			ctxt?.state?.user?.mobile_no ??
 			'';
 
-		await ctxt?.logout?.();
+		await ctxt.logout();
 
-		const apiRegistry = this?.domainInterface?.apiRegistry;
-		const logoutStatus = await apiRegistry?.execute?.('LOGOUT', {
+		const apiRegistry = this.domainInterface.apiRegistry;
+		const logoutStatus = await apiRegistry.execute('LOGOUT', {
 			userId: userId,
 			userName: userName,
 			locale: userLocale
@@ -539,8 +535,8 @@ export class Main extends SystemAdminBaseSurface {
 			mobile_no: ctxt?.state?.user?.mobile_no
 		};
 
-		ctxt.status = logoutStatus?.status;
-		ctxt.body = logoutStatus?.body;
+		ctxt.status = logoutStatus.status;
+		ctxt.body = logoutStatus.body;
 		ctxt.locale = userLocale;
 	}
 	// #endregion
@@ -590,14 +586,14 @@ export default class MainSurfaceFactory extends EVASBaseFactory {
 	 * @returns {Promise<Main>} Resolves to the Main surface instance.
 	 */
 	static async createInstances(domainInterface) {
-		return await MainSurfaceFactory.#mutex?.runExclusive?.(async () => {
+		return await MainSurfaceFactory.#mutex.runExclusive(async () => {
 			if (!MainSurfaceFactory.#mainInstance) {
 				const mainInstance = new Main(
 					MainSurfaceFactory['$disk_unc'],
 					domainInterface
 				);
 
-				await mainInstance?.load?.();
+				await mainInstance.load();
 				MainSurfaceFactory.#mainInstance = mainInstance;
 			}
 
@@ -621,8 +617,8 @@ export default class MainSurfaceFactory extends EVASBaseFactory {
 	 * @description Destroys the cached Main command surface instance.
 	 */
 	static async destroyInstances() {
-		await MainSurfaceFactory.#mutex?.runExclusive?.(async () => {
-			await MainSurfaceFactory.#mainInstance?.unload?.();
+		await MainSurfaceFactory.#mutex.runExclusive(async () => {
+			await MainSurfaceFactory.#mainInstance?.unload();
 			MainSurfaceFactory.#mainInstance = undefined;
 
 			return;

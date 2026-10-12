@@ -60,37 +60,36 @@ export class Session extends BaseEventHandler {
 		const errors = [];
 
 		try {
-			const eventEmitter = this?.domainInterface?.eventEmitter;
+			const eventEmitter = this.domainInterface.eventEmitter;
 			let registerResolutions = [];
 
-			const baseHandlers = await super._registerHandlers?.();
+			const baseHandlers = await super._registerHandlers();
 			for (const baseHandler of baseHandlers ?? []) {
-				registerResolutions?.push?.(
-					eventEmitter?.on?.(baseHandler?.event, baseHandler?.handler)
+				registerResolutions.push(
+					eventEmitter.on(baseHandler.event, baseHandler.handler)
 				);
 			}
 
-			registerResolutions?.push?.(
-				eventEmitter?.on?.(
+			registerResolutions.push(
+				eventEmitter.on(
 					'SYSTEM_ADMIN::INVALIDATE_CACHE',
-					this.#postLogoutCleanup?.bind?.(this)
+					this.#postLogoutCleanup.bind(this)
 				)
 			);
 
-			registerResolutions =
-				await Promise?.allSettled?.(registerResolutions);
+			registerResolutions = await Promise.allSettled(registerResolutions);
 			for (const registerResolution of registerResolutions) {
-				if (registerResolution?.status === 'fulfilled') continue;
-				errors?.push?.(registerResolution?.reason);
+				if (registerResolution.status === 'fulfilled') continue;
+				errors.push(registerResolution.reason);
 			}
 		} catch (error) {
-			errors?.push?.(error);
+			errors.push(error);
 		}
 
-		if (!errors?.length) return;
+		if (!errors.length) return;
 
-		const propagatedError = createErrorForPropagation?.(
-			`${this?.name}::_registerHandler error`,
+		const propagatedError = createErrorForPropagation(
+			`${this.name}::_registerHandler error`,
 			errors
 		);
 
@@ -117,33 +116,33 @@ export class Session extends BaseEventHandler {
 		const errors = [];
 
 		try {
-			const eventEmitter = this?.domainInterface?.eventEmitter;
+			const eventEmitter = this.domainInterface.eventEmitter;
 			let unregisterResolutions = [];
 
-			unregisterResolutions?.push?.(
-				eventEmitter?.off?.(
+			unregisterResolutions.push(
+				eventEmitter.off(
 					'SYSTEM_ADMIN::INVALIDATE_CACHE',
-					this.#postLogoutCleanup?.bind?.(this)
+					this.#postLogoutCleanup.bind(this)
 				)
 			);
 
-			unregisterResolutions = await Promise?.allSettled?.(
+			unregisterResolutions = await Promise.allSettled(
 				unregisterResolutions
 			);
 			for (const unregisterResolution of unregisterResolutions) {
-				if (unregisterResolution?.status === 'fulfilled') continue;
-				errors?.push?.(unregisterResolution?.reason);
+				if (unregisterResolution.status === 'fulfilled') continue;
+				errors.push(unregisterResolution.reason);
 			}
 
-			await super._unregisterHandlers?.();
+			await super._unregisterHandlers();
 		} catch (error) {
-			errors?.push?.(error);
+			errors.push(error);
 		}
 
-		if (!errors?.length) return;
+		if (!errors.length) return;
 
-		const propagatedError = createErrorForPropagation?.(
-			`${this?.name}::_unregisterHandlers error`,
+		const propagatedError = createErrorForPropagation(
+			`${this.name}::_unregisterHandlers error`,
 			errors
 		);
 
@@ -173,16 +172,15 @@ export class Session extends BaseEventHandler {
 	 * cache invalidation event.
 	 */
 	async #postLogoutCleanup(eventData) {
-		const cache =
-			await this?.domainInterface?.iocContainer?.resolve?.('Cache');
-		await cache?.del?.(
-			`twyr!entity!value!aggregate!system_admin!${eventData?.userId}!basics`
+		const cache = await this.domainInterface.iocContainer.resolve('Cache');
+		await cache.del(
+			`twyr!entity!value!aggregate!system_admin!${eventData.userId}!basics`
 		);
 
 		const logger =
-			await this?.domainInterface?.iocContainer?.resolve?.('Logger');
-		logger?.debug?.(
-			`${this?.name}::postLogoutCleanup: ${eventData?.userId} cache cleared`
+			await this.domainInterface.iocContainer.resolve('Logger');
+		logger.debug(
+			`${this.name}::postLogoutCleanup: ${eventData.userId} cache cleared`
 		);
 	}
 	// #endregion
@@ -228,7 +226,7 @@ export default class SessionEventHandlerFactory extends EVASBaseFactory {
 	 * @returns {Promise<Session>} Resolves to the Session event handler instance.
 	 */
 	static async createInstances(domainInterface) {
-		return await SessionEventHandlerFactory.#mutex?.runExclusive?.(
+		return await SessionEventHandlerFactory.#mutex.runExclusive(
 			async () => {
 				if (!SessionEventHandlerFactory.#eventHandlerInstance) {
 					const sessionInstance = new Session(
@@ -236,7 +234,7 @@ export default class SessionEventHandlerFactory extends EVASBaseFactory {
 						domainInterface
 					);
 
-					await sessionInstance?.load?.();
+					await sessionInstance.load();
 					SessionEventHandlerFactory.#eventHandlerInstance =
 						sessionInstance;
 				}
@@ -262,8 +260,8 @@ export default class SessionEventHandlerFactory extends EVASBaseFactory {
 	 * @description Destroys the cached Session event handler instance.
 	 */
 	static async destroyInstances() {
-		await SessionEventHandlerFactory.#mutex?.runExclusive?.(async () => {
-			await SessionEventHandlerFactory.#eventHandlerInstance?.unload?.();
+		await SessionEventHandlerFactory.#mutex.runExclusive(async () => {
+			await SessionEventHandlerFactory.#eventHandlerInstance?.unload();
 			SessionEventHandlerFactory.#eventHandlerInstance = undefined;
 
 			return;

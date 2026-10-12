@@ -53,8 +53,8 @@ export class BaseEventHandler extends EVASBaseEventHandler {
 	 * start logic
 	 */
 	async load() {
-		await super.load?.();
-		await this?._registerHandlers?.();
+		await super.load();
+		await this._registerHandlers();
 	}
 
 	/**
@@ -75,8 +75,8 @@ export class BaseEventHandler extends EVASBaseEventHandler {
 	 * stop logic
 	 */
 	async unload() {
-		await this?._unregisterHandlers?.();
-		await super.unload?.();
+		await this._unregisterHandlers();
+		await super.unload();
 	}
 	// #endregion
 

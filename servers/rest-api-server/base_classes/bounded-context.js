@@ -55,15 +55,15 @@ export class BaseBoundedContext extends EVASBaseBoundedContext {
 	 */
 	async load() {
 		const contextApiRegistry = new APIRegistry(
-			this?.name,
-			super.domainInterface?.apiRegistry
+			this.name,
+			super.domainInterface.apiRegistry
 		);
 
-		this.#domainInterface = merge?.({}, super.domainInterface, {
+		this.#domainInterface = merge({}, super.domainInterface, {
 			apiRegistry: contextApiRegistry
 		});
 
-		await super.load?.();
+		await super.load();
 		return;
 	}
 
@@ -87,7 +87,7 @@ export class BaseBoundedContext extends EVASBaseBoundedContext {
 		this.#domainInterface = undefined;
 
 		// Finally, Basic un-init
-		await super.unload?.();
+		await super.unload();
 		return;
 	}
 	// #endregion

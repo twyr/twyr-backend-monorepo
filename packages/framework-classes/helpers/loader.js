@@ -58,21 +58,21 @@ export async function loader(location, allFiles = false) {
 async function locateArtifacts(location, allFiles) {
 	try {
 		if (allFiles) {
-			const crawlerApi = new FDir()?.withFullPaths?.()?.withMaxDepth?.(0);
+			const crawlerApi = new FDir().withFullPaths().withMaxDepth(0);
 			const artifactFiles = await crawlerApi
-				?.crawl?.(location)
-				?.withPromise?.();
+				.crawl(location)
+				.withPromise();
 
 			return artifactFiles;
 		} else {
-			const crawlerApi = new FDir()?.onlyDirs?.()?.withMaxDepth?.(0);
+			const crawlerApi = new FDir().onlyDirs().withMaxDepth(0);
 			const artifactLocations = await crawlerApi
-				?.crawl?.(location)
-				?.withPromise?.();
+				.crawl(location)
+				.withPromise();
 
 			// Remove the root location from the results - we want only sub-folders
-			artifactLocations?.shift?.();
-			return artifactLocations?.map((artifactLocation) => {
+			artifactLocations.shift();
+			return artifactLocations.map((artifactLocation) => {
 				return join(artifactLocation, 'index.js');
 			});
 		}
@@ -109,28 +109,28 @@ async function importArtifacts(artifactLocations) {
 	try {
 		const importResolutions = [];
 		for (const artifactFile of artifactLocations) {
-			importResolutions?.push?.(import(artifactFile));
+			importResolutions.push(import(artifactFile));
 			continue;
 		}
 
-		artifactImports = await Promise?.allSettled?.(importResolutions);
+		artifactImports = await Promise.allSettled(importResolutions);
 
-		for (let index = 0; index < artifactImports?.length; index++) {
+		for (let index = 0; index < artifactImports.length; index++) {
 			// eslint-disable-next-line security/detect-object-injection
-			const artifactImport = artifactImports?.[index];
+			const artifactImport = artifactImports[index];
 
-			if (artifactImport?.status !== 'fulfilled') {
-				errors?.push?.(
+			if (artifactImport.status !== 'fulfilled') {
+				errors.push(
 					// eslint-disable-next-line security/detect-object-injection
 					new Error(`Failed to import ${artifactLocations[index]}`, {
-						cause: artifactImport?.reason
+						cause: artifactImport.reason
 					})
 				);
 				continue;
 			}
 
-			if (!artifactImport?.value?.['default']) {
-				errors?.push?.(
+			if (!artifactImport.value['default']) {
+				errors.push(
 					new Error(
 						// eslint-disable-next-line security/detect-object-injection
 						`${artifactLocations[index]} does not have a default export`
@@ -139,17 +139,17 @@ async function importArtifacts(artifactLocations) {
 				continue;
 			}
 
-			artifactImport.value['default']['$disk_unc'] = dirname?.(
+			artifactImport.value['default']['$disk_unc'] = dirname(
 				// eslint-disable-next-line security/detect-object-injection
 				artifactLocations[index]
 			);
 		}
 	} catch (error) {
-		errors?.push?.(`Error importing artifact files`, { cause: error });
+		errors.push(`Error importing artifact files`, { cause: error });
 	}
 
 	// Code sanity... error checks
-	if (errors?.length) {
+	if (errors.length) {
 		throw new AggregateError(
 			errors,
 			'Error importing at least one artifact file'
@@ -157,8 +157,8 @@ async function importArtifacts(artifactLocations) {
 	}
 
 	// Finally, return the ArtifactFactories
-	artifactImports = artifactImports?.map?.((artifactImport) => {
-		return artifactImport?.value?.['default'];
+	artifactImports = artifactImports.map((artifactImport) => {
+		return artifactImport.value['default'];
 	});
 
 	return artifactImports;

@@ -60,7 +60,7 @@ export class EVASBaseIngressSurface extends EVASBaseArtifact {
 	 * pre-start logic
 	 */
 	async load() {
-		await super.load?.();
+		await super.load();
 	}
 
 	/**
@@ -126,7 +126,7 @@ export class EVASBaseIngressSurface extends EVASBaseArtifact {
 		this.#configuration = undefined;
 		this.#iocContainer = undefined;
 
-		await super.unload?.();
+		await super.unload();
 	}
 	// #endregion
 
@@ -155,15 +155,15 @@ export class EVASBaseIngressSurface extends EVASBaseArtifact {
 	 */
 	async _mergeConfiguration(defaultConfiguration) {
 		const configRepository =
-			await this?.iocContainer?.resolve?.('Configuration');
+			await this.iocContainer.resolve('Configuration');
 
-		const environmentConfiguration = await configRepository?.getConfig?.(
-			this?.name
+		const environmentConfiguration = await configRepository.getConfig(
+			this.name
 		);
 
-		const instanceConfiguration = this?.configuration ?? {};
+		const instanceConfiguration = this.configuration ?? {};
 
-		const mergedConfiguration = merge?.(
+		const mergedConfiguration = merge(
 			{},
 			defaultConfiguration,
 			environmentConfiguration,

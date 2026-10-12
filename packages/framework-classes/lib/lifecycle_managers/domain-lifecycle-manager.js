@@ -58,37 +58,37 @@ class DomainLifecycleManager extends EVASBaseLifecycleManager {
 		const errors = [];
 
 		try {
-			await super.load?.();
+			await super.load();
 		} catch (error) {
-			errors?.push?.(error);
+			errors.push(error);
 		}
 
 		// Step 1: Load the Domain repositories
 		try {
-			await this.#loadRepositories?.();
+			await this.#loadRepositories();
 		} catch (error) {
-			errors?.push?.(error);
+			errors.push(error);
 		}
 
 		// Step 2: Load the Domain bounded contexts
 		try {
-			await this.#loadBoundedContexts?.();
+			await this.#loadBoundedContexts();
 		} catch (error) {
-			errors?.push?.(error);
+			errors.push(error);
 		}
 
 		// Step 3: Load the Sub-Domains
 		try {
-			await this.#loadDomains?.();
+			await this.#loadDomains();
 		} catch (error) {
-			errors?.push?.(error);
+			errors.push(error);
 		}
 
-		if (!errors?.length) return;
+		if (!errors.length) return;
 
 		const errorToBeThrown = new AggregateError(
 			errors,
-			`Error loading ${this?.name}`
+			`Error loading ${this.name}`
 		);
 
 		throw errorToBeThrown;
@@ -115,45 +115,45 @@ class DomainLifecycleManager extends EVASBaseLifecycleManager {
 
 		// Step 1: Unload the subdomains
 		try {
-			await this._unloadArtifacts?.(this.#domains);
-			this.#domains?.clear?.();
+			await this._unloadArtifacts(this.#domains);
+			this.#domains.clear();
 		} catch (error) {
-			errors?.push?.(error);
+			errors.push(error);
 		}
 
 		// Step 2: Unload the bounded contexts
 		try {
-			await this._unloadArtifacts?.(this.#boundedContexts);
-			this.#boundedContexts?.clear?.();
+			await this._unloadArtifacts(this.#boundedContexts);
+			this.#boundedContexts.clear();
 		} catch (error) {
-			errors?.push?.(error);
+			errors.push(error);
 		}
 
 		// Step 3: Unload the API and repositories
 		try {
-			await this?.domainInterface?.apiRegistry?.unregisterAll?.();
+			await this.domainInterface.apiRegistry.unregisterAll();
 		} catch (error) {
-			errors?.push?.(error);
+			errors.push(error);
 		}
 
 		try {
-			await this?.domainInterface?.iocContainer?.unregisterAll?.();
+			await this.domainInterface.iocContainer.unregisterAll();
 		} catch (error) {
-			errors?.push?.(error);
+			errors.push(error);
 		}
 
 		// Finally, call the base class stuff
 		try {
-			await super.unload?.();
+			await super.unload();
 			this.#domainInterface = undefined;
 		} catch (error) {
-			errors?.push?.(error);
+			errors.push(error);
 		}
 
-		if (!errors?.length) return;
+		if (!errors.length) return;
 		const errorToBeThrown = new AggregateError(
 			errors,
-			`Error unloading ${this?.name}`
+			`Error unloading ${this.name}`
 		);
 
 		throw errorToBeThrown;
@@ -178,13 +178,13 @@ class DomainLifecycleManager extends EVASBaseLifecycleManager {
 	 * Loads all the next-level sub-domains of this Domain
 	 */
 	async #loadDomains() {
-		const SubdomainFactories = await this._loadArtifacts?.('domains');
+		const SubdomainFactories = await this._loadArtifacts('domains');
 		for (const SubdomainFactory of SubdomainFactories) {
-			const domainInstance = await SubdomainFactory?.createInstances?.(
+			const domainInstance = await SubdomainFactory.createInstances(
 				this.#domainInterface
 			);
 
-			this.#domains?.set?.(SubdomainFactory?.DomainName, domainInstance);
+			this.#domains.set(SubdomainFactory.DomainName, domainInstance);
 		}
 	}
 
@@ -206,15 +206,15 @@ class DomainLifecycleManager extends EVASBaseLifecycleManager {
 	 */
 	async #loadBoundedContexts() {
 		const BoundedContextFactories =
-			await this._loadArtifacts?.('bounded_contexts');
+			await this._loadArtifacts('bounded_contexts');
 		for (const BoundedContextFactory of BoundedContextFactories) {
 			const boundedContextInstance =
-				await BoundedContextFactory?.createInstances?.(
+				await BoundedContextFactory.createInstances(
 					this.#domainInterface
 				);
 
-			this.#boundedContexts?.set?.(
-				BoundedContextFactory?.BoundedContextName,
+			this.#boundedContexts.set(
+				BoundedContextFactory.BoundedContextName,
 				boundedContextInstance
 			);
 		}
@@ -237,11 +237,11 @@ class DomainLifecycleManager extends EVASBaseLifecycleManager {
 	 * Loads all the top-level Repositories offered by this Server
 	 */
 	async #loadRepositories() {
-		const RepositoryFactories = await this._loadArtifacts?.('repositories');
+		const RepositoryFactories = await this._loadArtifacts('repositories');
 		for (const RepositoryFactory of RepositoryFactories) {
 			RepositoryFactory['$domain_interface'] = this.#domainInterface;
-			await this.#domainInterface?.iocContainer?.register?.(
-				RepositoryFactory?.RepositoryName,
+			await this.#domainInterface.iocContainer.register(
+				RepositoryFactory.RepositoryName,
 				RepositoryFactory
 			);
 		}
@@ -297,14 +297,14 @@ export class DomainLifecycleManagerFactory extends EVASBaseFactory {
 	 * @returns {DomainLifecycleManager} - Instance of the lifecycle manager.
 	 */
 	static async createInstances(location, domainInterface) {
-		const locationKey = Buffer?.from?.(location)?.toString?.('base64');
+		const locationKey = Buffer.from(location).toString('base64');
 
 		if (
-			DomainLifecycleManagerFactory.#domainLifecycleManagerInstances?.has?.(
+			DomainLifecycleManagerFactory.#domainLifecycleManagerInstances.has(
 				locationKey
 			)
 		) {
-			return DomainLifecycleManagerFactory.#domainLifecycleManagerInstances?.get?.(
+			return DomainLifecycleManagerFactory.#domainLifecycleManagerInstances.get(
 				locationKey
 			);
 		}
@@ -313,9 +313,9 @@ export class DomainLifecycleManagerFactory extends EVASBaseFactory {
 			location,
 			domainInterface
 		);
-		await domainLifecycleManagerInstance?.load?.();
+		await domainLifecycleManagerInstance.load();
 
-		DomainLifecycleManagerFactory.#domainLifecycleManagerInstances?.set?.(
+		DomainLifecycleManagerFactory.#domainLifecycleManagerInstances.set(
 			locationKey,
 			domainLifecycleManagerInstance
 		);
@@ -339,17 +339,17 @@ export class DomainLifecycleManagerFactory extends EVASBaseFactory {
 	 * @returns {null} - Nothing
 	 */
 	static async destroyInstances(location) {
-		const locationKey = Buffer?.from?.(location)?.toString?.('base64');
+		const locationKey = Buffer.from(location).toString('base64');
 
 		const domainLifecycleManagerInstance =
-			DomainLifecycleManagerFactory.#domainLifecycleManagerInstances?.get?.(
+			DomainLifecycleManagerFactory.#domainLifecycleManagerInstances.get(
 				locationKey
 			);
 
 		if (!domainLifecycleManagerInstance) return;
 
-		await domainLifecycleManagerInstance?.unload?.();
-		DomainLifecycleManagerFactory.#domainLifecycleManagerInstances?.delete?.(
+		await domainLifecycleManagerInstance.unload();
+		DomainLifecycleManagerFactory.#domainLifecycleManagerInstances.delete(
 			locationKey
 		);
 	}

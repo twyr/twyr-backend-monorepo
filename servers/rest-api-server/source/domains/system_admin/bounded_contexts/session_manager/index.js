@@ -56,7 +56,7 @@ class SessionManager extends BaseBoundedContext {
 	 * @description Loads, initializes, and starts the bounded context artifacts.
 	 */
 	async load() {
-		await super.load?.();
+		await super.load();
 		return;
 	}
 
@@ -76,7 +76,7 @@ class SessionManager extends BaseBoundedContext {
 	 * @description Shuts down and unloads the bounded context artifacts.
 	 */
 	async unload() {
-		await super.unload?.();
+		await super.unload();
 		return;
 	}
 	// #endregion
@@ -122,7 +122,7 @@ export default class SessionManagerBoundedContextFactory extends EVASBaseFactory
 	 * @returns {Promise<SessionManager>} Resolves to the SessionManager instance.
 	 */
 	static async createInstances(domainInterface) {
-		return await SessionManagerBoundedContextFactory.#mutex?.runExclusive?.(
+		return await SessionManagerBoundedContextFactory.#mutex.runExclusive(
 			async () => {
 				if (
 					!SessionManagerBoundedContextFactory.#sessionManagerInstance
@@ -132,7 +132,7 @@ export default class SessionManagerBoundedContextFactory extends EVASBaseFactory
 						domainInterface
 					);
 
-					await sessionManagerInstance?.load?.();
+					await sessionManagerInstance.load();
 					SessionManagerBoundedContextFactory.#sessionManagerInstance =
 						sessionManagerInstance;
 				}
@@ -159,9 +159,9 @@ export default class SessionManagerBoundedContextFactory extends EVASBaseFactory
 	 * @description Destroys the cached SessionManager instance.
 	 */
 	static async destroyInstances() {
-		await SessionManagerBoundedContextFactory.#mutex?.runExclusive?.(
+		await SessionManagerBoundedContextFactory.#mutex.runExclusive(
 			async () => {
-				await SessionManagerBoundedContextFactory.#sessionManagerInstance?.unload?.();
+				await SessionManagerBoundedContextFactory.#sessionManagerInstance?.unload();
 				SessionManagerBoundedContextFactory.#sessionManagerInstance =
 					undefined;
 

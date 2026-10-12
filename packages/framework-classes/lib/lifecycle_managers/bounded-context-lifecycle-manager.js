@@ -60,37 +60,37 @@ class BoundedContextLifecycleManager extends EVASBaseLifecycleManager {
 		const errors = [];
 
 		try {
-			await super.load?.();
+			await super.load();
 		} catch (error) {
-			errors?.push?.(error);
+			errors.push(error);
 		}
 
 		// Step 1: Load the middlewares
 		try {
-			await this.#loadMiddlewares?.();
+			await this.#loadMiddlewares();
 		} catch (error) {
-			errors?.push?.(error);
+			errors.push(error);
 		}
 
 		// Step 2: Load the surfaces
 		try {
-			await this.#loadSurfaces?.();
+			await this.#loadSurfaces();
 		} catch (error) {
-			errors?.push?.(error);
+			errors.push(error);
 		}
 
 		// Step 3: Load the event handlers
 		try {
-			await this.#loadEventHandlers?.();
+			await this.#loadEventHandlers();
 		} catch (error) {
-			errors?.push?.(error);
+			errors.push(error);
 		}
 
-		if (!errors?.length) return;
+		if (!errors.length) return;
 
 		const errorToBeThrown = new AggregateError(
 			errors,
-			`Error loading ${this?.name}`
+			`Error loading ${this.name}`
 		);
 
 		throw errorToBeThrown;
@@ -119,48 +119,48 @@ class BoundedContextLifecycleManager extends EVASBaseLifecycleManager {
 
 		// Step 1: Unload the event processors
 		try {
-			await this._unloadArtifacts?.(this.#eventProcessors);
-			this.#eventProcessors?.clear?.();
+			await this._unloadArtifacts(this.#eventProcessors);
+			this.#eventProcessors.clear();
 		} catch (error) {
-			errors?.push?.(error);
+			errors.push(error);
 		}
 
 		// Step 2: Unload the query surfaces
 		try {
-			await this._unloadArtifacts?.(this.#querySurfaces);
-			this.#querySurfaces?.clear?.();
+			await this._unloadArtifacts(this.#querySurfaces);
+			this.#querySurfaces.clear();
 		} catch (error) {
-			errors?.push?.(error);
+			errors.push(error);
 		}
 
 		// Step 3: Unload the command surfaces
 		try {
-			await this._unloadArtifacts?.(this.#commandSurfaces);
-			this.#commandSurfaces?.clear?.();
+			await this._unloadArtifacts(this.#commandSurfaces);
+			this.#commandSurfaces.clear();
 		} catch (error) {
-			errors?.push?.(error);
+			errors.push(error);
 		}
 
 		// Step 4: Unload the middlewares
 		try {
-			await this._unloadArtifacts?.(this.#middlewares);
-			this.#middlewares?.clear?.();
+			await this._unloadArtifacts(this.#middlewares);
+			this.#middlewares.clear();
 		} catch (error) {
-			errors?.push?.(error);
+			errors.push(error);
 		}
 
 		// Step 3: Call base class
 		try {
-			await super.unload?.();
+			await super.unload();
 		} catch (error) {
-			errors?.push?.(error);
+			errors.push(error);
 		}
 
-		if (!errors?.length) return;
+		if (!errors.length) return;
 
 		const errorToBeThrown = new AggregateError(
 			errors,
-			`Error unloading ${this?.name}`
+			`Error unloading ${this.name}`
 		);
 
 		throw errorToBeThrown;
@@ -186,35 +186,33 @@ class BoundedContextLifecycleManager extends EVASBaseLifecycleManager {
 	 */
 	async #loadSurfaces() {
 		// Step 1: Load Command Surfaces
-		const CommandSurfaceFactories = await this._loadArtifacts?.(
+		const CommandSurfaceFactories = await this._loadArtifacts(
 			'surfaces/command',
 			true
 		);
 		for (const CommandSurfaceFactory of CommandSurfaceFactories) {
 			const commandSurfaceInstance =
-				await CommandSurfaceFactory?.createInstances?.(
-					this?.domainInterface
+				await CommandSurfaceFactory.createInstances(
+					this.domainInterface
 				);
 
-			this.#commandSurfaces?.set?.(
-				CommandSurfaceFactory?.SurfaceName,
+			this.#commandSurfaces.set(
+				CommandSurfaceFactory.SurfaceName,
 				commandSurfaceInstance
 			);
 		}
 
 		// Step 2: Load Query Surfaces
-		const QuerySurfaceFactories = await this._loadArtifacts?.(
+		const QuerySurfaceFactories = await this._loadArtifacts(
 			'surfaces/query',
 			true
 		);
 		for (const QuerySurfaceFactory of QuerySurfaceFactories) {
 			const querySurfaceInstance =
-				await QuerySurfaceFactory?.createInstances?.(
-					this?.domainInterface
-				);
+				await QuerySurfaceFactory.createInstances(this.domainInterface);
 
-			this.#querySurfaces?.set?.(
-				QuerySurfaceFactory?.SurfaceName,
+			this.#querySurfaces.set(
+				QuerySurfaceFactory.SurfaceName,
 				querySurfaceInstance
 			);
 		}
@@ -237,18 +235,16 @@ class BoundedContextLifecycleManager extends EVASBaseLifecycleManager {
 	 * Loads all the event handlers of this BoundedContext
 	 */
 	async #loadEventHandlers() {
-		const EventHandlerFactories = await this._loadArtifacts?.(
+		const EventHandlerFactories = await this._loadArtifacts(
 			'event_handlers',
 			true
 		);
 		for (const EventHandlerFactory of EventHandlerFactories) {
 			const eventHandlerInstance =
-				await EventHandlerFactory?.createInstances?.(
-					this?.domainInterface
-				);
+				await EventHandlerFactory.createInstances(this.domainInterface);
 
-			this.#eventProcessors?.set?.(
-				EventHandlerFactory?.EventHandlerName,
+			this.#eventProcessors.set(
+				EventHandlerFactory.EventHandlerName,
 				eventHandlerInstance
 			);
 		}
@@ -271,18 +267,17 @@ class BoundedContextLifecycleManager extends EVASBaseLifecycleManager {
 	 * Loads all the middlewares (business logic) of this BoundedContext
 	 */
 	async #loadMiddlewares() {
-		const MiddlewareFactories = await this._loadArtifacts?.(
+		const MiddlewareFactories = await this._loadArtifacts(
 			'middlewares',
 			true
 		);
 		for (const MiddlewareFactory of MiddlewareFactories) {
-			const middlewareInstance =
-				await MiddlewareFactory?.createInstances?.(
-					this?.domainInterface
-				);
+			const middlewareInstance = await MiddlewareFactory.createInstances(
+				this.domainInterface
+			);
 
-			this.#middlewares?.set?.(
-				MiddlewareFactory?.MiddlewareName,
+			this.#middlewares.set(
+				MiddlewareFactory.MiddlewareName,
 				middlewareInstance
 			);
 		}
@@ -339,23 +334,23 @@ export class BoundedContextLifecycleManagerFactory extends EVASBaseFactory {
 	 * @returns {BoundedContextLifecycleManager} - Instance of Lifecycle manager.
 	 */
 	static async createInstances(location, domainInterface) {
-		const locationKey = Buffer?.from?.(location)?.toString?.('base64');
+		const locationKey = Buffer.from(location).toString('base64');
 
 		if (
-			BoundedContextLifecycleManagerFactory.#boundedContextLifecycleManagerInstances?.has?.(
+			BoundedContextLifecycleManagerFactory.#boundedContextLifecycleManagerInstances.has(
 				locationKey
 			)
 		) {
-			return BoundedContextLifecycleManagerFactory.#boundedContextLifecycleManagerInstances?.get?.(
+			return BoundedContextLifecycleManagerFactory.#boundedContextLifecycleManagerInstances.get(
 				locationKey
 			);
 		}
 
 		const boundedContextLifecycleManagerInstance =
 			new BoundedContextLifecycleManager(location, domainInterface);
-		await boundedContextLifecycleManagerInstance?.load?.();
+		await boundedContextLifecycleManagerInstance.load();
 
-		BoundedContextLifecycleManagerFactory.#boundedContextLifecycleManagerInstances?.set?.(
+		BoundedContextLifecycleManagerFactory.#boundedContextLifecycleManagerInstances.set(
 			locationKey,
 			boundedContextLifecycleManagerInstance
 		);
@@ -379,17 +374,17 @@ export class BoundedContextLifecycleManagerFactory extends EVASBaseFactory {
 	 * @returns {null} - Nothing
 	 */
 	static async destroyInstances(location) {
-		const locationKey = Buffer?.from?.(location)?.toString?.('base64');
+		const locationKey = Buffer.from(location).toString('base64');
 
 		const boundedContextLifecycleManagerInstance =
-			BoundedContextLifecycleManagerFactory.#boundedContextLifecycleManagerInstances?.get?.(
+			BoundedContextLifecycleManagerFactory.#boundedContextLifecycleManagerInstances.get(
 				locationKey
 			);
 
 		if (!boundedContextLifecycleManagerInstance) return;
 
-		await boundedContextLifecycleManagerInstance?.unload?.();
-		BoundedContextLifecycleManagerFactory.#boundedContextLifecycleManagerInstances?.delete?.(
+		await boundedContextLifecycleManagerInstance.unload();
+		BoundedContextLifecycleManagerFactory.#boundedContextLifecycleManagerInstances.delete(
 			locationKey
 		);
 	}

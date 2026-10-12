@@ -31,7 +31,7 @@ export class IocContainer extends EVASBaseClass {
 	 */
 	constructor(domainName, parentContainer) {
 		super();
-		this.#domainName = domainName?.toLocaleUpperCase?.();
+		this.#domainName = domainName?.toLocaleUpperCase();
 		this.#parentContainer = parentContainer;
 	}
 	// #endregion
@@ -61,33 +61,35 @@ export class IocContainer extends EVASBaseClass {
 		try {
 			// Step 1: Get the RepositoryFactory...
 			let RepositoryFactory =
-				this.#ownedFactories?.get?.(name) ??
-				this.#borrowedFactories?.get?.(name);
+				this.#ownedFactories.get(name) ??
+				this.#borrowedFactories.get(name);
 
 			// Step 2: We don't have it - so borrow it from some place
 			// up the chain...
 			if (!RepositoryFactory) {
-				RepositoryFactory = await this.#parentContainer?.borrow?.(name);
-				this.#borrowedFactories?.set?.(name, RepositoryFactory);
+				RepositoryFactory = await this.#parentContainer?.borrow(name);
+				this.#borrowedFactories.set(name, RepositoryFactory);
 			}
 
 			// OOPS: We don't have a clue as to what this Repository is
 			// Throw
 			if (!RepositoryFactory) {
 				throw new Error(
-					`Unable to instantiate ${this?.domainPath}::${name} repository instance: Factory not found`
+					`Unable to instantiate ${this.domainPath}::${name} repository instance: Factory not found`
 				);
 			}
 
 			// Step 3: Instantiate the repository object using the configuration
 			// provided
-			const repositoryInstance =
-				await RepositoryFactory?.createInstances?.(configuration, this);
+			const repositoryInstance = await RepositoryFactory.createInstances(
+				configuration,
+				this
+			);
 
 			// OOPS: Can't instantiate for some reason. Throw.
 			if (!repositoryInstance) {
 				throw new Error(
-					`Unable to instantiate ${this?.domainPath}::${name} repository instance: Factory failed to create instance`
+					`Unable to instantiate ${this.domainPath}::${name} repository instance: Factory failed to create instance`
 				);
 			}
 
@@ -95,7 +97,7 @@ export class IocContainer extends EVASBaseClass {
 			return repositoryInstance;
 		} catch (error) {
 			throw new Error(
-				`Error resolving ${this?.domainPath}::${name} repository`,
+				`Error resolving ${this.domainPath}::${name} repository`,
 				{
 					cause: error
 				}
@@ -123,18 +125,17 @@ export class IocContainer extends EVASBaseClass {
 	 * Returns the RepositoryFactory for the requested repository
 	 */
 	async borrow(name) {
-		if (this.#ownedFactories?.has?.(name)) {
-			return this.#ownedFactories?.get?.(name);
+		if (this.#ownedFactories.has(name)) {
+			return this.#ownedFactories.get(name);
 		}
 
-		if (this.#borrowedFactories?.has?.(name)) {
-			return this.#borrowedFactories?.get?.(name);
+		if (this.#borrowedFactories.has(name)) {
+			return this.#borrowedFactories.get(name);
 		}
 
 		if (this.#parentContainer) {
-			const RepositoryFactory =
-				await this.#parentContainer?.borrow?.(name);
-			this.#borrowedFactories?.set?.(name, RepositoryFactory);
+			const RepositoryFactory = await this.#parentContainer.borrow(name);
+			this.#borrowedFactories.set(name, RepositoryFactory);
 
 			return RepositoryFactory;
 		}
@@ -162,15 +163,15 @@ export class IocContainer extends EVASBaseClass {
 	 */
 	async register(name, factory) {
 		try {
-			this.#ownedFactories?.set?.(name, factory);
+			this.#ownedFactories.set(name, factory);
 
 			if (serverEnvironment === 'production') return;
-			console?.info?.(
-				`${this?.domainPath}::${this?.name}::register: ${name} repository`
+			console.info(
+				`${this.domainPath}::${this.name}::register: ${name} repository`
 			);
 		} catch (error) {
 			throw new Error(
-				`Error registering repository: ${this?.domainPath}::${this?.name}::${name}`,
+				`Error registering repository: ${this.domainPath}::${this.name}::${name}`,
 				{
 					cause: error
 				}
@@ -197,24 +198,24 @@ export class IocContainer extends EVASBaseClass {
 	 */
 	async unregister(name) {
 		try {
-			if (this.#ownedFactories?.has?.(name)) {
-				const factory = this.#ownedFactories?.get?.(name);
-				await factory?.destroyInstances?.();
+			if (this.#ownedFactories.has(name)) {
+				const factory = this.#ownedFactories.get(name);
+				await factory.destroyInstances();
 
-				this.#ownedFactories?.delete?.(name);
+				this.#ownedFactories.delete(name);
 
 				if (serverEnvironment === 'production') return;
-				console?.info?.(
-					`\n${this?.domainPath}::${this?.name}::unregister: ${name} repository`
+				console.info(
+					`\n${this.domainPath}::${this.name}::unregister: ${name} repository`
 				);
 			}
 
-			if (this.#borrowedFactories?.has?.(name)) {
-				this.#borrowedFactories?.delete?.(name);
+			if (this.#borrowedFactories.has(name)) {
+				this.#borrowedFactories.delete(name);
 			}
 		} catch (error) {
 			throw new Error(
-				`Error un-registering repository: ${this?.domainPath}::${this?.name}::${name}`,
+				`Error un-registering repository: ${this.domainPath}::${this.name}::${name}`,
 				{
 					cause: error
 				}
@@ -243,33 +244,30 @@ export class IocContainer extends EVASBaseClass {
 		try {
 			let promiseResolutions = [];
 
-			this.#ownedFactories?.forEach?.((factory) => {
-				promiseResolutions?.push?.(factory?.destroyInstances?.());
+			this.#ownedFactories.forEach((factory) => {
+				promiseResolutions.push(factory.destroyInstances());
 			});
 
-			promiseResolutions =
-				await Promise?.allSettled?.(promiseResolutions);
+			promiseResolutions = await Promise.allSettled(promiseResolutions);
 
-			promiseResolutions?.forEach?.((resolution) => {
-				if (resolution?.status === 'fulfilled') return;
-				errors?.push?.(resolution?.reason);
+			promiseResolutions.forEach((resolution) => {
+				if (resolution.status === 'fulfilled') return;
+				errors.push(resolution.reason);
 			});
 
-			this.#ownedFactories?.clear?.();
-			this.#borrowedFactories?.clear?.();
+			this.#ownedFactories.clear();
+			this.#borrowedFactories.clear();
 
 			if (serverEnvironment === 'production') return;
-			console?.info?.(
-				`\n${this?.domainPath}::${this?.name}::unregisterAll`
-			);
+			console.info(`\n${this.domainPath}::${this.name}::unregisterAll`);
 		} catch (error) {
-			errors?.push?.(error);
+			errors.push(error);
 		}
 
-		if (!errors?.length) return;
+		if (!errors.length) return;
 		throw new AggregateError(
 			errors,
-			`${this?.domainPath}::${this?.name}::Error un-registering all repositories`
+			`${this.domainPath}::${this.name}::Error un-registering all repositories`
 		);
 	}
 	// #endregion
@@ -287,7 +285,7 @@ export class IocContainer extends EVASBaseClass {
 	 */
 	get domainPath() {
 		if (this.#parentContainer) {
-			return `${this.#parentContainer?.domainPath ?? ''}::${this.#domainName ?? ''}`;
+			return `${this.#parentContainer.domainPath ?? ''}::${this.#domainName ?? ''}`;
 		} else {
 			return this.#domainName ?? '';
 		}

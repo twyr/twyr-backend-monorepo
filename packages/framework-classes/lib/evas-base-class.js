@@ -43,7 +43,7 @@ export class EVASBaseClass {
 	 * @returns {string} Name of the Class.
 	 */
 	get name() {
-		return this?.constructor?.name ?? 'EVASBaseClass';
+		return this.constructor.name ?? 'EVASBaseClass';
 	}
 	// #endregion
 }

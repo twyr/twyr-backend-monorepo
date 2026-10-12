@@ -63,30 +63,28 @@ class Auth extends EVASBaseRepository {
 	 * start logic
 	 */
 	async load() {
-		await super.load?.();
+		await super.load();
 
 		const passport = await import('koa-passport');
-		this.#passport = passport?.['default'];
+		this.#passport = passport['default'];
 
-		const authStrategyPath = resolve?.(
-			join?.(this?.__dirname, 'strategies')
-		);
+		const authStrategyPath = resolve(join(this.__dirname, 'strategies'));
 
 		// eslint-disable-next-line security/detect-non-literal-fs-filename
-		const availableStrategies = await readdir?.(authStrategyPath);
-		const cacheRepository = await this?.iocContainer?.resolve?.('Cache');
+		const availableStrategies = await readdir(authStrategyPath);
+		const cacheRepository = await this.iocContainer.resolve('Cache');
 		const databaseRepository =
-			await this?.iocContainer?.resolve?.('SQLDatabase');
+			await this.iocContainer.resolve('SQLDatabase');
 
 		for (const strategyFile of availableStrategies) {
-			if (extname?.(strategyFile) !== '.js') continue;
-			const thisStrategyPath = join?.(authStrategyPath, strategyFile);
+			if (extname(strategyFile) !== '.js') continue;
+			const thisStrategyPath = join(authStrategyPath, strategyFile);
 
 			let thisStrategy = await import(thisStrategyPath);
-			thisStrategy = thisStrategy?.['default'];
+			thisStrategy = thisStrategy['default'];
 
 			if (!thisStrategy) continue;
-			await thisStrategy?.(
+			await thisStrategy(
 				this.#passport,
 				cacheRepository,
 				databaseRepository
@@ -113,7 +111,7 @@ class Auth extends EVASBaseRepository {
 	 */
 	async unload() {
 		this.#passport = undefined;
-		await super.unload?.();
+		await super.unload();
 	}
 	// #endregion
 
@@ -182,28 +180,28 @@ export default class AuthRepositoryFactory extends EVASBaseFactory {
 	 * @returns {Auth} - The Auth repository instance.
 	 */
 	static async createInstances(configuration, iocContainer) {
-		const repositoryKey = Buffer?.from?.(
-			safeJsonStringify?.(configuration ?? {})
-		)?.toString?.('base64');
+		const repositoryKey = Buffer.from(
+			safeJsonStringify(configuration ?? {})
+		).toString('base64');
 
-		await AuthRepositoryFactory.#mutex?.runExclusive?.(async () => {
-			if (!AuthRepositoryFactory.#authInstances?.has(repositoryKey)) {
+		await AuthRepositoryFactory.#mutex.runExclusive(async () => {
+			if (!AuthRepositoryFactory.#authInstances.has(repositoryKey)) {
 				const authInstance = new Auth(
 					AuthRepositoryFactory['$disk_unc'],
 					iocContainer,
 					configuration
 				);
 
-				await authInstance?.load?.();
-				AuthRepositoryFactory.#authInstances?.set?.(
+				await authInstance.load();
+				AuthRepositoryFactory.#authInstances.set(
 					repositoryKey,
 					authInstance
 				);
 			}
 		});
 
-		return AuthRepositoryFactory.#authInstances?.get(repositoryKey)
-			?.interface;
+		return AuthRepositoryFactory.#authInstances.get(repositoryKey)
+			.interface;
 	}
 
 	/**
@@ -224,30 +222,30 @@ export default class AuthRepositoryFactory extends EVASBaseFactory {
 	 * @description Clears the cached {Auth} instances
 	 */
 	static async destroyInstances(configuration) {
-		await AuthRepositoryFactory.#mutex?.runExclusive?.(async () => {
+		await AuthRepositoryFactory.#mutex.runExclusive(async () => {
 			if (configuration) {
-				const repositoryKey = Buffer?.from?.(
-					safeJsonStringify?.(configuration)
-				)?.toString?.('base64');
+				const repositoryKey = Buffer.from(
+					safeJsonStringify(configuration)
+				).toString('base64');
 
-				if (!AuthRepositoryFactory.#authInstances?.has(repositoryKey))
+				if (!AuthRepositoryFactory.#authInstances.has(repositoryKey))
 					return;
 
 				const authInstance =
-					AuthRepositoryFactory.#authInstances?.get(repositoryKey);
-				await authInstance?.unload?.();
+					AuthRepositoryFactory.#authInstances.get(repositoryKey);
+				await authInstance.unload();
 
-				AuthRepositoryFactory.#authInstances?.delete?.(repositoryKey);
+				AuthRepositoryFactory.#authInstances.delete(repositoryKey);
 				return;
 			}
 
 			const destroyResolutions = [];
-			AuthRepositoryFactory.#authInstances?.forEach?.((authInstance) => {
-				destroyResolutions?.push?.(authInstance?.unload?.());
+			AuthRepositoryFactory.#authInstances.forEach((authInstance) => {
+				destroyResolutions.push(authInstance.unload());
 			});
 
-			await Promise?.allSettled?.(destroyResolutions);
-			AuthRepositoryFactory.#authInstances?.clear?.();
+			await Promise.allSettled(destroyResolutions);
+			AuthRepositoryFactory.#authInstances.clear();
 
 			return;
 		});

@@ -5,7 +5,7 @@ const insertSystemAdminMessagesByLocale =
 		const localeId = 'gu-IN';
 		const firstMessageId = 'SYSTEM_ADMIN::SESSION_MANAGER::OTP_MESSAGE_SMS';
 
-		const existingMessage = await knex?.raw?.(
+		const existingMessage = await knex.raw(
 			`SELECT message_id FROM system_message_by_locale WHERE locale_id = ? AND message_id = ?`,
 			[localeId, firstMessageId]
 		);

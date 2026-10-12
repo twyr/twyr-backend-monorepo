@@ -67,8 +67,8 @@ export class BaseMiddleware extends EVASBaseMiddleware {
 	 * start logic
 	 */
 	async load() {
-		await super.load?.();
-		await this?._registerApi?.();
+		await super.load();
+		await this._registerApi();
 	}
 
 	/**
@@ -89,8 +89,8 @@ export class BaseMiddleware extends EVASBaseMiddleware {
 	 * stop logic
 	 */
 	async unload() {
-		await this?._unregisterApi?.();
-		await super.unload?.();
+		await this._unregisterApi();
+		await super.unload();
 	}
 	// #endregion
 
@@ -158,14 +158,14 @@ export class BaseMiddleware extends EVASBaseMiddleware {
 	 */
 	async _executeWithBackOff(method) {
 		const logger =
-			await this?.domainInterface?.iocContainer?.resolve?.('Logger');
+			await this.domainInterface.iocContainer.resolve('Logger');
 
 		try {
-			const returnValue = await backOff?.(method, {
+			const returnValue = await backOff(method, {
 				delayFirstAttempt: false,
 				numOfAttempts: MAX_RETRY_COUNT,
 				retry: (error) => {
-					logger?.error?.(error?.message);
+					logger.error(error.message);
 					return true;
 				}
 			});
@@ -194,33 +194,33 @@ export class BaseMiddleware extends EVASBaseMiddleware {
 	 * Fetches the models from the domainInterface
 	 */
 	async _getModelsFromDomain(modelList) {
-		let models = await this?.domainInterface?.models?.(modelList);
+		let models = await this.domainInterface.models(modelList);
 		const errors = [];
 
 		models = models
-			?.map?.((model) => {
-				if (model?.error) {
-					errors?.push?.(model?.error);
+			.map((model) => {
+				if (model.error) {
+					errors.push(model.error);
 					return;
 				}
 
-				return model?.model;
+				return model.model;
 			})
-			?.filter?.((model) => {
+			.filter((model) => {
 				return model ?? false;
 			});
 
-		if (errors?.length) {
-			const propagatedError = createErrorForPropagation?.(
-				`${this?.name}::_getModelsFromDomain: error fetching models`,
+		if (errors.length) {
+			const propagatedError = createErrorForPropagation(
+				`${this.name}::_getModelsFromDomain: error fetching models`,
 				errors
 			);
 
 			throw propagatedError;
 		}
 
-		if (models?.length <= 1) {
-			models = models?.pop?.();
+		if (models.length <= 1) {
+			models = models.pop();
 		}
 
 		return models;
@@ -243,33 +243,33 @@ export class BaseMiddleware extends EVASBaseMiddleware {
 	 * Fetches the templates from the domainInterface
 	 */
 	async _getTemplatesFromDomain(templateList) {
-		let templates = await this?.domainInterface?.templates?.(templateList);
+		let templates = await this.domainInterface.templates(templateList);
 		const errors = [];
 
 		templates = templates
-			?.map?.((template) => {
-				if (template?.error) {
-					errors?.push?.(template?.error);
+			.map((template) => {
+				if (template.error) {
+					errors.push(template.error);
 					return;
 				}
 
-				return template?.template;
+				return template.template;
 			})
-			?.filter?.((template) => {
+			.filter((template) => {
 				return template ?? false;
 			});
 
-		if (errors?.length) {
-			const propagatedError = createErrorForPropagation?.(
-				`${this?.name}::_getTemplatesFromDomain: error fetching templates`,
+		if (errors.length) {
+			const propagatedError = createErrorForPropagation(
+				`${this.name}::_getTemplatesFromDomain: error fetching templates`,
 				errors
 			);
 
 			throw propagatedError;
 		}
 
-		if (templates?.length <= 1) {
-			templates = templates?.pop?.();
+		if (templates.length <= 1) {
+			templates = templates.pop();
 		}
 
 		return templates;

@@ -72,7 +72,7 @@ export class UserBaseSurface extends BaseSurface {
 					permission === 'registered' &&
 					ctxt.state.user.role === 'user'
 				) {
-					await next?.();
+					await next();
 					return;
 				}
 
@@ -86,7 +86,7 @@ export class UserBaseSurface extends BaseSurface {
 				throw permissionError;
 			};
 
-		return permissionCheckerMiddleware?.bind?.(this);
+		return permissionCheckerMiddleware.bind(this);
 	}
 
 	/**
@@ -110,9 +110,9 @@ export class UserBaseSurface extends BaseSurface {
 		 */
 		const assetAccessCheckerMiddleware =
 			async function assetAccessCheckerMiddleware(ctxt, next) {
-				await next?.();
+				await next();
 			};
 
-		return assetAccessCheckerMiddleware?.bind?.(this);
+		return assetAccessCheckerMiddleware.bind(this);
 	}
 }

@@ -46,16 +46,16 @@ export class Users extends BaseDomain {
 	 * @returns {void} Nothing.
 	 */
 	_registerSerializerTypes(serializer) {
-		super._registerSerializerTypes?.(serializer);
+		super._registerSerializerTypes(serializer);
 
-		serializer?.register?.('contact_type_master', {
+		serializer.register('contact_type_master', {
 			blacklist: ['created_at', 'updated_at'],
 			relationships: {
 				userContacts: { type: 'user_contact' }
 			}
 		});
 
-		serializer?.register?.('locale_master', {
+		serializer.register('locale_master', {
 			id: 'code',
 			blacklist: ['created_at', 'updated_at'],
 			relationships: {
@@ -64,7 +64,7 @@ export class Users extends BaseDomain {
 			}
 		});
 
-		serializer?.register?.('user', {
+		serializer.register('user', {
 			blacklist: ['created_at', 'updated_at', 'is_deleted'],
 			relationships: {
 				contacts: { type: 'user_contact' },
@@ -73,7 +73,7 @@ export class Users extends BaseDomain {
 			}
 		});
 
-		serializer?.register?.('user_contact', {
+		serializer.register('user_contact', {
 			blacklist: ['created_at', 'updated_at'],
 			relationships: {
 				user: { type: 'user' },
@@ -81,7 +81,7 @@ export class Users extends BaseDomain {
 			}
 		});
 
-		serializer?.register?.('user_locale', {
+		serializer.register('user_locale', {
 			blacklist: ['created_at', 'updated_at'],
 			relationships: {
 				user: { type: 'user' },
@@ -89,7 +89,7 @@ export class Users extends BaseDomain {
 			}
 		});
 
-		serializer?.register?.('user_name_by_locale', {
+		serializer.register('user_name_by_locale', {
 			blacklist: ['created_at', 'updated_at'],
 			relationships: {
 				user: { type: 'user' },
@@ -138,14 +138,14 @@ export default class UsersDomainFactory extends EVASBaseFactory {
 	 * @returns {Promise<Users>} The singleton domain instance.
 	 */
 	static async createInstances(domainInterface) {
-		return await UsersDomainFactory.#mutex?.runExclusive?.(async () => {
+		return await UsersDomainFactory.#mutex.runExclusive(async () => {
 			if (!UsersDomainFactory.#usersDomainInstance) {
 				const usersDomainInstance = new Users(
 					UsersDomainFactory['$disk_unc'],
 					domainInterface
 				);
 
-				await usersDomainInstance?.load?.();
+				await usersDomainInstance.load();
 				UsersDomainFactory.#usersDomainInstance = usersDomainInstance;
 			}
 
@@ -167,8 +167,8 @@ export default class UsersDomainFactory extends EVASBaseFactory {
 	 * @returns {Promise<void>} Resolves after the instance is unloaded.
 	 */
 	static async destroyInstances() {
-		await UsersDomainFactory.#mutex?.runExclusive?.(async () => {
-			await UsersDomainFactory.#usersDomainInstance?.unload?.();
+		await UsersDomainFactory.#mutex.runExclusive(async () => {
+			await UsersDomainFactory.#usersDomainInstance?.unload();
 			UsersDomainFactory.#usersDomainInstance = undefined;
 		});
 	}

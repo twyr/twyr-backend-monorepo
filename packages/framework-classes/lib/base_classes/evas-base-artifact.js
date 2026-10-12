@@ -36,7 +36,7 @@ export class EVASBaseArtifact extends EVASBaseClass {
 		this.#__dirname = location;
 
 		if (serverEnvironment === 'production') return;
-		console?.info?.(`\n${location}\n${this?.name}::constructor`);
+		console.info(`\n${location}\n${this.name}::constructor`);
 	}
 	// #endregion
 
@@ -59,7 +59,7 @@ export class EVASBaseArtifact extends EVASBaseClass {
 	 */
 	async load() {
 		if (serverEnvironment === 'production') return;
-		console?.info?.(`${this?.name}::load`);
+		console.info(`${this.name}::load`);
 	}
 
 	/**
@@ -80,7 +80,7 @@ export class EVASBaseArtifact extends EVASBaseClass {
 	 */
 	async unload() {
 		if (serverEnvironment !== 'production') {
-			console?.info?.(`\n${this.#__dirname}\n${this?.name}::unload`);
+			console.info(`\n${this.#__dirname}\n${this.name}::unload`);
 		}
 
 		this.#__dirname = undefined;

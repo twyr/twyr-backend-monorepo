@@ -57,7 +57,7 @@ export class Main extends BaseSurface {
 	 * by passing it in to the base class load method
 	 */
 	async load() {
-		await super.load?.();
+		await super.load();
 	}
 	// #endregion
 
@@ -80,84 +80,84 @@ export class Main extends BaseSurface {
 	 * the Rest API Router
 	 */
 	async _registerSurface() {
-		const baseRoutes = await super._registerSurface?.();
+		const baseRoutes = await super._registerSurface();
 
-		baseRoutes?.push?.({
+		baseRoutes.push({
 			version: 1,
 			httpMethod: 'GET',
 			path: '/contact-types',
-			middlewares: [await this?._rbac?.('registered')],
-			handler: this.#getContactTypes?.bind?.(this)
+			middlewares: [await this._rbac('registered')],
+			handler: this.#getContactTypes.bind(this)
 		});
 
-		baseRoutes?.push?.({
+		baseRoutes.push({
 			version: 1,
 			httpMethod: 'GET',
 			path: '/contact-types/:id',
-			middlewares: [await this?._rbac?.('registered')],
-			handler: this.#getContactTypes?.bind?.(this)
+			middlewares: [await this._rbac('registered')],
+			handler: this.#getContactTypes.bind(this)
 		});
 
-		baseRoutes?.push?.({
+		baseRoutes.push({
 			version: 1,
 			httpMethod: 'GET',
 			path: '/genders',
-			handler: this.#getGenders?.bind?.(this)
+			handler: this.#getGenders.bind(this)
 		});
 
-		baseRoutes?.push?.({
+		baseRoutes.push({
 			version: 1,
 			httpMethod: 'GET',
 			path: '/genders/:id',
-			handler: this.#getGenders?.bind?.(this)
+			handler: this.#getGenders.bind(this)
 		});
 
-		baseRoutes?.push?.({
+		baseRoutes.push({
 			version: 1,
 			httpMethod: 'GET',
 			path: '/locales',
 			middlewares: [],
-			handler: this.#getLocales?.bind?.(this)
+			handler: this.#getLocales.bind(this)
 		});
 
-		baseRoutes?.push?.({
+		baseRoutes.push({
 			version: 1,
 			httpMethod: 'GET',
 			path: '/locales/:id',
 			middlewares: [],
-			handler: this.#getLocales?.bind?.(this)
+			handler: this.#getLocales.bind(this)
 		});
 
-		baseRoutes?.push?.({
+		baseRoutes.push({
 			version: 1,
 			httpMethod: 'GET',
 			path: '/country-codes',
-			middlewares: [await this?._rbac?.('registered')],
-			handler: this.#getCountryCodes?.bind?.(this)
+			middlewares: [await this._rbac('registered')],
+			handler: this.#getCountryCodes.bind(this)
 		});
 
-		baseRoutes?.push?.({
+		baseRoutes.push({
 			version: 1,
 			httpMethod: 'GET',
 			path: '/country-codes/:iso_code',
-			middlewares: [await this?._rbac?.('registered')],
-			handler: this.#getCountryCodes?.bind?.(this)
+			middlewares: [await this._rbac('registered')],
+			handler: this.#getCountryCodes.bind(this)
 		});
 
-		baseRoutes?.push?.({
+		baseRoutes.push({
 			version: 1,
 			httpMethod: 'GET',
 			path: '/system-messages',
-			middlewares: [await this?._rbac?.('registered')],
-			handler: this.#getSystemMessages?.bind?.(this)
+			middlewares: [await this._rbac('registered')],
+			handler: this.#getSystemMessages.bind(this)
 		});
 
-		baseRoutes?.push?.({
+		baseRoutes.push({
 			version: 1,
 			httpMethod: 'GET',
 			path: '/system-messages/:messageCode',
-			middlewares: [await this?._rbac?.('registered')],
-			handler: this.#getSystemMessages?.bind?.(this)
+			middlewares: [await this._rbac('registered')],
+			handler: this.#getSystemMessages.bind(this)
 		});
 
 		return baseRoutes;
@@ -181,7 +181,7 @@ export class Main extends BaseSurface {
 	 * the Rest API Router
 	 */
 	async _unregisterSurface() {
-		await super._unregisterSurface?.();
+		await super._unregisterSurface();
 		return;
 	}
 	// #endregion
@@ -213,14 +213,14 @@ export class Main extends BaseSurface {
 	 * $
 	 */
 	async #getContactTypes(ctxt) {
-		const masterdataList = await this.#getMasterdata?.(
+		const masterdataList = await this.#getMasterdata(
 			'CONTACT_TYPE',
 			ctxt.params.id,
 			ctxt.locale
 		);
 
-		ctxt.status = masterdataList?.status;
-		ctxt.body = masterdataList?.body;
+		ctxt.status = masterdataList.status;
+		ctxt.body = masterdataList.body;
 	}
 
 	/**
@@ -248,14 +248,14 @@ export class Main extends BaseSurface {
 	 * $
 	 */
 	async #getGenders(ctxt) {
-		const masterdataList = await this.#getMasterdata?.(
+		const masterdataList = await this.#getMasterdata(
 			'GENDER',
 			ctxt.params.id,
 			ctxt.locale
 		);
 
-		ctxt.status = masterdataList?.status;
-		ctxt.body = masterdataList?.body;
+		ctxt.status = masterdataList.status;
+		ctxt.body = masterdataList.body;
 	}
 
 	/**
@@ -283,14 +283,14 @@ export class Main extends BaseSurface {
 	 * $
 	 */
 	async #getLocales(ctxt) {
-		const masterdataList = await this.#getMasterdata?.(
+		const masterdataList = await this.#getMasterdata(
 			'LOCALE',
 			ctxt.params.id,
 			ctxt.locale
 		);
 
-		ctxt.status = masterdataList?.status;
-		ctxt.body = masterdataList?.body;
+		ctxt.status = masterdataList.status;
+		ctxt.body = masterdataList.body;
 	}
 
 	/**
@@ -318,14 +318,14 @@ export class Main extends BaseSurface {
 	 * $
 	 */
 	async #getCountryCodes(ctxt) {
-		const masterdataList = await this.#getMasterdata?.(
+		const masterdataList = await this.#getMasterdata(
 			'COUNTRY_CODES',
 			ctxt.params.iso_code,
 			ctxt.locale
 		);
 
-		ctxt.status = masterdataList?.status;
-		ctxt.body = masterdataList?.body;
+		ctxt.status = masterdataList.status;
+		ctxt.body = masterdataList.body;
 	}
 
 	/**
@@ -353,14 +353,14 @@ export class Main extends BaseSurface {
 	 * $
 	 */
 	async #getSystemMessages(ctxt) {
-		const masterdataList = await this.#getMasterdata?.(
+		const masterdataList = await this.#getMasterdata(
 			'SYSTEM_MESSAGES',
 			ctxt.params.messageCode,
 			ctxt.locale
 		);
 
-		ctxt.status = masterdataList?.status;
-		ctxt.body = masterdataList?.body;
+		ctxt.status = masterdataList.status;
+		ctxt.body = masterdataList.body;
 	}
 
 	// #endregion
@@ -386,15 +386,15 @@ export class Main extends BaseSurface {
 	 * @returns {Promise<object>} HTTP response data containing cleaned masterdata records.
 	 */
 	async #getMasterdata(masterdataType, id, localeId, extraParameter) {
-		const apiRegistry = this?.domainInterface?.apiRegistry;
-		let masterdataList = await apiRegistry?.execute?.(
+		const apiRegistry = this.domainInterface.apiRegistry;
+		let masterdataList = await apiRegistry.execute(
 			masterdataType,
 			id,
 			localeId,
 			extraParameter
 		);
 
-		masterdataList.body = (masterdataList?.body ?? [])?.map?.((item) => {
+		masterdataList.body = (masterdataList.body ?? []).map((item) => {
 			delete item['created_at'];
 			delete item['updated_at'];
 
@@ -446,14 +446,14 @@ export default class MainSurfaceFactory extends EVASBaseFactory {
 	 * @returns {Main} - The Main surface instance.
 	 */
 	static async createInstances(domainInterface) {
-		return await MainSurfaceFactory.#mutex?.runExclusive?.(async () => {
+		return await MainSurfaceFactory.#mutex.runExclusive(async () => {
 			if (!MainSurfaceFactory.#mainInstance) {
 				const mainInstance = new Main(
 					MainSurfaceFactory['$disk_unc'],
 					domainInterface
 				);
 
-				await mainInstance?.load?.();
+				await mainInstance.load();
 				MainSurfaceFactory.#mainInstance = mainInstance;
 			}
 
@@ -477,8 +477,8 @@ export default class MainSurfaceFactory extends EVASBaseFactory {
 	 * @description Clears the Main instance
 	 */
 	static async destroyInstances() {
-		await MainSurfaceFactory.#mutex?.runExclusive?.(async () => {
-			await MainSurfaceFactory.#mainInstance?.unload?.();
+		await MainSurfaceFactory.#mutex.runExclusive(async () => {
+			await MainSurfaceFactory.#mainInstance?.unload();
 			MainSurfaceFactory.#mainInstance = undefined;
 
 			return;

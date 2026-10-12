@@ -56,7 +56,7 @@ export class Main extends BaseSurface {
 	 * Calls the base class load method
 	 */
 	async load() {
-		await super.load?.();
+		await super.load();
 	}
 
 	/**
@@ -76,7 +76,7 @@ export class Main extends BaseSurface {
 	 * Cleanup on unload
 	 */
 	async unload() {
-		await super.unload?.();
+		await super.unload();
 	}
 	// #endregion
 
@@ -99,14 +99,14 @@ export class Main extends BaseSurface {
 	 * the Rest API Router
 	 */
 	async _registerSurface() {
-		const baseRoutes = await super._registerSurface?.();
+		const baseRoutes = await super._registerSurface();
 
-		baseRoutes?.push?.({
+		baseRoutes.push({
 			version: 1,
 			httpMethod: 'GET',
 			path: '/',
 			middlewares: [],
-			handler: this.#ok?.bind?.(this)
+			handler: this.#ok.bind(this)
 		});
 
 		return baseRoutes;
@@ -130,7 +130,7 @@ export class Main extends BaseSurface {
 	 * the Rest API Router
 	 */
 	async _unregisterSurface() {
-		await super._unregisterSurface?.();
+		await super._unregisterSurface();
 		return;
 	}
 	// #endregion
@@ -203,14 +203,14 @@ export default class MainSurfaceFactory extends EVASBaseFactory {
 	 * @returns {Main} - The Main surface instance.
 	 */
 	static async createInstances(domainInterface) {
-		return await MainSurfaceFactory.#mutex?.runExclusive?.(async () => {
+		return await MainSurfaceFactory.#mutex.runExclusive(async () => {
 			if (!MainSurfaceFactory.#mainInstance) {
 				const mainInstance = new Main(
 					MainSurfaceFactory['$disk_unc'],
 					domainInterface
 				);
 
-				await mainInstance?.load?.();
+				await mainInstance.load();
 				MainSurfaceFactory.#mainInstance = mainInstance;
 			}
 
@@ -234,8 +234,8 @@ export default class MainSurfaceFactory extends EVASBaseFactory {
 	 * @description Clears the Main instance
 	 */
 	static async destroyInstances() {
-		await MainSurfaceFactory.#mutex?.runExclusive?.(async () => {
-			await MainSurfaceFactory.#mainInstance?.unload?.();
+		await MainSurfaceFactory.#mutex.runExclusive(async () => {
+			await MainSurfaceFactory.#mainInstance?.unload();
 			MainSurfaceFactory.#mainInstance = undefined;
 
 			return;

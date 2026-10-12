@@ -57,7 +57,7 @@ class Renderer extends EVASBaseRepository {
 	 * start logic
 	 */
 	async load() {
-		await super.load?.();
+		await super.load();
 	}
 
 	/**
@@ -78,7 +78,7 @@ class Renderer extends EVASBaseRepository {
 	 * stop logic
 	 */
 	async unload() {
-		await super.unload?.();
+		await super.unload();
 	}
 	// #endregion
 
@@ -102,7 +102,7 @@ class Renderer extends EVASBaseRepository {
 	 */
 	async render(renderData) {
 		let ejs = await import('ejs');
-		ejs = ejs?.['default'];
+		ejs = ejs['default'];
 
 		const options = {
 			async: true,
@@ -111,20 +111,20 @@ class Renderer extends EVASBaseRepository {
 
 		let renderResolutions = [];
 		for (const renderItem of renderData) {
-			renderResolutions?.push?.(
-				ejs?.render?.(
-					renderItem?.template?.toString?.(),
-					renderItem?.data,
+			renderResolutions.push(
+				ejs.render(
+					renderItem.template.toString(),
+					renderItem.data,
 					options
 				)
 			);
 		}
 
-		renderResolutions = await Promise?.allSettled?.(renderResolutions);
-		renderResolutions?.forEach?.((renderedData, index) => {
-			if (renderedData?.status === 'fulfilled') {
+		renderResolutions = await Promise.allSettled(renderResolutions);
+		renderResolutions.forEach((renderedData, index) => {
+			if (renderedData.status === 'fulfilled') {
 				// eslint-disable-next-line security/detect-object-injection
-				renderData[index].document = renderedData?.value?.toString?.();
+				renderData[index].document = renderedData.value.toString();
 			}
 		});
 
@@ -148,7 +148,7 @@ class Renderer extends EVASBaseRepository {
 	 */
 	get interface() {
 		return {
-			render: this?.render?.bind?.(this)
+			render: this.render.bind(this)
 		};
 	}
 	// #endregion
@@ -201,7 +201,7 @@ export default class RendererRepositoryFactory extends EVASBaseFactory {
 	 * @returns {Renderer} - The Renderer repository instance.
 	 */
 	static async createInstances(configuration, iocContainer) {
-		await RendererRepositoryFactory.#mutex?.runExclusive?.(async () => {
+		await RendererRepositoryFactory.#mutex.runExclusive(async () => {
 			if (!RendererRepositoryFactory.#rendererInstance) {
 				const rendererInstance = new Renderer(
 					RendererRepositoryFactory['$disk_unc'],
@@ -209,12 +209,12 @@ export default class RendererRepositoryFactory extends EVASBaseFactory {
 					configuration
 				);
 
-				await rendererInstance?.load?.();
+				await rendererInstance.load();
 				RendererRepositoryFactory.#rendererInstance = rendererInstance;
 			}
 		});
 
-		return RendererRepositoryFactory.#rendererInstance?.interface;
+		return RendererRepositoryFactory.#rendererInstance.interface;
 	}
 
 	/**
@@ -235,10 +235,10 @@ export default class RendererRepositoryFactory extends EVASBaseFactory {
 	 * @description Clears the cached {Renderer} instances
 	 */
 	static async destroyInstances(/*configuration*/) {
-		await RendererRepositoryFactory.#mutex?.runExclusive?.(async () => {
+		await RendererRepositoryFactory.#mutex.runExclusive(async () => {
 			if (!RendererRepositoryFactory.#rendererInstance) return;
 
-			await RendererRepositoryFactory.#rendererInstance?.unload?.();
+			await RendererRepositoryFactory.#rendererInstance.unload();
 			RendererRepositoryFactory.#rendererInstance = undefined;
 		});
 	}

@@ -91,9 +91,9 @@ class RestApi extends EVASBaseIngressSurface {
 	 * start logic
 	 */
 	async load() {
-		await super.load?.();
+		await super.load();
 
-		const cache = await this?.iocContainer?.resolve?.('Cache');
+		const cache = await this.iocContainer.resolve('Cache');
 
 		/**
 		 * Step 1: Setup the configuration
@@ -106,20 +106,19 @@ class RestApi extends EVASBaseIngressSurface {
 		let configuration = this.configuration;
 		if (!configuration) {
 			const configRepository =
-				await this?.iocContainer?.resolve?.('Configuration');
+				await this.iocContainer.resolve('Configuration');
 
-			configuration = await configRepository?.getConfig?.(this?.name);
+			configuration = await configRepository.getConfig(this.name);
 		}
 
 		const sessionConfig = {
-			keys: configuration?.['SESSION_KEYS'] ?? [
+			keys: configuration['SESSION_KEYS'] ?? [
 				DEFAULT_SESSION_ENCRYPTION_KEY
 			],
 			autoCommit: true,
-			domain: configuration?.['SESSION_DOMAIN'] ?? DEFAULT_SESSION_DOMAIN,
-			key: configuration?.['SESSION_KEY'] ?? DEFAULT_SESSION_KEY,
-			maxAge:
-				configuration?.['SESSION_MAX_AGE'] ?? DEFAULT_SESSION_MAX_AGE,
+			domain: configuration['SESSION_DOMAIN'] ?? DEFAULT_SESSION_DOMAIN,
+			key: configuration['SESSION_KEY'] ?? DEFAULT_SESSION_KEY,
+			maxAge: configuration['SESSION_MAX_AGE'] ?? DEFAULT_SESSION_MAX_AGE,
 			overwrite: true,
 			httpOnly: true,
 			signed: true,
@@ -128,8 +127,8 @@ class RestApi extends EVASBaseIngressSurface {
 		};
 		sessionConfig.genid = function () {
 			return `${
-				configuration?.['SESSION_KEY'] ?? DEFAULT_SESSION_KEY
-			}.${uuidv4()?.replaceAll('-', '')}`;
+				configuration['SESSION_KEY'] ?? DEFAULT_SESSION_KEY
+			}.${uuidv4().replaceAll('-', '')}`;
 		};
 
 		/**
@@ -143,25 +142,25 @@ class RestApi extends EVASBaseIngressSurface {
 
 		// Step 2.1: Instantiate Koa
 		let Koa = await import('koa');
-		Koa = Koa?.['default'];
+		Koa = Koa['default'];
 
 		this.#koaApp = new Koa();
-		this.#koaApp?.on?.('error', this.#handleKoaAppError.bind(this));
+		this.#koaApp.on('error', this.#handleKoaAppError.bind(this));
 
-		this.#koaApp.keys = sessionConfig?.keys;
+		this.#koaApp.keys = sessionConfig.keys;
 		this.#koaApp.proxy = global.serverEnvironment === 'production';
 
 		// Step 2.2: The audit log hook...
-		this.#koaApp?.use?.(
+		this.#koaApp.use(
 			createAuditLogMiddleware({
-				iocContainer: this?.iocContainer
+				iocContainer: this.iocContainer
 			})
 		);
 
 		// Step 2.3: The Global Error Handler
-		this.#koaApp?.use?.(
+		this.#koaApp.use(
 			createErrorLogMiddleware({
-				iocContainer: this?.iocContainer,
+				iocContainer: this.iocContainer,
 				configuration: configuration
 			})
 		);
@@ -169,8 +168,8 @@ class RestApi extends EVASBaseIngressSurface {
 		// Step 2.4: Assign each request an id to enable
 		// distributed tracing...
 		let requestId = await import('koa-requestid');
-		requestId = requestId?.['default'];
-		this.#koaApp?.use?.(
+		requestId = requestId['default'];
+		this.#koaApp.use(
 			requestId({
 				expose: 'X-Request-Id',
 				header: 'X-Request-Id',
@@ -181,13 +180,13 @@ class RestApi extends EVASBaseIngressSurface {
 		// Step 2.5: Hide the powered-by header to
 		// prevent external entities from easily
 		// guessing the stack
-		this.#koaApp?.use?.(async (ctxt, next) => {
-			ctxt?.request?.socket?.setNoDelay?.(true);
+		this.#koaApp.use(async (ctxt, next) => {
+			ctxt.request.socket.setNoDelay(true);
 
-			ctxt?.set?.('X-Request-Id', ctxt?.state?.id);
-			ctxt?.set?.(
+			ctxt.set('X-Request-Id', ctxt.state.id);
+			ctxt.set(
 				'X-Powered-By',
-				configuration?.['POWERED_BY'] ?? DEFAULT_POWERED_BY
+				configuration['POWERED_BY'] ?? DEFAULT_POWERED_BY
 			);
 
 			await next();
@@ -195,58 +194,57 @@ class RestApi extends EVASBaseIngressSurface {
 
 		// Step 2.6: Add in the device identifier
 		let device = await import('device');
-		device = device?.['default'];
+		device = device['default'];
 
-		this.#koaApp?.use?.(async (ctxt, next) => {
-			ctxt.state.device = device?.(ctxt?.headers?.['user-agent'] ?? '');
+		this.#koaApp.use(async (ctxt, next) => {
+			ctxt.state.device = device(ctxt.headers['user-agent'] ?? '');
 			await next();
 		});
 
 		// Step 2.7: Sessions
 		let koaSessionRedisStore = await import('koa-redis');
-		koaSessionRedisStore = koaSessionRedisStore?.['default'];
+		koaSessionRedisStore = koaSessionRedisStore['default'];
 
-		sessionConfig.store = koaSessionRedisStore?.({
+		sessionConfig.store = koaSessionRedisStore({
 			client: cache,
 			duplicate: false
 		});
 
 		let koaSession = await import('koa-session');
-		koaSession = koaSession?.['default']?.(sessionConfig, this.#koaApp);
-		koaSession?.on?.(
+		koaSession = koaSession['default'](sessionConfig, this.#koaApp);
+		this.#koaApp.on(
 			'session:missed',
-			this.#handleKoaSessionEvents?.bind?.(this)
+			this.#handleKoaSessionEvents.bind(this)
 		);
 
-		koaSession?.on?.(
+		this.#koaApp.on(
 			'session:invalid',
-			this.#handleKoaSessionEvents?.bind?.(this)
+			this.#handleKoaSessionEvents.bind(this)
 		);
 
-		koaSession?.on?.(
+		this.#koaApp.on(
 			'session:expired',
-			this.#handleKoaSessionEvents?.bind?.(this)
+			this.#handleKoaSessionEvents.bind(this)
 		);
 
-		this.#koaApp.use?.(koaSession);
+		this.#koaApp.use(koaSession);
 
 		// Step 2.8: Passport based authentication...
-		const authRepository = await this?.iocContainer?.resolve?.('Auth');
+		const authRepository = await this.iocContainer.resolve('Auth');
 
-		this.#koaApp?.use?.(authRepository?.initialize?.());
-		this.#koaApp?.use?.(authRepository?.session?.());
+		this.#koaApp.use(authRepository.initialize());
+		this.#koaApp.use(authRepository.session());
 
 		// Step 2.9: Set locale for this request
-		const i18nRepository =
-			await this?.iocContainer?.resolve?.('MessageI18N');
-		this.#koaApp?.use?.(async (ctxt, next) => {
+		const i18nRepository = await this.iocContainer.resolve('MessageI18N');
+		this.#koaApp.use(async (ctxt, next) => {
 			const localeId =
-				ctxt?.query?.lang ??
+				ctxt.query.lang ??
 				ctxt?.state?.user?.['primary_locale'] ??
 				'en-IN';
 
 			const isLocaleSupported =
-				await i18nRepository?.supportedLocales?.includes?.(localeId);
+				await i18nRepository.supportedLocales.includes(localeId);
 
 			if (!isLocaleSupported) {
 				ctxt.status = 406;
@@ -264,41 +262,41 @@ class RestApi extends EVASBaseIngressSurface {
 		// Step 2.10: The body parsers...
 		const bodyParserConfig = {
 			jsonLimit:
-				configuration?.['MAX_PAYLOAD_SIZE'] ?? DEFAULT_MAX_PAYLOAD_SIZE,
+				configuration['MAX_PAYLOAD_SIZE'] ?? DEFAULT_MAX_PAYLOAD_SIZE,
 			textLimit:
-				configuration?.['MAX_PAYLOAD_SIZE'] ?? DEFAULT_MAX_PAYLOAD_SIZE,
+				configuration['MAX_PAYLOAD_SIZE'] ?? DEFAULT_MAX_PAYLOAD_SIZE,
 			xmlLimit:
-				configuration?.['MAX_PAYLOAD_SIZE'] ?? DEFAULT_MAX_PAYLOAD_SIZE,
+				configuration['MAX_PAYLOAD_SIZE'] ?? DEFAULT_MAX_PAYLOAD_SIZE,
 			enableTypes: ['json', 'text', 'xml'],
 			extendTypes: {
 				json: ['application/x-javascript', 'application/vnd.api+json']
 			},
-			onError: this.#handleKoaBodyParserError?.bind?.(this)
+			onError: this.#handleKoaBodyParserError.bind(this)
 		};
 
 		let koaBodyParser = await import('koa-bodyparser');
-		koaBodyParser = koaBodyParser?.['default'];
+		koaBodyParser = koaBodyParser['default'];
 
-		this.#koaApp?.use?.(koaBodyParser(bodyParserConfig));
+		this.#koaApp.use(koaBodyParser(bodyParserConfig));
 
 		// Finally, add in the router for each allowed version...
 		let Router = await import('@koa/router');
-		Router = Router?.['default'];
+		Router = Router['default'];
 
 		for (
 			let apiVersionIdx = 1;
 			apiVersionIdx <=
-			(configuration?.['MAX_API_VERSION'] ?? DEFAULT_MAX_API_VERSION);
+			(configuration['MAX_API_VERSION'] ?? DEFAULT_MAX_API_VERSION);
 			apiVersionIdx++
 		) {
 			const apiVersionRouter = new Router({
 				prefix: `/api/v${apiVersionIdx}`
 			});
 
-			this.#koaApp?.use?.(apiVersionRouter.routes());
-			this.#koaApp?.use?.(apiVersionRouter.allowedMethods());
+			this.#koaApp.use(apiVersionRouter.routes());
+			this.#koaApp.use(apiVersionRouter.allowedMethods());
 
-			this.#routers?.set?.(`v${apiVersionIdx}`, apiVersionRouter);
+			this.#routers.set(`v${apiVersionIdx}`, apiVersionRouter);
 		}
 	}
 
@@ -320,8 +318,8 @@ class RestApi extends EVASBaseIngressSurface {
 	 * stop logic
 	 */
 	async unload() {
-		await super.unload?.();
-		await this?.stop?.();
+		await super.unload();
+		await this.stop();
 	}
 	// #endregion
 
@@ -345,69 +343,69 @@ class RestApi extends EVASBaseIngressSurface {
 	async start() {
 		if (this.#protocolServer) return;
 
-		const networkList = networkInterfaces?.networkInterfaces?.();
+		const networkList = networkInterfaces.networkInterfaces();
 
 		let configuration = this.configuration;
 		if (!configuration) {
 			const configRepository =
-				await this?.iocContainer?.resolve?.('Configuration');
+				await this.iocContainer.resolve('Configuration');
 
-			configuration = await configRepository?.getConfig?.(this?.name);
+			configuration = await configRepository.getConfig(this.name);
 		}
 
 		// Step 1: Create the Server
-		this.#protocolServer = http?.createServer?.(this.#koaApp?.callback?.());
+		this.#protocolServer = http.createServer(this.#koaApp.callback());
 
 		// Step 2: Start listening to events
-		this.#protocolServer?.on?.(
+		this.#protocolServer.on(
 			'connection',
-			this.#serverConnection?.bind?.(this)
+			this.#serverConnection.bind(this)
 		);
 
-		this.#protocolServer?.on?.(
+		this.#protocolServer.on(
 			'error',
-			this.#handleProtocolServerError?.bind?.(this)
+			this.#handleProtocolServerError.bind(this)
 		);
 
 		// Step 3: Listen on configured port...
-		const listenPort = Number?.(
-			configuration?.['SERVER_PORT'] ?? DEFAULT_SERVER_PORT
+		const listenPort = Number(
+			configuration['SERVER_PORT'] ?? DEFAULT_SERVER_PORT
 		);
 
 		return new Promise((resolve, reject) => {
-			this.#protocolServer?.listen?.(listenPort, () => {
+			this.#protocolServer.listen(listenPort, () => {
 				try {
 					if (global.serverEnvironment === 'production') {
-						resolve?.();
+						resolve();
 						return;
 					}
 
 					const routerStack = [];
-					this.#routers?.forEach?.((router) => {
-						const thisStack = router?.stack
-							?.map?.((route) => {
-								const routeMethodPaths = route?.methods
-									?.map((method) => {
+					this.#routers.forEach((router) => {
+						const thisStack = router.stack
+							.map((route) => {
+								const routeMethodPaths = route.methods
+									.map((method) => {
 										if (method === 'HEAD') return;
-										return `${method} ${route?.path}`;
+										return `${method} ${route.path}`;
 									})
-									?.filter((routeMethodPath) => {
+									.filter((routeMethodPath) => {
 										return !!routeMethodPath;
 									});
 
-								return routeMethodPaths?.length > 1
+								return routeMethodPaths.length > 1
 									? routeMethodPaths
-									: routeMethodPaths?.shift?.();
+									: routeMethodPaths.shift();
 							})
-							?.filter((route) => {
+							.filter((route) => {
 								return !!route;
 							});
 
 						routerStack.push(...thisStack);
 					});
 
-					console?.info?.(
-						`\n${this?.name}::start: ${safeJsonStringify?.(
+					console.info(
+						`\n${this.name}::start: ${safeJsonStringify(
 							routerStack,
 							undefined,
 							'\t'
@@ -418,7 +416,7 @@ class RestApi extends EVASBaseIngressSurface {
 					Object.keys(networkList).forEach((networkName) => {
 						const networkInterfaceAddresses =
 							// eslint-disable-next-line security/detect-object-injection
-							networkList?.[networkName];
+							networkList[networkName];
 
 						for (const address of networkInterfaceAddresses)
 							forPrint.push({
@@ -429,10 +427,10 @@ class RestApi extends EVASBaseIngressSurface {
 							});
 					});
 
-					console?.table?.(forPrint);
-					resolve?.();
+					console.table(forPrint);
+					resolve();
 				} catch (error) {
-					reject?.(error);
+					reject(error);
 				}
 			});
 		});
@@ -467,18 +465,18 @@ class RestApi extends EVASBaseIngressSurface {
 			this.#serverConnection.bind(this)
 		);
 
-		this.#protocolServer?.closeAllConnections?.();
-		this.#protocolServer?.close?.();
+		this.#protocolServer.closeAllConnections();
+		this.#protocolServer.close();
 		this.#protocolServer = undefined;
 
 		this.#koaApp.off('error', this.#handleKoaAppError.bind(this));
 		this.#koaApp = undefined;
 
-		this.#routers?.forEach?.((router) => {
+		this.#routers.forEach((router) => {
 			router.stack.length = 0;
 		});
 
-		this.#routers?.clear?.();
+		this.#routers.clear();
 	}
 	// #endregion
 
@@ -500,8 +498,8 @@ class RestApi extends EVASBaseIngressSurface {
 		return {
 			routers: this.#routers,
 
-			start: this?.start?.bind?.(this),
-			stop: this?.stop?.bind?.(this)
+			start: this.start.bind(this),
+			stop: this.stop.bind(this)
 		};
 	}
 	// #endregion
@@ -524,8 +522,8 @@ class RestApi extends EVASBaseIngressSurface {
 	 * @returns {Promise<void>} Resolves after the connection count is logged.
 	 */
 	async #serverConnection(socket) {
-		const logger = await this?.iocContainer?.resolve?.('Logger');
-		logger?.debug?.(`Server Connections: ${socket?._server?._connections}`);
+		const logger = await this.iocContainer.resolve('Logger');
+		logger.debug(`Server Connections: ${socket._server._connections}`);
 	}
 
 	/**
@@ -544,9 +542,9 @@ class RestApi extends EVASBaseIngressSurface {
 	 * @returns {Promise<void>} Resolves after the error is logged.
 	 */
 	async #handleProtocolServerError() {
-		const logger = await this?.iocContainer?.resolve?.('Logger');
-		logger?.error?.(
-			`Server Error: ${safeJsonStringify?.(arguments, undefined, '\t')}`
+		const logger = await this.iocContainer.resolve('Logger');
+		logger.error(
+			`Server Error: ${safeJsonStringify(arguments, undefined, '\t')}`
 		);
 	}
 
@@ -566,9 +564,9 @@ class RestApi extends EVASBaseIngressSurface {
 	 * @returns {Promise<void>} Resolves after the error is logged.
 	 */
 	async #handleKoaAppError() {
-		const logger = await this?.iocContainer?.resolve?.('Logger');
-		logger?.error?.(
-			`Koa App Error: ${safeJsonStringify?.(arguments, undefined, '\t')}`
+		const logger = await this.iocContainer.resolve('Logger');
+		logger.error(
+			`Koa App Error: ${safeJsonStringify(arguments, undefined, '\t')}`
 		);
 	}
 
@@ -588,9 +586,9 @@ class RestApi extends EVASBaseIngressSurface {
 	 * @returns {Promise<void>} Resolves after the event is logged.
 	 */
 	async #handleKoaSessionEvents() {
-		const logger = await this?.iocContainer?.resolve?.('Logger');
-		logger?.info?.(
-			`Koa Session Event: ${safeJsonStringify?.(
+		const logger = await this.iocContainer.resolve('Logger');
+		logger.info(
+			`Koa Session Event: ${safeJsonStringify(
 				arguments,
 				undefined,
 				'\t'
@@ -614,9 +612,9 @@ class RestApi extends EVASBaseIngressSurface {
 	 * @returns {Promise<void>} Resolves after the error is logged.
 	 */
 	async #handleKoaBodyParserError() {
-		const logger = await this?.iocContainer?.resolve?.('Logger');
-		logger?.error?.(
-			`Koa Body Parser Error: ${safeJsonStringify?.(
+		const logger = await this.iocContainer.resolve('Logger');
+		logger.error(
+			`Koa Body Parser Error: ${safeJsonStringify(
 				arguments,
 				undefined,
 				'\t'
@@ -674,7 +672,7 @@ export default class IngressSurfaceFactory extends EVASBaseFactory {
 	 * @returns {RestApi} - The RestApi repository instance.
 	 */
 	static async createInstances(configuration, iocContainer) {
-		await IngressSurfaceFactory.#mutex?.runExclusive?.(async () => {
+		await IngressSurfaceFactory.#mutex.runExclusive(async () => {
 			if (!IngressSurfaceFactory.#restApiInstance) {
 				const restApiInstance = new RestApi(
 					IngressSurfaceFactory['$disk_unc'],
@@ -682,12 +680,12 @@ export default class IngressSurfaceFactory extends EVASBaseFactory {
 					configuration
 				);
 
-				await restApiInstance?.load?.();
+				await restApiInstance.load();
 				IngressSurfaceFactory.#restApiInstance = restApiInstance;
 			}
 		});
 
-		return IngressSurfaceFactory.#restApiInstance?.interface;
+		return IngressSurfaceFactory.#restApiInstance.interface;
 	}
 
 	/**
@@ -709,10 +707,10 @@ export default class IngressSurfaceFactory extends EVASBaseFactory {
 	 */
 	// eslint-disable-next-line no-unused-vars
 	static async destroyInstances(configuration = 'server') {
-		await IngressSurfaceFactory.#mutex?.runExclusive?.(async () => {
+		await IngressSurfaceFactory.#mutex.runExclusive(async () => {
 			if (!IngressSurfaceFactory.#restApiInstance) return;
 
-			await IngressSurfaceFactory.#restApiInstance?.unload?.();
+			await IngressSurfaceFactory.#restApiInstance.unload();
 			IngressSurfaceFactory.#restApiInstance = undefined;
 
 			return;

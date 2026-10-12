@@ -57,7 +57,7 @@ export class Locale extends SystemAdminBaseSurface {
 	 * by passing it in to the base class load method
 	 */
 	async load() {
-		await super.load?.();
+		await super.load();
 	}
 	// #endregion
 
@@ -80,21 +80,21 @@ export class Locale extends SystemAdminBaseSurface {
 	 * the Rest API Router
 	 */
 	async _registerSurface() {
-		const baseRoutes = await super._registerSurface?.();
+		const baseRoutes = await super._registerSurface();
 
-		baseRoutes?.push?.({
+		baseRoutes.push({
 			version: 1,
 			httpMethod: 'GET',
 			path: '/',
-			middlewares: [await this?._rbac?.('registered')],
-			handler: this.#getLocale?.bind?.(this)
+			middlewares: [await this._rbac('registered')],
+			handler: this.#getLocale.bind(this)
 		});
-		baseRoutes?.push?.({
+		baseRoutes.push({
 			version: 1,
 			httpMethod: 'GET',
 			path: '/:localeId',
-			middlewares: [await this?._rbac?.('registered')],
-			handler: this.#getLocale?.bind?.(this)
+			middlewares: [await this._rbac('registered')],
+			handler: this.#getLocale.bind(this)
 		});
 
 		return baseRoutes;
@@ -118,7 +118,7 @@ export class Locale extends SystemAdminBaseSurface {
 	 * the Rest API Router
 	 */
 	async _unregisterSurface() {
-		await super._unregisterSurface?.();
+		await super._unregisterSurface();
 		return;
 	}
 	// #endregion
@@ -146,15 +146,15 @@ export class Locale extends SystemAdminBaseSurface {
 	 * $ curl -X GET -H "Content-Type: application/json" -b ./cookies.txt ${base_url}/api/v1/system_admin/profile/locale/${localeId}
 	 */
 	async #getLocale(ctxt) {
-		const apiRegistry = this?.domainInterface?.apiRegistry;
-		const localeStatus = await apiRegistry?.execute?.('READ_LOCALE', {
-			user: ctxt?.state?.user,
-			localeId: ctxt?.params?.localeId,
-			locale: ctxt?.locale
+		const apiRegistry = this.domainInterface.apiRegistry;
+		const localeStatus = await apiRegistry.execute('READ_LOCALE', {
+			user: ctxt.state.user,
+			localeId: ctxt.params.localeId,
+			locale: ctxt.locale
 		});
 
-		ctxt.status = localeStatus?.status;
-		ctxt.body = localeStatus?.body;
+		ctxt.status = localeStatus.status;
+		ctxt.body = localeStatus.body;
 	}
 	// #endregion
 }
@@ -199,14 +199,14 @@ export default class LocaleSurfaceFactory extends EVASBaseFactory {
 	 * @returns {Locale} - The Locale surface instance.
 	 */
 	static async createInstances(domainInterface) {
-		return await LocaleSurfaceFactory.#mutex?.runExclusive?.(async () => {
+		return await LocaleSurfaceFactory.#mutex.runExclusive(async () => {
 			if (!LocaleSurfaceFactory.#localeInstance) {
 				const localeInstance = new Locale(
 					LocaleSurfaceFactory['$disk_unc'],
 					domainInterface
 				);
 
-				await localeInstance?.load?.();
+				await localeInstance.load();
 				LocaleSurfaceFactory.#localeInstance = localeInstance;
 			}
 
@@ -230,8 +230,8 @@ export default class LocaleSurfaceFactory extends EVASBaseFactory {
 	 * @description Clears the Locale instance
 	 */
 	static async destroyInstances() {
-		await LocaleSurfaceFactory.#mutex?.runExclusive?.(async () => {
-			await LocaleSurfaceFactory.#localeInstance?.unload?.();
+		await LocaleSurfaceFactory.#mutex.runExclusive(async () => {
+			await LocaleSurfaceFactory.#localeInstance?.unload();
 			LocaleSurfaceFactory.#localeInstance = undefined;
 			return;
 		});

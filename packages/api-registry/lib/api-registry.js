@@ -36,10 +36,10 @@ export class APIRegistry extends EVASBaseClass {
 	constructor(domainName, parentRegistry) {
 		super();
 
-		this.#scopeName = domainName?.toLocaleUpperCase?.();
+		this.#scopeName = domainName?.toLocaleUpperCase();
 		this.#parentRegistry = parentRegistry;
 
-		this.#parentRegistry?.registerChild?.(this.#scopeName, this);
+		this.#parentRegistry?.registerChild(this.#scopeName, this);
 	}
 	// #endregion
 
@@ -63,13 +63,13 @@ export class APIRegistry extends EVASBaseClass {
 	 * Registers a child domain's API Registry.
 	 */
 	async registerChild(name, apiRegistry) {
-		name = name?.toLocaleUpperCase?.();
-		if (this.#childRegistries?.get?.(name))
+		name = name.toLocaleUpperCase();
+		if (this.#childRegistries.get(name))
 			throw new Error(
 				`Child registry with ${name} is already registered`
 			);
 
-		this.#childRegistries?.set?.(name, apiRegistry);
+		this.#childRegistries.set(name, apiRegistry);
 	}
 
 	/**
@@ -94,22 +94,20 @@ export class APIRegistry extends EVASBaseClass {
 	async register(pattern, api) {
 		if (typeof api !== 'function') {
 			throw new Error(
-				`${this?.domainPath}::${this?.name}::register expects a function for the pattern: ${pattern}`
+				`${this.domainPath}::${this.name}::register expects a function for the pattern: ${pattern}`
 			);
 		}
 
-		pattern = pattern?.toLocaleUpperCase?.();
-		if (!this.#apiMap?.has?.(pattern)) this.#apiMap?.set?.(pattern, []);
+		pattern = pattern.toLocaleUpperCase();
+		if (!this.#apiMap.has(pattern)) this.#apiMap.set(pattern, []);
 
-		const apiList = this.#apiMap?.get?.(pattern);
-		if (apiList?.indexOf?.(api) >= 0) return true;
+		const apiList = this.#apiMap.get(pattern);
+		if (apiList.indexOf(api) >= 0) return true;
 
-		apiList?.push?.(api);
+		apiList.push(api);
 
 		if (serverEnvironment === 'production') return true;
-		console?.info?.(
-			`${this?.name}::register: ${this?.domainPath}::${pattern}`
-		);
+		console.info(`${this.name}::register: ${this.domainPath}::${pattern}`);
 
 		return true;
 	}
@@ -135,7 +133,7 @@ export class APIRegistry extends EVASBaseClass {
 	 */
 	async execute(pattern, ...data) {
 		// Step 1: Get the API List for this pattern
-		let apiList = await this?._resolve(pattern);
+		let apiList = await this._resolve(pattern);
 
 		// Step 2: Sanity checks
 		if (!apiList) return null;
@@ -144,8 +142,8 @@ export class APIRegistry extends EVASBaseClass {
 
 		// Step 3: One API for this pattern...
 		if (apiList.length === 1) {
-			const api = apiList?.shift?.();
-			const results = await api?.(...data);
+			const api = apiList.shift();
+			const results = await api(...data);
 			return results;
 		}
 
@@ -155,25 +153,25 @@ export class APIRegistry extends EVASBaseClass {
 		const errors = [];
 
 		for (const api of apiList) {
-			promises?.push?.(api?.(...data));
+			promises.push(api(...data));
 		}
 
-		const promiseResolutions = await Promise?.allSettled?.(promises);
+		const promiseResolutions = await Promise.allSettled(promises);
 		for (const resolution of promiseResolutions) {
-			if (resolution?.status === 'fulfilled') {
-				results?.push?.(resolution?.value);
+			if (resolution.status === 'fulfilled') {
+				results.push(resolution.value);
 				continue;
 			}
 
-			errors?.push?.(resolution?.reason);
+			errors.push(resolution.reason);
 		}
 
-		if (errors?.length) {
+		if (errors.length) {
 			throw new AggregateError(errors, `Error executing ${pattern}`);
 		}
 
-		if (results?.length > 1) return results;
-		return results?.pop?.();
+		if (results.length > 1) return results;
+		return results.pop();
 	}
 	/**
 	 * @category Packages/API Registry
@@ -197,24 +195,24 @@ export class APIRegistry extends EVASBaseClass {
 	async unregister(pattern, api) {
 		if (typeof api !== 'function') {
 			throw new Error(
-				`${this?.domainPath}::${this?.name}::unregister expects a function for the pattern: ${pattern}`
+				`${this.domainPath}::${this.name}::unregister expects a function for the pattern: ${pattern}`
 			);
 		}
 
-		pattern = pattern?.toLocaleUpperCase?.();
-		if (!this.#apiMap?.has?.(pattern)) return true;
+		pattern = pattern.toLocaleUpperCase();
+		if (!this.#apiMap.has(pattern)) return true;
 
-		const apiList = this.#apiMap?.get?.(pattern);
+		const apiList = this.#apiMap.get(pattern);
 
-		const apiIndex = apiList?.indexOf?.(api);
+		const apiIndex = apiList.indexOf(api);
 		if (apiIndex < 0) return true;
 
-		apiList?.splice?.(apiIndex, 1);
-		if (apiList?.length <= 0) this.#apiMap?.delete?.(pattern);
+		apiList.splice(apiIndex, 1);
+		if (apiList.length <= 0) this.#apiMap.delete(pattern);
 
 		if (serverEnvironment === 'production') return true;
-		console?.info?.(
-			`${this?.domainPath}::${this?.name}::unregister: ${pattern} API`
+		console.info(
+			`${this.domainPath}::${this.name}::unregister: ${pattern} API`
 		);
 
 		return true;
@@ -237,12 +235,10 @@ export class APIRegistry extends EVASBaseClass {
 	 */
 	async unregisterAll() {
 		if (serverEnvironment !== 'production')
-			console?.info?.(
-				`\n${this?.domainPath}::${this?.name}::unregisterAll`
-			);
+			console.info(`\n${this.domainPath}::${this.name}::unregisterAll`);
 
-		this.#apiMap?.clear?.();
-		this.#childRegistries?.clear?.();
+		this.#apiMap.clear();
+		this.#childRegistries.clear();
 
 		this.#parentRegistry = undefined;
 		return true;
@@ -272,15 +268,15 @@ export class APIRegistry extends EVASBaseClass {
 	 * TREAT THIS AN INTERNAL METHOD ONLY. CALL IT DIRECTLY AT YOUR OWN RISK.
 	 */
 	async _resolve(pattern) {
-		const patternLocal = pattern?.toLocaleUpperCase?.()?.split?.('::');
+		const patternLocal = pattern.toLocaleUpperCase().split('::');
 
 		// Step 1: Check if we can resolve it locally...
-		let apis = await this?._find?.(patternLocal);
-		if (apis?.length > 0) return [...apis];
+		let apis = await this._find(patternLocal);
+		if (apis.length > 0) return [...apis];
 		if (!this.#parentRegistry) return [...apis];
 
 		// Step 2: Ask the parent to resolve it...
-		apis = await this.#parentRegistry?._resolve?.(pattern);
+		apis = await this.#parentRegistry._resolve(pattern);
 		return apis;
 	}
 
@@ -305,14 +301,14 @@ export class APIRegistry extends EVASBaseClass {
 	 * TREAT THIS AN INTERNAL METHOD ONLY. CALL IT DIRECTLY AT YOUR OWN RISK.
 	 */
 	async _find(pattern) {
-		const patternScope = pattern?.shift?.();
+		const patternScope = pattern.shift();
 
 		// Sanity check...
 		if (!patternScope) return [];
 
 		// Step 0: Trivial optimization - see if the pattern is the name of a registered API...
-		if (pattern?.length === 0) {
-			const registeredApis = this.#apiMap?.get?.(patternScope);
+		if (pattern.length === 0) {
+			const registeredApis = this.#apiMap.get(patternScope);
 			if (registeredApis?.length > 0) {
 				return registeredApis;
 			}
@@ -321,16 +317,16 @@ export class APIRegistry extends EVASBaseClass {
 		// Step 1: Check if the pattern array's first element is the scope name...
 		if (patternScope !== this.#scopeName) return [];
 
-		const apiPattern = pattern?.join?.('::');
-		const registeredApis = this.#apiMap?.get?.(apiPattern) ?? [];
-		if (registeredApis?.length > 0) {
+		const apiPattern = pattern.join('::');
+		const registeredApis = this.#apiMap.get(apiPattern) ?? [];
+		if (registeredApis.length > 0) {
 			return registeredApis;
 		}
 
 		// Step 2: See if we one of the children has the next scope name...
-		const childRegistry = this.#childRegistries?.get?.(pattern?.[0]);
+		const childRegistry = this.#childRegistries.get(pattern[0]);
 		if (childRegistry) {
-			const registeredApis = await childRegistry?._find?.(pattern);
+			const registeredApis = await childRegistry._find(pattern);
 			return registeredApis;
 		}
 
@@ -352,7 +348,7 @@ export class APIRegistry extends EVASBaseClass {
 	 */
 	get domainPath() {
 		if (this.#parentRegistry) {
-			return `${this.#parentRegistry?.domainPath ?? ''}::${this.#scopeName ?? ''}`;
+			return `${this.#parentRegistry.domainPath ?? ''}::${this.#scopeName ?? ''}`;
 		} else {
 			return this.#scopeName ?? '';
 		}

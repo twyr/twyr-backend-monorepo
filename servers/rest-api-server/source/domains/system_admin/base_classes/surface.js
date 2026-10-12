@@ -72,7 +72,7 @@ export class SystemAdminBaseSurface extends BaseSurface {
 					permission === 'registered' &&
 					ctxt.state.user.role === 'system_admin'
 				) {
-					await next?.();
+					await next();
 					return;
 				}
 
@@ -86,7 +86,7 @@ export class SystemAdminBaseSurface extends BaseSurface {
 				throw permissionError;
 			};
 
-		return permissionCheckerMiddleware?.bind?.(this);
+		return permissionCheckerMiddleware.bind(this);
 	}
 
 	/**
@@ -110,9 +110,9 @@ export class SystemAdminBaseSurface extends BaseSurface {
 		 */
 		const assetAccessCheckerMiddleware =
 			async function assetAccessCheckerMiddleware(ctxt, next) {
-				await next?.();
+				await next();
 			};
 
-		return assetAccessCheckerMiddleware?.bind?.(this);
+		return assetAccessCheckerMiddleware.bind(this);
 	}
 }

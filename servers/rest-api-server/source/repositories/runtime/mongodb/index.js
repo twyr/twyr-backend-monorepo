@@ -76,7 +76,7 @@ class MongoDB extends EVASBaseRepository {
 	 * start logic
 	 */
 	async load() {
-		await super.load?.();
+		await super.load();
 
 		// Step 1: Setup the configuration
 		const defaultConfiguration = {
@@ -91,26 +91,26 @@ class MongoDB extends EVASBaseRepository {
 		};
 
 		const configuration =
-			await this?._mergeConfiguration?.(defaultConfiguration);
+			await this._mergeConfiguration(defaultConfiguration);
 
 		// Step 2: Setup the Client
 		let mongoose = await import('mongoose');
-		mongoose = mongoose?.['default'];
+		mongoose = mongoose['default'];
 
-		const MongooseClass = mongoose?.Mongoose;
+		const MongooseClass = mongoose.Mongoose;
 		this.#mongooseRoot = new MongooseClass();
-		this.#mongooseRoot?.set?.('strictQuery', true);
+		this.#mongooseRoot.set('strictQuery', true);
 
 		// Step 3: Open a connection to the server
-		let connectionString = `mongodb://${configuration?.user}:${configuration?.pass}@${configuration?.host}:${configuration?.port}/${configuration?.dbName}?retryWrites=true&w=majority`;
-		if (configuration?.authSource) {
-			connectionString += `&authSource=${configuration?.authSource}`;
+		let connectionString = `mongodb://${configuration.user}:${configuration.pass}@${configuration.host}:${configuration.port}/${configuration.dbName}?retryWrites=true&w=majority`;
+		if (configuration.authSource) {
+			connectionString += `&authSource=${configuration.authSource}`;
 		}
 		this.#mongoose =
-			await this.#mongooseRoot?.createConnection?.(connectionString);
+			await this.#mongooseRoot.createConnection(connectionString);
 
 		// Step 4: Error Handler
-		this.#mongoose?.on?.('error', this.#mongoConnectionError.bind(this));
+		this.#mongoose.on('error', this.#mongoConnectionError.bind(this));
 	}
 
 	/**
@@ -133,11 +133,11 @@ class MongoDB extends EVASBaseRepository {
 	async unload() {
 		if (!this.#mongoose) return;
 
-		await this.#mongoose?.close?.();
+		await this.#mongoose.close();
 		this.#mongoose = undefined;
 		this.#mongooseRoot = undefined;
 
-		await super.unload?.();
+		await super.unload();
 	}
 	// #endregion
 
@@ -178,8 +178,8 @@ class MongoDB extends EVASBaseRepository {
 	 * @returns {Promise<void>} Resolves after the error is logged.
 	 */
 	async #mongoConnectionError(error) {
-		const logger = await this?.iocContainer?.resolve?.('Logger');
-		logger?.error?.(
+		const logger = await this.iocContainer.resolve('Logger');
+		logger.error(
 			`${this.name}::#mongoConnectionError: ${error.message} @\n${error.stack}`
 		);
 	}
@@ -232,13 +232,13 @@ export default class MongoDBRepositoryFactory extends EVASBaseFactory {
 	 * @returns {MongoDB} - The MongoDB repository instance.
 	 */
 	static async createInstances(configuration, iocContainer) {
-		const repositoryKey = Buffer?.from?.(
-			safeJsonStringify?.(configuration ?? {})
-		)?.toString?.('base64');
+		const repositoryKey = Buffer.from(
+			safeJsonStringify(configuration ?? {})
+		).toString('base64');
 
-		await MongoDBRepositoryFactory.#mutex?.runExclusive?.(async () => {
+		await MongoDBRepositoryFactory.#mutex.runExclusive(async () => {
 			if (
-				!MongoDBRepositoryFactory.#mongodbInstances?.has(repositoryKey)
+				!MongoDBRepositoryFactory.#mongodbInstances.has(repositoryKey)
 			) {
 				const mongodbInstance = new MongoDB(
 					MongoDBRepositoryFactory['$disk_unc'],
@@ -246,16 +246,16 @@ export default class MongoDBRepositoryFactory extends EVASBaseFactory {
 					configuration
 				);
 
-				await mongodbInstance?.load?.();
-				MongoDBRepositoryFactory.#mongodbInstances?.set?.(
+				await mongodbInstance.load();
+				MongoDBRepositoryFactory.#mongodbInstances.set(
 					repositoryKey,
 					mongodbInstance
 				);
 			}
 		});
 
-		return MongoDBRepositoryFactory.#mongodbInstances?.get(repositoryKey)
-			?.interface;
+		return MongoDBRepositoryFactory.#mongodbInstances.get(repositoryKey)
+			.interface;
 	}
 
 	/**
@@ -276,40 +276,40 @@ export default class MongoDBRepositoryFactory extends EVASBaseFactory {
 	 * @description Clears the cached {MongoDB} instances
 	 */
 	static async destroyInstances(configuration) {
-		await MongoDBRepositoryFactory.#mutex?.runExclusive?.(async () => {
+		await MongoDBRepositoryFactory.#mutex.runExclusive(async () => {
 			if (configuration) {
-				const repositoryKey = Buffer?.from?.(
-					safeJsonStringify?.(configuration)
-				)?.toString?.('base64');
+				const repositoryKey = Buffer.from(
+					safeJsonStringify(configuration)
+				).toString('base64');
 
 				if (
-					!MongoDBRepositoryFactory.#mongodbInstances?.has(
+					!MongoDBRepositoryFactory.#mongodbInstances.has(
 						repositoryKey
 					)
 				)
 					return;
 
 				const mongodbInstance =
-					MongoDBRepositoryFactory.#mongodbInstances?.get(
+					MongoDBRepositoryFactory.#mongodbInstances.get(
 						repositoryKey
 					);
-				await mongodbInstance?.unload?.();
+				await mongodbInstance.unload();
 
-				MongoDBRepositoryFactory.#mongodbInstances?.delete?.(
+				MongoDBRepositoryFactory.#mongodbInstances.delete(
 					repositoryKey
 				);
 				return;
 			}
 
 			const destroyResolutions = [];
-			MongoDBRepositoryFactory.#mongodbInstances?.forEach?.(
+			MongoDBRepositoryFactory.#mongodbInstances.forEach(
 				(MongoDBInstance) => {
-					destroyResolutions?.push?.(MongoDBInstance?.unload?.());
+					destroyResolutions.push(MongoDBInstance.unload());
 				}
 			);
 
-			await Promise?.allSettled?.(destroyResolutions);
-			MongoDBRepositoryFactory.#mongodbInstances?.clear?.();
+			await Promise.allSettled(destroyResolutions);
+			MongoDBRepositoryFactory.#mongodbInstances.clear();
 
 			return;
 		});

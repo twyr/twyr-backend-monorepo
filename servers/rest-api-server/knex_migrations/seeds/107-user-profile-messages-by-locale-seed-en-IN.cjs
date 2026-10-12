@@ -5,7 +5,7 @@ const insertUserProfileMessagesByLocale =
 		const localeId = 'en-IN';
 		const firstMessageId = 'USERS::PROFILE::INSUFFICIENT_PERMISSIONS';
 
-		const existingMessage = await knex?.raw?.(
+		const existingMessage = await knex.raw(
 			`SELECT message_id FROM system_message_by_locale WHERE locale_id = ? AND message_id = ?`,
 			[localeId, firstMessageId]
 		);

@@ -61,7 +61,7 @@ export class Locale extends UserBaseSurface {
 	 * by passing it in to the base class load method
 	 */
 	async load() {
-		await super.load?.();
+		await super.load();
 	}
 	// #endregion
 
@@ -84,28 +84,28 @@ export class Locale extends UserBaseSurface {
 	 * the Rest API Router
 	 */
 	async _registerSurface() {
-		const baseRoutes = await super._registerSurface?.();
+		const baseRoutes = await super._registerSurface();
 
-		baseRoutes?.push?.({
+		baseRoutes.push({
 			version: 1,
 			httpMethod: 'POST',
 			path: '/create',
-			middlewares: [await this?._rbac?.('registered')],
-			handler: this.#createLocale?.bind?.(this)
+			middlewares: [await this._rbac('registered')],
+			handler: this.#createLocale.bind(this)
 		});
-		baseRoutes?.push?.({
+		baseRoutes.push({
 			version: 1,
 			httpMethod: 'PATCH',
 			path: '/update',
-			middlewares: [await this?._rbac?.('registered')],
-			handler: this.#updateLocale?.bind?.(this)
+			middlewares: [await this._rbac('registered')],
+			handler: this.#updateLocale.bind(this)
 		});
-		baseRoutes?.push?.({
+		baseRoutes.push({
 			version: 1,
 			httpMethod: 'DELETE',
 			path: '/delete/:localeId',
-			middlewares: [await this?._rbac?.('registered')],
-			handler: this.#deleteLocale?.bind?.(this)
+			middlewares: [await this._rbac('registered')],
+			handler: this.#deleteLocale.bind(this)
 		});
 
 		return baseRoutes;
@@ -129,7 +129,7 @@ export class Locale extends UserBaseSurface {
 	 * the Rest API Router
 	 */
 	async _unregisterSurface() {
-		await super._unregisterSurface?.();
+		await super._unregisterSurface();
 		return;
 	}
 
@@ -155,11 +155,11 @@ export class Locale extends UserBaseSurface {
 	 */
 	async _setupValidationSchemas(validationSchemaMap) {
 		validationSchemaMap = validationSchemaMap ?? this.#validationSchemaMap;
-		validationSchemaMap = await super._setupValidationSchemas?.(
+		validationSchemaMap = await super._setupValidationSchemas(
 			validationSchemaMap
 		);
 
-		let createSchema = validationSchemaMap?.get?.(
+		let createSchema = validationSchemaMap.get(
 			'CREATE_LOCALE_VALIDATION_SCHEMA'
 		);
 		if (!createSchema) {
@@ -185,13 +185,13 @@ export class Locale extends UserBaseSurface {
 				})
 			});
 
-			validationSchemaMap?.set?.(
+			validationSchemaMap.set(
 				'CREATE_LOCALE_VALIDATION_SCHEMA',
 				createSchema
 			);
 		}
 
-		let updateSchema = validationSchemaMap?.get?.(
+		let updateSchema = validationSchemaMap.get(
 			'UPDATE_LOCALE_VALIDATION_SCHEMA'
 		);
 		if (!updateSchema) {
@@ -221,7 +221,7 @@ export class Locale extends UserBaseSurface {
 				})
 			});
 
-			validationSchemaMap?.set?.(
+			validationSchemaMap.set(
 				'UPDATE_LOCALE_VALIDATION_SCHEMA',
 				updateSchema
 			);
@@ -253,26 +253,25 @@ export class Locale extends UserBaseSurface {
 	 * $ curl -X POST -H "Content-Type: application/json" -b ./cookies.txt -d @./servers/curl_example_data/api_v1_users_profile_locale_create.json ${base_url}/api/v1/users/profile/locale/create
 	 */
 	async #createLocale(ctxt) {
-		const createLocaleSchema = this.#validationSchemaMap?.get(
+		const createLocaleSchema = this.#validationSchemaMap.get(
 			'CREATE_LOCALE_VALIDATION_SCHEMA'
 		);
 
 		try {
-			await createLocaleSchema.validateAsync(ctxt?.request?.body, {
+			await createLocaleSchema.validateAsync(ctxt.request.body, {
 				abortEarly: false
 			});
 		} catch (error) {
-			const validationError =
-				this?._convertValidationErrorToHandlerError?.(
-					error,
-					'EVASERVER::INPUT_VALIDATION_ERROR'
-				);
+			const validationError = this._convertValidationErrorToHandlerError(
+				error,
+				'EVASERVER::INPUT_VALIDATION_ERROR'
+			);
 			validationError.status = HTTP_ERROR_UNPROCESSABLE_CONTENT;
 			throw validationError;
 		}
 
 		const localePayload = {
-			...ctxt?.request?.body,
+			...ctxt.request.body,
 			data: {
 				...ctxt?.request?.body?.data,
 				attributes: {
@@ -282,14 +281,14 @@ export class Locale extends UserBaseSurface {
 			}
 		};
 
-		const apiRegistry = this?.domainInterface?.apiRegistry;
-		const localeStatus = await apiRegistry?.execute?.('CREATE_LOCALE', {
-			user: ctxt?.state?.user,
+		const apiRegistry = this.domainInterface.apiRegistry;
+		const localeStatus = await apiRegistry.execute('CREATE_LOCALE', {
+			user: ctxt.state.user,
 			data: localePayload
 		});
 
-		ctxt.status = localeStatus?.status;
-		ctxt.body = localeStatus?.body;
+		ctxt.status = localeStatus.status;
+		ctxt.body = localeStatus.body;
 	}
 
 	/**
@@ -313,26 +312,25 @@ export class Locale extends UserBaseSurface {
 	 * $ curl -X PATCH -H "Content-Type: application/json" -b ./cookies.txt -d @./servers/curl_example_data/api_v1_users_profile_locale_update.json ${base_url}/api/v1/users/profile/locale/update
 	 */
 	async #updateLocale(ctxt) {
-		const updateLocaleSchema = this.#validationSchemaMap?.get(
+		const updateLocaleSchema = this.#validationSchemaMap.get(
 			'UPDATE_LOCALE_VALIDATION_SCHEMA'
 		);
 
 		try {
-			await updateLocaleSchema.validateAsync(ctxt?.request?.body, {
+			await updateLocaleSchema.validateAsync(ctxt.request.body, {
 				abortEarly: false
 			});
 		} catch (error) {
-			const validationError =
-				this?._convertValidationErrorToHandlerError?.(
-					error,
-					'EVASERVER::INPUT_VALIDATION_ERROR'
-				);
+			const validationError = this._convertValidationErrorToHandlerError(
+				error,
+				'EVASERVER::INPUT_VALIDATION_ERROR'
+			);
 			validationError.status = HTTP_ERROR_UNPROCESSABLE_CONTENT;
 			throw validationError;
 		}
 
 		const localePayload = {
-			...ctxt?.request?.body,
+			...ctxt.request.body,
 			data: {
 				...ctxt?.request?.body?.data,
 				attributes: {
@@ -342,17 +340,14 @@ export class Locale extends UserBaseSurface {
 			}
 		};
 
-		const apiRegistry = this?.domainInterface?.apiRegistry;
-		const localeUpdateStatus = await apiRegistry?.execute?.(
-			'UPDATE_LOCALE',
-			{
-				user: ctxt?.state?.user,
-				data: localePayload
-			}
-		);
+		const apiRegistry = this.domainInterface.apiRegistry;
+		const localeUpdateStatus = await apiRegistry.execute('UPDATE_LOCALE', {
+			user: ctxt.state.user,
+			data: localePayload
+		});
 
-		ctxt.status = localeUpdateStatus?.status;
-		ctxt.body = localeUpdateStatus?.body;
+		ctxt.status = localeUpdateStatus.status;
+		ctxt.body = localeUpdateStatus.body;
 	}
 
 	/**
@@ -374,16 +369,13 @@ export class Locale extends UserBaseSurface {
 	 * $ curl -X DELETE -H "Content-Type: application/json" -b ./cookies.txt ${base_url}/api/v1/users/profile/locale/delete/${localeId}
 	 */
 	async #deleteLocale(ctxt) {
-		const apiRegistry = this?.domainInterface?.apiRegistry;
-		const localeDeleteStatus = await apiRegistry?.execute?.(
-			'DELETE_LOCALE',
-			{
-				user: ctxt?.state?.user,
-				localeId: ctxt?.params?.localeId
-			}
-		);
+		const apiRegistry = this.domainInterface.apiRegistry;
+		const localeDeleteStatus = await apiRegistry.execute('DELETE_LOCALE', {
+			user: ctxt.state.user,
+			localeId: ctxt.params.localeId
+		});
 
-		ctxt.status = localeDeleteStatus?.status;
+		ctxt.status = localeDeleteStatus.status;
 	}
 	// #endregion
 
@@ -432,14 +424,14 @@ export default class LocaleSurfaceFactory extends EVASBaseFactory {
 	 * @returns {Locale} - The Locale surface instance.
 	 */
 	static async createInstances(domainInterface) {
-		return await LocaleSurfaceFactory.#mutex?.runExclusive?.(async () => {
+		return await LocaleSurfaceFactory.#mutex.runExclusive(async () => {
 			if (!LocaleSurfaceFactory.#localeInstance) {
 				const localeInstance = new Locale(
 					LocaleSurfaceFactory['$disk_unc'],
 					domainInterface
 				);
 
-				await localeInstance?.load?.();
+				await localeInstance.load();
 				LocaleSurfaceFactory.#localeInstance = localeInstance;
 			}
 
@@ -463,8 +455,8 @@ export default class LocaleSurfaceFactory extends EVASBaseFactory {
 	 * @description Clears the Locale instance
 	 */
 	static async destroyInstances() {
-		await LocaleSurfaceFactory.#mutex?.runExclusive?.(async () => {
-			await LocaleSurfaceFactory.#localeInstance?.unload?.();
+		await LocaleSurfaceFactory.#mutex.runExclusive(async () => {
+			await LocaleSurfaceFactory.#localeInstance?.unload();
 			LocaleSurfaceFactory.#localeInstance = undefined;
 			return;
 		});

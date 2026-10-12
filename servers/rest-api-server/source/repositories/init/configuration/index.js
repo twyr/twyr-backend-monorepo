@@ -57,7 +57,7 @@ class Configuration extends EVASBaseRepository {
 	 * start logic
 	 */
 	async load() {
-		await super.load?.();
+		await super.load();
 	}
 
 	/**
@@ -78,7 +78,7 @@ class Configuration extends EVASBaseRepository {
 	 * stop logic
 	 */
 	async unload() {
-		await super.unload?.();
+		await super.unload();
 	}
 	// #endregion
 
@@ -101,8 +101,8 @@ class Configuration extends EVASBaseRepository {
 		// TODO: MOVE AWAY FROM process.env AND MOVE TOWARDS SOMETHING
 		// MORE SOPHISTICATED - DATABASE, REDIS, VAULT, ETC.
 		const artifactConfig =
-			process?.env?.[artifactName?.toUpperCase?.()] ?? undefined;
-		return JSON?.parse?.(artifactConfig ?? '{}');
+			process.env[artifactName.toUpperCase()] ?? undefined;
+		return JSON.parse(artifactConfig ?? '{}');
 	}
 	// #endregion
 
@@ -122,7 +122,7 @@ class Configuration extends EVASBaseRepository {
 	 */
 	get interface() {
 		return {
-			getConfig: this?.getConfig?.bind?.(this)
+			getConfig: this.getConfig.bind(this)
 		};
 	}
 	// #endregion
@@ -169,23 +169,21 @@ export default class ConfigurationRepositoryFactory extends EVASBaseFactory {
 	 * @returns {Configuration} - The configuration repository instance.
 	 */
 	static async createInstances(configuration, iocContainer) {
-		await ConfigurationRepositoryFactory.#mutex?.runExclusive?.(
-			async () => {
-				if (!ConfigurationRepositoryFactory.#configurationInstance) {
-					const configurationInstance = new Configuration(
-						ConfigurationRepositoryFactory['$disk_unc'],
-						iocContainer,
-						configuration
-					);
+		await ConfigurationRepositoryFactory.#mutex.runExclusive(async () => {
+			if (!ConfigurationRepositoryFactory.#configurationInstance) {
+				const configurationInstance = new Configuration(
+					ConfigurationRepositoryFactory['$disk_unc'],
+					iocContainer,
+					configuration
+				);
 
-					await configurationInstance?.load?.(configuration);
-					ConfigurationRepositoryFactory.#configurationInstance =
-						configurationInstance;
-				}
+				await configurationInstance.load(configuration);
+				ConfigurationRepositoryFactory.#configurationInstance =
+					configurationInstance;
 			}
-		);
+		});
 
-		return ConfigurationRepositoryFactory.#configurationInstance?.interface;
+		return ConfigurationRepositoryFactory.#configurationInstance.interface;
 	}
 
 	/**
@@ -204,15 +202,12 @@ export default class ConfigurationRepositoryFactory extends EVASBaseFactory {
 	 * @description Clears the cached {Configuration} instances
 	 */
 	static async destroyInstances() {
-		await ConfigurationRepositoryFactory.#mutex?.runExclusive?.(
-			async () => {
-				await ConfigurationRepositoryFactory.#configurationInstance?.unload?.();
-				ConfigurationRepositoryFactory.#configurationInstance =
-					undefined;
+		await ConfigurationRepositoryFactory.#mutex.runExclusive(async () => {
+			await ConfigurationRepositoryFactory.#configurationInstance?.unload();
+			ConfigurationRepositoryFactory.#configurationInstance = undefined;
 
-				return;
-			}
-		);
+			return;
+		});
 	}
 	// #endregion
 

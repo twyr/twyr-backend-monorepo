@@ -57,47 +57,47 @@ export default class ModelFactory {
 	 */
 	static async createInstance(connectionInstance) {
 		// eslint-disable-next-line security/detect-object-injection
-		if (connectionInstance?.models?.[MODEL_NAME]) {
+		if (connectionInstance.models[MODEL_NAME]) {
 			// eslint-disable-next-line security/detect-object-injection
-			return connectionInstance?.models?.[MODEL_NAME];
+			return connectionInstance.models[MODEL_NAME];
 		}
 
 		let mongoose = await import('mongoose');
-		mongoose = mongoose?.['default'];
+		mongoose = mongoose['default'];
 
-		const UserAuditTrailSchema = mongoose?.Schema?.(
+		const UserAuditTrailSchema = mongoose.Schema(
 			{
-				id: mongoose?.Schema?.Types?.String,
-				start_time: mongoose?.Schema?.Types?.Date,
-				end_time: mongoose?.Schema?.Types?.Date,
-				duration_in_ms: mongoose?.Schema?.Types?.Number,
+				id: mongoose.Schema.Types.String,
+				start_time: mongoose.Schema.Types.Date,
+				end_time: mongoose.Schema.Types.Date,
+				duration_in_ms: mongoose.Schema.Types.Number,
 
 				user: {
-					id: mongoose?.Schema?.Types?.String,
-					name: mongoose?.Schema?.Types?.String,
-					role: mongoose?.Schema?.Types?.String
+					id: mongoose.Schema.Types.String,
+					name: mongoose.Schema.Types.String,
+					role: mongoose.Schema.Types.String
 				},
 
-				device: mongoose?.Schema?.Types?.Mixed,
+				device: mongoose.Schema.Types.Mixed,
 
 				'request-meta': {
-					headers: mongoose?.Schema?.Types?.Mixed,
-					method: mongoose?.Schema?.Types?.String,
-					url: mongoose?.Schema?.Types?.String,
-					ip: mongoose?.Schema?.Types?.String,
-					ips: mongoose?.Schema?.Types?.Mixed
+					headers: mongoose.Schema.Types.Mixed,
+					method: mongoose.Schema.Types.String,
+					url: mongoose.Schema.Types.String,
+					ip: mongoose.Schema.Types.String,
+					ips: mongoose.Schema.Types.Mixed
 				},
 
 				'response-meta': {
-					headers: mongoose?.Schema?.Types?.Mixed,
+					headers: mongoose.Schema.Types.Mixed,
 					status: {
-						code: mongoose?.Schema?.Types?.String,
-						message: mongoose?.Schema?.Types?.String
+						code: mongoose.Schema.Types.String,
+						message: mongoose.Schema.Types.String
 					}
 				},
 
-				data: mongoose?.Schema?.Types?.Mixed,
-				error: mongoose?.Schema?.Types?.Mixed
+				data: mongoose.Schema.Types.Mixed,
+				error: mongoose.Schema.Types.Mixed
 			},
 			{
 				collection: COLLECTION_NAME,
@@ -109,7 +109,7 @@ export default class ModelFactory {
 			}
 		);
 
-		const UserAuditTrailModel = connectionInstance?.model?.(
+		const UserAuditTrailModel = connectionInstance.model(
 			MODEL_NAME,
 			UserAuditTrailSchema,
 			COLLECTION_NAME

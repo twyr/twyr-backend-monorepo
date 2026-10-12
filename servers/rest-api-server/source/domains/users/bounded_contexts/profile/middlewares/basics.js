@@ -52,51 +52,41 @@ export class Basics extends UserBaseMiddleware {
 		const errors = [];
 
 		try {
-			const apiRegistry = this?.domainInterface?.apiRegistry;
+			const apiRegistry = this.domainInterface.apiRegistry;
 			let registerResolutions = [];
-			const baseApis = await super._registerApi?.();
+			const baseApis = await super._registerApi();
 
 			for (const baseApi of baseApis ?? []) {
-				registerResolutions?.push?.(
-					apiRegistry?.register?.(baseApi?.pattern, baseApi?.handler)
+				registerResolutions.push(
+					apiRegistry.register(baseApi.pattern, baseApi.handler)
 				);
 			}
 
-			registerResolutions?.push?.(
-				apiRegistry?.register?.(
-					'CREATE',
-					this.#createBasics?.bind?.(this)
-				)
+			registerResolutions.push(
+				apiRegistry.register('CREATE', this.#createBasics.bind(this))
 			);
-			registerResolutions?.push?.(
-				apiRegistry?.register?.('READ', this.#readBasics?.bind?.(this))
+			registerResolutions.push(
+				apiRegistry.register('READ', this.#readBasics.bind(this))
 			);
-			registerResolutions?.push?.(
-				apiRegistry?.register?.(
-					'UPDATE',
-					this.#updateBasics?.bind?.(this)
-				)
+			registerResolutions.push(
+				apiRegistry.register('UPDATE', this.#updateBasics.bind(this))
 			);
-			registerResolutions?.push?.(
-				apiRegistry?.register?.(
-					'DELETE',
-					this.#deleteBasics?.bind?.(this)
-				)
+			registerResolutions.push(
+				apiRegistry.register('DELETE', this.#deleteBasics.bind(this))
 			);
 
-			registerResolutions =
-				await Promise?.allSettled?.(registerResolutions);
+			registerResolutions = await Promise.allSettled(registerResolutions);
 			for (const registerResolution of registerResolutions) {
-				if (registerResolution?.status === 'fulfilled') continue;
-				errors?.push?.(registerResolution?.reason);
+				if (registerResolution.status === 'fulfilled') continue;
+				errors.push(registerResolution.reason);
 			}
 		} catch (error) {
-			errors?.push?.(error);
+			errors.push(error);
 		}
 
-		if (!errors?.length) return;
-		const propagatedError = createErrorForPropagation?.(
-			`${this?.name}::_registerApi error`,
+		if (!errors.length) return;
+		const propagatedError = createErrorForPropagation(
+			`${this.name}::_registerApi error`,
 			errors
 		);
 		if (propagatedError) throw propagatedError;
@@ -114,50 +104,38 @@ export class Basics extends UserBaseMiddleware {
 		const errors = [];
 
 		try {
-			const apiRegistry = this?.domainInterface?.apiRegistry;
+			const apiRegistry = this.domainInterface.apiRegistry;
 			let unregisterResolutions = [];
 
-			unregisterResolutions?.push?.(
-				apiRegistry?.unregister?.(
-					'DELETE',
-					this.#deleteBasics?.bind?.(this)
-				)
+			unregisterResolutions.push(
+				apiRegistry.unregister('DELETE', this.#deleteBasics.bind(this))
 			);
-			unregisterResolutions?.push?.(
-				apiRegistry?.unregister?.(
-					'UPDATE',
-					this.#updateBasics?.bind?.(this)
-				)
+			unregisterResolutions.push(
+				apiRegistry.unregister('UPDATE', this.#updateBasics.bind(this))
 			);
-			unregisterResolutions?.push?.(
-				apiRegistry?.unregister?.(
-					'READ',
-					this.#readBasics?.bind?.(this)
-				)
+			unregisterResolutions.push(
+				apiRegistry.unregister('READ', this.#readBasics.bind(this))
 			);
-			unregisterResolutions?.push?.(
-				apiRegistry?.unregister?.(
-					'CREATE',
-					this.#createBasics?.bind?.(this)
-				)
+			unregisterResolutions.push(
+				apiRegistry.unregister('CREATE', this.#createBasics.bind(this))
 			);
 
-			unregisterResolutions = await Promise?.allSettled?.(
+			unregisterResolutions = await Promise.allSettled(
 				unregisterResolutions
 			);
 			for (const unregisterResolution of unregisterResolutions) {
-				if (unregisterResolution?.status === 'fulfilled') continue;
-				errors?.push?.(unregisterResolution?.reason);
+				if (unregisterResolution.status === 'fulfilled') continue;
+				errors.push(unregisterResolution.reason);
 			}
 
-			await super._unregisterApi?.();
+			await super._unregisterApi();
 		} catch (error) {
-			errors?.push?.(error);
+			errors.push(error);
 		}
 
-		if (!errors?.length) return;
-		const propagatedError = createErrorForPropagation?.(
-			`${this?.name}::_unregisterApi error`,
+		if (!errors.length) return;
+		const propagatedError = createErrorForPropagation(
+			`${this.name}::_unregisterApi error`,
 			errors
 		);
 		if (propagatedError) throw propagatedError;
@@ -183,7 +161,7 @@ export class Basics extends UserBaseMiddleware {
 	 * @returns {Promise<object>} HTTP response data for the created profile.
 	 */
 	async #createBasics({ data, locale }) {
-		const Models = await this?._getModelsFromDomain?.([
+		const Models = await this._getModelsFromDomain([
 			{ type: 'relational', name: 'user' },
 			{ type: 'relational', name: 'user-locale' },
 			{ type: 'relational', name: 'user-name-by-locale' },
@@ -191,25 +169,24 @@ export class Basics extends UserBaseMiddleware {
 			{ type: 'relational', name: 'contact-type-master' }
 		]);
 
-		const UserModel = Models?.[0];
-		const UserLocaleModel = Models?.[1];
-		const UserNameByLocaleModel = Models?.[2];
-		const UserContactModel = Models?.[3];
-		const ContactTypeMasterModel = Models?.[4];
+		const UserModel = Models[0];
+		const UserLocaleModel = Models[1];
+		const UserNameByLocaleModel = Models[2];
+		const UserContactModel = Models[3];
+		const ContactTypeMasterModel = Models[4];
 
-		const user =
-			await this?.domainInterface?.serializer?.deserializeAsync?.(
-				data?.data?.type,
-				data
-			);
+		const user = await this.domainInterface.serializer.deserializeAsync(
+			data.data.type,
+			data
+		);
 
 		const cacheRepository =
-			await this?.domainInterface?.iocContainer?.resolve?.('Cache');
-		const otpNumber = await this?._executeWithBackOff?.(async () => {
-			return cacheRepository?.get?.(`user-otp-${user?.mobile_no}`);
+			await this.domainInterface.iocContainer.resolve('Cache');
+		const otpNumber = await this._executeWithBackOff(async () => {
+			return cacheRepository.get(`user-otp-${user.mobile_no}`);
 		});
 
-		if (user?.otp !== otpNumber) {
+		if (user.otp !== otpNumber) {
 			const userError = new Error(
 				'EVASERVER::USERS::PROFILE::INVALID_OTP'
 			);
@@ -217,11 +194,11 @@ export class Basics extends UserBaseMiddleware {
 			throw userError;
 		}
 
-		const existingUser = await this?._executeWithBackOff?.(async () => {
-			return UserModel?.query?.()
-				?.where?.('mobile_no', '=', user?.mobile_no)
-				?.andWhere?.('is_deleted', '=', false)
-				?.first?.();
+		const existingUser = await this._executeWithBackOff(async () => {
+			return UserModel.query()
+				.where('mobile_no', '=', user.mobile_no)
+				.andWhere('is_deleted', '=', false)
+				.first();
 		});
 
 		if (existingUser) {
@@ -232,26 +209,24 @@ export class Basics extends UserBaseMiddleware {
 			throw userError;
 		}
 
-		const nameLocaleCode = user?.locale_id ?? user?.locale_code ?? locale;
+		const nameLocaleCode = user.locale_id ?? user.locale_code ?? locale;
 		const userNameFields = {
 			locale_code: nameLocaleCode,
-			...(user?.first_name && { first_name: user?.first_name }),
-			...(user?.middle_names && {
-				middle_names: user?.middle_names
+			...(user.first_name && { first_name: user.first_name }),
+			...(user.middle_names && {
+				middle_names: user.middle_names
 			}),
-			...(user?.last_name && { last_name: user?.last_name }),
-			...(user?.nickname && { nickname: user?.nickname })
+			...(user.last_name && { last_name: user.last_name }),
+			...(user.nickname && { nickname: user.nickname })
 		};
 
 		const localizedUserNames =
-			await this.#localizeUserNames?.(userNameFields);
-		const mobileContactType = await this?._executeWithBackOff?.(
-			async () => {
-				return ContactTypeMasterModel?.query?.()
-					?.where?.('name', '=', 'mobile')
-					?.first?.();
-			}
-		);
+			await this.#localizeUserNames(userNameFields);
+		const mobileContactType = await this._executeWithBackOff(async () => {
+			return ContactTypeMasterModel.query()
+				.where('name', '=', 'mobile')
+				.first();
+		});
 
 		if (!mobileContactType?.id) {
 			const userError = new Error(
@@ -274,50 +249,50 @@ export class Basics extends UserBaseMiddleware {
 		delete user.updated_at;
 
 		let createdUser = undefined;
-		await this?._executeWithBackOff?.(async () => {
-			const trx = await UserModel?.startTransaction?.();
+		await this._executeWithBackOff(async () => {
+			const trx = await UserModel.startTransaction();
 			await trx.raw('SET TRANSACTION ISOLATION LEVEL SERIALIZABLE');
 
 			try {
-				createdUser = await UserModel?.query?.(trx)?.insertAndFetch?.({
+				createdUser = await UserModel.query(trx).insertAndFetch({
 					...user
 				});
 
-				const locales = Object.keys?.(localizedUserNames) ?? [];
+				const locales = Object.keys(localizedUserNames) ?? [];
 				for (const locale of locales) {
 					// eslint-disable-next-line security/detect-object-injection
 					const localizedUserName = localizedUserNames[locale];
-					await UserNameByLocaleModel?.query?.(trx)?.insert?.({
-						user_id: createdUser?.id,
+					await UserNameByLocaleModel.query(trx).insert({
+						user_id: createdUser.id,
 						...localizedUserName
 					});
 				}
 
 				if (nameLocaleCode) {
-					await UserLocaleModel?.query?.(trx)?.insert?.({
-						user_id: createdUser?.id,
+					await UserLocaleModel.query(trx).insert({
+						user_id: createdUser.id,
 						locale_id: nameLocaleCode,
 						is_primary: true
 					});
 				}
 
-				await UserContactModel?.query?.(trx)?.insert?.({
-					user_id: createdUser?.id,
-					contact_type_id: mobileContactType?.id,
-					contact: createdUser?.mobile_no,
+				await UserContactModel.query(trx).insert({
+					user_id: createdUser.id,
+					contact_type_id: mobileContactType.id,
+					contact: createdUser.mobile_no,
 					verified: true,
 					is_primary: true
 				});
 
-				await trx?.commit?.();
+				await trx.commit();
 			} catch (error) {
-				await trx?.rollback?.();
+				await trx.rollback();
 				throw error;
 			}
 		});
 
-		this?.domainInterface?.eventEmitter?.emit?.('USER::INVALIDATE_CACHE', {
-			userId: createdUser?.id
+		this.domainInterface.eventEmitter.emit('USER::INVALIDATE_CACHE', {
+			userId: createdUser.id
 		});
 
 		const createdUserResponse = await this.#readBasics({
@@ -327,7 +302,7 @@ export class Basics extends UserBaseMiddleware {
 
 		return {
 			status: 201,
-			body: createdUserResponse?.body
+			body: createdUserResponse.body
 		};
 	}
 
@@ -351,7 +326,7 @@ export class Basics extends UserBaseMiddleware {
 	 * @returns {Promise<object>} HTTP response data for the stored profile.
 	 */
 	async #readBasics({ user, locale }) {
-		const UserModel = await this?._getModelsFromDomain?.([
+		const UserModel = await this._getModelsFromDomain([
 			{ type: 'relational', name: 'user' }
 		]);
 
@@ -360,43 +335,42 @@ export class Basics extends UserBaseMiddleware {
 			'locales.[locale]',
 			'names.[locale]'
 		]);
-		relationshipSet = safeJsonStringify?.([...relationshipSet]);
-		relationshipSet = relationshipSet?.replace?.(/"/g, '');
+		relationshipSet = safeJsonStringify([...relationshipSet]);
+		relationshipSet = relationshipSet.replace(/"/g, '');
 
-		let storedUser = await this?._executeWithBackOff?.(async () => {
-			return UserModel?.query?.()
-				?.where?.('id', '=', user?.id)
-				?.andWhere?.('is_deleted', '=', false)
-				?.withGraphFetched?.(relationshipSet)
-				?.first?.();
+		let storedUser = await this._executeWithBackOff(async () => {
+			return UserModel.query()
+				.where('id', '=', user.id)
+				.andWhere('is_deleted', '=', false)
+				.withGraphFetched(relationshipSet)
+				.first();
 		});
 
 		const requestedLocale =
 			locale ??
-			storedUser?.locales?.find?.(
-				(storedLocale) => storedLocale?.is_primary
-			)?.locale_id ??
+			storedUser?.locales?.find((storedLocale) => storedLocale.is_primary)
+				?.locale_id ??
 			storedUser?.names?.[0]?.locale_id;
 
 		if (storedUser && requestedLocale) {
-			await this.#ensureUserNamesForLocale?.(storedUser, requestedLocale);
-			storedUser.names = storedUser?.names?.filter?.((nameByLocale) => {
-				return nameByLocale?.locale_id === requestedLocale;
+			await this.#ensureUserNamesForLocale(storedUser, requestedLocale);
+			storedUser.names = storedUser.names?.filter((nameByLocale) => {
+				return nameByLocale.locale_id === requestedLocale;
 			});
 		}
 
-		storedUser?.locales?.forEach?.((storedLocale) => {
-			if (storedLocale?.locale_id && !storedLocale?.locale_code) {
+		storedUser?.locales?.forEach((storedLocale) => {
+			if (storedLocale.locale_id && !storedLocale.locale_code) {
 				storedLocale.locale_code = storedLocale.locale_id;
 			}
 		});
-		storedUser?.names?.forEach?.((nameByLocale) => {
-			if (nameByLocale?.locale_id && !nameByLocale?.locale_code) {
+		storedUser?.names?.forEach((nameByLocale) => {
+			if (nameByLocale.locale_id && !nameByLocale.locale_code) {
 				nameByLocale.locale_code = nameByLocale.locale_id;
 			}
 		});
 
-		storedUser = await this?.domainInterface?.serializer?.serializeAsync?.(
+		storedUser = await this.domainInterface.serializer.serializeAsync(
 			'user',
 			storedUser
 		);
@@ -427,16 +401,16 @@ export class Basics extends UserBaseMiddleware {
 	 * @returns {Promise<object>} HTTP response data for the updated profile.
 	 */
 	async #updateBasics({ user, data }) {
-		const Models = await this?._getModelsFromDomain?.([
+		const Models = await this._getModelsFromDomain([
 			{ type: 'relational', name: 'user' },
 			{ type: 'relational', name: 'user-name-by-locale' }
 		]);
-		const UserModel = Models?.[0];
-		const UserNameByLocaleModel = Models?.[1];
+		const UserModel = Models[0];
+		const UserNameByLocaleModel = Models[1];
 
 		const dataToBeUpdated =
-			await this?.domainInterface?.serializer?.deserializeAsync?.(
-				data?.data?.type,
+			await this.domainInterface.serializer.deserializeAsync(
+				data.data.type,
 				data
 			);
 
@@ -446,43 +420,41 @@ export class Basics extends UserBaseMiddleware {
 		delete dataToBeUpdated.is_deleted;
 		delete dataToBeUpdated.otp;
 		const nameLocaleCode =
-			dataToBeUpdated?.locale_id ??
-			dataToBeUpdated?.locale_code ??
-			user?.locale_id ??
-			user?.locale_code ??
+			dataToBeUpdated.locale_id ??
+			dataToBeUpdated.locale_code ??
+			user.locale_id ??
+			user.locale_code ??
 			'en-IN';
 		const userNameFields = {
 			locale_code: nameLocaleCode,
 			...(Object.hasOwn(dataToBeUpdated ?? {}, 'first_name') && {
-				first_name: dataToBeUpdated?.first_name ?? ''
+				first_name: dataToBeUpdated.first_name ?? ''
 			}),
 			...(Object.hasOwn(dataToBeUpdated ?? {}, 'middle_names') && {
-				middle_names: dataToBeUpdated?.middle_names ?? ''
+				middle_names: dataToBeUpdated.middle_names ?? ''
 			}),
 			...(Object.hasOwn(dataToBeUpdated ?? {}, 'last_name') && {
-				last_name: dataToBeUpdated?.last_name ?? ''
+				last_name: dataToBeUpdated.last_name ?? ''
 			}),
 			...(Object.hasOwn(dataToBeUpdated ?? {}, 'nickname') && {
-				nickname: dataToBeUpdated?.nickname ?? ''
+				nickname: dataToBeUpdated.nickname ?? ''
 			})
 		};
 
-		let existingNameRecords = await this?._executeWithBackOff?.(
-			async () => {
-				return UserNameByLocaleModel?.query?.()
-					?.where?.('user_id', '=', user?.id)
-					?.select?.('id', 'locale_id');
-			}
-		);
+		let existingNameRecords = await this._executeWithBackOff(async () => {
+			return UserNameByLocaleModel.query()
+				.where('user_id', '=', user.id)
+				.select('id', 'locale_id');
+		});
 
 		const hasNameFieldsToUpdate =
-			Object.keys?.(userNameFields ?? [])?.filter?.((key) => {
+			Object.keys(userNameFields ?? []).filter((key) => {
 				return key !== 'locale_code';
-			})?.length > 0;
+			}).length > 0;
 		const localizedUserNames = hasNameFieldsToUpdate
-			? await this.#localizeUserNames?.(
+			? await this.#localizeUserNames(
 					userNameFields,
-					existingNameRecords?.map?.((record) => record?.locale_id)
+					existingNameRecords.map((record) => record.locale_id)
 				)
 			: undefined;
 
@@ -493,54 +465,54 @@ export class Basics extends UserBaseMiddleware {
 		delete dataToBeUpdated.last_name;
 		delete dataToBeUpdated.nickname;
 
-		await this?._executeWithBackOff?.(async () => {
-			const trx = await UserModel?.startTransaction?.();
+		await this._executeWithBackOff(async () => {
+			const trx = await UserModel.startTransaction();
 			await trx.raw('SET TRANSACTION ISOLATION LEVEL SERIALIZABLE');
 
 			try {
-				await UserModel?.query?.(trx)?.patchAndFetchById?.(user?.id, {
+				await UserModel.query(trx).patchAndFetchById(user.id, {
 					...dataToBeUpdated
 				});
 
 				if (localizedUserNames) {
-					const locales = Object.keys?.(localizedUserNames) ?? [];
+					const locales = Object.keys(localizedUserNames) ?? [];
 					for (const locale of locales) {
 						// eslint-disable-next-line security/detect-object-injection
 						const localizedUserName = localizedUserNames[locale];
-						const existingNameRecord = existingNameRecords?.find?.(
+						const existingNameRecord = existingNameRecords.find(
 							(nameRecord) => {
 								return (
-									nameRecord?.locale_id ===
-									localizedUserName?.locale_id
+									nameRecord.locale_id ===
+									localizedUserName.locale_id
 								);
 							}
 						);
 
 						if (existingNameRecord) {
-							await UserNameByLocaleModel?.query?.(
+							await UserNameByLocaleModel.query(
 								trx
-							)?.patchAndFetchById?.(existingNameRecord?.id, {
+							).patchAndFetchById(existingNameRecord.id, {
 								...localizedUserName
 							});
 							continue;
 						}
 
-						await UserNameByLocaleModel?.query?.(trx)?.insert?.({
-							user_id: user?.id,
+						await UserNameByLocaleModel.query(trx).insert({
+							user_id: user.id,
 							...localizedUserName
 						});
 					}
 				}
 
-				await trx?.commit?.();
+				await trx.commit();
 			} catch (error) {
-				await trx?.rollback?.();
+				await trx.rollback();
 				throw error;
 			}
 		});
 
-		this?.domainInterface?.eventEmitter?.emit?.('USER::INVALIDATE_CACHE', {
-			userId: user?.id
+		this.domainInterface.eventEmitter.emit('USER::INVALIDATE_CACHE', {
+			userId: user.id
 		});
 
 		return this.#readBasics({ user, locale: nameLocaleCode });
@@ -564,18 +536,18 @@ export class Basics extends UserBaseMiddleware {
 	 * @returns {Promise<object>} HTTP response data for the delete operation.
 	 */
 	async #deleteBasics({ user }) {
-		const UserModel = await this?._getModelsFromDomain?.([
+		const UserModel = await this._getModelsFromDomain([
 			{ type: 'relational', name: 'user' }
 		]);
 
-		await this?._executeWithBackOff?.(async () => {
-			return UserModel?.query?.().patchAndFetchById?.(user?.id, {
+		await this._executeWithBackOff(async () => {
+			return UserModel.query().patchAndFetchById(user.id, {
 				is_deleted: true
 			});
 		});
 
-		this?.domainInterface?.eventEmitter?.emit?.('USER::INVALIDATE_CACHE', {
-			userId: user?.id
+		this.domainInterface.eventEmitter.emit('USER::INVALIDATE_CACHE', {
+			userId: user.id
 		});
 
 		return {
@@ -610,12 +582,12 @@ export class Basics extends UserBaseMiddleware {
 
 	async #localizeUserNames(userNameFields, otherLocalesRequested) {
 		let requestedLocales = new Set(otherLocalesRequested ?? []);
-		requestedLocales?.add?.(userNameFields?.locale_code);
-		requestedLocales?.add?.('en-IN');
-		requestedLocales = [...requestedLocales]?.filter?.(Boolean);
+		requestedLocales.add(userNameFields.locale_code);
+		requestedLocales.add('en-IN');
+		requestedLocales = [...requestedLocales].filter(Boolean);
 
 		const localizedUserNames = {};
-		requestedLocales?.forEach?.((locale) => {
+		requestedLocales.forEach((locale) => {
 			// eslint-disable-next-line security/detect-object-injection
 			localizedUserNames[locale] = {
 				locale_id: locale
@@ -623,19 +595,19 @@ export class Basics extends UserBaseMiddleware {
 		});
 
 		const translateRepository =
-			await this?.domainInterface?.iocContainer?.resolve?.('Translate');
+			await this.domainInterface.iocContainer.resolve('Translate');
 
-		const userNameFieldKeys = Object.keys?.(userNameFields) ?? [];
+		const userNameFieldKeys = Object.keys(userNameFields) ?? [];
 		for (let i = 0; i < userNameFieldKeys.length; i++) {
 			// eslint-disable-next-line security/detect-object-injection
 			const fieldKey = userNameFieldKeys[i];
 			// eslint-disable-next-line security/detect-object-injection
-			const fieldValue = userNameFields?.[fieldKey];
+			const fieldValue = userNameFields[fieldKey];
 
 			if (fieldKey === 'locale_code') continue;
 
 			for (let j = 0; j < requestedLocales.length; j++) {
-				if ((fieldValue ?? '')?.trim?.() === '') {
+				if ((fieldValue ?? '').trim() === '') {
 					// eslint-disable-next-line security/detect-object-injection
 					localizedUserNames[requestedLocales[j]][fieldKey] = '';
 					continue;
@@ -643,9 +615,9 @@ export class Basics extends UserBaseMiddleware {
 
 				const localeCharacterRegex =
 					// eslint-disable-next-line security/detect-object-injection
-					this.#localeCharacterRegexMap?.get?.(requestedLocales[j]);
+					this.#localeCharacterRegexMap.get(requestedLocales[j]);
 
-				if (localeCharacterRegex?.test?.(fieldValue)) {
+				if (localeCharacterRegex?.test(fieldValue)) {
 					// eslint-disable-next-line security/detect-object-injection
 					localizedUserNames[requestedLocales[j]][fieldKey] =
 						fieldValue;
@@ -653,13 +625,13 @@ export class Basics extends UserBaseMiddleware {
 				}
 
 				let fieldValueLocale = undefined;
-				this.#localeCharacterRegexMap?.forEach?.((regex, locale) => {
-					if (regex?.test?.(fieldValue)) fieldValueLocale = locale;
+				this.#localeCharacterRegexMap.forEach((regex, locale) => {
+					if (regex.test(fieldValue)) fieldValueLocale = locale;
 				});
 
-				const translatedField = await this?._executeWithBackOff?.(
+				const translatedField = await this._executeWithBackOff(
 					async () => {
-						return translateRepository?.translateText?.({
+						return translateRepository.translateText({
 							Text: fieldValue,
 							SourceLanguageCode: fieldValueLocale ?? 'auto',
 							// eslint-disable-next-line security/detect-object-injection
@@ -697,50 +669,48 @@ export class Basics extends UserBaseMiddleware {
 	 */
 
 	async #ensureUserNamesForLocale(user, locale) {
-		const UserNameByLocaleModel = await this?._getModelsFromDomain?.([
+		const UserNameByLocaleModel = await this._getModelsFromDomain([
 			{ type: 'relational', name: 'user-name-by-locale' }
 		]);
 
-		const userNamesForLocale = user?.names?.find?.((nameByLocale) => {
-			return nameByLocale?.locale_id === locale;
+		const userNamesForLocale = user.names?.find((nameByLocale) => {
+			return nameByLocale.locale_id === locale;
 		});
 		if (userNamesForLocale) return;
 
-		const baseNameRecord = user?.names?.[0];
+		const baseNameRecord = user.names?.[0];
 		if (!baseNameRecord?.locale_id) return;
 
-		const localizedUserNames = await this.#localizeUserNames?.(
+		const localizedUserNames = await this.#localizeUserNames(
 			{
-				...(baseNameRecord?.locale_id && {
-					locale_code: baseNameRecord?.locale_id
+				...(baseNameRecord.locale_id && {
+					locale_code: baseNameRecord.locale_id
 				}),
 				...(Object.hasOwn(baseNameRecord ?? {}, 'first_name') && {
-					first_name: baseNameRecord?.first_name ?? ''
+					first_name: baseNameRecord.first_name ?? ''
 				}),
 				...(Object.hasOwn(baseNameRecord ?? {}, 'middle_names') && {
-					middle_names: baseNameRecord?.middle_names ?? ''
+					middle_names: baseNameRecord.middle_names ?? ''
 				}),
 				...(Object.hasOwn(baseNameRecord ?? {}, 'last_name') && {
-					last_name: baseNameRecord?.last_name ?? ''
+					last_name: baseNameRecord.last_name ?? ''
 				}),
 				...(Object.hasOwn(baseNameRecord ?? {}, 'nickname') && {
-					nickname: baseNameRecord?.nickname ?? ''
+					nickname: baseNameRecord.nickname ?? ''
 				})
 			},
 			[locale]
 		);
 
-		const localizedNameRecord = await this?._executeWithBackOff?.(
-			async () => {
-				return UserNameByLocaleModel?.query?.().insertAndFetch?.({
-					user_id: user?.id,
-					// eslint-disable-next-line security/detect-object-injection
-					...localizedUserNames?.[locale]
-				});
-			}
-		);
+		const localizedNameRecord = await this._executeWithBackOff(async () => {
+			return UserNameByLocaleModel.query().insertAndFetch({
+				user_id: user.id,
+				// eslint-disable-next-line security/detect-object-injection
+				...localizedUserNames[locale]
+			});
+		});
 
-		user?.names?.push?.(localizedNameRecord);
+		user.names.push(localizedNameRecord);
 	}
 
 	#localeCharacterRegexMap = new Map([
@@ -795,21 +765,19 @@ export default class BasicsMiddlewareFactory extends EVASBaseFactory {
 	 * @returns {Promise<Basics>} The singleton middleware instance.
 	 */
 	static async createInstances(domainInterface) {
-		return await BasicsMiddlewareFactory.#mutex?.runExclusive?.(
-			async () => {
-				if (!BasicsMiddlewareFactory.#basicsInstance) {
-					const basicsInstance = new Basics(
-						BasicsMiddlewareFactory['$disk_unc'],
-						domainInterface
-					);
+		return await BasicsMiddlewareFactory.#mutex.runExclusive(async () => {
+			if (!BasicsMiddlewareFactory.#basicsInstance) {
+				const basicsInstance = new Basics(
+					BasicsMiddlewareFactory['$disk_unc'],
+					domainInterface
+				);
 
-					await basicsInstance?.load?.();
-					BasicsMiddlewareFactory.#basicsInstance = basicsInstance;
-				}
-
-				return BasicsMiddlewareFactory.#basicsInstance;
+				await basicsInstance.load();
+				BasicsMiddlewareFactory.#basicsInstance = basicsInstance;
 			}
-		);
+
+			return BasicsMiddlewareFactory.#basicsInstance;
+		});
 	}
 
 	/**
@@ -826,8 +794,8 @@ export default class BasicsMiddlewareFactory extends EVASBaseFactory {
 	 * @returns {Promise<void>} Resolves after the instance is unloaded.
 	 */
 	static async destroyInstances() {
-		await BasicsMiddlewareFactory.#mutex?.runExclusive?.(async () => {
-			await BasicsMiddlewareFactory.#basicsInstance?.unload?.();
+		await BasicsMiddlewareFactory.#mutex.runExclusive(async () => {
+			await BasicsMiddlewareFactory.#basicsInstance?.unload();
 			BasicsMiddlewareFactory.#basicsInstance = undefined;
 		});
 	}

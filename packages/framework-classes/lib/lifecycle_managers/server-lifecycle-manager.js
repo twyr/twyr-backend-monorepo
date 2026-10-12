@@ -60,44 +60,44 @@ class ServerLifecycleManager extends EVASBaseLifecycleManager {
 		const errors = [];
 
 		try {
-			await super.load?.();
+			await super.load();
 		} catch (error) {
-			errors?.push?.(error);
+			errors.push(error);
 		}
 
 		// Step 1: Load the repositories
 		try {
-			await this.#loadRepositories?.();
+			await this.#loadRepositories();
 		} catch (error) {
-			errors?.push?.(error);
+			errors.push(error);
 		}
 
 		// Step 2: Load the Ingress Surfaces
 		try {
-			await this.#loadIngressSurfaces?.();
+			await this.#loadIngressSurfaces();
 		} catch (error) {
-			errors?.push?.(error);
+			errors.push(error);
 		}
 
 		// Step 3: Load the bounded contexts
 		try {
-			await this.#loadBoundedContexts?.();
+			await this.#loadBoundedContexts();
 		} catch (error) {
-			errors?.push?.(error);
+			errors.push(error);
 		}
 
 		// Step 4: Load the Domains
 		try {
-			await this.#loadDomains?.();
+			await this.#loadDomains();
 		} catch (error) {
-			errors?.push?.(error);
+			errors.push(error);
 		}
 
-		if (!errors?.length) return;
+		if (!errors.length) return;
 
 		const errorToBeThrown = new AggregateError(
 			errors,
-			`Error loading ${this?.name}`
+			`Error loading ${this.name}`
 		);
 
 		throw errorToBeThrown;
@@ -126,45 +126,45 @@ class ServerLifecycleManager extends EVASBaseLifecycleManager {
 
 		// Step 1: Unload the API and repositories
 		try {
-			await this?.domainInterface?.iocContainer?.unregisterAll?.();
+			await this.domainInterface.iocContainer.unregisterAll();
 		} catch (error) {
-			errors?.push?.(error);
+			errors.push(error);
 		}
 
 		try {
-			await this?.domainInterface?.apiRegistry?.unregisterAll?.();
+			await this.domainInterface.apiRegistry.unregisterAll();
 		} catch (error) {
-			errors?.push?.(error);
+			errors.push(error);
 		}
 
 		// Step 2: Unload the bounded contexts
 		try {
-			await this._unloadArtifacts?.(this.#boundedContexts);
-			this.#boundedContexts?.clear?.();
+			await this._unloadArtifacts(this.#boundedContexts);
+			this.#boundedContexts.clear();
 		} catch (error) {
-			errors?.push?.(error);
+			errors.push(error);
 		}
 
 		// Step 3: Unload the domains
 		try {
-			await this._unloadArtifacts?.(this.#domains);
-			this.#domains?.clear?.();
+			await this._unloadArtifacts(this.#domains);
+			this.#domains.clear();
 		} catch (error) {
-			errors?.push?.(error);
+			errors.push(error);
 		}
 
 		// Finally, call the base class stuff
 		try {
-			await super.unload?.();
+			await super.unload();
 		} catch (error) {
-			errors?.push?.(error);
+			errors.push(error);
 		}
 
-		if (!errors?.length) return;
+		if (!errors.length) return;
 
 		const errorToBeThrown = new AggregateError(
 			errors,
-			`Error unloading ${this?.name}`
+			`Error unloading ${this.name}`
 		);
 
 		throw errorToBeThrown;
@@ -190,15 +190,15 @@ class ServerLifecycleManager extends EVASBaseLifecycleManager {
 	 */
 	async #loadBoundedContexts() {
 		const BoundedContextFactories =
-			await this._loadArtifacts?.('bounded_contexts');
+			await this._loadArtifacts('bounded_contexts');
 		for (const BoundedContextFactory of BoundedContextFactories) {
 			const boundedContextInstance =
-				await BoundedContextFactory?.createInstances?.(
-					this?.domainInterface
+				await BoundedContextFactory.createInstances(
+					this.domainInterface
 				);
 
-			this.#boundedContexts?.set?.(
-				BoundedContextFactory?.BoundedContextName,
+			this.#boundedContexts.set(
+				BoundedContextFactory.BoundedContextName,
 				boundedContextInstance
 			);
 		}
@@ -221,13 +221,13 @@ class ServerLifecycleManager extends EVASBaseLifecycleManager {
 	 * Loads all the top-level Domains hosted by the Server
 	 */
 	async #loadDomains() {
-		const DomainFactories = await this._loadArtifacts?.('domains');
+		const DomainFactories = await this._loadArtifacts('domains');
 		for (const DomainFactory of DomainFactories) {
-			const domainInstance = await DomainFactory?.createInstances?.(
-				this?.domainInterface
+			const domainInstance = await DomainFactory.createInstances(
+				this.domainInterface
 			);
 
-			this.#domains?.set?.(DomainFactory?.DomainName, domainInstance);
+			this.#domains.set(DomainFactory.DomainName, domainInstance);
 		}
 	}
 
@@ -251,21 +251,21 @@ class ServerLifecycleManager extends EVASBaseLifecycleManager {
 		// Step 1: First up, get the init repositories up...
 		// Basically, the configuration repository
 		const InitRepositoryFactories =
-			await this._loadArtifacts?.('repositories/init');
+			await this._loadArtifacts('repositories/init');
 		for (const InitRepositoryFactory of InitRepositoryFactories) {
-			await this?.domainInterface?.iocContainer?.register?.(
-				InitRepositoryFactory?.RepositoryName,
+			await this.domainInterface.iocContainer.register(
+				InitRepositoryFactory.RepositoryName,
 				InitRepositoryFactory
 			);
 		}
 
 		// Step 2: Load / Register the runtime Repositories
-		const RepositoryFactories = await this._loadArtifacts?.(
+		const RepositoryFactories = await this._loadArtifacts(
 			'repositories/runtime'
 		);
 		for (const RepositoryFactory of RepositoryFactories) {
-			await this?.domainInterface?.iocContainer?.register?.(
-				RepositoryFactory?.RepositoryName,
+			await this.domainInterface.iocContainer.register(
+				RepositoryFactory.RepositoryName,
 				RepositoryFactory
 			);
 		}
@@ -289,10 +289,10 @@ class ServerLifecycleManager extends EVASBaseLifecycleManager {
 	 */
 	async #loadIngressSurfaces() {
 		const IngressSurfaceFactories =
-			await this._loadArtifacts?.('ingress_surfaces');
+			await this._loadArtifacts('ingress_surfaces');
 		for (const IngressSurfaceFactory of IngressSurfaceFactories) {
-			await this?.domainInterface?.iocContainer?.register?.(
-				IngressSurfaceFactory?.IngressSurfaceName,
+			await this.domainInterface.iocContainer.register(
+				IngressSurfaceFactory.IngressSurfaceName,
 				IngressSurfaceFactory
 			);
 		}
@@ -352,7 +352,7 @@ export class ServerLifecycleManagerFactory extends EVASBaseFactory {
 				new ServerLifecycleManager(location, domainInterface);
 		}
 
-		await ServerLifecycleManagerFactory.#serverLifecycleManagerInstance?.load?.();
+		await ServerLifecycleManagerFactory.#serverLifecycleManagerInstance.load();
 		return ServerLifecycleManagerFactory.#serverLifecycleManagerInstance;
 	}
 
@@ -373,7 +373,7 @@ export class ServerLifecycleManagerFactory extends EVASBaseFactory {
 		if (!ServerLifecycleManagerFactory.#serverLifecycleManagerInstance)
 			return;
 
-		await ServerLifecycleManagerFactory.#serverLifecycleManagerInstance?.unload?.();
+		await ServerLifecycleManagerFactory.#serverLifecycleManagerInstance.unload();
 		ServerLifecycleManagerFactory.#serverLifecycleManagerInstance =
 			undefined;
 	}

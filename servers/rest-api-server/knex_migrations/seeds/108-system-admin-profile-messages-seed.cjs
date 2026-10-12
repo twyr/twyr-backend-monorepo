@@ -4,7 +4,7 @@ exports.seed = async function (knex) {
 	console.log('Processing 108-system-admin-profile-messages-seed.cjs');
 
 	const firstMessageId = 'SYSTEM_ADMIN::SESSION_MANAGER::OTP_MESSAGE_SMS';
-	const existingMessage = await knex?.raw?.(
+	const existingMessage = await knex.raw(
 		`SELECT id FROM system_message_master WHERE id = ?`,
 		[firstMessageId]
 	);

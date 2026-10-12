@@ -59,10 +59,10 @@ class MessageI18N extends EVASBaseRepository {
 	 * start logic
 	 */
 	async load() {
-		await super.load?.();
+		await super.load();
 
-		await this.#setupI18N?.();
-		await this.#loadTranslations?.();
+		await this.#setupI18N();
+		await this.#loadTranslations();
 
 		return;
 	}
@@ -85,7 +85,7 @@ class MessageI18N extends EVASBaseRepository {
 	 * stop logic
 	 */
 	async unload() {
-		await super.unload?.();
+		await super.unload();
 		this.#i18n = undefined;
 	}
 	// #endregion
@@ -132,15 +132,14 @@ class MessageI18N extends EVASBaseRepository {
 	 */
 	async #setupI18N() {
 		const databaseRepository =
-			await this?.iocContainer?.resolve?.('SQLDatabase');
+			await this.iocContainer.resolve('SQLDatabase');
 
 		// Step 1: Get all the locales we've enabled in the system,
 		// along with the fallbacks
-		let enabledLocales = await databaseRepository?.raw?.(
+		let enabledLocales = await databaseRepository.raw(
 			`SELECT code FROM locale_master WHERE is_enabled = true;`
 		);
-		this.#enabledLocales =
-			enabledLocales?.rows?.map?.((row) => row?.code) ?? [];
+		this.#enabledLocales = enabledLocales.rows.map((row) => row.code) ?? [];
 
 		const staticCatalog = {};
 		(this.#enabledLocales ?? []).forEach((el) => {
@@ -151,12 +150,12 @@ class MessageI18N extends EVASBaseRepository {
 		// TODO: Write a DB FUNCTION to walk up the priority tree of fallbacks
 		// and return the full list of fallbacks for each locale.
 		// For now, just get the direct fallbacks
-		const fallbackLocales = await databaseRepository?.(
+		const fallbackLocales = await databaseRepository(
 			'locale_fallback_master'
 		)
-			?.select('locale_code', 'fallback_locale_code')
-			?.whereIn?.('locale_code', this.#enabledLocales)
-			?.andWhere('priority', 1);
+			.select('locale_code', 'fallback_locale_code')
+			.whereIn('locale_code', this.#enabledLocales)
+			.andWhere('priority', 1);
 
 		const i18nFallbacks = {};
 		(fallbackLocales ?? []).forEach((row) => {
@@ -167,9 +166,9 @@ class MessageI18N extends EVASBaseRepository {
 
 		// Step 2: Setup the i18n instance
 		let I18n = await import('i18n');
-		I18n = I18n?.['default'];
+		I18n = I18n['default'];
 
-		I18n?.configure?.({
+		I18n.configure({
 			debug: global.serverEnvironment !== 'production',
 			locales: this.#enabledLocales,
 			staticCatalog: staticCatalog,
@@ -180,9 +179,9 @@ class MessageI18N extends EVASBaseRepository {
 			syncFiles: false,
 			autoReload: false,
 
-			logDebugFn: this.#i18nDebugLog?.bind(this),
-			logWarnFn: this.#i18nWarnLog?.bind(this),
-			logErrorFn: this.#i18nErrorLog?.bind(this)
+			logDebugFn: this.#i18nDebugLog.bind(this),
+			logWarnFn: this.#i18nWarnLog.bind(this),
+			logErrorFn: this.#i18nErrorLog.bind(this)
 		});
 
 		this.#i18n = I18n;
@@ -205,14 +204,14 @@ class MessageI18N extends EVASBaseRepository {
 	 */
 	async #loadTranslations() {
 		const databaseRepository =
-			await this?.iocContainer?.resolve?.('SQLDatabase');
+			await this.iocContainer.resolve('SQLDatabase');
 
 		// Step 2: Fetch the system messages from the database
-		let systemMessages = await databaseRepository?.(
+		let systemMessages = await databaseRepository(
 			'system_message_by_locale'
 		)
-			?.select('message_id', 'locale_id', 'message_text')
-			?.whereIn?.('locale_id', this.#enabledLocales);
+			.select('message_id', 'locale_id', 'message_text')
+			.whereIn('locale_id', this.#enabledLocales);
 
 		// Step 3: Organize the messages into locales, etc.
 		const i18nCatalog = {};
@@ -231,10 +230,10 @@ class MessageI18N extends EVASBaseRepository {
 
 		// Step 4: Load the messages into i18n
 		for (const localeCode of Object.keys(i18nCatalog)) {
-			this.#i18n?.addLocale?.(localeCode);
-			this.#i18n?.setLocale?.(localeCode);
+			this.#i18n.addLocale(localeCode);
+			this.#i18n.setLocale(localeCode);
 
-			const localeCatalog = this.#i18n?.getCatalog?.(localeCode);
+			const localeCatalog = this.#i18n.getCatalog(localeCode);
 			// eslint-disable-next-line security/detect-object-injection
 			for (const messageCode of Object.keys(i18nCatalog[localeCode])) {
 				// eslint-disable-next-line security/detect-object-injection
@@ -268,28 +267,28 @@ class MessageI18N extends EVASBaseRepository {
 		// Implementation for translation logic goes here
 		// This is a placeholder implementation
 		// return `Translated(${key}, ${locale}, ${safeJsonStringify?.(variables ?? {})})`;
-		let translatedMessage = this.#i18n?.__?.(
+		let translatedMessage = this.#i18n.__(
 			{ phrase: key, locale: locale },
 			variables
 		);
 
 		if (translatedMessage === key) {
-			await this.#translationReloadMutex?.runExclusive?.(async () => {
+			await this.#translationReloadMutex.runExclusive(async () => {
 				this.#i18n = undefined;
-				await this.#setupI18N?.();
-				await this.#loadTranslations?.();
+				await this.#setupI18N();
+				await this.#loadTranslations();
 			});
 		}
 
 		if (translatedMessage === key) {
-			translatedMessage = this.#i18n?.__?.(
+			translatedMessage = this.#i18n.__(
 				{ phrase: key, locale: locale },
 				variables
 			);
 		}
 
 		if (translatedMessage === key) {
-			translatedMessage = this.#i18n?.__?.(
+			translatedMessage = this.#i18n.__(
 				{
 					phrase: 'I18N_REPOSITORY::TRANSLATION_ERROR',
 					locale: locale
@@ -299,7 +298,7 @@ class MessageI18N extends EVASBaseRepository {
 		}
 
 		if (translatedMessage === key) {
-			translatedMessage = this.#i18n?.__?.(
+			translatedMessage = this.#i18n.__(
 				{
 					phrase: 'I18N_REPOSITORY::TRANSLATION_ERROR',
 					locale: 'en-IN'
@@ -328,8 +327,8 @@ class MessageI18N extends EVASBaseRepository {
 	 * @returns {Promise<void>} Resolves after the message is logged.
 	 */
 	async #i18nDebugLog(message) {
-		const logger = await this?.iocContainer?.resolve?.('Logger');
-		logger?.debug?.(`i18n::debug: ${message}`);
+		const logger = await this.iocContainer.resolve('Logger');
+		logger.debug(`i18n::debug: ${message}`);
 	}
 
 	/**
@@ -349,8 +348,8 @@ class MessageI18N extends EVASBaseRepository {
 	 * @returns {Promise<void>} Resolves after the message is logged.
 	 */
 	async #i18nWarnLog(message) {
-		const logger = await this?.iocContainer?.resolve?.('Logger');
-		logger?.warn?.(`i18n::warn: ${message}`);
+		const logger = await this.iocContainer.resolve('Logger');
+		logger.warn(`i18n::warn: ${message}`);
 	}
 
 	/**
@@ -370,8 +369,8 @@ class MessageI18N extends EVASBaseRepository {
 	 * @returns {Promise<void>} Resolves after the message is logged.
 	 */
 	async #i18nErrorLog(message) {
-		const logger = await this?.iocContainer?.resolve?.('Logger');
-		logger?.error?.(`i18n::error: ${message}`);
+		const logger = await this.iocContainer.resolve('Logger');
+		logger.error(`i18n::error: ${message}`);
 	}
 	// #endregion
 
@@ -423,13 +422,13 @@ export default class MessageI18NRepositoryFactory extends EVASBaseFactory {
 	 * @returns {MessageI18N} - The MessageI18N repository instance.
 	 */
 	static async createInstances(configuration, iocContainer) {
-		const repositoryKey = Buffer?.from?.(
-			safeJsonStringify?.(configuration ?? {})
-		)?.toString?.('base64');
+		const repositoryKey = Buffer.from(
+			safeJsonStringify(configuration ?? {})
+		).toString('base64');
 
-		await MessageI18NRepositoryFactory.#mutex?.runExclusive?.(async () => {
+		await MessageI18NRepositoryFactory.#mutex.runExclusive(async () => {
 			if (
-				!MessageI18NRepositoryFactory.#messageI18NInstances?.has(
+				!MessageI18NRepositoryFactory.#messageI18NInstances.has(
 					repositoryKey
 				)
 			) {
@@ -439,17 +438,17 @@ export default class MessageI18NRepositoryFactory extends EVASBaseFactory {
 					configuration
 				);
 
-				await messageI18NInstance?.load?.();
-				MessageI18NRepositoryFactory.#messageI18NInstances?.set?.(
+				await messageI18NInstance.load();
+				MessageI18NRepositoryFactory.#messageI18NInstances.set(
 					repositoryKey,
 					messageI18NInstance
 				);
 			}
 		});
 
-		return MessageI18NRepositoryFactory.#messageI18NInstances?.get(
+		return MessageI18NRepositoryFactory.#messageI18NInstances.get(
 			repositoryKey
-		)?.interface;
+		).interface;
 	}
 
 	/**
@@ -470,40 +469,40 @@ export default class MessageI18NRepositoryFactory extends EVASBaseFactory {
 	 * @description Clears the cached {MessageI18N} instances
 	 */
 	static async destroyInstances(configuration) {
-		await MessageI18NRepositoryFactory.#mutex?.runExclusive?.(async () => {
+		await MessageI18NRepositoryFactory.#mutex.runExclusive(async () => {
 			if (configuration) {
-				const repositoryKey = Buffer?.from?.(
-					safeJsonStringify?.(configuration)
-				)?.toString?.('base64');
+				const repositoryKey = Buffer.from(
+					safeJsonStringify(configuration)
+				).toString('base64');
 
 				if (
-					!MessageI18NRepositoryFactory.#messageI18NInstances?.has(
+					!MessageI18NRepositoryFactory.#messageI18NInstances.has(
 						repositoryKey
 					)
 				)
 					return;
 
 				const messageI18NInstance =
-					MessageI18NRepositoryFactory.#messageI18NInstances?.get(
+					MessageI18NRepositoryFactory.#messageI18NInstances.get(
 						repositoryKey
 					);
-				await messageI18NInstance?.unload?.();
+				await messageI18NInstance.unload();
 
-				MessageI18NRepositoryFactory.#messageI18NInstances?.delete?.(
+				MessageI18NRepositoryFactory.#messageI18NInstances.delete(
 					repositoryKey
 				);
 				return;
 			}
 
 			const destroyResolutions = [];
-			MessageI18NRepositoryFactory.#messageI18NInstances?.forEach?.(
+			MessageI18NRepositoryFactory.#messageI18NInstances.forEach(
 				(sqlDatabaseInstance) => {
-					destroyResolutions?.push?.(sqlDatabaseInstance?.unload?.());
+					destroyResolutions.push(sqlDatabaseInstance.unload());
 				}
 			);
 
-			await Promise?.allSettled?.(destroyResolutions);
-			MessageI18NRepositoryFactory.#messageI18NInstances?.clear?.();
+			await Promise.allSettled(destroyResolutions);
+			MessageI18NRepositoryFactory.#messageI18NInstances.clear();
 
 			return;
 		});

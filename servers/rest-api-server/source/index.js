@@ -54,8 +54,8 @@ import ApplicationServerFactory from './application-server.js';
  *
  * @ignore
  */
-const packageJson = JSON?.parse?.(await readFile?.('./package.json'));
-pleaseUpgradeNode?.(Object?.assign?.({}, packageJson));
+const packageJson = JSON.parse(await readFile('./package.json'));
+pleaseUpgradeNode(Object.assign({}, packageJson));
 
 /**
  * Step 2: Setup global variables (ugh!) to make life simpler across the rest of the codebase
@@ -65,12 +65,12 @@ pleaseUpgradeNode?.(Object?.assign?.({}, packageJson));
  *
  * @ignore
  */
-const __filename = fileURLToPath?.(import.meta?.url);
-const __dirname = dirname?.(__filename);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
-const serverEnvironment = process?.env?.NODE_ENV || 'development';
-global.serverEnvironment = serverEnvironment?.toLocaleLowerCase?.();
-global.serverFilePath = normalize?.(__filename);
+const serverEnvironment = process.env.NODE_ENV || 'development';
+global.serverEnvironment = serverEnvironment.toLocaleLowerCase();
+global.serverFilePath = normalize(__filename);
 
 /**
  * Step 3: Load the environment variables from the .env.${environment} file
@@ -80,11 +80,11 @@ global.serverFilePath = normalize?.(__filename);
  *
  * @ignore
  */
-let environmentFilePath = join?.(__dirname, './../.env');
+let environmentFilePath = join(__dirname, './../.env');
 if (serverEnvironment !== 'production') {
 	environmentFilePath = `${environmentFilePath}.${serverEnvironment}`;
 }
-dotenv?.config?.({
+dotenv.config({
 	path: environmentFilePath,
 	quiet: true
 });
@@ -97,7 +97,7 @@ dotenv?.config?.({
  *
  * @ignore
  */
-const SERVER_NAME = process?.env?.SERVER_NAME ?? 'REST API Server';
+const SERVER_NAME = process.env.SERVER_NAME ?? 'REST API Server';
 process.title = SERVER_NAME;
 
 /**
@@ -113,33 +113,28 @@ const startupHandler = async () => {
 	if (bootingUp) return;
 	bootingUp = true;
 
-	const bootupStartTime = process?.hrtime?.bigint?.();
+	const bootupStartTime = process.hrtime.bigint();
 	let bootupError = null;
 
 	try {
-		await ApplicationServerFactory?.createInstances?.(
-			__dirname,
-			SERVER_NAME
-		);
+		await ApplicationServerFactory.createInstances(__dirname, SERVER_NAME);
 	} catch (error) {
 		bootupError = error;
 	}
 
-	const bootupEndTime = process?.hrtime?.bigint?.();
+	const bootupEndTime = process.hrtime.bigint();
 
 	const bootupDuration = bootupEndTime - bootupStartTime;
-	const bootupHrtime = convertHrtime?.(bootupDuration)?.milliseconds;
+	const bootupHrtime = convertHrtime(bootupDuration).milliseconds;
 
 	if (!bootupError) {
-		console?.info?.(
-			`${SERVER_NAME} started in: ${bootupHrtime?.toFixed?.(4)}ms`
-		);
+		console.info(`${SERVER_NAME} started in: ${bootupHrtime.toFixed(4)}ms`);
 
 		return;
 	}
 
-	console?.error?.(
-		`${SERVER_NAME} bootup sequence errored out in: ${bootupHrtime?.toFixed?.(4)}ms with error:\n${safeJsonStringify?.(errorSerializer?.(bootupError), undefined, 2)}\n\n`
+	console.error(
+		`${SERVER_NAME} bootup sequence errored out in: ${bootupHrtime.toFixed(4)}ms with error:\n${safeJsonStringify(errorSerializer(bootupError), undefined, 2)}\n\n`
 	);
 
 	throw new Error(`Entity Value Aggregate Server Bootup Error`);
@@ -158,32 +153,31 @@ const terminationHandler = async () => {
 	if (shuttingDown) return;
 	shuttingDown = true;
 
-	let terminationStartTime = process?.hrtime?.bigint?.();
+	let terminationStartTime = process.hrtime.bigint();
 	let terminationError = null;
 
 	try {
-		await ApplicationServerFactory?.destroyInstances?.();
-		process?.removeAllListeners?.();
+		await ApplicationServerFactory.destroyInstances();
+		process.removeAllListeners();
 	} catch (error) {
 		terminationError = error;
 	}
 
-	const terminationEndTime = process?.hrtime?.bigint?.();
+	const terminationEndTime = process.hrtime.bigint();
 
 	const terminationDuration = terminationEndTime - terminationStartTime;
-	const terminationHrtime =
-		convertHrtime?.(terminationDuration)?.milliseconds;
+	const terminationHrtime = convertHrtime(terminationDuration).milliseconds;
 
 	if (!terminationError) {
-		console?.info?.(
-			`\n${SERVER_NAME} stopped in: ${terminationHrtime?.toFixed?.(4)}ms`
+		console.info(
+			`\n${SERVER_NAME} stopped in: ${terminationHrtime.toFixed(4)}ms`
 		);
 
 		return;
 	}
 
-	console?.error?.(
-		`\n${SERVER_NAME} termination sequence errored out in: ${terminationHrtime?.toFixed?.(4)}ms with error:\n${safeJsonStringify?.(errorSerializer?.(terminationError), undefined, 2)}\n\n`
+	console.error(
+		`\n${SERVER_NAME} termination sequence errored out in: ${terminationHrtime.toFixed(4)}ms with error:\n${safeJsonStringify(errorSerializer(terminationError), undefined, 2)}\n\n`
 	);
 
 	throw new Error(`Entity Value Aggregate Server Termination Error`);
@@ -197,19 +191,19 @@ const terminationHandler = async () => {
  *
  * @ignore
  */
-process?.on?.('SIGINT', terminationHandler);
-process?.on?.('SIGTERM', terminationHandler);
+process.on('SIGINT', terminationHandler);
+process.on('SIGTERM', terminationHandler);
 
 process.on('uncaughtException', async (err) => {
-	console?.error?.(
-		`\n${SERVER_NAME} terminating due to uncaught exception:\n${safeJsonStringify?.(errorSerializer?.(err), undefined, 2)}\n\n`
+	console.error(
+		`\n${SERVER_NAME} terminating due to uncaught exception:\n${safeJsonStringify(errorSerializer(err), undefined, 2)}\n\n`
 	);
 
 	await terminationHandler();
 });
 
 process.on('unhandledRejection', async (reason, location) => {
-	console?.error?.(
+	console.error(
 		`\n${SERVER_NAME} terminating due to uncaught rejection:\n${reason} @ ${location}\n\n`
 	);
 
@@ -224,4 +218,4 @@ process.on('unhandledRejection', async (reason, location) => {
  *
  * @ignore
  */
-await startupHandler?.();
+await startupHandler();
