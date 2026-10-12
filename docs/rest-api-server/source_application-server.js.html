@@ -417,14 +417,14 @@ class ApplicationServer extends EVASBaseArtifact {
 	 */
 	async load() {
 		// Step 1: Basic init
-		await super.load?.();
+		await super.load();
 
 		// Step 2: Instantiate the loader and IoC container
 		this.#apiRegistry = new APIRegistry(this.#serverName, undefined);
 		this.#iocContainer = new IocContainer(this.#serverName, undefined);
 		this.#eventEmitter = new EventEmitter();
 
-		const serverInterface = Object?.assign?.(
+		const serverInterface = Object.assign(
 			{},
 			{
 				apiRegistry: this.#apiRegistry,
@@ -432,19 +432,18 @@ class ApplicationServer extends EVASBaseArtifact {
 				eventEmitter: this.#eventEmitter
 			}
 		);
-		await ServerLifecycleManagerFactory?.createInstances?.(
-			this?.__dirname,
+		await ServerLifecycleManagerFactory.createInstances(
+			this.__dirname,
 			serverInterface
 		);
 
 		// Step 3: Start listening for HTTP Requests
-		const restApiRepository =
-			await this.#iocContainer?.resolve?.('RestApi');
-		await restApiRepository?.start?.();
+		const restApiRepository = await this.#iocContainer.resolve('RestApi');
+		await restApiRepository.start();
 
 		// Finally, announce we're up...
-		const loggerRepository = await this.#iocContainer?.resolve?.('Logger');
-		loggerRepository?.info?.(
+		const loggerRepository = await this.#iocContainer.resolve('Logger');
+		loggerRepository.info(
 			`\n\nTICKING AWAY THE MOMENTS THAT MAKE UP A DULL DAY...`
 		);
 
@@ -468,25 +467,24 @@ class ApplicationServer extends EVASBaseArtifact {
 	 */
 	async unload() {
 		// Step 1: Announce that we're going down..
-		const loggerRepository = await this.#iocContainer?.resolve?.('Logger');
-		loggerRepository?.info?.(
+		const loggerRepository = await this.#iocContainer.resolve('Logger');
+		loggerRepository.info(
 			`\n\nTHE TIME IS GONE, THE SONG IS OVER\nTHOUGHT I'D SOMETHING MORE TO SAY...\n`
 		);
 
 		// Step 2: Stop the REST API server
-		const restApiRepository =
-			await this.#iocContainer?.resolve?.('RestApi');
-		await restApiRepository?.stop?.();
+		const restApiRepository = await this.#iocContainer.resolve('RestApi');
+		await restApiRepository.stop();
 
 		// Step 3: Unload the sub-artifacts
-		await ServerLifecycleManagerFactory?.destroyInstances?.();
+		await ServerLifecycleManagerFactory.destroyInstances();
 
 		// Step 4: Un-instantiate.
 		this.#apiRegistry = undefined;
 		this.#iocContainer = undefined;
 
 		// Finally, Basic un-init
-		await super.unload?.();
+		await super.unload();
 		this.#serverName = undefined;
 		return;
 	}
@@ -542,18 +540,16 @@ export default class ApplicationServerFactory extends EVASBaseFactory {
 	 * @returns {ApplicationServer} - The server application instance.
 	 */
 	static async createInstances(location, serverName) {
-		return await ApplicationServerFactory.#mutex?.runExclusive?.(
-			async () => {
-				if (!ApplicationServerFactory.#ApplicationServerInstance) {
-					ApplicationServerFactory.#ApplicationServerInstance =
-						new ApplicationServer(location, serverName);
+		return await ApplicationServerFactory.#mutex.runExclusive(async () => {
+			if (!ApplicationServerFactory.#ApplicationServerInstance) {
+				ApplicationServerFactory.#ApplicationServerInstance =
+					new ApplicationServer(location, serverName);
 
-					await ApplicationServerFactory.#ApplicationServerInstance?.load?.();
-				}
-
-				return ApplicationServerFactory.#ApplicationServerInstance;
+				await ApplicationServerFactory.#ApplicationServerInstance.load();
 			}
-		);
+
+			return ApplicationServerFactory.#ApplicationServerInstance;
+		});
 	}
 
 	/**
@@ -572,10 +568,10 @@ export default class ApplicationServerFactory extends EVASBaseFactory {
 	 * @description Clears the cached {ApplicationServer} instances
 	 */
 	static async destroyInstances() {
-		await ApplicationServerFactory.#mutex?.runExclusive?.(async () => {
+		await ApplicationServerFactory.#mutex.runExclusive(async () => {
 			if (!ApplicationServerFactory.#ApplicationServerInstance) return;
 
-			await ApplicationServerFactory.#ApplicationServerInstance?.unload?.();
+			await ApplicationServerFactory.#ApplicationServerInstance.unload();
 			ApplicationServerFactory.#ApplicationServerInstance = undefined;
 		});
 	}

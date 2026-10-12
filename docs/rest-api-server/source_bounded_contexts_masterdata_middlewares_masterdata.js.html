@@ -416,60 +416,53 @@ export class Masterdata extends BaseMiddleware {
 		const errors = [];
 
 		try {
-			const apiRegistry = this?.domainInterface?.apiRegistry;
+			const apiRegistry = this.domainInterface.apiRegistry;
 			let registerResolutions = [];
 
-			const baseApis = await super._registerApi?.();
+			const baseApis = await super._registerApi();
 			for (const baseApi of baseApis ?? []) {
-				registerResolutions?.push?.(
-					apiRegistry?.register?.(baseApi?.pattern, baseApi?.handler)
+				registerResolutions.push(
+					apiRegistry.register(baseApi.pattern, baseApi.handler)
 				);
 			}
 
-			registerResolutions?.push?.(
-				apiRegistry?.register?.(
+			registerResolutions.push(
+				apiRegistry.register(
 					'CONTACT_TYPE',
-					this.#getContactTypes?.bind?.(this)
+					this.#getContactTypes.bind(this)
 				)
 			);
-			registerResolutions?.push?.(
-				apiRegistry?.register?.(
-					'GENDER',
-					this.#getGenders?.bind?.(this)
-				)
+			registerResolutions.push(
+				apiRegistry.register('GENDER', this.#getGenders.bind(this))
 			);
-			registerResolutions?.push?.(
-				apiRegistry?.register?.(
-					'LOCALE',
-					this.#getLocales?.bind?.(this)
-				)
+			registerResolutions.push(
+				apiRegistry.register('LOCALE', this.#getLocales.bind(this))
 			);
-			registerResolutions?.push?.(
-				apiRegistry?.register?.(
+			registerResolutions.push(
+				apiRegistry.register(
 					'COUNTRY_CODES',
-					this.#getCountryCodes?.bind?.(this)
+					this.#getCountryCodes.bind(this)
 				)
 			);
-			registerResolutions?.push?.(
-				apiRegistry?.register?.(
+			registerResolutions.push(
+				apiRegistry.register(
 					'SYSTEM_MESSAGES',
-					this.#getSystemMessages?.bind?.(this)
+					this.#getSystemMessages.bind(this)
 				)
 			);
-			registerResolutions =
-				await Promise?.allSettled?.(registerResolutions);
+			registerResolutions = await Promise.allSettled(registerResolutions);
 			for (const registerResolution of registerResolutions) {
-				if (registerResolution?.status === 'fulfilled') continue;
-				errors?.push?.(registerResolution?.reason);
+				if (registerResolution.status === 'fulfilled') continue;
+				errors.push(registerResolution.reason);
 			}
 		} catch (error) {
-			errors?.push?.(error);
+			errors.push(error);
 		}
 
-		if (!errors?.length) return;
+		if (!errors.length) return;
 
-		const propagatedError = createErrorForPropagation?.(
-			`${this?.name}::_registerApi error`,
+		const propagatedError = createErrorForPropagation(
+			`${this.name}::_registerApi error`,
 			errors
 		);
 
@@ -496,57 +489,51 @@ export class Masterdata extends BaseMiddleware {
 		const errors = [];
 
 		try {
-			const apiRegistry = this?.domainInterface?.apiRegistry;
+			const apiRegistry = this.domainInterface.apiRegistry;
 			let unregisterResolutions = [];
 
-			unregisterResolutions?.push?.(
-				apiRegistry?.unregister?.(
+			unregisterResolutions.push(
+				apiRegistry.unregister(
 					'SYSTEM_MESSAGES',
-					this.#getSystemMessages?.bind?.(this)
+					this.#getSystemMessages.bind(this)
 				)
 			);
-			unregisterResolutions?.push?.(
-				apiRegistry?.unregister?.(
+			unregisterResolutions.push(
+				apiRegistry.unregister(
 					'COUNTRY_CODES',
-					this.#getCountryCodes?.bind?.(this)
+					this.#getCountryCodes.bind(this)
 				)
 			);
-			unregisterResolutions?.push?.(
-				apiRegistry?.unregister?.(
-					'LOCALE',
-					this.#getLocales?.bind?.(this)
-				)
+			unregisterResolutions.push(
+				apiRegistry.unregister('LOCALE', this.#getLocales.bind(this))
 			);
-			unregisterResolutions?.push?.(
-				apiRegistry?.unregister?.(
-					'GENDER',
-					this.#getGenders?.bind?.(this)
-				)
+			unregisterResolutions.push(
+				apiRegistry.unregister('GENDER', this.#getGenders.bind(this))
 			);
-			unregisterResolutions?.push?.(
-				apiRegistry?.unregister?.(
+			unregisterResolutions.push(
+				apiRegistry.unregister(
 					'CONTACT_TYPE',
-					this.#getContactTypes?.bind?.(this)
+					this.#getContactTypes.bind(this)
 				)
 			);
 
-			unregisterResolutions = await Promise?.allSettled?.(
+			unregisterResolutions = await Promise.allSettled(
 				unregisterResolutions
 			);
 			for (const unregisterResolution of unregisterResolutions) {
-				if (unregisterResolution?.status === 'fulfilled') continue;
-				errors?.push?.(unregisterResolution?.reason);
+				if (unregisterResolution.status === 'fulfilled') continue;
+				errors.push(unregisterResolution.reason);
 			}
 
-			await super._unregisterApi?.();
+			await super._unregisterApi();
 		} catch (error) {
-			errors?.push?.(error);
+			errors.push(error);
 		}
 
-		if (!errors?.length) return;
+		if (!errors.length) return;
 
-		const propagatedError = createErrorForPropagation?.(
-			`${this?.name}::_unregisterApi error`,
+		const propagatedError = createErrorForPropagation(
+			`${this.name}::_unregisterApi error`,
 			errors
 		);
 
@@ -573,7 +560,7 @@ export class Masterdata extends BaseMiddleware {
 	 * @returns {Promise&lt;object>} HTTP response data containing the resolved records.
 	 */
 	async #getContactTypes(id, localeId) {
-		const masterdata = await this.#getMasterdata?.(
+		const masterdata = await this.#getMasterdata(
 			'contact_type_master',
 			'id',
 			'contact_type_by_locale',
@@ -606,7 +593,7 @@ export class Masterdata extends BaseMiddleware {
 	 * @returns {Promise&lt;object>} HTTP response data containing the resolved records.
 	 */
 	async #getGenders(id, localeId) {
-		const masterdata = await this.#getMasterdata?.(
+		const masterdata = await this.#getMasterdata(
 			'gender_master',
 			'id',
 			'gender_by_locale',
@@ -638,7 +625,7 @@ export class Masterdata extends BaseMiddleware {
 	 * @returns {Promise&lt;object>} HTTP response data containing the resolved records.
 	 */
 	async #getLocales(id /*localeId*/) {
-		let masterdata = await this.#getMasterdata?.(
+		let masterdata = await this.#getMasterdata(
 			'locale_master',
 			'code',
 			'locale_by_locale',
@@ -646,8 +633,8 @@ export class Masterdata extends BaseMiddleware {
 			id
 		);
 
-		masterdata = masterdata?.filter?.((locale) => {
-			return locale?.is_enabled &amp;&amp; locale?.code === locale.locale_id;
+		masterdata = masterdata.filter((locale) => {
+			return locale.is_enabled &amp;&amp; locale.code === locale.locale_id;
 		});
 
 		return {
@@ -674,7 +661,7 @@ export class Masterdata extends BaseMiddleware {
 	 * @returns {Promise&lt;object>} HTTP response data containing the resolved records.
 	 */
 	async #getCountryCodes(iso_code, localeId) {
-		let masterdata = await this.#getMasterdata?.(
+		let masterdata = await this.#getMasterdata(
 			'country_code_master',
 			'iso_code',
 			'country_code_by_locale',
@@ -683,8 +670,8 @@ export class Masterdata extends BaseMiddleware {
 			localeId
 		);
 
-		masterdata = masterdata?.filter?.((countryCode) => {
-			return countryCode?.is_enabled;
+		masterdata = masterdata.filter((countryCode) => {
+			return countryCode.is_enabled;
 		});
 
 		return {
@@ -711,7 +698,7 @@ export class Masterdata extends BaseMiddleware {
 	 * @returns {Promise&lt;object>} HTTP response data containing the resolved records.
 	 */
 	async #getSystemMessages(messageCode, localeId) {
-		const masterdata = await this.#getMasterdata?.(
+		const masterdata = await this.#getMasterdata(
 			'system_message_master',
 			'id',
 			'system_message_by_locale',
@@ -759,72 +746,70 @@ export class Masterdata extends BaseMiddleware {
 		localeId
 	) {
 		const dbRepository =
-			await this.domainInterface?.iocContainer?.resolve?.('SQLDatabase');
+			await this.domainInterface.iocContainer.resolve('SQLDatabase');
 
 		// eslint-disable-next-line no-useless-assignment
 		let masterdata = undefined;
 
 		if (localeTableName) {
-			masterdata = await this?._executeWithBackOff?.(async () => {
+			masterdata = await this._executeWithBackOff(async () => {
 				if (id &amp;&amp; localeId) {
-					return dbRepository?.raw?.(
+					return dbRepository.raw(
 						`SELECT * FROM ${masterTableName} A INNER JOIN ${localeTableName} B ON (A.${masterTableField} = B.${localeTableField}) WHERE A.${masterTableField} = ? AND B.locale_id = ?`,
 						[id, localeId]
 					);
 				}
 
 				if (!id &amp;&amp; localeId) {
-					return dbRepository?.raw?.(
+					return dbRepository.raw(
 						`SELECT * FROM ${masterTableName} A INNER JOIN ${localeTableName} B ON (A.${masterTableField} = B.${localeTableField}) WHERE B.locale_id = ?`,
 						[localeId]
 					);
 				}
 
 				if (id &amp;&amp; !localeId) {
-					return dbRepository?.raw?.(
+					return dbRepository.raw(
 						`SELECT * FROM ${masterTableName} A INNER JOIN ${localeTableName} B ON (A.${masterTableField} = B.${localeTableField}) WHERE A.${masterTableField} = ?`,
 						[id]
 					);
 				}
 
 				if (!id &amp;&amp; !localeId) {
-					return dbRepository?.raw?.(
+					return dbRepository.raw(
 						`SELECT * FROM ${masterTableName} A INNER JOIN ${localeTableName} B ON (A.${masterTableField} = B.${localeTableField})`
 					);
 				}
 			});
 		} else {
-			masterdata = await this?._executeWithBackOff?.(async () => {
+			masterdata = await this._executeWithBackOff(async () => {
 				if (id &amp;&amp; localeId) {
-					return dbRepository?.raw?.(
+					return dbRepository.raw(
 						`SELECT * FROM ${masterTableName} WHERE ${masterTableField} = ? AND locale_id = ?`,
 						[id, localeId]
 					);
 				}
 
 				if (!id &amp;&amp; localeId) {
-					return dbRepository?.raw?.(
+					return dbRepository.raw(
 						`SELECT * FROM ${masterTableName} WHERE locale_id = ?`,
 						[localeId]
 					);
 				}
 
 				if (id &amp;&amp; !localeId) {
-					return dbRepository?.raw?.(
+					return dbRepository.raw(
 						`SELECT * FROM ${masterTableName} WHERE ${masterTableField} = ?`,
 						[id]
 					);
 				}
 
 				if (!id &amp;&amp; !localeId) {
-					return dbRepository?.raw?.(
-						`SELECT * FROM ${masterTableName}`
-					);
+					return dbRepository.raw(`SELECT * FROM ${masterTableName}`);
 				}
 			});
 		}
 
-		masterdata = masterdata?.rows;
+		masterdata = masterdata.rows;
 		return masterdata;
 	}
 	//#endregion
@@ -870,7 +855,7 @@ export default class MasterdataMiddlewareFactory extends EVASBaseFactory {
 	 * @returns {Masterdata} - The Masterdata middleware instance.
 	 */
 	static async createInstances(domainInterface) {
-		return await MasterdataMiddlewareFactory.#mutex?.runExclusive?.(
+		return await MasterdataMiddlewareFactory.#mutex.runExclusive(
 			async () => {
 				if (!MasterdataMiddlewareFactory.#masterdataInstance) {
 					const masterdataInstance = new Masterdata(
@@ -878,7 +863,7 @@ export default class MasterdataMiddlewareFactory extends EVASBaseFactory {
 						domainInterface
 					);
 
-					await masterdataInstance?.load?.();
+					await masterdataInstance.load();
 					MasterdataMiddlewareFactory.#masterdataInstance =
 						masterdataInstance;
 				}
@@ -904,8 +889,8 @@ export default class MasterdataMiddlewareFactory extends EVASBaseFactory {
 	 * @description Clears the Masterdata instance
 	 */
 	static async destroyInstances() {
-		await MasterdataMiddlewareFactory.#mutex?.runExclusive?.(async () => {
-			await MasterdataMiddlewareFactory.#masterdataInstance?.unload?.();
+		await MasterdataMiddlewareFactory.#mutex.runExclusive(async () => {
+			await MasterdataMiddlewareFactory.#masterdataInstance?.unload();
 			MasterdataMiddlewareFactory.#masterdataInstance = undefined;
 
 			return;

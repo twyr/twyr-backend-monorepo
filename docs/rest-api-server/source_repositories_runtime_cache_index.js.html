@@ -432,7 +432,7 @@ class Cache extends EVASBaseRepository {
 	 * start logic
 	 */
 	async load() {
-		await super.load?.();
+		await super.load();
 
 		// Step 1: Setup the configuration
 		const defaultConfiguration = {
@@ -453,16 +453,16 @@ class Cache extends EVASBaseRepository {
 		};
 
 		const configuration =
-			await this?._mergeConfiguration?.(defaultConfiguration);
+			await this._mergeConfiguration(defaultConfiguration);
 
 		// Step 2: Setup the client
 		this.#redis = createClient(configuration);
-		this.#redis?.on?.('connect', this.#handleRedisConnection?.bind(this));
-		this.#redis?.on?.(
+		this.#redis.on('connect', this.#handleRedisConnection.bind(this));
+		this.#redis.on(
 			'reconnecting',
-			this.#handleRedisReconnection?.bind(this)
+			this.#handleRedisReconnection.bind(this)
 		);
-		this.#redis?.on?.('error', this.#handleRedisError?.bind(this));
+		this.#redis.on('error', this.#handleRedisError.bind(this));
 
 		//
 		// PATCH STUFF THAT WE NEED
@@ -470,7 +470,7 @@ class Cache extends EVASBaseRepository {
 		this.#redis.setex = this.#redis.setEx.bind(this.#redis);
 
 		// Step 3: Open a connection to the server
-		await this.#redis?.connect?.();
+		await this.#redis.connect();
 
 		// Step 4: In development mode, monitor all the commands
 		// sent to the cache server
@@ -511,16 +511,16 @@ class Cache extends EVASBaseRepository {
 	 */
 	async unload() {
 		if (this.#monitor) {
-			await this.#monitor?.disconnect?.();
+			await this.#monitor.disconnect();
 			this.#monitor = undefined;
 		}
 
 		if (this.#redis) {
-			await this.#redis?.disconnect?.();
+			await this.#redis.disconnect();
 			this.#redis = undefined;
 		}
 
-		await super.unload?.();
+		await super.unload();
 	}
 	// #endregion
 
@@ -607,9 +607,9 @@ class Cache extends EVASBaseRepository {
 	 * @returns {Promise&lt;void>} Resolves after logging unless the retry budget is exhausted.
 	 */
 	async #handleRedisError(error) {
-		const logger = await this?.iocContainer?.resolve?.('Logger');
-		logger?.error?.(
-			`Redis Error (Re-try count = ${this.#retryCount}): ${error?.message}\n${error.stack}`
+		const logger = await this.iocContainer.resolve('Logger');
+		logger.error(
+			`Redis Error (Re-try count = ${this.#retryCount}): ${error.message}\n${error.stack}`
 		);
 
 		if (this.#retryCount > DEFAULT_MAX_RETRY_COUNT) throw error;
@@ -665,28 +665,28 @@ export default class CacheRepositoryFactory extends EVASBaseFactory {
 	 * @returns {Cache} - The cache repository instance.
 	 */
 	static async createInstances(configuration, iocContainer) {
-		const repositoryKey = Buffer?.from?.(
-			safeJsonStringify?.(configuration ?? {})
-		)?.toString?.('base64');
+		const repositoryKey = Buffer.from(
+			safeJsonStringify(configuration ?? {})
+		).toString('base64');
 
-		await CacheRepositoryFactory.#mutex?.runExclusive?.(async () => {
-			if (!CacheRepositoryFactory.#cacheInstances?.has(repositoryKey)) {
+		await CacheRepositoryFactory.#mutex.runExclusive(async () => {
+			if (!CacheRepositoryFactory.#cacheInstances.has(repositoryKey)) {
 				const cacheInstance = new Cache(
 					CacheRepositoryFactory['$disk_unc'],
 					iocContainer,
 					configuration
 				);
 
-				await cacheInstance?.load?.();
-				CacheRepositoryFactory.#cacheInstances?.set?.(
+				await cacheInstance.load();
+				CacheRepositoryFactory.#cacheInstances.set(
 					repositoryKey,
 					cacheInstance
 				);
 			}
 		});
 
-		return CacheRepositoryFactory.#cacheInstances?.get(repositoryKey)
-			?.interface;
+		return CacheRepositoryFactory.#cacheInstances.get(repositoryKey)
+			.interface;
 	}
 
 	/**
@@ -707,32 +707,30 @@ export default class CacheRepositoryFactory extends EVASBaseFactory {
 	 * @description Clears the cached {Cache} instances
 	 */
 	static async destroyInstances(configuration) {
-		await CacheRepositoryFactory.#mutex?.runExclusive?.(async () => {
+		await CacheRepositoryFactory.#mutex.runExclusive(async () => {
 			if (configuration) {
-				const repositoryKey = Buffer?.from?.(
-					safeJsonStringify?.(configuration)
-				)?.toString?.('base64');
+				const repositoryKey = Buffer.from(
+					safeJsonStringify(configuration)
+				).toString('base64');
 
-				if (!CacheRepositoryFactory.#cacheInstances?.has(repositoryKey))
+				if (!CacheRepositoryFactory.#cacheInstances.has(repositoryKey))
 					return;
 
 				const cacheInstance =
-					CacheRepositoryFactory.#cacheInstances?.get(repositoryKey);
-				await cacheInstance?.unload?.();
+					CacheRepositoryFactory.#cacheInstances.get(repositoryKey);
+				await cacheInstance.unload();
 
-				CacheRepositoryFactory.#cacheInstances?.delete?.(repositoryKey);
+				CacheRepositoryFactory.#cacheInstances.delete(repositoryKey);
 				return;
 			}
 
 			const destroyResolutions = [];
-			CacheRepositoryFactory.#cacheInstances?.forEach?.(
-				(cacheInstance) => {
-					destroyResolutions?.push?.(cacheInstance?.unload?.());
-				}
-			);
+			CacheRepositoryFactory.#cacheInstances.forEach((cacheInstance) => {
+				destroyResolutions.push(cacheInstance.unload());
+			});
 
-			await Promise?.allSettled?.(destroyResolutions);
-			CacheRepositoryFactory.#cacheInstances?.clear?.();
+			await Promise.allSettled(destroyResolutions);
+			CacheRepositoryFactory.#cacheInstances.clear();
 
 			return;
 		});

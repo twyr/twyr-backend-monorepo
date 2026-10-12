@@ -418,10 +418,10 @@ class Audit extends EVASBaseRepository {
 	 * start logic
 	 */
 	async load() {
-		await super.load?.();
+		await super.load();
 
-		const configuration = await this?._mergeConfiguration?.({});
-		this.#auditEnabled = configuration?.enable ?? false;
+		const configuration = await this._mergeConfiguration({});
+		this.#auditEnabled = configuration.enable ?? false;
 	}
 
 	/**
@@ -442,7 +442,7 @@ class Audit extends EVASBaseRepository {
 	 * stop logic
 	 */
 	async unload() {
-		await super.unload?.();
+		await super.unload();
 	}
 	// #endregion
 
@@ -465,29 +465,28 @@ class Audit extends EVASBaseRepository {
 	 * Sends data to an audit server.
 	 */
 	async publish(auditData) {
-		const auditPayload = this.#cleanBeforePublish?.(auditData);
+		const auditPayload = this.#cleanBeforePublish(auditData);
 
-		const logger = await this?.iocContainer?.resolve?.('Logger');
-		logger?.debug?.(
-			`Audit Payload: ${safeJsonStringify?.(auditPayload, undefined, '\t')}\n`
+		const logger = await this.iocContainer.resolve('Logger');
+		logger.debug(
+			`Audit Payload: ${safeJsonStringify(auditPayload, undefined, '\t')}\n`
 		);
 		if (!this.#auditEnabled) return;
 
-		auditPayload['start_time'] = new Date(auditPayload?.['start_time']);
-		auditPayload['end_time'] = new Date(auditPayload?.['end_time']);
+		auditPayload['start_time'] = new Date(auditPayload['start_time']);
+		auditPayload['end_time'] = new Date(auditPayload['end_time']);
 
-		const connectionInstance =
-			await this?.iocContainer?.resolve?.('MongoDB');
+		const connectionInstance = await this.iocContainer.resolve('MongoDB');
 
 		const UserAuditTrailModel =
-			await ModelFactory?.createInstance?.(connectionInstance);
+			await ModelFactory.createInstance(connectionInstance);
 
 		const userAuditTrailModel = new UserAuditTrailModel(auditPayload);
 
 		// NOTE: Deliberately NOT awaiting here
 		// No sense wasting time waiting for this
 		// and reducing server performance
-		userAuditTrailModel?.save?.();
+		userAuditTrailModel.save();
 
 		// TODO: Send to an actual Audit Server
 		// The "actual" audit server should take care of
@@ -512,7 +511,7 @@ class Audit extends EVASBaseRepository {
 	 */
 	get interface() {
 		return {
-			publish: this?.publish?.bind?.(this)
+			publish: this.publish.bind(this)
 		};
 	}
 	// #endregion
@@ -538,31 +537,29 @@ class Audit extends EVASBaseRepository {
 
 		const confidentialKeyList = ['password', 'image', 'random'];
 
-		const keys = Object?.keys?.(auditPayload);
+		const keys = Object.keys(auditPayload);
 		for (const key of keys) {
-			if (!auditPayload?.[key]) {
+			if (!auditPayload[key]) {
 				delete auditPayload[key];
 				continue;
 			}
 
-			if (confidentialKeyList?.includes?.(key)) {
+			if (confidentialKeyList.includes(key)) {
 				auditPayload[key] = '********';
 				continue;
 			}
 
-			if (typeof auditPayload?.[key] === 'object') {
-				auditPayload[key] = this.#cleanBeforePublish?.(
-					auditPayload?.[key]
-				);
+			if (typeof auditPayload[key] === 'object') {
+				auditPayload[key] = this.#cleanBeforePublish(auditPayload[key]);
 
-				if (!auditPayload?.[key]) {
-					delete auditPayload?.[key];
+				if (!auditPayload[key]) {
+					delete auditPayload[key];
 					continue;
 				}
 			}
 		}
 
-		if (!Object?.keys?.(auditPayload)?.length) return;
+		if (!Object.keys(auditPayload).length) return;
 		return auditPayload;
 	}
 	// #endregion
@@ -614,23 +611,23 @@ export default class AuditRepositoryFactory extends EVASBaseFactory {
 	 */
 	static async createInstances(configuration, iocContainer) {
 		const scope = configuration ?? 'server';
-		await AuditRepositoryFactory.#mutex?.runExclusive?.(async () => {
-			if (!AuditRepositoryFactory.#auditInstances?.has(scope)) {
+		await AuditRepositoryFactory.#mutex.runExclusive(async () => {
+			if (!AuditRepositoryFactory.#auditInstances.has(scope)) {
 				const auditInstance = new Audit(
 					AuditRepositoryFactory['$disk_unc'],
 					iocContainer,
 					scope
 				);
 
-				await auditInstance?.load?.();
-				AuditRepositoryFactory.#auditInstances?.set?.(
+				await auditInstance.load();
+				AuditRepositoryFactory.#auditInstances.set(
 					scope,
 					auditInstance
 				);
 			}
 		});
 
-		return AuditRepositoryFactory.#auditInstances?.get(scope)?.interface;
+		return AuditRepositoryFactory.#auditInstances.get(scope).interface;
 	}
 
 	/**
@@ -651,28 +648,26 @@ export default class AuditRepositoryFactory extends EVASBaseFactory {
 	 * @description Clears the cached {Audit} instances
 	 */
 	static async destroyInstances(configuration) {
-		await AuditRepositoryFactory.#mutex?.runExclusive?.(async () => {
+		await AuditRepositoryFactory.#mutex.runExclusive(async () => {
 			const scope = configuration ?? 'server';
 			if (configuration) {
-				if (!AuditRepositoryFactory.#auditInstances?.has(scope)) return;
+				if (!AuditRepositoryFactory.#auditInstances.has(scope)) return;
 
 				const auditInstance =
-					AuditRepositoryFactory.#auditInstances?.get(scope);
-				await auditInstance?.unload?.();
+					AuditRepositoryFactory.#auditInstances.get(scope);
+				await auditInstance.unload();
 
-				AuditRepositoryFactory.#auditInstances?.delete?.(scope);
+				AuditRepositoryFactory.#auditInstances.delete(scope);
 				return;
 			}
 
 			const destroyResolutions = [];
-			AuditRepositoryFactory.#auditInstances?.forEach?.(
-				(auditInstance) => {
-					destroyResolutions?.push?.(auditInstance?.unload?.());
-				}
-			);
+			AuditRepositoryFactory.#auditInstances.forEach((auditInstance) => {
+				destroyResolutions.push(auditInstance.unload());
+			});
 
-			await Promise?.allSettled?.(destroyResolutions);
-			AuditRepositoryFactory.#auditInstances?.clear?.();
+			await Promise.allSettled(destroyResolutions);
+			AuditRepositoryFactory.#auditInstances.clear();
 
 			return;
 		});

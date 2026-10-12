@@ -437,11 +437,11 @@ class SQLDatabase extends EVASBaseRepository {
 	 * start logic
 	 */
 	async load() {
-		await super.load?.();
+		await super.load();
 
 		// Step 1: Setup the configuration
 		let pgError = await import('pg-error');
-		pgError = pgError?.['default'];
+		pgError = pgError['default'];
 
 		const defaultConfiguration = {
 			debug: DEFAULT_SQLDB_DEBUG,
@@ -477,27 +477,24 @@ class SQLDatabase extends EVASBaseRepository {
 						}
 					});
 
-					connection.on('notice', this.#databaseNotice?.bind?.(this));
+					connection.on('notice', this.#databaseNotice.bind(this));
 					done(null, connection);
 				}
 			}
 		};
 
 		const configuration =
-			await this?._mergeConfiguration?.(defaultConfiguration);
+			await this._mergeConfiguration(defaultConfiguration);
 
 		// Step 2: Setup the client
 		let Knex = await import('knex');
-		Knex = Knex?.['default'];
+		Knex = Knex['default'];
 
-		this.#knex = Knex?.(configuration);
+		this.#knex = Knex(configuration);
 
-		this.#knex?.on?.('query', this.#databaseQuery?.bind?.(this));
-		this.#knex?.on?.(
-			'query-response',
-			this.#databaseQueryResponse?.bind?.(this)
-		);
-		this.#knex?.on?.('query-error', this.#databaseQueryError?.bind?.(this));
+		this.#knex.on('query', this.#databaseQuery.bind(this));
+		this.#knex.on('query-response', this.#databaseQueryResponse.bind(this));
+		this.#knex.on('query-error', this.#databaseQueryError.bind(this));
 	}
 
 	/**
@@ -520,10 +517,10 @@ class SQLDatabase extends EVASBaseRepository {
 	async unload() {
 		if (!this.#knex) return;
 
-		await this.#knex?.destroy?.();
+		await this.#knex.destroy();
 		this.#knex = undefined;
 
-		await super.unload?.();
+		await super.unload();
 	}
 	// #endregion
 
@@ -564,12 +561,12 @@ class SQLDatabase extends EVASBaseRepository {
 	 * @returns {Promise&lt;void>} Resolves after the query text is normalized.
 	 */
 	async #databaseQuery(queryData) {
-		queryData.sql = queryData?.sql
-			?.replaceAll('\\t', ' ')
-			?.replaceAll('\\n', ' ')
-			?.replaceAll('\t', ' ')
-			?.replaceAll('\n', ' ')
-			?.replace(/\s\s+/g, ' ');
+		queryData.sql = queryData.sql
+			.replaceAll('\\t', ' ')
+			.replaceAll('\\n', ' ')
+			.replaceAll('\t', ' ')
+			.replaceAll('\n', ' ')
+			.replace(/\s\s+/g, ' ');
 
 		// const logger = await this?.iocContainer?.resolve?.('Logger');
 		// logger?.debug?.(
@@ -599,13 +596,13 @@ class SQLDatabase extends EVASBaseRepository {
 	 * @returns {Promise&lt;void>} Resolves after the query metadata is normalized.
 	 */
 	async #databaseQueryResponse(queryResponse, query) {
-		query.response = query?.response?.rows;
-		query.sql = query?.sql
-			?.replaceAll('\\t', ' ')
-			?.replaceAll('\\n', ' ')
-			?.replaceAll('\t', ' ')
-			?.replaceAll('\n', ' ')
-			?.replace(/\s\s+/g, ' ');
+		query.response = query.response?.rows;
+		query.sql = query.sql
+			.replaceAll('\\t', ' ')
+			.replaceAll('\\n', ' ')
+			.replaceAll('\t', ' ')
+			.replaceAll('\n', ' ')
+			.replace(/\s\s+/g, ' ');
 
 		// const logger = await this?.iocContainer?.resolve?.('Logger');
 		// logger?.debug?.(
@@ -635,12 +632,12 @@ class SQLDatabase extends EVASBaseRepository {
 	 * @returns {Promise&lt;void>} Resolves after the error is logged.
 	 */
 	async #databaseQueryError(error, query) {
-		const queryLog = Object?.assign?.({}, query);
-		queryLog.error = errorSerializer?.(error);
+		const queryLog = Object.assign({}, query);
+		queryLog.error = errorSerializer(error);
 
-		const logger = await this?.iocContainer?.resolve?.('Logger');
-		logger?.error?.(
-			`${this.name}::#databaseQueryError:\nQuery: ${safeJsonStringify?.(
+		const logger = await this.iocContainer.resolve('Logger');
+		logger.error(
+			`${this.name}::#databaseQueryError:\nQuery: ${safeJsonStringify(
 				queryLog,
 				undefined,
 				'\t'
@@ -665,9 +662,9 @@ class SQLDatabase extends EVASBaseRepository {
 	 * @returns {Promise&lt;void>} Resolves after the notice is logged.
 	 */
 	async #databaseNotice(notice) {
-		const logger = await this?.iocContainer?.resolve?.('Logger');
-		logger?.info?.(
-			`${this?.name}#databaseNotice: ${safeJsonStringify?.(
+		const logger = await this.iocContainer.resolve('Logger');
+		logger.info(
+			`${this.name}#databaseNotice: ${safeJsonStringify(
 				notice,
 				undefined,
 				'\t'
@@ -722,15 +719,13 @@ export default class SQLDatabaseRepositoryFactory extends EVASBaseFactory {
 	 * @returns {SQLDatabase} - The SQLDatabase repository instance.
 	 */
 	static async createInstances(configuration, iocContainer) {
-		const repositoryKey = Buffer?.from?.(
-			safeJsonStringify?.(configuration ?? {})
-		)?.toString?.('base64');
+		const repositoryKey = Buffer.from(
+			safeJsonStringify(configuration ?? {})
+		).toString('base64');
 
-		await SQLDatabaseRepositoryFactory.#mutex?.runExclusive?.(async () => {
+		await SQLDatabaseRepositoryFactory.#mutex.runExclusive(async () => {
 			if (
-				!SQLDatabaseRepositoryFactory.#sqldbInstances?.has(
-					repositoryKey
-				)
+				!SQLDatabaseRepositoryFactory.#sqldbInstances.has(repositoryKey)
 			) {
 				const sqldbInstance = new SQLDatabase(
 					SQLDatabaseRepositoryFactory['$disk_unc'],
@@ -738,16 +733,16 @@ export default class SQLDatabaseRepositoryFactory extends EVASBaseFactory {
 					configuration
 				);
 
-				await sqldbInstance?.load?.();
-				SQLDatabaseRepositoryFactory.#sqldbInstances?.set?.(
+				await sqldbInstance.load();
+				SQLDatabaseRepositoryFactory.#sqldbInstances.set(
 					repositoryKey,
 					sqldbInstance
 				);
 			}
 		});
 
-		return SQLDatabaseRepositoryFactory.#sqldbInstances?.get(repositoryKey)
-			?.interface;
+		return SQLDatabaseRepositoryFactory.#sqldbInstances.get(repositoryKey)
+			.interface;
 	}
 
 	/**
@@ -768,40 +763,40 @@ export default class SQLDatabaseRepositoryFactory extends EVASBaseFactory {
 	 * @description Clears the cached {SQLDatabase} instances
 	 */
 	static async destroyInstances(configuration) {
-		await SQLDatabaseRepositoryFactory.#mutex?.runExclusive?.(async () => {
+		await SQLDatabaseRepositoryFactory.#mutex.runExclusive(async () => {
 			if (configuration) {
-				const repositoryKey = Buffer?.from?.(
-					safeJsonStringify?.(configuration)
-				)?.toString?.('base64');
+				const repositoryKey = Buffer.from(
+					safeJsonStringify(configuration)
+				).toString('base64');
 
 				if (
-					!SQLDatabaseRepositoryFactory.#sqldbInstances?.has(
+					!SQLDatabaseRepositoryFactory.#sqldbInstances.has(
 						repositoryKey
 					)
 				)
 					return;
 
 				const sqldbInstance =
-					SQLDatabaseRepositoryFactory.#sqldbInstances?.get(
+					SQLDatabaseRepositoryFactory.#sqldbInstances.get(
 						repositoryKey
 					);
-				await sqldbInstance?.unload?.();
+				await sqldbInstance.unload();
 
-				SQLDatabaseRepositoryFactory.#sqldbInstances?.delete?.(
+				SQLDatabaseRepositoryFactory.#sqldbInstances.delete(
 					repositoryKey
 				);
 				return;
 			}
 
 			const destroyResolutions = [];
-			SQLDatabaseRepositoryFactory.#sqldbInstances?.forEach?.(
+			SQLDatabaseRepositoryFactory.#sqldbInstances.forEach(
 				(sqlDatabaseInstance) => {
-					destroyResolutions?.push?.(sqlDatabaseInstance?.unload?.());
+					destroyResolutions.push(sqlDatabaseInstance.unload());
 				}
 			);
 
-			await Promise?.allSettled?.(destroyResolutions);
-			SQLDatabaseRepositoryFactory.#sqldbInstances?.clear?.();
+			await Promise.allSettled(destroyResolutions);
+			SQLDatabaseRepositoryFactory.#sqldbInstances.clear();
 
 			return;
 		});

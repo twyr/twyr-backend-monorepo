@@ -388,19 +388,19 @@ export default async function localStrategy(
 	databaseRepository
 ) {
 	let LocalStrategy = await import('passport-local');
-	LocalStrategy = LocalStrategy?.Strategy;
+	LocalStrategy = LocalStrategy.Strategy;
 
-	passportInstance?.use?.(
+	passportInstance.use(
 		'system-admin-local',
 		new LocalStrategy(
 			{ passReqToCallback: true },
 			async (request, username, password, callback) => {
 				try {
-					let userRecord = await databaseRepository?.raw?.(
+					let userRecord = await databaseRepository.raw(
 						`SELECT * FROM system_admins WHERE mobile_no = ?`,
 						[username]
 					);
-					userRecord = userRecord?.rows?.[0];
+					userRecord = userRecord.rows[0];
 
 					if (!userRecord) {
 						const userError = new Error(
@@ -413,7 +413,7 @@ export default async function localStrategy(
 						throw userError;
 					}
 
-					const otpNumber = await cacheRepository?.get?.(
+					const otpNumber = await cacheRepository.get(
 						`system-admin-otp-${username}`
 					);
 
@@ -428,9 +428,9 @@ export default async function localStrategy(
 						throw userError;
 					}
 
-					callback?.(undefined, userRecord);
+					callback(undefined, userRecord);
 				} catch (error) {
-					callback?.(error);
+					callback(error);
 				}
 			}
 		)

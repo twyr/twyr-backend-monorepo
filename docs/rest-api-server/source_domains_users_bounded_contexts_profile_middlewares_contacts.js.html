@@ -416,54 +416,53 @@ export class Contacts extends UserBaseMiddleware {
 		const errors = [];
 
 		try {
-			const apiRegistry = this?.domainInterface?.apiRegistry;
+			const apiRegistry = this.domainInterface.apiRegistry;
 			let registerResolutions = [];
-			const baseApis = await super._registerApi?.();
+			const baseApis = await super._registerApi();
 
 			for (const baseApi of baseApis ?? []) {
-				registerResolutions?.push?.(
-					apiRegistry?.register?.(baseApi?.pattern, baseApi?.handler)
+				registerResolutions.push(
+					apiRegistry.register(baseApi.pattern, baseApi.handler)
 				);
 			}
 
-			registerResolutions?.push?.(
-				apiRegistry?.register?.(
+			registerResolutions.push(
+				apiRegistry.register(
 					'CREATE_CONTACT',
-					this.#createContacts?.bind?.(this)
+					this.#createContacts.bind(this)
 				)
 			);
-			registerResolutions?.push?.(
-				apiRegistry?.register?.(
+			registerResolutions.push(
+				apiRegistry.register(
 					'READ_CONTACT',
-					this.#readContacts?.bind?.(this)
+					this.#readContacts.bind(this)
 				)
 			);
-			registerResolutions?.push?.(
-				apiRegistry?.register?.(
+			registerResolutions.push(
+				apiRegistry.register(
 					'UPDATE_CONTACT',
-					this.#updateContacts?.bind?.(this)
+					this.#updateContacts.bind(this)
 				)
 			);
-			registerResolutions?.push?.(
-				apiRegistry?.register?.(
+			registerResolutions.push(
+				apiRegistry.register(
 					'DELETE_CONTACT',
-					this.#deleteContacts?.bind?.(this)
+					this.#deleteContacts.bind(this)
 				)
 			);
 
-			registerResolutions =
-				await Promise?.allSettled?.(registerResolutions);
+			registerResolutions = await Promise.allSettled(registerResolutions);
 			for (const registerResolution of registerResolutions) {
-				if (registerResolution?.status === 'fulfilled') continue;
-				errors?.push?.(registerResolution?.reason);
+				if (registerResolution.status === 'fulfilled') continue;
+				errors.push(registerResolution.reason);
 			}
 		} catch (error) {
-			errors?.push?.(error);
+			errors.push(error);
 		}
 
-		if (!errors?.length) return;
-		const propagatedError = createErrorForPropagation?.(
-			`${this?.name}::_registerApi error`,
+		if (!errors.length) return;
+		const propagatedError = createErrorForPropagation(
+			`${this.name}::_registerApi error`,
 			errors
 		);
 		if (propagatedError) throw propagatedError;
@@ -489,50 +488,50 @@ export class Contacts extends UserBaseMiddleware {
 		const errors = [];
 
 		try {
-			const apiRegistry = this?.domainInterface?.apiRegistry;
+			const apiRegistry = this.domainInterface.apiRegistry;
 			let unregisterResolutions = [];
 
-			unregisterResolutions?.push?.(
-				apiRegistry?.unregister?.(
+			unregisterResolutions.push(
+				apiRegistry.unregister(
 					'DELETE_CONTACT',
-					this.#deleteContacts?.bind?.(this)
+					this.#deleteContacts.bind(this)
 				)
 			);
-			unregisterResolutions?.push?.(
-				apiRegistry?.unregister?.(
+			unregisterResolutions.push(
+				apiRegistry.unregister(
 					'UPDATE_CONTACT',
-					this.#updateContacts?.bind?.(this)
+					this.#updateContacts.bind(this)
 				)
 			);
-			unregisterResolutions?.push?.(
-				apiRegistry?.unregister?.(
+			unregisterResolutions.push(
+				apiRegistry.unregister(
 					'READ_CONTACT',
-					this.#readContacts?.bind?.(this)
+					this.#readContacts.bind(this)
 				)
 			);
-			unregisterResolutions?.push?.(
-				apiRegistry?.unregister?.(
+			unregisterResolutions.push(
+				apiRegistry.unregister(
 					'CREATE_CONTACT',
-					this.#createContacts?.bind?.(this)
+					this.#createContacts.bind(this)
 				)
 			);
 
-			unregisterResolutions = await Promise?.allSettled?.(
+			unregisterResolutions = await Promise.allSettled(
 				unregisterResolutions
 			);
 			for (const unregisterResolution of unregisterResolutions) {
-				if (unregisterResolution?.status === 'fulfilled') continue;
-				errors?.push?.(unregisterResolution?.reason);
+				if (unregisterResolution.status === 'fulfilled') continue;
+				errors.push(unregisterResolution.reason);
 			}
 
-			await super._unregisterApi?.();
+			await super._unregisterApi();
 		} catch (error) {
-			errors?.push?.(error);
+			errors.push(error);
 		}
 
-		if (!errors?.length) return;
-		const propagatedError = createErrorForPropagation?.(
-			`${this?.name}::_unregisterApi error`,
+		if (!errors.length) return;
+		const propagatedError = createErrorForPropagation(
+			`${this.name}::_unregisterApi error`,
 			errors
 		);
 		if (propagatedError) throw propagatedError;
@@ -560,7 +559,7 @@ export class Contacts extends UserBaseMiddleware {
 	 * @description Creates a contact record for the logged in user.
 	 */
 	async #createContacts({ user, data }) {
-		return this?._createUserEntity?.({
+		return this._createUserEntity({
 			model: { type: 'relational', name: 'user-contact' },
 			user,
 			payload: data,
@@ -588,7 +587,7 @@ export class Contacts extends UserBaseMiddleware {
 	 * @description Reads contact data associated with the logged in user.
 	 */
 	async #readContacts({ user, contactId }) {
-		return this?._readUserEntity?.({
+		return this._readUserEntity({
 			model: { type: 'relational', name: 'user-contact' },
 			user,
 			entityId: contactId,
@@ -617,7 +616,7 @@ export class Contacts extends UserBaseMiddleware {
 	 * @description Updates a contact record for the logged in user.
 	 */
 	async #updateContacts({ user, data }) {
-		const returnValue = await this?._updateUserEntity?.({
+		const returnValue = await this._updateUserEntity({
 			model: { type: 'relational', name: 'user-contact' },
 			user,
 			payload: data,
@@ -625,8 +624,8 @@ export class Contacts extends UserBaseMiddleware {
 		});
 
 		return {
-			status: returnValue?.status,
-			body: returnValue?.body
+			status: returnValue.status,
+			body: returnValue.body
 		};
 	}
 
@@ -650,14 +649,14 @@ export class Contacts extends UserBaseMiddleware {
 	 * @description Deletes a contact record for the logged in user.
 	 */
 	async #deleteContacts({ user, contactId }) {
-		const returnValue = await this?._deleteUserEntity?.({
+		const returnValue = await this._deleteUserEntity({
 			model: { type: 'relational', name: 'user-contact' },
 			user,
 			entityId: contactId,
 			eventName: 'USER::CONTACT_DELETED'
 		});
 
-		return { status: returnValue?.status };
+		return { status: returnValue.status };
 	}
 	// #endregion
 }
@@ -702,22 +701,19 @@ export default class ContactsMiddlewareFactory extends EVASBaseFactory {
 	 * @returns {Contacts} - The Contacts middleware instance.
 	 */
 	static async createInstances(domainInterface) {
-		return await ContactsMiddlewareFactory.#mutex?.runExclusive?.(
-			async () => {
-				if (!ContactsMiddlewareFactory.#contactsInstance) {
-					const contactsInstance = new Contacts(
-						ContactsMiddlewareFactory['$disk_unc'],
-						domainInterface
-					);
+		return await ContactsMiddlewareFactory.#mutex.runExclusive(async () => {
+			if (!ContactsMiddlewareFactory.#contactsInstance) {
+				const contactsInstance = new Contacts(
+					ContactsMiddlewareFactory['$disk_unc'],
+					domainInterface
+				);
 
-					await contactsInstance?.load?.();
-					ContactsMiddlewareFactory.#contactsInstance =
-						contactsInstance;
-				}
-
-				return ContactsMiddlewareFactory.#contactsInstance;
+				await contactsInstance.load();
+				ContactsMiddlewareFactory.#contactsInstance = contactsInstance;
 			}
-		);
+
+			return ContactsMiddlewareFactory.#contactsInstance;
+		});
 	}
 
 	/**
@@ -736,8 +732,8 @@ export default class ContactsMiddlewareFactory extends EVASBaseFactory {
 	 * @description Clears the Contacts instance
 	 */
 	static async destroyInstances() {
-		await ContactsMiddlewareFactory.#mutex?.runExclusive?.(async () => {
-			await ContactsMiddlewareFactory.#contactsInstance?.unload?.();
+		await ContactsMiddlewareFactory.#mutex.runExclusive(async () => {
+			await ContactsMiddlewareFactory.#contactsInstance?.unload();
 			ContactsMiddlewareFactory.#contactsInstance = undefined;
 			return;
 		});

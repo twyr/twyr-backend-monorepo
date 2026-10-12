@@ -403,56 +403,54 @@ export function createErrorLogMiddleware(dependencies) {
 	 * @returns {Promise&lt;Error>} The translated error object.
 	 */
 	async function translateError(ctxt, error) {
-		const i18nRepository = await iocContainer?.resolve?.('MessageI18N');
+		const i18nRepository = await iocContainer.resolve('MessageI18N');
 
 		const localeId =
-			ctxt?.query?.lang ??
-			ctxt?.state?.user?.['primary_locale'] ??
-			'en-IN';
+			ctxt.query.lang ?? ctxt?.state?.user?.['primary_locale'] ?? 'en-IN';
 
-		if (error?.code?.startsWith('EVASERVER')) {
-			error.code = error?.code?.replace('EVASERVER::', '');
-			error.message = error?.code;
+		if (error.code?.startsWith('EVASERVER')) {
+			error.code = error.code.replace('EVASERVER::', '');
+			error.message = error.code;
 		} else {
 			error.code = 'UNKNOWN_ERROR';
 		}
 
-		const translatedMessage = await i18nRepository?.translate?.(
-			error?.code,
+		const translatedMessage = await i18nRepository.translate(
+			error.code,
 			localeId,
 			{
-				user: ctxt?.state?.user ?? {},
+				user: ctxt.state.user ?? {},
 				body: ctxt?.body?.data?.attributes ?? {},
-				customInfo: error?.customInfo ?? {}
+				customInfo: error.customInfo ?? {}
 			}
 		);
 
 		error.message = translatedMessage;
 		delete error.customInfo;
 
-		for (let idx = 0; idx &lt; (error?.errors?.length ?? 0); idx++) {
+		for (let idx = 0; idx &lt; (error.errors?.length ?? 0); idx++) {
 			// eslint-disable-next-line security/detect-object-injection
-			const err = error?.errors?.[idx];
+			const err = error.errors[idx];
 
-			if (err?.code?.startsWith('EVASERVER')) {
-				err.code = err?.code?.replace('EVASERVER::', '');
-				err.message = err?.code;
+			if (err.code?.startsWith('EVASERVER')) {
+				err.code = err.code.replace('EVASERVER::', '');
+				err.message = err.code;
 			} else {
 				err.code = 'UNKNOWN_ERROR';
 			}
 
-			const translatedErrorMessage = await i18nRepository?.translate?.(
-				err?.code,
+			const translatedErrorMessage = await i18nRepository.translate(
+				err.code,
 				localeId,
 				{
-					user: ctxt?.state?.user ?? {},
+					user: ctxt.state.user ?? {},
 					body: ctxt?.body?.data?.attributes ?? {},
-					customInfo: err?.customInfo ?? {}
+					customInfo: err.customInfo ?? {}
 				}
 			);
 
 			err.message = translatedErrorMessage;
-			err.label = err?.customInfo?.label ?? err?.field ?? 'unknown';
+			err.label = err.customInfo?.label ?? err.field ?? 'unknown';
 
 			delete err.customInfo;
 		}
@@ -472,38 +470,38 @@ export function createErrorLogMiddleware(dependencies) {
 		if (!throwableError) return;
 
 		const responseLocale =
-			ctxt?.locale ??
-			ctxt?.query?.lang ??
+			ctxt.locale ??
+			ctxt.query.lang ??
 			ctxt?.state?.user?.['primary_locale'] ??
 			'en-IN';
 
 		ctxt.type = 'application/problem+json; charset=utf-8';
-		ctxt.status = throwableError?.status ?? ctxt?.status;
+		ctxt.status = throwableError.status ?? ctxt.status;
 
-		ctxt?.set?.('Cache-Control', 'no-store');
-		ctxt?.set?.('Pragma', 'no-cache');
-		ctxt?.set?.('Content-Language', responseLocale);
-		ctxt?.set?.('Access-Control-Allow-Origin', '*');
+		ctxt.set('Cache-Control', 'no-store');
+		ctxt.set('Pragma', 'no-cache');
+		ctxt.set('Content-Language', responseLocale);
+		ctxt.set('Access-Control-Allow-Origin', '*');
 
-		if (ctxt?.status === HTTP_ERROR_UNAUTHORIZED) {
-			ctxt?.set?.(
+		if (ctxt.status === HTTP_ERROR_UNAUTHORIZED) {
+			ctxt.set(
 				'WWW-Authenticate',
 				`cookie; cookie-name=${configuration?.['SESSION_KEY'] ?? DEFAULT_SESSION_KEY}`
 			);
 		}
 
-		if (ctxt?.status === HTTP_ERROR_SERVICE_UNAVAILABLE) {
-			ctxt?.set?.('Retry-After', 60); // Retry after 60 seconds
+		if (ctxt.status === HTTP_ERROR_SERVICE_UNAVAILABLE) {
+			ctxt.set('Retry-After', 60); // Retry after 60 seconds
 		}
 
 		ctxt.body = {
-			message: throwableError?.message,
-			statusCode: ctxt?.status,
-			errors: safeJsonStringify?.(
-				throwableError?.errors?.map?.((err) => {
+			message: throwableError.message,
+			statusCode: ctxt.status,
+			errors: safeJsonStringify(
+				throwableError.errors?.map((err) => {
 					return {
-						field: err?.label,
-						message: err?.message
+						field: err.label,
+						message: err.message
 					};
 				})
 			)
