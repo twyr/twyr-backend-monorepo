@@ -18,14 +18,12 @@
  *
  * @ignore
  */
-import { pathToFileURL } from 'node:url';
-import { register } from 'node:module';
+import { registerHooks } from 'node:module';
+
+import { load, resolve } from '../custom_loaders/baseclass-loader.js';
 
 // Register the loader
-const loaderUrl = pathToFileURL('./custom_loaders/baseclass-loader.js');
-register(loaderUrl, {
-	parentURL: import.meta.url
-});
+registerHooks({ load, resolve });
 
 /**
  * Imports for this file
@@ -35,17 +33,17 @@ register(loaderUrl, {
  *
  * @ignore
  */
-import safeJsonStringify from 'safe-json-stringify';
-
+import { readFile } from 'node:fs/promises';
 import { dirname, join, normalize } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { readFile } from 'node:fs/promises';
 
-import * as dotenv from 'dotenv';
 import convertHrtime from 'convert-hrtime';
+import * as dotenv from 'dotenv';
 import pleaseUpgradeNode from 'please-upgrade-node';
+import safeJsonStringify from 'safe-json-stringify';
 
 import { errorSerializer } from '@twyr/error-serializer';
+
 import ApplicationServerFactory from './application-server.js';
 
 /**

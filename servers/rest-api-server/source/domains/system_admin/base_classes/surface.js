@@ -116,5 +116,3 @@ export class SystemAdminBaseSurface extends BaseSurface {
 		return assetAccessCheckerMiddleware?.bind?.(this);
 	}
 }
-
-export const MedicoBaseSurface = SystemAdminBaseSurface;

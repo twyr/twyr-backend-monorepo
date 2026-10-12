@@ -6,10 +6,12 @@
  *
  * @ignore
  */
-import { EVASBaseFactory } from '@twyr/framework-classes';
-import { createErrorForPropagation } from '@twyr/error-serializer';
-import { SystemAdminBaseMiddleware } from 'baseclass:middleware';
 import { Mutex } from 'async-mutex';
+
+import { createErrorForPropagation } from '@twyr/error-serializer';
+import { EVASBaseFactory } from '@twyr/framework-classes';
+
+import { SystemAdminBaseMiddleware } from 'baseclass:middleware';
 
 /**
  * @category REST API Server/Domains/System Admin
@@ -17,12 +19,12 @@ import { Mutex } from 'async-mutex';
  *
  * @class
  * @name Contacts
- * @extends MedicoBaseMiddleware
+ * @extends SystemAdminBaseMiddleware
  *
  * @param {string} [location] - __dirname for this file in CJS, basically
  * @param {object} [domainInterface] - Domain functionality exposed to sub-artifacts
  *
- * @classdesc The Middleware to handle Medico profile contacts.
+ * @classdesc The Middleware to handle System Admin profile contacts.
  */
 export class Contacts extends SystemAdminBaseMiddleware {
 	// #region Constructor
@@ -312,7 +314,7 @@ export class Contacts extends SystemAdminBaseMiddleware {
  * @name ContactsMiddlewareFactory
  * @extends EVASBaseFactory
  *
- * @classdesc The Medico Domain Profile Contacts Middleware Class Factory.
+ * @classdesc The System Admin Domain Profile Contacts Middleware Class Factory.
  */
 export default class ContactsMiddlewareFactory extends EVASBaseFactory {
 	// #region Constructor

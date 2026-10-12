@@ -8,9 +8,11 @@
  */
 import Joi from 'joi';
 
-import { EVASBaseFactory } from '@twyr/framework-classes';
-import { MedicoBaseSurface } from '../../../../base_classes/surface.js';
 import { Mutex } from 'async-mutex';
+
+import { EVASBaseFactory } from '@twyr/framework-classes';
+
+import { UserBaseSurface } from 'baseclass:surface';
 
 const HTTP_ERROR_FORBIDDEN = 403;
 const HTTP_ERROR_UNPROCESSABLE_CONTENT = 422;
@@ -21,14 +23,14 @@ const HTTP_ERROR_UNPROCESSABLE_CONTENT = 422;
  *
  * @class
  * @name Main
- * @extends MedicoBaseSurface
+ * @extends UserBaseSurface
  *
  * @param {string} [location] - __dirname for this file in CJS, basically
  * @param {object} [domainInterface] - Domain functionality exposed to sub-artifacts
  *
  * @classdesc The main command surface for user session management.
  */
-export class Main extends MedicoBaseSurface {
+export class Main extends UserBaseSurface {
 	// #region Constructor
 	/**
 	 * @category REST API Server/Domains/Users

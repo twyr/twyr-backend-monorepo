@@ -7,9 +7,12 @@
  * @ignore
  */
 import Joi from 'joi';
-import { EVASBaseFactory } from '@twyr/framework-classes';
-import { SystemAdminBaseSurface } from 'baseclass:surface';
+
 import { Mutex } from 'async-mutex';
+
+import { EVASBaseFactory } from '@twyr/framework-classes';
+
+import { SystemAdminBaseSurface } from 'baseclass:surface';
 
 const HTTP_ERROR_UNPROCESSABLE_CONTENT = 422;
 
@@ -24,7 +27,7 @@ const HTTP_ERROR_UNPROCESSABLE_CONTENT = 422;
  * @param {string} [location] - __dirname for this file in CJS, basically
  * @param {object} [domainInterface] - Domain functionality exposed to sub-artifacts
  *
- * @classdesc The Contact Surface for the Medico Profile Context.
+ * @classdesc The Contact Surface for the System Admin Profile Context.
  */
 export class Contact extends SystemAdminBaseSurface {
 	// #region Constructor
@@ -423,7 +426,7 @@ export class Contact extends SystemAdminBaseSurface {
  * @name ContactSurfaceFactory
  * @extends EVASBaseFactory
  *
- * @classdesc The Medico Domain Profile Contacts Surface Class Factory.
+ * @classdesc The System Admin Domain Profile Contacts Surface Class Factory.
  */
 export default class ContactSurfaceFactory extends EVASBaseFactory {
 	// #region Constructor

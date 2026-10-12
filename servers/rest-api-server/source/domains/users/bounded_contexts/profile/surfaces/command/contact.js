@@ -7,9 +7,12 @@
  * @ignore
  */
 import Joi from 'joi';
-import { EVASBaseFactory } from '@twyr/framework-classes';
-import { MedicoBaseSurface } from 'baseclass:surface';
+
 import { Mutex } from 'async-mutex';
+
+import { EVASBaseFactory } from '@twyr/framework-classes';
+
+import { UserBaseSurface } from 'baseclass:surface';
 
 const HTTP_ERROR_UNPROCESSABLE_CONTENT = 422;
 
@@ -19,14 +22,14 @@ const HTTP_ERROR_UNPROCESSABLE_CONTENT = 422;
  *
  * @class
  * @name Contact
- * @extends MedicoBaseSurface
+ * @extends UserBaseSurface
  *
  * @param {string} [location] - __dirname for this file in CJS, basically
  * @param {object} [domainInterface] - Domain functionality exposed to sub-artifacts
  *
- * @classdesc The Contact Surface for the Medico Profile Context.
+ * @classdesc The Contact Surface for the User Profile Context.
  */
-export class Contact extends MedicoBaseSurface {
+export class Contact extends UserBaseSurface {
 	// #region Constructor
 	/**
 	 * @category REST API Server/Domains/Users
@@ -423,7 +426,7 @@ export class Contact extends MedicoBaseSurface {
  * @name ContactSurfaceFactory
  * @extends EVASBaseFactory
  *
- * @classdesc The Medico Domain Profile Contacts Surface Class Factory.
+ * @classdesc The User Domain Profile Contacts Surface Class Factory.
  */
 export default class ContactSurfaceFactory extends EVASBaseFactory {
 	// #region Constructor

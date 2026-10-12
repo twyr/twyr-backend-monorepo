@@ -6,9 +6,11 @@
  *
  * @ignore
  */
-import { EVASBaseFactory } from '@twyr/framework-classes';
-import { SystemAdminBaseSurface } from 'baseclass:surface';
 import { Mutex } from 'async-mutex';
+
+import { EVASBaseFactory } from '@twyr/framework-classes';
+
+import { SystemAdminBaseSurface } from 'baseclass:surface';
 
 /**
  * @category REST API Server/Domains/System Admin
@@ -21,7 +23,7 @@ import { Mutex } from 'async-mutex';
  * @param {string} [location] - __dirname for this file in CJS, basically
  * @param {object} [domainInterface] - Domain functionality exposed to sub-artifacts
  *
- * @classdesc The Main Surface for the Medico Profile Context.
+ * @classdesc The Main Surface for the System Admin Profile Context.
  */
 export class Main extends SystemAdminBaseSurface {
 	// #region Constructor
@@ -154,7 +156,7 @@ export class Main extends SystemAdminBaseSurface {
  * @name MainSurfaceFactory
  * @extends EVASBaseFactory
  *
- * @classdesc The Medico Profile Context Main Query Surface Class Factory.
+ * @classdesc The System Admin Profile Context Main Query Surface Class Factory.
  */
 export default class MainSurfaceFactory extends EVASBaseFactory {
 	// #region Constructor

@@ -6,9 +6,11 @@
  *
  * @ignore
  */
-import { EVASBaseFactory } from '@twyr/framework-classes';
-import { MedicoBaseSurface } from 'baseclass:surface';
 import { Mutex } from 'async-mutex';
+
+import { EVASBaseFactory } from '@twyr/framework-classes';
+
+import { UserBaseSurface } from 'baseclass:surface';
 
 /**
  * @category REST API Server/Domains/Users
@@ -16,14 +18,14 @@ import { Mutex } from 'async-mutex';
  *
  * @class
  * @name Main
- * @extends MedicoBaseSurface
+ * @extends UserBaseSurface
  *
  * @param {string} [location] - __dirname for this file in CJS, basically
  * @param {object} [domainInterface] - Domain functionality exposed to sub-artifacts
  *
- * @classdesc The Main Surface for the Medico Profile Context.
+ * @classdesc The Main Surface for the User Profile Context.
  */
-export class Main extends MedicoBaseSurface {
+export class Main extends UserBaseSurface {
 	// #region Constructor
 	/**
 	 * @category REST API Server/Domains/Users
@@ -154,7 +156,7 @@ export class Main extends MedicoBaseSurface {
  * @name MainSurfaceFactory
  * @extends EVASBaseFactory
  *
- * @classdesc The Medico Profile Context Main Query Surface Class Factory.
+ * @classdesc The User Profile Context Main Query Surface Class Factory.
  */
 export default class MainSurfaceFactory extends EVASBaseFactory {
 	// #region Constructor

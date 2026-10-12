@@ -6,10 +6,12 @@
  *
  * @ignore
  */
-import { EVASBaseFactory } from '@twyr/framework-classes';
-import { createErrorForPropagation } from '@twyr/error-serializer';
-import { SystemAdminBaseMiddleware } from 'baseclass:middleware';
 import { Mutex } from 'async-mutex';
+
+import { createErrorForPropagation } from '@twyr/error-serializer';
+import { EVASBaseFactory } from '@twyr/framework-classes';
+
+import { SystemAdminBaseMiddleware } from 'baseclass:middleware';
 
 /**
  * @category REST API Server/Domains/System Admin
@@ -17,12 +19,12 @@ import { Mutex } from 'async-mutex';
  *
  * @class
  * @name Locales
- * @extends MedicoBaseMiddleware
+ * @extends SystemAdminBaseMiddleware
  *
  * @param {string} [location] - __dirname for this file in CJS, basically
  * @param {object} [domainInterface] - Domain functionality exposed to sub-artifacts
  *
- * @classdesc The Middleware to handle Medico profile locales.
+ * @classdesc The Middleware to handle System Admin profile locales.
  */
 export class Locales extends SystemAdminBaseMiddleware {
 	// #region Constructor
@@ -312,7 +314,7 @@ export class Locales extends SystemAdminBaseMiddleware {
  * @name LocalesMiddlewareFactory
  * @extends EVASBaseFactory
  *
- * @classdesc The Medico Domain Profile Locales Middleware Class Factory.
+ * @classdesc The System Admin Domain Profile Locales Middleware Class Factory.
  */
 export default class LocalesMiddlewareFactory extends EVASBaseFactory {
 	// #region Constructor

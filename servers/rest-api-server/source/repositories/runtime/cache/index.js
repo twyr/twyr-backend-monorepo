@@ -6,10 +6,11 @@
  *
  * @ignore
  */
+import { Buffer } from 'node:buffer';
+
 import safeJsonStringify from 'safe-json-stringify';
 
 import { Mutex } from 'async-mutex';
-import { Buffer } from 'node:buffer';
 import { createClient } from 'redis';
 
 import { EVASBaseRepository } from '@twyr/framework-classes';

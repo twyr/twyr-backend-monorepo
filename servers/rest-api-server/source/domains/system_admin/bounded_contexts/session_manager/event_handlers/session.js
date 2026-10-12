@@ -6,10 +6,12 @@
  *
  * @ignore
  */
-import { EVASBaseFactory } from '@twyr/framework-classes';
-import { createErrorForPropagation } from '@twyr/error-serializer';
-import { BaseEventHandler } from 'baseclass:event-handler';
 import { Mutex } from 'async-mutex';
+
+import { createErrorForPropagation } from '@twyr/error-serializer';
+import { EVASBaseFactory } from '@twyr/framework-classes';
+
+import { BaseEventHandler } from 'baseclass:event-handler';
 
 /**
  * @category REST API Server/Domains/System Admin
@@ -162,7 +164,7 @@ export class Session extends BaseEventHandler {
 	 * @name #postLogoutCleanup
 	 *
 	 * @param {object} eventData - Event payload emitted during logout.
-	 * @param {string} eventData.userId - Medico identifier whose cache should be cleared.
+	 * @param {string} eventData.userId - System Admin identifier whose cache should be cleared.
 	 *
 	 * @returns {Promise<void>} Resolves when the cache entry is deleted and logged.
 	 *

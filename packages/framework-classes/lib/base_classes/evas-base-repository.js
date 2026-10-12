@@ -7,6 +7,7 @@
  * @ignore
  */
 import merge from 'lodash.merge';
+
 import { EVASBaseArtifact } from './evas-base-artifact.js';
 
 /**

@@ -6,9 +6,11 @@
  *
  * @ignore
  */
-import { EVASBaseFactory } from '@twyr/framework-classes';
-import { BaseSurface } from 'baseclass:surface';
 import { Mutex } from 'async-mutex';
+
+import { EVASBaseFactory } from '@twyr/framework-classes';
+
+import { BaseSurface } from 'baseclass:surface';
 
 /**
  * @category REST API Server/Bounded Contexts

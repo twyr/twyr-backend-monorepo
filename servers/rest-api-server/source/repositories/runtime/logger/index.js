@@ -6,10 +6,10 @@
  *
  * @ignore
  */
-import safeJsonStringify from 'safe-json-stringify';
-
 import { Buffer } from 'node:buffer';
 import { dirname, join } from 'node:path';
+
+import safeJsonStringify from 'safe-json-stringify';
 
 import { Mutex } from 'async-mutex';
 

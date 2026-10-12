@@ -7,12 +7,14 @@
  * @ignore
  */
 import { randomInt } from 'node:crypto';
+
+import { Mutex } from 'async-mutex';
 import { DateTime } from 'luxon';
 
-import { EVASBaseFactory } from '@twyr/framework-classes';
 import { createErrorForPropagation } from '@twyr/error-serializer';
-import { BaseMiddleware } from 'baseclass:middleware';
-import { Mutex } from 'async-mutex';
+import { EVASBaseFactory } from '@twyr/framework-classes';
+
+import { UserBaseMiddleware } from 'baseclass:middleware';
 
 /**
  * @category REST API Server/Domains/Users
@@ -20,14 +22,14 @@ import { Mutex } from 'async-mutex';
  *
  * @class
  * @name Session
- * @extends BaseMiddleware
+ * @extends UserBaseMiddleware
  *
  * @param {string} [location] - __dirname for this file in CJS, basically
  * @param {object} [domainInterface] - Domain functionality exposed to sub-artifacts
  *
  * @classdesc Middleware for user session OTP generation, validation, login, and logout.
  */
-export class Session extends BaseMiddleware {
+export class Session extends UserBaseMiddleware {
 	// #region Constructor
 	/**
 	 * @category REST API Server/Domains/Users

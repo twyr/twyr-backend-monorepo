@@ -9,8 +9,9 @@
 import http from 'node:http';
 import networkInterfaces from 'node:os';
 
-import { Mutex } from 'async-mutex';
 import safeJsonStringify from 'safe-json-stringify';
+
+import { Mutex } from 'async-mutex';
 // import helmet from 'koa-helmet';
 
 import { v4 as uuidv4 } from 'uuid';

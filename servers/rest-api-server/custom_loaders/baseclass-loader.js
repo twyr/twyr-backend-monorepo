@@ -1,23 +1,14 @@
 /**
  * Imports for this file
- *
- * @category REST API Server/Infrastructure
- * @subcategory Custom Loaders
- *
  * @ignore
  */
-import { existsSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { readFile } from 'node:fs/promises';
 
 import { errorSerializer } from '@twyr/error-serializer';
 
 /**
- * @category REST API Server/Infrastructure
- * @subcategory Custom Loaders
- *
- * @async
  * @function
  * @name resolve
  *
@@ -40,8 +31,9 @@ import { errorSerializer } from '@twyr/error-serializer';
  * This functionality will help in case each domain wants to have its own
  * base classes - with domain specific specializations - but the codebase
  * can still use "import from baseclass:..."
+ *
  */
-export async function resolve(specifier, context, nextResolve) {
+export function resolve(specifier, context, nextResolve) {
 	if (!specifier.startsWith('baseclass:')) {
 		return nextResolve(specifier, context);
 	}
@@ -91,10 +83,6 @@ export async function resolve(specifier, context, nextResolve) {
 }
 
 /**
- * @category REST API Server/Infrastructure
- * @subcategory Custom Loaders
- *
- * @async
  * @function
  * @name load
  *
@@ -104,11 +92,11 @@ export async function resolve(specifier, context, nextResolve) {
  *
  * @returns {object} - containing the base class.
  *
- * @description Reads the requested base class file and returns its content.
+ * @description Reads the requested base class file and returns its content synchronously.
  */
-export async function load(url, context, nextLoad) {
+export function load(url, context, nextLoad) {
 	if (!url.startsWith('baseclass:')) {
-		const loadedResult = await nextLoad(url, context);
+		const loadedResult = nextLoad(url, context);
 		return loadedResult;
 	}
 
@@ -117,7 +105,7 @@ export async function load(url, context, nextLoad) {
 		const baseclassFilePath = fileURLToPath?.(baseclassUrl);
 
 		// eslint-disable-next-line security/detect-non-literal-fs-filename
-		const baseClass = await readFile?.(baseclassFilePath);
+		const baseClass = readFileSync(baseclassFilePath);
 		return {
 			format: 'module',
 			responseURL: baseclassUrl,

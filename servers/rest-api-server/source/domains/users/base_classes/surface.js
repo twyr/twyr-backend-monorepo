@@ -116,5 +116,3 @@ export class UserBaseSurface extends BaseSurface {
 		return assetAccessCheckerMiddleware?.bind?.(this);
 	}
 }
-
-export const MedicoBaseSurface = UserBaseSurface;

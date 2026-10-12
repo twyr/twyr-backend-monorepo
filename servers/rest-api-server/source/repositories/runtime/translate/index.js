@@ -6,13 +6,14 @@
  *
  * @ignore
  */
-import safeJsonStringify from 'safe-json-stringify';
-
-import { Mutex } from 'async-mutex';
 import { Buffer } from 'node:buffer';
+
+import safeJsonStringify from 'safe-json-stringify';
 
 import { TranslateClient } from '@aws-sdk/client-translate';
 import { TranslateTextCommand } from '@aws-sdk/client-translate';
+import { Mutex } from 'async-mutex';
+
 import { EVASBaseRepository } from '@twyr/framework-classes';
 import { EVASBaseFactory } from '@twyr/framework-classes';
 

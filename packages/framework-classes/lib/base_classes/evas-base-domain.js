@@ -6,8 +6,8 @@
  *
  * @ignore
  */
-import { EVASBaseArtifact } from './evas-base-artifact.js';
 import { DomainLifecycleManagerFactory } from '../lifecycle_managers/domain-lifecycle-manager.js';
+import { EVASBaseArtifact } from './evas-base-artifact.js';
 
 /**
  * @category Packages/Framework Classes

@@ -6,15 +6,14 @@
  *
  * @ignore
  */
+import { readFile } from 'node:fs/promises';
+import { join } from 'node:path';
+
 import merge from 'lodash.merge';
 import safeJsonStringify from 'safe-json-stringify';
 
-import { join } from 'node:path';
-import { readFile } from 'node:fs/promises';
-
-import { EVASBaseDomain } from '@twyr/framework-classes';
-
 import { APIRegistry } from '@twyr/api-registry';
+import { EVASBaseDomain } from '@twyr/framework-classes';
 import { IocContainer } from '@twyr/server-dependency-manager';
 
 /**

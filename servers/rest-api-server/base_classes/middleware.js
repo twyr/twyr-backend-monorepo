@@ -7,8 +7,9 @@
  * @ignore
  */
 import { backOff } from 'exponential-backoff';
-import { EVASBaseMiddleware } from '@twyr/framework-classes';
+
 import { createErrorForPropagation } from '@twyr/error-serializer';
+import { EVASBaseMiddleware } from '@twyr/framework-classes';
 
 /**
  * Magic Number constants

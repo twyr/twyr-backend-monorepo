@@ -1,5 +1,4 @@
 import js from '@eslint/js';
-import globals from 'globals';
 // import editorconfig from 'eslint-plugin-editorconfig';
 import jsdoc from 'eslint-plugin-jsdoc';
 import jsonc from 'eslint-plugin-jsonc';
@@ -8,6 +7,7 @@ import n from 'eslint-plugin-n';
 import prettier from 'eslint-plugin-prettier';
 import security from 'eslint-plugin-security';
 import unicorn from 'eslint-plugin-unicorn';
+import globals from 'globals';
 
 import { globalIgnores } from 'eslint/config';
 
@@ -81,12 +81,7 @@ export default [
 			'unicorn/prefer-module': 'error',
 			'unicorn/no-null': 'off',
 			'unicorn/prevent-abbreviations': 'off',
-			'unicorn/filename-case': [
-				'error',
-				{
-					case: 'kebabCase'
-				}
-			]
+			'unicorn/filename-case': 'off'
 		}
 	},
 

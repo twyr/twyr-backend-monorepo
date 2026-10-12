@@ -6,9 +6,11 @@
  *
  * @ignore
  */
-import { EVASBaseFactory } from '@twyr/framework-classes';
-import { BaseDomain } from 'baseclass:domain';
 import { Mutex } from 'async-mutex';
+
+import { EVASBaseFactory } from '@twyr/framework-classes';
+
+import { BaseDomain } from 'baseclass:domain';
 
 /**
  * @category REST API Server/Domains/Users

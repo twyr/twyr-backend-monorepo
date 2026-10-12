@@ -249,5 +249,3 @@ export class SystemAdminBaseMiddleware extends BaseMiddleware {
 		};
 	}
 }
-
-export const MedicoBaseMiddleware = SystemAdminBaseMiddleware;

@@ -240,5 +240,3 @@ export class UserBaseMiddleware extends BaseMiddleware {
 		};
 	}
 }
-
-export const MedicoBaseMiddleware = UserBaseMiddleware;

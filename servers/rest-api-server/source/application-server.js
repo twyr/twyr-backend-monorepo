@@ -8,14 +8,13 @@
  */
 import { EventEmitter } from 'node:events';
 
-import { EVASBaseArtifact } from '@twyr/framework-classes';
-import { EVASBaseFactory } from '@twyr/framework-classes';
-
-import { ServerLifecycleManagerFactory } from '@twyr/framework-classes';
+import { Mutex } from 'async-mutex';
 
 import { APIRegistry } from '@twyr/api-registry';
+import { EVASBaseArtifact } from '@twyr/framework-classes';
+import { EVASBaseFactory } from '@twyr/framework-classes';
+import { ServerLifecycleManagerFactory } from '@twyr/framework-classes';
 import { IocContainer } from '@twyr/server-dependency-manager';
-import { Mutex } from 'async-mutex';
 
 /**
  * @category REST API Server/Bootstrap

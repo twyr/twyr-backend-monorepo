@@ -8,8 +8,8 @@
  */
 import merge from 'lodash.merge';
 
-import { EVASBaseBoundedContext } from '@twyr/framework-classes';
 import { APIRegistry } from '@twyr/api-registry';
+import { EVASBaseBoundedContext } from '@twyr/framework-classes';
 
 /**
  * @category REST API Server/Base Classes
