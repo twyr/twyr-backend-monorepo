@@ -48,7 +48,13 @@
 			<div class="sidebar " id="sidebarNav">
 				<nav>
 					<h2><a href="index.html">Documentation</a></h2>
-					<div class="category"></div>
+					<div class="category">
+						<h3>Global</h3>
+						<ul>
+							<li><a href="global.html#load">load</a></li>
+							<li><a href="global.html#resolve">resolve</a></li>
+						</ul>
+					</div>
 					<div class="category">
 						<h2>REST API Server/Base Classes</h2>
 						<h3>Classes / Base Classes</h3>
@@ -256,14 +262,6 @@
 						</ul>
 					</div>
 					<div class="category">
-						<h2>REST API Server/Infrastructure</h2>
-						<h3>Global</h3>
-						<ul>
-							<li><a href="global.html#load">load</a></li>
-							<li><a href="global.html#resolve">resolve</a></li>
-						</ul>
-					</div>
-					<div class="category">
 						<h2>REST API Server/Ingress Surfaces</h2>
 						<h3>Classes / REST API</h3>
 						<ul>
@@ -376,14 +374,12 @@
  *
  * @ignore
  */
-import { pathToFileURL } from 'node:url';
-import { register } from 'node:module';
+import { registerHooks } from 'node:module';
+
+import { load, resolve } from '../custom_loaders/baseclass-loader.js';
 
 // Register the loader
-const loaderUrl = pathToFileURL('./custom_loaders/baseclass-loader.js');
-register(loaderUrl, {
-	parentURL: import.meta.url
-});
+registerHooks({ load, resolve });
 
 /**
  * Imports for this file
@@ -393,17 +389,17 @@ register(loaderUrl, {
  *
  * @ignore
  */
-import safeJsonStringify from 'safe-json-stringify';
-
+import { readFile } from 'node:fs/promises';
 import { dirname, join, normalize } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { readFile } from 'node:fs/promises';
 
-import * as dotenv from 'dotenv';
 import convertHrtime from 'convert-hrtime';
+import * as dotenv from 'dotenv';
 import pleaseUpgradeNode from 'please-upgrade-node';
+import safeJsonStringify from 'safe-json-stringify';
 
 import { errorSerializer } from '@twyr/error-serializer';
+
 import ApplicationServerFactory from './application-server.js';
 
 /**

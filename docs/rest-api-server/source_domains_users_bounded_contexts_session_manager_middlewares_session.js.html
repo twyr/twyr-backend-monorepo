@@ -48,7 +48,13 @@
 			<div class="sidebar " id="sidebarNav">
 				<nav>
 					<h2><a href="index.html">Documentation</a></h2>
-					<div class="category"></div>
+					<div class="category">
+						<h3>Global</h3>
+						<ul>
+							<li><a href="global.html#load">load</a></li>
+							<li><a href="global.html#resolve">resolve</a></li>
+						</ul>
+					</div>
 					<div class="category">
 						<h2>REST API Server/Base Classes</h2>
 						<h3>Classes / Base Classes</h3>
@@ -256,14 +262,6 @@
 						</ul>
 					</div>
 					<div class="category">
-						<h2>REST API Server/Infrastructure</h2>
-						<h3>Global</h3>
-						<ul>
-							<li><a href="global.html#load">load</a></li>
-							<li><a href="global.html#resolve">resolve</a></li>
-						</ul>
-					</div>
-					<div class="category">
 						<h2>REST API Server/Ingress Surfaces</h2>
 						<h3>Classes / REST API</h3>
 						<ul>
@@ -365,12 +363,14 @@
  * @ignore
  */
 import { randomInt } from 'node:crypto';
+
+import { Mutex } from 'async-mutex';
 import { DateTime } from 'luxon';
 
-import { EVASBaseFactory } from '@twyr/framework-classes';
 import { createErrorForPropagation } from '@twyr/error-serializer';
-import { BaseMiddleware } from 'baseclass:middleware';
-import { Mutex } from 'async-mutex';
+import { EVASBaseFactory } from '@twyr/framework-classes';
+
+import { UserBaseMiddleware } from 'baseclass:middleware';
 
 /**
  * @category REST API Server/Domains/Users
@@ -378,14 +378,14 @@ import { Mutex } from 'async-mutex';
  *
  * @class
  * @name Session
- * @extends BaseMiddleware
+ * @extends UserBaseMiddleware
  *
  * @param {string} [location] - __dirname for this file in CJS, basically
  * @param {object} [domainInterface] - Domain functionality exposed to sub-artifacts
  *
  * @classdesc Middleware for user session OTP generation, validation, login, and logout.
  */
-export class Session extends BaseMiddleware {
+export class Session extends UserBaseMiddleware {
 	// #region Constructor
 	/**
 	 * @category REST API Server/Domains/Users
@@ -685,13 +685,22 @@ export class Session extends BaseMiddleware {
 			userId: user?.id
 		});
 
+		const apiRegistry = this?.domainInterface?.apiRegistry;
+		const profileStatus = await apiRegistry?.execute?.(
+			'USERS::PROFILE::READ',
+			{
+				user,
+				locale: user?.locale_id ?? user?.locale_code
+			}
+		);
+
 		return {
 			status: 200,
 			sessionData: {
 				id: user?.id,
 				role: 'user'
 			},
-			body: user
+			body: profileStatus
 		};
 	}
 
@@ -707,7 +716,7 @@ export class Session extends BaseMiddleware {
 	 * @name #logout
 	 *
 	 * @param {object} payload - API payload for `LOGOUT`.
-	 * @param {string} payload.userId - Medico identifier whose cache should be invalidated.
+	 * @param {string} payload.userId - User identifier whose cache should be invalidated.
 	 * @param {string} payload.userName - Display name interpolated into the logout message.
 	 * @param {string} payload.locale - Locale code used for the logout response.
 	 *

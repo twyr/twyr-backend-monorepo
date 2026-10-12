@@ -42,6 +42,13 @@
       width: 100%;
     }
 
+    th { 
+      position: sticky; 
+      top: 0; 
+      z-index: 2; 
+      background-color: white 
+    }
+
     th,
     td {
       text-align: left;
@@ -159,6 +166,31 @@
     .extra {
       color: gray;
     }
+    .dependency-type {
+      font-family: courier;
+      padding: 4px;
+      border-radius: 3px;
+    }
+    .local {
+      background-color: lightgray;
+      color: black;
+    }
+    .npm-bundled, .npm-dev, .npm-no-pkg, .npm-optional, .npm-peer, .npm-unknown, .npm {
+      background-color: darkred;
+      color: white;
+    }
+    .aliased {
+      background-color: blue;
+      color: white;
+    }
+    .aliased-subpath-import, .core {
+      background-color: green;
+      color: white;
+    }
+    .type-import, .type-only {
+      background-color: blue;
+      color: white;
+    }
   </style>
   <style type="text/css" media="print">
     th,
@@ -198,6 +230,7 @@
     <div style="float:left;padding-right:20px" class="ignore">
       <strong>0</strong> ignored
     </div>
+    
     &nbsp;
   </p>
   <table>
@@ -382,6 +415,7 @@
           <th>severity</th>
           <th>rule</th>
           <th>from</th>
+          <th>types</th>
           <th>to</th>
         </tr>
       </thead>
@@ -394,6 +428,7 @@
          class="noiseless">no-non-package-json</a>
     </td>
     <td><a href="eslint.config.js">eslint.config.js</a></td>
+    <td><span class="dependency-type npm-no-pkg import" title="dependency types: npm-no-pkg, import">n</span></td>
     <td>../../node_modules/globals/index.js</td>
   </tr>
   <tr>
@@ -404,6 +439,7 @@
          class="noiseless">no-non-package-json</a>
     </td>
     <td><a href="lib/base_classes/evas-base-ingress-surface.js">lib/base_classes/evas-base-ingress-surface.js</a></td>
+    <td><span class="dependency-type npm-no-pkg import" title="dependency types: npm-no-pkg, import">n</span></td>
     <td>../../node_modules/lodash.merge/index.js</td>
   </tr>
   <tr>
@@ -414,6 +450,7 @@
          class="noiseless">no-non-package-json</a>
     </td>
     <td><a href="lib/base_classes/evas-base-repository.js">lib/base_classes/evas-base-repository.js</a></td>
+    <td><span class="dependency-type npm-no-pkg import" title="dependency types: npm-no-pkg, import">n</span></td>
     <td>../../node_modules/lodash.merge/index.js</td>
   </tr>
   <tr>
@@ -424,6 +461,7 @@
          class="noiseless">no-orphans</a>
     </td>
     <td><a href="jsdoc_default/@twyr/framework-classes/0.2.0/scripts/app.min.js">jsdoc_default/@twyr/framework-classes/0.2.0/scripts/app.min.js</a></td>
+    <td><span class="dependency-type " title="dependency types: "></span></td>
     <td></td>
   </tr>
   <tr>
@@ -434,6 +472,7 @@
          class="noiseless">no-orphans</a>
     </td>
     <td><a href="jsdoc_default/@twyr/framework-classes/0.2.0/scripts/linenumber.js">jsdoc_default/@twyr/framework-classes/0.2.0/scripts/linenumber.js</a></td>
+    <td><span class="dependency-type " title="dependency types: "></span></td>
     <td></td>
   </tr>
   <tr>
@@ -444,6 +483,7 @@
          class="noiseless">no-orphans</a>
     </td>
     <td><a href="jsdoc_default/@twyr/framework-classes/0.2.0/scripts/search.js">jsdoc_default/@twyr/framework-classes/0.2.0/scripts/search.js</a></td>
+    <td><span class="dependency-type " title="dependency types: "></span></td>
     <td></td>
   </tr>
   <tr>
@@ -454,15 +494,17 @@
          class="noiseless">no-orphans</a>
     </td>
     <td><a href="tests/setup-mocks.cjs">tests/setup-mocks.cjs</a></td>
+    <td><span class="dependency-type " title="dependency types: "></span></td>
     <td></td>
   </tr>
       
       </tbody>
     </table>
     </span>
+  
   <footer>
-    <p><a href="https://github.com/sverweij/dependency-cruiser">dependency-cruiser@17.3.10</a> /
-      2026-04-01T11:22:50.899Z</p>
+    <p><a href="https://github.com/sverweij/dependency-cruiser">dependency-cruiser@18.6.0</a> /
+      2026-10-12T08:54:28.654Z</p>
   </footer>
 </body>
 </html>

@@ -48,7 +48,13 @@
 			<div class="sidebar " id="sidebarNav">
 				<nav>
 					<h2><a href="index.html">Documentation</a></h2>
-					<div class="category"></div>
+					<div class="category">
+						<h3>Global</h3>
+						<ul>
+							<li><a href="global.html#load">load</a></li>
+							<li><a href="global.html#resolve">resolve</a></li>
+						</ul>
+					</div>
 					<div class="category">
 						<h2>REST API Server/Base Classes</h2>
 						<h3>Classes / Base Classes</h3>
@@ -256,14 +262,6 @@
 						</ul>
 					</div>
 					<div class="category">
-						<h2>REST API Server/Infrastructure</h2>
-						<h3>Global</h3>
-						<ul>
-							<li><a href="global.html#load">load</a></li>
-							<li><a href="global.html#resolve">resolve</a></li>
-						</ul>
-					</div>
-					<div class="category">
 						<h2>REST API Server/Ingress Surfaces</h2>
 						<h3>Classes / REST API</h3>
 						<ul>
@@ -358,7 +356,7 @@
 						<header>
 							<h2><span class="attribs"><span class="type-signature"></span></span>REST API Server/Domains/Users/Profile/Middlewares/Contacts<span class="signature">(location<span class="signature-attributes">opt</span>, domainInterface<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h2>
 							<div class="class-description">
-								<p>The Middleware to handle Medico profile contacts.</p>
+								<p>The Middleware to handle User profile contacts.</p>
 							</div>
 						</header>
 						<article>
@@ -418,7 +416,7 @@
 												<p class="tag-source">
 													<a href="source_domains_users_bounded_contexts_profile_middlewares_contacts.js.html" class="button">View Source</a>
 													<span>
-														<a href="source_domains_users_bounded_contexts_profile_middlewares_contacts.js.html">source/domains/users/bounded_contexts/profile/middlewares/contacts.js</a>, <a href="source_domains_users_bounded_contexts_profile_middlewares_contacts.js.html#line14">line 14</a>
+														<a href="source_domains_users_bounded_contexts_profile_middlewares_contacts.js.html">source/domains/users/bounded_contexts/profile/middlewares/contacts.js</a>, <a href="source_domains_users_bounded_contexts_profile_middlewares_contacts.js.html#line16">line 16</a>
 													</span>
 												</p>
 											</dl>
@@ -428,7 +426,7 @@
 							</div>
 							<h3 class="subsection-title">Extends</h3>
 							<ul>
-								<li>MedicoBaseMiddleware</li>
+								<li>UserBaseMiddleware</li>
 							</ul>
 							<div class='vertical-section'>
 								<h1>Methods</h1>
@@ -448,10 +446,18 @@
 											<p>Adds the API to the apiRegistry in the domainInterface</p>
 										</div>
 										<dl class="details">
+											<dt class="tag-overrides">Overrides:</dt>
+											<dd class="tag-overrides">
+												<ul class="dummy">
+													<li>
+														SystemAdminBaseMiddleware#_registerApi
+													</li>
+												</ul>
+											</dd>
 											<p class="tag-source">
 												<a href="source_domains_users_bounded_contexts_profile_middlewares_contacts.js.html" class="button">View Source</a>
 												<span>
-													<a href="source_domains_users_bounded_contexts_profile_middlewares_contacts.js.html">source/domains/users/bounded_contexts/profile/middlewares/contacts.js</a>, <a href="source_domains_users_bounded_contexts_profile_middlewares_contacts.js.html#line41">line 41</a>
+													<a href="source_domains_users_bounded_contexts_profile_middlewares_contacts.js.html">source/domains/users/bounded_contexts/profile/middlewares/contacts.js</a>, <a href="source_domains_users_bounded_contexts_profile_middlewares_contacts.js.html#line43">line 43</a>
 												</span>
 											</p>
 										</dl>
@@ -486,10 +492,18 @@
 											<p>Removes the API from the apiRegistry in the domainInterface</p>
 										</div>
 										<dl class="details">
+											<dt class="tag-overrides">Overrides:</dt>
+											<dd class="tag-overrides">
+												<ul class="dummy">
+													<li>
+														SystemAdminBaseMiddleware#_unregisterApi
+													</li>
+												</ul>
+											</dd>
 											<p class="tag-source">
 												<a href="source_domains_users_bounded_contexts_profile_middlewares_contacts.js.html" class="button">View Source</a>
 												<span>
-													<a href="source_domains_users_bounded_contexts_profile_middlewares_contacts.js.html">source/domains/users/bounded_contexts/profile/middlewares/contacts.js</a>, <a href="source_domains_users_bounded_contexts_profile_middlewares_contacts.js.html#line114">line 114</a>
+													<a href="source_domains_users_bounded_contexts_profile_middlewares_contacts.js.html">source/domains/users/bounded_contexts/profile/middlewares/contacts.js</a>, <a href="source_domains_users_bounded_contexts_profile_middlewares_contacts.js.html#line116">line 116</a>
 												</span>
 											</p>
 										</dl>
@@ -571,7 +585,7 @@
 											<p class="tag-source">
 												<a href="source_domains_users_bounded_contexts_profile_middlewares_contacts.js.html" class="button">View Source</a>
 												<span>
-													<a href="source_domains_users_bounded_contexts_profile_middlewares_contacts.js.html">source/domains/users/bounded_contexts/profile/middlewares/contacts.js</a>, <a href="source_domains_users_bounded_contexts_profile_middlewares_contacts.js.html#line185">line 185</a>
+													<a href="source_domains_users_bounded_contexts_profile_middlewares_contacts.js.html">source/domains/users/bounded_contexts/profile/middlewares/contacts.js</a>, <a href="source_domains_users_bounded_contexts_profile_middlewares_contacts.js.html#line187">line 187</a>
 												</span>
 											</p>
 										</dl>
@@ -648,7 +662,7 @@
 											<p class="tag-source">
 												<a href="source_domains_users_bounded_contexts_profile_middlewares_contacts.js.html" class="button">View Source</a>
 												<span>
-													<a href="source_domains_users_bounded_contexts_profile_middlewares_contacts.js.html">source/domains/users/bounded_contexts/profile/middlewares/contacts.js</a>, <a href="source_domains_users_bounded_contexts_profile_middlewares_contacts.js.html#line213">line 213</a>
+													<a href="source_domains_users_bounded_contexts_profile_middlewares_contacts.js.html">source/domains/users/bounded_contexts/profile/middlewares/contacts.js</a>, <a href="source_domains_users_bounded_contexts_profile_middlewares_contacts.js.html#line215">line 215</a>
 												</span>
 											</p>
 										</dl>
@@ -725,7 +739,7 @@
 											<p class="tag-source">
 												<a href="source_domains_users_bounded_contexts_profile_middlewares_contacts.js.html" class="button">View Source</a>
 												<span>
-													<a href="source_domains_users_bounded_contexts_profile_middlewares_contacts.js.html">source/domains/users/bounded_contexts/profile/middlewares/contacts.js</a>, <a href="source_domains_users_bounded_contexts_profile_middlewares_contacts.js.html#line242">line 242</a>
+													<a href="source_domains_users_bounded_contexts_profile_middlewares_contacts.js.html">source/domains/users/bounded_contexts/profile/middlewares/contacts.js</a>, <a href="source_domains_users_bounded_contexts_profile_middlewares_contacts.js.html#line244">line 244</a>
 												</span>
 											</p>
 										</dl>
@@ -802,7 +816,7 @@
 											<p class="tag-source">
 												<a href="source_domains_users_bounded_contexts_profile_middlewares_contacts.js.html" class="button">View Source</a>
 												<span>
-													<a href="source_domains_users_bounded_contexts_profile_middlewares_contacts.js.html">source/domains/users/bounded_contexts/profile/middlewares/contacts.js</a>, <a href="source_domains_users_bounded_contexts_profile_middlewares_contacts.js.html#line275">line 275</a>
+													<a href="source_domains_users_bounded_contexts_profile_middlewares_contacts.js.html">source/domains/users/bounded_contexts/profile/middlewares/contacts.js</a>, <a href="source_domains_users_bounded_contexts_profile_middlewares_contacts.js.html#line277">line 277</a>
 												</span>
 											</p>
 										</dl>

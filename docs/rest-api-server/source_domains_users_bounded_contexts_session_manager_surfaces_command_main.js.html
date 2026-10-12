@@ -48,7 +48,13 @@
 			<div class="sidebar " id="sidebarNav">
 				<nav>
 					<h2><a href="index.html">Documentation</a></h2>
-					<div class="category"></div>
+					<div class="category">
+						<h3>Global</h3>
+						<ul>
+							<li><a href="global.html#load">load</a></li>
+							<li><a href="global.html#resolve">resolve</a></li>
+						</ul>
+					</div>
 					<div class="category">
 						<h2>REST API Server/Base Classes</h2>
 						<h3>Classes / Base Classes</h3>
@@ -256,14 +262,6 @@
 						</ul>
 					</div>
 					<div class="category">
-						<h2>REST API Server/Infrastructure</h2>
-						<h3>Global</h3>
-						<ul>
-							<li><a href="global.html#load">load</a></li>
-							<li><a href="global.html#resolve">resolve</a></li>
-						</ul>
-					</div>
-					<div class="category">
 						<h2>REST API Server/Ingress Surfaces</h2>
 						<h3>Classes / REST API</h3>
 						<ul>
@@ -366,9 +364,11 @@
  */
 import Joi from 'joi';
 
-import { EVASBaseFactory } from '@twyr/framework-classes';
-import { MedicoBaseSurface } from '../../../../base_classes/surface.js';
 import { Mutex } from 'async-mutex';
+
+import { EVASBaseFactory } from '@twyr/framework-classes';
+
+import { UserBaseSurface } from 'baseclass:surface';
 
 const HTTP_ERROR_FORBIDDEN = 403;
 const HTTP_ERROR_UNPROCESSABLE_CONTENT = 422;
@@ -379,14 +379,14 @@ const HTTP_ERROR_UNPROCESSABLE_CONTENT = 422;
  *
  * @class
  * @name Main
- * @extends MedicoBaseSurface
+ * @extends UserBaseSurface
  *
  * @param {string} [location] - __dirname for this file in CJS, basically
  * @param {object} [domainInterface] - Domain functionality exposed to sub-artifacts
  *
  * @classdesc The main command surface for user session management.
  */
-export class Main extends MedicoBaseSurface {
+export class Main extends UserBaseSurface {
 	// #region Constructor
 	/**
 	 * @category REST API Server/Domains/Users

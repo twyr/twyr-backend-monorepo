@@ -42,6 +42,13 @@
       width: 100%;
     }
 
+    th { 
+      position: sticky; 
+      top: 0; 
+      z-index: 2; 
+      background-color: white 
+    }
+
     th,
     td {
       text-align: left;
@@ -159,6 +166,31 @@
     .extra {
       color: gray;
     }
+    .dependency-type {
+      font-family: courier;
+      padding: 4px;
+      border-radius: 3px;
+    }
+    .local {
+      background-color: lightgray;
+      color: black;
+    }
+    .npm-bundled, .npm-dev, .npm-no-pkg, .npm-optional, .npm-peer, .npm-unknown, .npm {
+      background-color: darkred;
+      color: white;
+    }
+    .aliased {
+      background-color: blue;
+      color: white;
+    }
+    .aliased-subpath-import, .core {
+      background-color: green;
+      color: white;
+    }
+    .type-import, .type-only {
+      background-color: blue;
+      color: white;
+    }
   </style>
   <style type="text/css" media="print">
     th,
@@ -187,7 +219,7 @@
       <strong>349</strong> dependencies
     </div>
     <div style="float:left;padding-right:20px">
-      <strong>42</strong> errors
+      <strong>44</strong> errors
     </div>
     <div style="float:left;padding-right:20px">
       <strong>16</strong> warnings
@@ -198,6 +230,7 @@
     <div style="float:left;padding-right:20px" class="ignore">
       <strong>0</strong> ignored
     </div>
+    
     &nbsp;
   </p>
   <table>
@@ -220,7 +253,7 @@
          id="not-to-unresolvable-definition" 
          class="noiseless">not-to-unresolvable</a>
     </td>
-    <td><strong>37</strong></td>
+    <td><strong>39</strong></td>
     <td><strong>0</strong></td>
     <td>This module depends on a module that cannot be found ('resolved to disk'). If it's an npm module: add it to your package.json. In all other cases you likely already know what to do.</td>
   </tr>
@@ -382,6 +415,7 @@
           <th>severity</th>
           <th>rule</th>
           <th>from</th>
+          <th>types</th>
           <th>to</th>
         </tr>
       </thead>
@@ -394,6 +428,7 @@
          class="noiseless">no-non-package-json</a>
     </td>
     <td><a href="../../packages/framework-classes/lib/base_classes/evas-base-ingress-surface.js">../../packages/framework-classes/lib/base_classes/evas-base-ingress-surface.js</a></td>
+    <td><span class="dependency-type npm-no-pkg import" title="dependency types: npm-no-pkg, import">n</span></td>
     <td>../../node_modules/lodash.merge/index.js</td>
   </tr>
   <tr>
@@ -404,6 +439,7 @@
          class="noiseless">no-non-package-json</a>
     </td>
     <td><a href="../../packages/framework-classes/lib/base_classes/evas-base-repository.js">../../packages/framework-classes/lib/base_classes/evas-base-repository.js</a></td>
+    <td><span class="dependency-type npm-no-pkg import" title="dependency types: npm-no-pkg, import">n</span></td>
     <td>../../node_modules/lodash.merge/index.js</td>
   </tr>
   <tr>
@@ -414,6 +450,7 @@
          class="noiseless">no-non-package-json</a>
     </td>
     <td><a href="base_classes/bounded-context.js">base_classes/bounded-context.js</a></td>
+    <td><span class="dependency-type npm-no-pkg import" title="dependency types: npm-no-pkg, import">n</span></td>
     <td>../../node_modules/lodash.merge/index.js</td>
   </tr>
   <tr>
@@ -424,6 +461,7 @@
          class="noiseless">no-non-package-json</a>
     </td>
     <td><a href="base_classes/domain.js">base_classes/domain.js</a></td>
+    <td><span class="dependency-type npm-no-pkg import" title="dependency types: npm-no-pkg, import">n</span></td>
     <td>../../node_modules/lodash.merge/index.js</td>
   </tr>
   <tr>
@@ -434,6 +472,7 @@
          class="noiseless">no-non-package-json</a>
     </td>
     <td><a href="eslint.config.js">eslint.config.js</a></td>
+    <td><span class="dependency-type npm-no-pkg import" title="dependency types: npm-no-pkg, import">n</span></td>
     <td>../../node_modules/globals/index.js</td>
   </tr>
   <tr>
@@ -444,6 +483,7 @@
          class="noiseless">not-to-unresolvable</a>
     </td>
     <td><a href="source/bounded_contexts/health/index.js">source/bounded_contexts/health/index.js</a></td>
+    <td><span class="dependency-type unknown" title="dependency types: unknown"></span></td>
     <td>baseclass:bounded-context</td>
   </tr>
   <tr>
@@ -454,6 +494,7 @@
          class="noiseless">not-to-unresolvable</a>
     </td>
     <td><a href="source/bounded_contexts/health/surfaces/query/main.js">source/bounded_contexts/health/surfaces/query/main.js</a></td>
+    <td><span class="dependency-type unknown" title="dependency types: unknown"></span></td>
     <td>baseclass:surface</td>
   </tr>
   <tr>
@@ -464,6 +505,7 @@
          class="noiseless">not-to-unresolvable</a>
     </td>
     <td><a href="source/bounded_contexts/masterdata/index.js">source/bounded_contexts/masterdata/index.js</a></td>
+    <td><span class="dependency-type unknown" title="dependency types: unknown"></span></td>
     <td>baseclass:bounded-context</td>
   </tr>
   <tr>
@@ -474,6 +516,7 @@
          class="noiseless">not-to-unresolvable</a>
     </td>
     <td><a href="source/bounded_contexts/masterdata/middlewares/masterdata.js">source/bounded_contexts/masterdata/middlewares/masterdata.js</a></td>
+    <td><span class="dependency-type unknown" title="dependency types: unknown"></span></td>
     <td>baseclass:middleware</td>
   </tr>
   <tr>
@@ -484,6 +527,7 @@
          class="noiseless">not-to-unresolvable</a>
     </td>
     <td><a href="source/bounded_contexts/masterdata/surfaces/query/main.js">source/bounded_contexts/masterdata/surfaces/query/main.js</a></td>
+    <td><span class="dependency-type unknown" title="dependency types: unknown"></span></td>
     <td>baseclass:surface</td>
   </tr>
   <tr>
@@ -494,6 +538,7 @@
          class="noiseless">not-to-unresolvable</a>
     </td>
     <td><a href="source/domains/system_admin/base_classes/middleware.js">source/domains/system_admin/base_classes/middleware.js</a></td>
+    <td><span class="dependency-type unknown" title="dependency types: unknown"></span></td>
     <td>baseclass:middleware</td>
   </tr>
   <tr>
@@ -504,6 +549,7 @@
          class="noiseless">not-to-unresolvable</a>
     </td>
     <td><a href="source/domains/system_admin/base_classes/surface.js">source/domains/system_admin/base_classes/surface.js</a></td>
+    <td><span class="dependency-type unknown" title="dependency types: unknown"></span></td>
     <td>baseclass:surface</td>
   </tr>
   <tr>
@@ -514,6 +560,7 @@
          class="noiseless">not-to-unresolvable</a>
     </td>
     <td><a href="source/domains/system_admin/bounded_contexts/profile/index.js">source/domains/system_admin/bounded_contexts/profile/index.js</a></td>
+    <td><span class="dependency-type unknown" title="dependency types: unknown"></span></td>
     <td>baseclass:bounded-context</td>
   </tr>
   <tr>
@@ -524,6 +571,7 @@
          class="noiseless">not-to-unresolvable</a>
     </td>
     <td><a href="source/domains/system_admin/bounded_contexts/profile/middlewares/basics.js">source/domains/system_admin/bounded_contexts/profile/middlewares/basics.js</a></td>
+    <td><span class="dependency-type unknown" title="dependency types: unknown"></span></td>
     <td>baseclass:middleware</td>
   </tr>
   <tr>
@@ -534,6 +582,7 @@
          class="noiseless">not-to-unresolvable</a>
     </td>
     <td><a href="source/domains/system_admin/bounded_contexts/profile/middlewares/contacts.js">source/domains/system_admin/bounded_contexts/profile/middlewares/contacts.js</a></td>
+    <td><span class="dependency-type unknown" title="dependency types: unknown"></span></td>
     <td>baseclass:middleware</td>
   </tr>
   <tr>
@@ -544,6 +593,7 @@
          class="noiseless">not-to-unresolvable</a>
     </td>
     <td><a href="source/domains/system_admin/bounded_contexts/profile/middlewares/locales.js">source/domains/system_admin/bounded_contexts/profile/middlewares/locales.js</a></td>
+    <td><span class="dependency-type unknown" title="dependency types: unknown"></span></td>
     <td>baseclass:middleware</td>
   </tr>
   <tr>
@@ -554,6 +604,7 @@
          class="noiseless">not-to-unresolvable</a>
     </td>
     <td><a href="source/domains/system_admin/bounded_contexts/profile/surfaces/command/contact.js">source/domains/system_admin/bounded_contexts/profile/surfaces/command/contact.js</a></td>
+    <td><span class="dependency-type unknown" title="dependency types: unknown"></span></td>
     <td>baseclass:surface</td>
   </tr>
   <tr>
@@ -564,6 +615,7 @@
          class="noiseless">not-to-unresolvable</a>
     </td>
     <td><a href="source/domains/system_admin/bounded_contexts/profile/surfaces/command/locale.js">source/domains/system_admin/bounded_contexts/profile/surfaces/command/locale.js</a></td>
+    <td><span class="dependency-type unknown" title="dependency types: unknown"></span></td>
     <td>baseclass:surface</td>
   </tr>
   <tr>
@@ -574,6 +626,7 @@
          class="noiseless">not-to-unresolvable</a>
     </td>
     <td><a href="source/domains/system_admin/bounded_contexts/profile/surfaces/command/main.js">source/domains/system_admin/bounded_contexts/profile/surfaces/command/main.js</a></td>
+    <td><span class="dependency-type unknown" title="dependency types: unknown"></span></td>
     <td>baseclass:surface</td>
   </tr>
   <tr>
@@ -584,6 +637,7 @@
          class="noiseless">not-to-unresolvable</a>
     </td>
     <td><a href="source/domains/system_admin/bounded_contexts/profile/surfaces/query/contact.js">source/domains/system_admin/bounded_contexts/profile/surfaces/query/contact.js</a></td>
+    <td><span class="dependency-type unknown" title="dependency types: unknown"></span></td>
     <td>baseclass:surface</td>
   </tr>
   <tr>
@@ -594,6 +648,7 @@
          class="noiseless">not-to-unresolvable</a>
     </td>
     <td><a href="source/domains/system_admin/bounded_contexts/profile/surfaces/query/locale.js">source/domains/system_admin/bounded_contexts/profile/surfaces/query/locale.js</a></td>
+    <td><span class="dependency-type unknown" title="dependency types: unknown"></span></td>
     <td>baseclass:surface</td>
   </tr>
   <tr>
@@ -604,6 +659,7 @@
          class="noiseless">not-to-unresolvable</a>
     </td>
     <td><a href="source/domains/system_admin/bounded_contexts/profile/surfaces/query/main.js">source/domains/system_admin/bounded_contexts/profile/surfaces/query/main.js</a></td>
+    <td><span class="dependency-type unknown" title="dependency types: unknown"></span></td>
     <td>baseclass:surface</td>
   </tr>
   <tr>
@@ -614,6 +670,7 @@
          class="noiseless">not-to-unresolvable</a>
     </td>
     <td><a href="source/domains/system_admin/bounded_contexts/session_manager/event_handlers/session.js">source/domains/system_admin/bounded_contexts/session_manager/event_handlers/session.js</a></td>
+    <td><span class="dependency-type unknown" title="dependency types: unknown"></span></td>
     <td>baseclass:event-handler</td>
   </tr>
   <tr>
@@ -624,6 +681,7 @@
          class="noiseless">not-to-unresolvable</a>
     </td>
     <td><a href="source/domains/system_admin/bounded_contexts/session_manager/index.js">source/domains/system_admin/bounded_contexts/session_manager/index.js</a></td>
+    <td><span class="dependency-type unknown" title="dependency types: unknown"></span></td>
     <td>baseclass:bounded-context</td>
   </tr>
   <tr>
@@ -634,6 +692,7 @@
          class="noiseless">not-to-unresolvable</a>
     </td>
     <td><a href="source/domains/system_admin/bounded_contexts/session_manager/middlewares/session.js">source/domains/system_admin/bounded_contexts/session_manager/middlewares/session.js</a></td>
+    <td><span class="dependency-type unknown" title="dependency types: unknown"></span></td>
     <td>baseclass:middleware</td>
   </tr>
   <tr>
@@ -644,6 +703,7 @@
          class="noiseless">not-to-unresolvable</a>
     </td>
     <td><a href="source/domains/system_admin/index.js">source/domains/system_admin/index.js</a></td>
+    <td><span class="dependency-type unknown" title="dependency types: unknown"></span></td>
     <td>baseclass:domain</td>
   </tr>
   <tr>
@@ -654,6 +714,7 @@
          class="noiseless">not-to-unresolvable</a>
     </td>
     <td><a href="source/domains/users/base_classes/middleware.js">source/domains/users/base_classes/middleware.js</a></td>
+    <td><span class="dependency-type unknown" title="dependency types: unknown"></span></td>
     <td>baseclass:middleware</td>
   </tr>
   <tr>
@@ -664,6 +725,7 @@
          class="noiseless">not-to-unresolvable</a>
     </td>
     <td><a href="source/domains/users/base_classes/surface.js">source/domains/users/base_classes/surface.js</a></td>
+    <td><span class="dependency-type unknown" title="dependency types: unknown"></span></td>
     <td>baseclass:surface</td>
   </tr>
   <tr>
@@ -674,6 +736,7 @@
          class="noiseless">not-to-unresolvable</a>
     </td>
     <td><a href="source/domains/users/bounded_contexts/profile/index.js">source/domains/users/bounded_contexts/profile/index.js</a></td>
+    <td><span class="dependency-type unknown" title="dependency types: unknown"></span></td>
     <td>baseclass:bounded-context</td>
   </tr>
   <tr>
@@ -684,6 +747,7 @@
          class="noiseless">not-to-unresolvable</a>
     </td>
     <td><a href="source/domains/users/bounded_contexts/profile/middlewares/basics.js">source/domains/users/bounded_contexts/profile/middlewares/basics.js</a></td>
+    <td><span class="dependency-type unknown" title="dependency types: unknown"></span></td>
     <td>baseclass:middleware</td>
   </tr>
   <tr>
@@ -694,6 +758,7 @@
          class="noiseless">not-to-unresolvable</a>
     </td>
     <td><a href="source/domains/users/bounded_contexts/profile/middlewares/contacts.js">source/domains/users/bounded_contexts/profile/middlewares/contacts.js</a></td>
+    <td><span class="dependency-type unknown" title="dependency types: unknown"></span></td>
     <td>baseclass:middleware</td>
   </tr>
   <tr>
@@ -704,6 +769,7 @@
          class="noiseless">not-to-unresolvable</a>
     </td>
     <td><a href="source/domains/users/bounded_contexts/profile/middlewares/locales.js">source/domains/users/bounded_contexts/profile/middlewares/locales.js</a></td>
+    <td><span class="dependency-type unknown" title="dependency types: unknown"></span></td>
     <td>baseclass:middleware</td>
   </tr>
   <tr>
@@ -714,6 +780,7 @@
          class="noiseless">not-to-unresolvable</a>
     </td>
     <td><a href="source/domains/users/bounded_contexts/profile/surfaces/command/contact.js">source/domains/users/bounded_contexts/profile/surfaces/command/contact.js</a></td>
+    <td><span class="dependency-type unknown" title="dependency types: unknown"></span></td>
     <td>baseclass:surface</td>
   </tr>
   <tr>
@@ -724,6 +791,7 @@
          class="noiseless">not-to-unresolvable</a>
     </td>
     <td><a href="source/domains/users/bounded_contexts/profile/surfaces/command/locale.js">source/domains/users/bounded_contexts/profile/surfaces/command/locale.js</a></td>
+    <td><span class="dependency-type unknown" title="dependency types: unknown"></span></td>
     <td>baseclass:surface</td>
   </tr>
   <tr>
@@ -734,6 +802,7 @@
          class="noiseless">not-to-unresolvable</a>
     </td>
     <td><a href="source/domains/users/bounded_contexts/profile/surfaces/command/main.js">source/domains/users/bounded_contexts/profile/surfaces/command/main.js</a></td>
+    <td><span class="dependency-type unknown" title="dependency types: unknown"></span></td>
     <td>baseclass:surface</td>
   </tr>
   <tr>
@@ -744,6 +813,7 @@
          class="noiseless">not-to-unresolvable</a>
     </td>
     <td><a href="source/domains/users/bounded_contexts/profile/surfaces/query/contact.js">source/domains/users/bounded_contexts/profile/surfaces/query/contact.js</a></td>
+    <td><span class="dependency-type unknown" title="dependency types: unknown"></span></td>
     <td>baseclass:surface</td>
   </tr>
   <tr>
@@ -754,6 +824,7 @@
          class="noiseless">not-to-unresolvable</a>
     </td>
     <td><a href="source/domains/users/bounded_contexts/profile/surfaces/query/locale.js">source/domains/users/bounded_contexts/profile/surfaces/query/locale.js</a></td>
+    <td><span class="dependency-type unknown" title="dependency types: unknown"></span></td>
     <td>baseclass:surface</td>
   </tr>
   <tr>
@@ -764,6 +835,7 @@
          class="noiseless">not-to-unresolvable</a>
     </td>
     <td><a href="source/domains/users/bounded_contexts/profile/surfaces/query/main.js">source/domains/users/bounded_contexts/profile/surfaces/query/main.js</a></td>
+    <td><span class="dependency-type unknown" title="dependency types: unknown"></span></td>
     <td>baseclass:surface</td>
   </tr>
   <tr>
@@ -774,6 +846,7 @@
          class="noiseless">not-to-unresolvable</a>
     </td>
     <td><a href="source/domains/users/bounded_contexts/session_manager/event_handlers/session.js">source/domains/users/bounded_contexts/session_manager/event_handlers/session.js</a></td>
+    <td><span class="dependency-type unknown" title="dependency types: unknown"></span></td>
     <td>baseclass:event-handler</td>
   </tr>
   <tr>
@@ -784,6 +857,7 @@
          class="noiseless">not-to-unresolvable</a>
     </td>
     <td><a href="source/domains/users/bounded_contexts/session_manager/index.js">source/domains/users/bounded_contexts/session_manager/index.js</a></td>
+    <td><span class="dependency-type unknown" title="dependency types: unknown"></span></td>
     <td>baseclass:bounded-context</td>
   </tr>
   <tr>
@@ -794,6 +868,7 @@
          class="noiseless">not-to-unresolvable</a>
     </td>
     <td><a href="source/domains/users/bounded_contexts/session_manager/middlewares/session.js">source/domains/users/bounded_contexts/session_manager/middlewares/session.js</a></td>
+    <td><span class="dependency-type unknown" title="dependency types: unknown"></span></td>
     <td>baseclass:middleware</td>
   </tr>
   <tr>
@@ -803,7 +878,30 @@
          id="not-to-unresolvable-instance"
          class="noiseless">not-to-unresolvable</a>
     </td>
+    <td><a href="source/domains/users/bounded_contexts/session_manager/surfaces/command/main.js">source/domains/users/bounded_contexts/session_manager/surfaces/command/main.js</a></td>
+    <td><span class="dependency-type unknown" title="dependency types: unknown"></span></td>
+    <td>baseclass:surface</td>
+  </tr>
+  <tr>
+    <td class="error">error</td>
+    <td class="nowrap">
+      <a href="#not-to-unresolvable-definition" 
+         id="not-to-unresolvable-instance"
+         class="noiseless">not-to-unresolvable</a>
+    </td>
+    <td><a href="source/domains/users/bounded_contexts/session_manager/surfaces/query/main.js">source/domains/users/bounded_contexts/session_manager/surfaces/query/main.js</a></td>
+    <td><span class="dependency-type unknown" title="dependency types: unknown"></span></td>
+    <td>baseclass:surface</td>
+  </tr>
+  <tr>
+    <td class="error">error</td>
+    <td class="nowrap">
+      <a href="#not-to-unresolvable-definition" 
+         id="not-to-unresolvable-instance"
+         class="noiseless">not-to-unresolvable</a>
+    </td>
     <td><a href="source/domains/users/index.js">source/domains/users/index.js</a></td>
+    <td><span class="dependency-type unknown" title="dependency types: unknown"></span></td>
     <td>baseclass:domain</td>
   </tr>
   <tr>
@@ -814,6 +912,7 @@
          class="noiseless">no-circular</a>
     </td>
     <td><a href="source/domains/system_admin/models/relational/contact-type-master.cjs">source/domains/system_admin/models/relational/contact-type-master.cjs</a></td>
+    <td><span class="dependency-type local require" title="dependency types: local, require">.</span></td>
     <td>source/domains/system_admin/models/relational/system-admin-contact.cjs &rightarrow;<br/>source/domains/system_admin/models/relational/contact-type-master.cjs</td>
   </tr>
   <tr>
@@ -824,6 +923,7 @@
          class="noiseless">no-circular</a>
     </td>
     <td><a href="source/domains/system_admin/models/relational/locale-master.cjs">source/domains/system_admin/models/relational/locale-master.cjs</a></td>
+    <td><span class="dependency-type local require" title="dependency types: local, require">.</span></td>
     <td>source/domains/system_admin/models/relational/system-admin-locale.cjs &rightarrow;<br/>source/domains/system_admin/models/relational/locale-master.cjs</td>
   </tr>
   <tr>
@@ -834,6 +934,7 @@
          class="noiseless">no-circular</a>
     </td>
     <td><a href="source/domains/system_admin/models/relational/system-admin-contact.cjs">source/domains/system_admin/models/relational/system-admin-contact.cjs</a></td>
+    <td><span class="dependency-type local require" title="dependency types: local, require">.</span></td>
     <td>source/domains/system_admin/models/relational/system-admin.cjs &rightarrow;<br/>source/domains/system_admin/models/relational/system-admin-contact.cjs</td>
   </tr>
   <tr>
@@ -844,6 +945,7 @@
          class="noiseless">no-circular</a>
     </td>
     <td><a href="source/domains/system_admin/models/relational/system-admin-locale.cjs">source/domains/system_admin/models/relational/system-admin-locale.cjs</a></td>
+    <td><span class="dependency-type local require" title="dependency types: local, require">.</span></td>
     <td>source/domains/system_admin/models/relational/system-admin.cjs &rightarrow;<br/>source/domains/system_admin/models/relational/system-admin-locale.cjs</td>
   </tr>
   <tr>
@@ -854,6 +956,7 @@
          class="noiseless">no-circular</a>
     </td>
     <td><a href="source/domains/system_admin/models/relational/system-admin-name-by-locale.cjs">source/domains/system_admin/models/relational/system-admin-name-by-locale.cjs</a></td>
+    <td><span class="dependency-type local require" title="dependency types: local, require">.</span></td>
     <td>source/domains/system_admin/models/relational/locale-master.cjs &rightarrow;<br/>source/domains/system_admin/models/relational/system-admin-locale.cjs &rightarrow;<br/>source/domains/system_admin/models/relational/system-admin.cjs &rightarrow;<br/>source/domains/system_admin/models/relational/system-admin-name-by-locale.cjs</td>
   </tr>
   <tr>
@@ -864,6 +967,7 @@
          class="noiseless">no-circular</a>
     </td>
     <td><a href="source/domains/system_admin/models/relational/system-admin-name-by-locale.cjs">source/domains/system_admin/models/relational/system-admin-name-by-locale.cjs</a></td>
+    <td><span class="dependency-type local require" title="dependency types: local, require">.</span></td>
     <td>source/domains/system_admin/models/relational/system-admin.cjs &rightarrow;<br/>source/domains/system_admin/models/relational/system-admin-name-by-locale.cjs</td>
   </tr>
   <tr>
@@ -874,6 +978,7 @@
          class="noiseless">no-circular</a>
     </td>
     <td><a href="source/domains/users/models/relational/contact-type-master.cjs">source/domains/users/models/relational/contact-type-master.cjs</a></td>
+    <td><span class="dependency-type local require" title="dependency types: local, require">.</span></td>
     <td>source/domains/users/models/relational/user-contact.cjs &rightarrow;<br/>source/domains/users/models/relational/contact-type-master.cjs</td>
   </tr>
   <tr>
@@ -884,6 +989,7 @@
          class="noiseless">no-circular</a>
     </td>
     <td><a href="source/domains/users/models/relational/locale-master.cjs">source/domains/users/models/relational/locale-master.cjs</a></td>
+    <td><span class="dependency-type local require" title="dependency types: local, require">.</span></td>
     <td>source/domains/users/models/relational/user-locale.cjs &rightarrow;<br/>source/domains/users/models/relational/locale-master.cjs</td>
   </tr>
   <tr>
@@ -894,6 +1000,7 @@
          class="noiseless">no-circular</a>
     </td>
     <td><a href="source/domains/users/models/relational/user-contact.cjs">source/domains/users/models/relational/user-contact.cjs</a></td>
+    <td><span class="dependency-type local require" title="dependency types: local, require">.</span></td>
     <td>source/domains/users/models/relational/user.cjs &rightarrow;<br/>source/domains/users/models/relational/user-contact.cjs</td>
   </tr>
   <tr>
@@ -904,6 +1011,7 @@
          class="noiseless">no-circular</a>
     </td>
     <td><a href="source/domains/users/models/relational/user-locale.cjs">source/domains/users/models/relational/user-locale.cjs</a></td>
+    <td><span class="dependency-type local require" title="dependency types: local, require">.</span></td>
     <td>source/domains/users/models/relational/user.cjs &rightarrow;<br/>source/domains/users/models/relational/user-locale.cjs</td>
   </tr>
   <tr>
@@ -914,6 +1022,7 @@
          class="noiseless">no-circular</a>
     </td>
     <td><a href="source/domains/users/models/relational/user-name-by-locale.cjs">source/domains/users/models/relational/user-name-by-locale.cjs</a></td>
+    <td><span class="dependency-type local require" title="dependency types: local, require">.</span></td>
     <td>source/domains/users/models/relational/locale-master.cjs &rightarrow;<br/>source/domains/users/models/relational/user-locale.cjs &rightarrow;<br/>source/domains/users/models/relational/user.cjs &rightarrow;<br/>source/domains/users/models/relational/user-name-by-locale.cjs</td>
   </tr>
   <tr>
@@ -924,6 +1033,7 @@
          class="noiseless">no-circular</a>
     </td>
     <td><a href="source/domains/users/models/relational/user-name-by-locale.cjs">source/domains/users/models/relational/user-name-by-locale.cjs</a></td>
+    <td><span class="dependency-type local require" title="dependency types: local, require">.</span></td>
     <td>source/domains/users/models/relational/user.cjs &rightarrow;<br/>source/domains/users/models/relational/user-name-by-locale.cjs</td>
   </tr>
   <tr>
@@ -934,6 +1044,7 @@
          class="noiseless">no-orphans</a>
     </td>
     <td><a href="jsdoc_default/@twyr/rest-api-server/0.2.0/scripts/app.min.js">jsdoc_default/@twyr/rest-api-server/0.2.0/scripts/app.min.js</a></td>
+    <td><span class="dependency-type " title="dependency types: "></span></td>
     <td></td>
   </tr>
   <tr>
@@ -944,6 +1055,7 @@
          class="noiseless">no-orphans</a>
     </td>
     <td><a href="jsdoc_default/@twyr/rest-api-server/0.2.0/scripts/linenumber.js">jsdoc_default/@twyr/rest-api-server/0.2.0/scripts/linenumber.js</a></td>
+    <td><span class="dependency-type " title="dependency types: "></span></td>
     <td></td>
   </tr>
   <tr>
@@ -954,6 +1066,7 @@
          class="noiseless">no-orphans</a>
     </td>
     <td><a href="jsdoc_default/@twyr/rest-api-server/0.2.0/scripts/search.js">jsdoc_default/@twyr/rest-api-server/0.2.0/scripts/search.js</a></td>
+    <td><span class="dependency-type " title="dependency types: "></span></td>
     <td></td>
   </tr>
   <tr>
@@ -964,15 +1077,17 @@
          class="noiseless">no-orphans</a>
     </td>
     <td><a href="tests/setup-mocks.cjs">tests/setup-mocks.cjs</a></td>
+    <td><span class="dependency-type " title="dependency types: "></span></td>
     <td></td>
   </tr>
       
       </tbody>
     </table>
     </span>
+  
   <footer>
-    <p><a href="https://github.com/sverweij/dependency-cruiser">dependency-cruiser@17.3.10</a> /
-      2026-04-01T11:23:21.673Z</p>
+    <p><a href="https://github.com/sverweij/dependency-cruiser">dependency-cruiser@18.6.0</a> /
+      2026-10-12T08:55:08.491Z</p>
   </footer>
 </body>
 </html>

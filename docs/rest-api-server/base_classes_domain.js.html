@@ -48,7 +48,13 @@
 			<div class="sidebar " id="sidebarNav">
 				<nav>
 					<h2><a href="index.html">Documentation</a></h2>
-					<div class="category"></div>
+					<div class="category">
+						<h3>Global</h3>
+						<ul>
+							<li><a href="global.html#load">load</a></li>
+							<li><a href="global.html#resolve">resolve</a></li>
+						</ul>
+					</div>
 					<div class="category">
 						<h2>REST API Server/Base Classes</h2>
 						<h3>Classes / Base Classes</h3>
@@ -256,14 +262,6 @@
 						</ul>
 					</div>
 					<div class="category">
-						<h2>REST API Server/Infrastructure</h2>
-						<h3>Global</h3>
-						<ul>
-							<li><a href="global.html#load">load</a></li>
-							<li><a href="global.html#resolve">resolve</a></li>
-						</ul>
-					</div>
-					<div class="category">
 						<h2>REST API Server/Ingress Surfaces</h2>
 						<h3>Classes / REST API</h3>
 						<ul>
@@ -364,15 +362,14 @@
  *
  * @ignore
  */
+import { readFile } from 'node:fs/promises';
+import { join } from 'node:path';
+
 import merge from 'lodash.merge';
 import safeJsonStringify from 'safe-json-stringify';
 
-import { join } from 'node:path';
-import { readFile } from 'node:fs/promises';
-
-import { EVASBaseDomain } from '@twyr/framework-classes';
-
 import { APIRegistry } from '@twyr/api-registry';
+import { EVASBaseDomain } from '@twyr/framework-classes';
 import { IocContainer } from '@twyr/server-dependency-manager';
 
 /**

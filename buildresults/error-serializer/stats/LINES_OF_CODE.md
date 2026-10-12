@@ -1,10 +1,10 @@
-cloc|github.com/AlDanial/cloc v 1.96  T=0.02 s (486.8 files/s, 26198.1 lines/s)
+cloc|github.com/AlDanial/cloc v 1.96  T=0.03 s (377.0 files/s, 20116.5 lines/s)
 --- | ---
 
 File|blank|comment|code
 :-------|-------:|-------:|-------:
 ./package.json|0|0|126
-./eslint.config.js|11|42|108
+./eslint.config.js|11|42|103
 ./lib/error-serializer.js|17|42|83
 ./.jsdocrc.json|0|0|52
 ./.mocharc.json|1|0|35
@@ -15,14 +15,14 @@ File|blank|comment|code
 ./tests/setup-mocks.cjs|0|0|5
 ./index.js|1|11|4
 --------|--------|--------|--------
-SUM:|37|96|459
-cloc|github.com/AlDanial/cloc v 1.96  T=0.02 s (486.8 files/s, 26198.1 lines/s)
+SUM:|37|96|454
+cloc|github.com/AlDanial/cloc v 1.96  T=0.03 s (377.0 files/s, 20116.5 lines/s)
 --- | ---
 
 Language|files|blank|comment|code
 :-------|-------:|-------:|-------:|-------:
 JSON|5|3|0|226
-JavaScript|5|32|96|216
+JavaScript|5|32|96|211
 Markdown|1|2|0|17
 --------|--------|--------|--------|--------
-SUM:|11|37|96|459
+SUM:|11|37|96|454
