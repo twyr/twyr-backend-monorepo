@@ -1,8 +1,8 @@
 {
-	"name": "@twyr/entity-value-aggregate-server",
+	"name": "@twyr/twyr-backend monorepo",
 	"type": "module",
-	"displayName": "Entity Value Aggregate Server",
-	"description": "Entity Value Aggregate Server monorepo in node.js",
+	"displayName": "Backend Server Monorepo",
+	"description": "Backend Server Monorepo in node.js",
 	"homepage": "https://github.com/twyr/entity-value-aggregate-server/src/main/README.md",
 	"license": "MITNFA",
 	"version": "0.2.0",
@@ -17,7 +17,6 @@
 		"modular",
 		"monolith",
 		"nodejs",
-		"entity-value-aggregate-server",
 		"server",
 		"strategy",
 		"template"
