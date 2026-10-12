@@ -125,7 +125,7 @@ export function createErrorLogMiddleware(dependencies) {
 		ctxt.set('Cache-Control', 'no-store');
 		ctxt.set('Pragma', 'no-cache');
 		ctxt.set('Content-Language', responseLocale);
-		ctxt.set('Access-Control-Allow-Origin', '*');
+		// Preserve the origin and credentials headers set by the CORS middleware.
 
 		if (ctxt.status === HTTP_ERROR_UNAUTHORIZED) {
 			ctxt.set(

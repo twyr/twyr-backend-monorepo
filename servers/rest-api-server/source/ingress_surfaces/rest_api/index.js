@@ -9,6 +9,7 @@
 import http from 'node:http';
 import networkInterfaces from 'node:os';
 
+import cors from '@koa/cors';
 import safeJsonStringify from 'safe-json-stringify';
 
 import { Mutex } from 'async-mutex';
@@ -149,6 +150,23 @@ class RestApi extends EVASBaseIngressSurface {
 
 		this.#koaApp.keys = sessionConfig.keys;
 		this.#koaApp.proxy = global.serverEnvironment === 'production';
+
+		// Handle CORS preflights before sessions and authentication. Override
+		// the localhost default with an array of exact CORS_ALLOWED_ORIGINS.
+		const corsAllowedOrigins = new Set(
+			configuration['CORS_ALLOWED_ORIGINS']
+		);
+		this.#koaApp.use(
+			cors({
+				origin: (ctxt) => {
+					const origin = ctxt.get('Origin');
+					return corsAllowedOrigins.has(origin) ? origin : '';
+				},
+				credentials: true,
+				exposeHeaders: ['X-Request-Id'],
+				keepHeadersOnError: true
+			})
+		);
 
 		// Step 2.2: The audit log hook...
 		this.#koaApp.use(
