@@ -188,14 +188,25 @@ export class Main extends SystemAdminBaseSurface {
 			throw validationError;
 		}
 
+		const profileData =
+			await this.domainInterface.serializer.deserializeAsync(
+				'system_admin',
+				ctxt.request.body
+			);
+
 		const apiRegistry = this.domainInterface.apiRegistry;
 		const profileStatus = await apiRegistry.execute('CREATE', {
-			data: ctxt.request.body,
+			data: profileData,
 			locale: ctxt.locale
 		});
 
+		const responseBody =
+			await this.domainInterface.serializer.serializeAsync(
+				'system_admin',
+				profileStatus.body
+			);
 		ctxt.status = profileStatus.status;
-		ctxt.body = profileStatus.body;
+		ctxt.body = responseBody;
 	}
 
 	/**
@@ -232,15 +243,26 @@ export class Main extends SystemAdminBaseSurface {
 			throw validationError;
 		}
 
+		const profileData =
+			await this.domainInterface.serializer.deserializeAsync(
+				'system_admin',
+				ctxt.request.body
+			);
+
 		const apiRegistry = this.domainInterface.apiRegistry;
 		const profileStatus = await apiRegistry.execute('UPDATE', {
 			user: ctxt.state.user,
-			data: ctxt.request.body,
+			data: profileData,
 			locale: ctxt.locale
 		});
 
+		const responseBody =
+			await this.domainInterface.serializer.serializeAsync(
+				'system_admin',
+				profileStatus.body
+			);
 		ctxt.status = profileStatus.status;
-		ctxt.body = profileStatus.body;
+		ctxt.body = responseBody;
 	}
 
 	/**

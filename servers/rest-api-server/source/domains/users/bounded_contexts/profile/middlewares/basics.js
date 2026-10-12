@@ -156,7 +156,7 @@ export class Basics extends UserBaseMiddleware {
 	 * @name #createBasics
 	 *
 	 * @param {object} payload - API payload containing profile creation data.
-	 * @param {object} payload.data - JSON:API payload for the user resource.
+	 * @param {object} payload.data - Deserialized profile data.
 	 * @param {string} payload.locale - The current context locale.
 	 * @returns {Promise<object>} HTTP response data for the created profile.
 	 */
@@ -175,10 +175,7 @@ export class Basics extends UserBaseMiddleware {
 		const UserContactModel = Models[3];
 		const ContactTypeMasterModel = Models[4];
 
-		const user = await this.domainInterface.serializer.deserializeAsync(
-			data.data.type,
-			data
-		);
+		const user = { ...data };
 
 		const cacheRepository =
 			await this.domainInterface.iocContainer.resolve('Cache');
@@ -338,7 +335,7 @@ export class Basics extends UserBaseMiddleware {
 		relationshipSet = safeJsonStringify([...relationshipSet]);
 		relationshipSet = relationshipSet.replace(/"/g, '');
 
-		let storedUser = await this._executeWithBackOff(async () => {
+		const storedUser = await this._executeWithBackOff(async () => {
 			return UserModel.query()
 				.where('id', '=', user.id)
 				.andWhere('is_deleted', '=', false)
@@ -370,11 +367,6 @@ export class Basics extends UserBaseMiddleware {
 			}
 		});
 
-		storedUser = await this.domainInterface.serializer.serializeAsync(
-			'user',
-			storedUser
-		);
-
 		return {
 			status: 200,
 			body: storedUser
@@ -397,7 +389,7 @@ export class Basics extends UserBaseMiddleware {
 	 *
 	 * @param {object} payload - API payload containing the user and update body.
 	 * @param {object} payload.user - The authenticated user record.
-	 * @param {object} payload.data - JSON:API payload for the update.
+	 * @param {object} payload.data - Deserialized profile update data.
 	 * @returns {Promise<object>} HTTP response data for the updated profile.
 	 */
 	async #updateBasics({ user, data }) {
@@ -408,11 +400,7 @@ export class Basics extends UserBaseMiddleware {
 		const UserModel = Models[0];
 		const UserNameByLocaleModel = Models[1];
 
-		const dataToBeUpdated =
-			await this.domainInterface.serializer.deserializeAsync(
-				data.data.type,
-				data
-			);
+		const dataToBeUpdated = { ...data };
 
 		delete dataToBeUpdated.id;
 		delete dataToBeUpdated.created_at;

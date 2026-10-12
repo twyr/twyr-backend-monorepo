@@ -296,16 +296,12 @@ export class Contact extends SystemAdminBaseSurface {
 			throw validationError;
 		}
 
-		const contactPayload = {
-			...ctxt.request.body,
-			data: {
-				...ctxt?.request?.body?.data,
-				attributes: {
-					...ctxt?.request?.body?.data?.attributes,
-					system_admin_id: ctxt?.state?.user?.id
-				}
-			}
-		};
+		const contactPayload =
+			await this.domainInterface.serializer.deserializeAsync(
+				'system_admin_contact',
+				ctxt.request.body
+			);
+		contactPayload.system_admin_id = ctxt?.state?.user?.id;
 
 		const apiRegistry = this.domainInterface.apiRegistry;
 		const contactStatus = await apiRegistry.execute('CREATE_CONTACT', {
@@ -313,8 +309,13 @@ export class Contact extends SystemAdminBaseSurface {
 			data: contactPayload
 		});
 
+		const responseBody =
+			await this.domainInterface.serializer.serializeAsync(
+				'system_admin_contact',
+				contactStatus.body
+			);
 		ctxt.status = contactStatus.status;
-		ctxt.body = contactStatus.body;
+		ctxt.body = responseBody;
 	}
 
 	/**
@@ -355,16 +356,12 @@ export class Contact extends SystemAdminBaseSurface {
 			throw validationError;
 		}
 
-		const contactPayload = {
-			...ctxt.request.body,
-			data: {
-				...ctxt?.request?.body?.data,
-				attributes: {
-					...ctxt?.request?.body?.data?.attributes,
-					system_admin_id: ctxt?.state?.user?.id
-				}
-			}
-		};
+		const contactPayload =
+			await this.domainInterface.serializer.deserializeAsync(
+				'system_admin_contact',
+				ctxt.request.body
+			);
+		contactPayload.system_admin_id = ctxt?.state?.user?.id;
 
 		const apiRegistry = this.domainInterface.apiRegistry;
 		const contactUpdateStatus = await apiRegistry.execute(
@@ -375,8 +372,13 @@ export class Contact extends SystemAdminBaseSurface {
 			}
 		);
 
+		const responseBody =
+			await this.domainInterface.serializer.serializeAsync(
+				'system_admin_contact',
+				contactUpdateStatus.body
+			);
 		ctxt.status = contactUpdateStatus.status;
-		ctxt.body = contactUpdateStatus.body;
+		ctxt.body = responseBody;
 	}
 
 	/**

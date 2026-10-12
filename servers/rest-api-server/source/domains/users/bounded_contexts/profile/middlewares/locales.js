@@ -196,7 +196,7 @@ export class Locales extends UserBaseMiddleware {
 	 *
 	 * @param {object} payload - API payload for `CREATE_LOCALE`.
 	 * @param {object} payload.user - Logged in user.
-	 * @param {object} payload.data - JSON:API locale payload.
+	 * @param {object} payload.data - Deserialized locale data.
 	 *
 	 * @returns {Promise<object>} Response payload containing the created locale.
 	 *
@@ -235,8 +235,7 @@ export class Locales extends UserBaseMiddleware {
 			model: { type: 'relational', name: 'user-locale' },
 			user,
 			entityId: localeId,
-			relationships: '[user, locale]',
-			serializeType: 'user_locale'
+			relationships: '[user, locale]'
 		});
 	}
 
@@ -253,7 +252,7 @@ export class Locales extends UserBaseMiddleware {
 	 *
 	 * @param {object} payload - API payload for `UPDATE_LOCALE`.
 	 * @param {object} payload.user - Logged in user.
-	 * @param {object} payload.data - JSON:API locale payload.
+	 * @param {object} payload.data - Deserialized locale data.
 	 *
 	 * @returns {Promise<object>} Response payload containing the updated locale.
 	 *

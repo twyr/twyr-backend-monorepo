@@ -196,7 +196,7 @@ export class Contacts extends UserBaseMiddleware {
 	 *
 	 * @param {object} payload - API payload for `CREATE_CONTACT`.
 	 * @param {object} payload.user - Logged in user.
-	 * @param {object} payload.data - JSON:API contact payload.
+	 * @param {object} payload.data - Deserialized contact data.
 	 *
 	 * @returns {Promise<object>} Response payload containing the created contact.
 	 *
@@ -235,8 +235,7 @@ export class Contacts extends UserBaseMiddleware {
 			model: { type: 'relational', name: 'user-contact' },
 			user,
 			entityId: contactId,
-			relationships: '[user, contactType]',
-			serializeType: 'user_contact'
+			relationships: '[user, contactType]'
 		});
 	}
 
@@ -253,7 +252,7 @@ export class Contacts extends UserBaseMiddleware {
 	 *
 	 * @param {object} payload - API payload for `UPDATE_CONTACT`.
 	 * @param {object} payload.user - Logged in user.
-	 * @param {object} payload.data - JSON:API contact payload.
+	 * @param {object} payload.data - Deserialized contact data.
 	 *
 	 * @returns {Promise<object>} Response payload containing the updated contact.
 	 *

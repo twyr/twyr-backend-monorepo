@@ -153,8 +153,13 @@ export class Locale extends SystemAdminBaseSurface {
 			locale: ctxt.locale
 		});
 
+		const responseBody =
+			await this.domainInterface.serializer.serializeAsync(
+				'system_admin_locale',
+				localeStatus.body
+			);
 		ctxt.status = localeStatus.status;
-		ctxt.body = localeStatus.body;
+		ctxt.body = responseBody;
 	}
 	// #endregion
 }

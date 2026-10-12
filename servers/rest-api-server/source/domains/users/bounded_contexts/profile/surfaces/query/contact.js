@@ -153,8 +153,13 @@ export class Contact extends UserBaseSurface {
 			locale: ctxt.locale
 		});
 
+		const responseBody =
+			await this.domainInterface.serializer.serializeAsync(
+				'user_contact',
+				contactStatus.body
+			);
 		ctxt.status = contactStatus.status;
-		ctxt.body = contactStatus.body;
+		ctxt.body = responseBody;
 	}
 	// #endregion
 }

@@ -41,16 +41,12 @@ export class UserBaseMiddleware extends BaseMiddleware {
 	 * @subcategory Base Classes
 	 *
 	 * @param {object} data - Model, payload, user and relationship details.
-	 * @returns {Promise<object>} The HTTP status and serialized entity payload.
+	 * @returns {Promise<object>} The HTTP status and raw entity payload.
 	 */
 	async _createUserEntity(data) {
 		const EntityModel = await this._getModelsFromDomain(data.model);
 
-		const userEntity =
-			await this.domainInterface.serializer.deserializeAsync(
-				data?.payload?.data?.type,
-				data.payload
-			);
+		const userEntity = { ...data.payload };
 
 		delete userEntity.id;
 		delete userEntity.created_at;
@@ -65,16 +61,11 @@ export class UserBaseMiddleware extends BaseMiddleware {
 		existingEntityCount = Number.parseInt(existingEntityCount.count);
 		if (!existingEntityCount) userEntity.is_primary = true;
 
-		let createdEntity = await this._executeWithBackOff(async () => {
+		const createdEntity = await this._executeWithBackOff(async () => {
 			return EntityModel.query()
 				.insertAndFetch(userEntity)
 				.withGraphFetched(data.relationships);
 		});
-
-		createdEntity = await this.domainInterface.serializer.serializeAsync(
-			data?.payload?.data?.type,
-			createdEntity
-		);
 
 		this.domainInterface.eventEmitter.emit('USER::INVALIDATE_CACHE', {
 			userId: data.user.id
@@ -92,8 +83,8 @@ export class UserBaseMiddleware extends BaseMiddleware {
 	 * @category REST API Server/Domains/Users
 	 * @subcategory Base Classes
 	 *
-	 * @param {object} data - Model, user, entity id and serialization options.
-	 * @returns {Promise<object>} The HTTP status and serialized entity payload.
+	 * @param {object} data - Model, user, entity id and relationship details.
+	 * @returns {Promise<object>} The HTTP status and raw entity payload.
 	 */
 	async _readUserEntity(data) {
 		const EntityModel = await this._getModelsFromDomain(data.model);
@@ -114,13 +105,6 @@ export class UserBaseMiddleware extends BaseMiddleware {
 			});
 		}
 
-		if (data.serializeType) {
-			userEntities = await this.domainInterface.serializer.serializeAsync(
-				data.serializeType,
-				userEntities
-			);
-		}
-
 		return {
 			status: 200,
 			body: userEntities
@@ -134,16 +118,12 @@ export class UserBaseMiddleware extends BaseMiddleware {
 	 * @subcategory Base Classes
 	 *
 	 * @param {object} data - Model, payload, user and relationship details.
-	 * @returns {Promise<object>} The HTTP status and serialized entity payload.
+	 * @returns {Promise<object>} The HTTP status and raw entity payload.
 	 */
 	async _updateUserEntity(data) {
 		const EntityModel = await this._getModelsFromDomain(data.model);
 
-		const userEntity =
-			await this.domainInterface.serializer.deserializeAsync(
-				data?.payload?.data?.type,
-				data.payload
-			);
+		const userEntity = { ...data.payload };
 
 		delete userEntity.created_at;
 		delete userEntity.updated_at;
@@ -167,16 +147,11 @@ export class UserBaseMiddleware extends BaseMiddleware {
 			throw userError;
 		}
 
-		let updatedEntity = await this._executeWithBackOff(async () => {
+		const updatedEntity = await this._executeWithBackOff(async () => {
 			return EntityModel.query()
 				.patchAndFetchById(userEntity.id, userEntity)
 				.withGraphFetched(data.relationships);
 		});
-
-		updatedEntity = await this.domainInterface.serializer.serializeAsync(
-			data?.payload?.data?.type,
-			updatedEntity
-		);
 
 		this.domainInterface.eventEmitter.emit('USER::INVALIDATE_CACHE', {
 			userId: data.user.id

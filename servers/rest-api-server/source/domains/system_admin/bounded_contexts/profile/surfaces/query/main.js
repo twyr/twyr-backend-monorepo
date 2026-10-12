@@ -142,8 +142,13 @@ export class Main extends SystemAdminBaseSurface {
 			locale: ctxt.locale
 		});
 
+		const responseBody =
+			await this.domainInterface.serializer.serializeAsync(
+				'system_admin',
+				profileStatus.body
+			);
 		ctxt.status = profileStatus.status;
-		ctxt.body = profileStatus.body;
+		ctxt.body = responseBody;
 	}
 	// #endregion
 }

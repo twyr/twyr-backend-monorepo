@@ -478,9 +478,15 @@ export class Main extends SystemAdminBaseSurface {
 			locale: ctxt.locale
 		});
 
+		const profileBody =
+			await this.domainInterface.serializer.serializeAsync(
+				'system_admin',
+				postLoginStatus.body.body
+			);
+
 		ctxt.session.passport.user = postLoginStatus.sessionData;
 		ctxt.status = postLoginStatus.status;
-		ctxt.body = postLoginStatus.body;
+		ctxt.body = { ...postLoginStatus.body, body: profileBody };
 		ctxt.locale = postLoginStatus.locale ?? ctxt.locale;
 	}
 

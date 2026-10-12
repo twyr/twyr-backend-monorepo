@@ -270,16 +270,12 @@ export class Locale extends SystemAdminBaseSurface {
 			throw validationError;
 		}
 
-		const localePayload = {
-			...ctxt.request.body,
-			data: {
-				...ctxt?.request?.body?.data,
-				attributes: {
-					...ctxt?.request?.body?.data?.attributes,
-					system_admin_id: ctxt?.state?.user?.id
-				}
-			}
-		};
+		const localePayload =
+			await this.domainInterface.serializer.deserializeAsync(
+				'system_admin_locale',
+				ctxt.request.body
+			);
+		localePayload.system_admin_id = ctxt?.state?.user?.id;
 
 		const apiRegistry = this.domainInterface.apiRegistry;
 		const localeStatus = await apiRegistry.execute('CREATE_LOCALE', {
@@ -287,8 +283,13 @@ export class Locale extends SystemAdminBaseSurface {
 			data: localePayload
 		});
 
+		const responseBody =
+			await this.domainInterface.serializer.serializeAsync(
+				'system_admin_locale',
+				localeStatus.body
+			);
 		ctxt.status = localeStatus.status;
-		ctxt.body = localeStatus.body;
+		ctxt.body = responseBody;
 	}
 
 	/**
@@ -329,16 +330,12 @@ export class Locale extends SystemAdminBaseSurface {
 			throw validationError;
 		}
 
-		const localePayload = {
-			...ctxt.request.body,
-			data: {
-				...ctxt?.request?.body?.data,
-				attributes: {
-					...ctxt?.request?.body?.data?.attributes,
-					system_admin_id: ctxt?.state?.user?.id
-				}
-			}
-		};
+		const localePayload =
+			await this.domainInterface.serializer.deserializeAsync(
+				'system_admin_locale',
+				ctxt.request.body
+			);
+		localePayload.system_admin_id = ctxt?.state?.user?.id;
 
 		const apiRegistry = this.domainInterface.apiRegistry;
 		const localeUpdateStatus = await apiRegistry.execute('UPDATE_LOCALE', {
@@ -346,8 +343,13 @@ export class Locale extends SystemAdminBaseSurface {
 			data: localePayload
 		});
 
+		const responseBody =
+			await this.domainInterface.serializer.serializeAsync(
+				'system_admin_locale',
+				localeUpdateStatus.body
+			);
 		ctxt.status = localeUpdateStatus.status;
-		ctxt.body = localeUpdateStatus.body;
+		ctxt.body = responseBody;
 	}
 
 	/**

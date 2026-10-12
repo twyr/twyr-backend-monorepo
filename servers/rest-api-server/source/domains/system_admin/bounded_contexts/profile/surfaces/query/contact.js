@@ -153,8 +153,13 @@ export class Contact extends SystemAdminBaseSurface {
 			locale: ctxt.locale
 		});
 
+		const responseBody =
+			await this.domainInterface.serializer.serializeAsync(
+				'system_admin_contact',
+				contactStatus.body
+			);
 		ctxt.status = contactStatus.status;
-		ctxt.body = contactStatus.body;
+		ctxt.body = responseBody;
 	}
 	// #endregion
 }

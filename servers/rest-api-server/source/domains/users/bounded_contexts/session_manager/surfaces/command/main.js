@@ -478,9 +478,15 @@ export class Main extends UserBaseSurface {
 			locale: ctxt.locale
 		});
 
+		const profileBody =
+			await this.domainInterface.serializer.serializeAsync(
+				'user',
+				postLoginStatus.body.body
+			);
+
 		ctxt.session.passport.user = postLoginStatus.sessionData;
 		ctxt.status = postLoginStatus.status;
-		ctxt.body = postLoginStatus.body;
+		ctxt.body = { ...postLoginStatus.body, body: profileBody };
 		ctxt.locale = postLoginStatus.locale ?? ctxt.locale;
 	}
 

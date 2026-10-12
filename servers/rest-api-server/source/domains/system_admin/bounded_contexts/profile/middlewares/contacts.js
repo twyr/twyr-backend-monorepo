@@ -196,7 +196,7 @@ export class Contacts extends SystemAdminBaseMiddleware {
 	 *
 	 * @param {object} payload - API payload for `CREATE_CONTACT`.
 	 * @param {object} payload.user - Logged in user.
-	 * @param {object} payload.data - JSON:API contact payload.
+	 * @param {object} payload.data - Deserialized contact data.
 	 *
 	 * @returns {Promise<object>} Response payload containing the created contact.
 	 *
@@ -235,8 +235,7 @@ export class Contacts extends SystemAdminBaseMiddleware {
 			model: { type: 'relational', name: 'system-admin-contact' },
 			user,
 			entityId: contactId,
-			relationships: '[user, contactType]',
-			serializeType: 'system_admin_contact'
+			relationships: '[user, contactType]'
 		});
 	}
 
@@ -253,7 +252,7 @@ export class Contacts extends SystemAdminBaseMiddleware {
 	 *
 	 * @param {object} payload - API payload for `UPDATE_CONTACT`.
 	 * @param {object} payload.user - Logged in user.
-	 * @param {object} payload.data - JSON:API contact payload.
+	 * @param {object} payload.data - Deserialized contact data.
 	 *
 	 * @returns {Promise<object>} Response payload containing the updated contact.
 	 *
