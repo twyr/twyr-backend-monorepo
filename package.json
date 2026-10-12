@@ -94,7 +94,7 @@
 		"generate-changelog": "npx conventional-changelog-cli --config ./conventional-commits-config.json -i CHANGELOG.md -s -r 0 -t V",
 		"lint": "npm run lint --workspaces --if-present",
 		"lint-staged": "npx lint-staged --allow-empty",
-		"postinstall": "node ./scripts/apply-better-docs-private-methods-patch.cjs",
+		"postinstall": "node ./scripts/apply-better-docs-private-methods-patch.cjs && node ./scripts/apply-mocha-junit-reporter-patch.cjs",
 		"prepare": "husky",
 		"start": "npm start --workspaces --if-present",
 		"stats": "npm run stats --workspaces --if-present",
