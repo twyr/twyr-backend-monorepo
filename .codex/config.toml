@@ -1,6 +1,6 @@
 model = "gpt-5.4"
 personality = "pragmatic"
-[projects."/home/vish/Work/AyurAdhar/Code/entity-value-aggregate-server"]
+[projects."/home/vish/Work/twyr/code/twyr-backend-monorepo"]
 trust_level = "trusted"
 
 [notice.model_migrations]
