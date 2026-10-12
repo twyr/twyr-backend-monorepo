@@ -29,23 +29,24 @@ These environment variables are set:
 
 ```json
 {
-  "story_key": "6-4-cli-list-command",
-  "run_id": "20260613-111429-6a14",
-  "project_root": "/abs/path/to/bmad-project",
-  "code_root": "/abs/path/to/code-repository",
-  "spec_file": "/abs/path/to/_bmad-output/implementation-artifacts/spec-<story>.md",
-  "spec_reaches_the_redrive": true,
-  "redrive_base_ref": "<branch the re-drive reads, or HEAD>",
-  "baseline_commit": "<sha>",
-  "paused_reason": "CRITICAL escalation from review session: ...",
-  "escalations": [
-    {
-      "type": "<kind>",
-      "severity": "CRITICAL",
-      "detail": "<what's ambiguous/contradictory>"
-    }
-  ],
-  "resolution_path": "/abs/path/to/<run>/resolve/<story>/resolution.json"
+	"story_key": "6-4-cli-list-command",
+	"run_id": "20260613-111429-6a14",
+	"project_root": "/abs/path/to/bmad-project",
+	"code_root": "/abs/path/to/code-repository",
+	"spec_file": "/abs/path/to/_bmad-output/implementation-artifacts/spec-<story>.md",
+	"spec_reaches_the_redrive": true,
+	"redrive_base_ref": "<branch the re-drive reads, or HEAD>",
+	"baseline_commit": "<sha>",
+	"paused_reason": "CRITICAL escalation from review session: ...",
+	"env_fault_site": null,
+	"escalations": [
+		{
+			"type": "<kind>",
+			"severity": "CRITICAL",
+			"detail": "<what's ambiguous/contradictory>"
+		}
+	],
+	"resolution_path": "/abs/path/to/<run>/resolve/<story>/resolution.json"
 }
 ```
 
@@ -108,22 +109,22 @@ without hunting for it:
 
 ```json
 {
-  "stories": {
-    "spec_folder": "_bmad-output/epic-1",
-    "story": {
-      "id": "6-4-cli-list-command",
-      "title": "CLI list command",
-      "description": "…",
-      "spec_checkpoint": false,
-      "done_checkpoint": false,
-      "invoke_dev_with": "…free-text planner→dev note, or ''…"
-    },
-    "sentinel": {
-      "kind": "unresolved",
-      "path": ".../stories/6-4-cli-list-command-unresolved.md",
-      "blocking_condition": "…the reason planning halted…"
-    }
-  }
+	"stories": {
+		"spec_folder": "_bmad-output/epic-1",
+		"story": {
+			"id": "6-4-cli-list-command",
+			"title": "CLI list command",
+			"description": "…",
+			"spec_checkpoint": false,
+			"done_checkpoint": false,
+			"invoke_dev_with": "…free-text planner→dev note, or ''…"
+		},
+		"sentinel": {
+			"kind": "unresolved",
+			"path": ".../stories/6-4-cli-list-command-unresolved.md",
+			"blocking_condition": "…the reason planning halted…"
+		}
+	}
 }
 ```
 
@@ -135,11 +136,11 @@ action of a successful resolution. Schema:
 
 ```json
 {
-  "story_key": "<key>",
-  "decision": "<one or two sentences: the rule you and the human chose>",
-  "spec_file": "<the spec you edited>",
-  "spec_updated": true,
-  "restore_patch": "<optional: path to a saved intent-gap patch to re-apply>"
+	"story_key": "<key>",
+	"decision": "<one or two sentences: the rule you and the human chose>",
+	"spec_file": "<the spec you edited>",
+	"spec_updated": true,
+	"restore_patch": "<optional: path to a saved intent-gap patch to re-apply>"
 }
 ```
 
@@ -153,22 +154,22 @@ case below — omit it entirely for an ordinary resolution.
    sessions treat as authoritative). The escalation is almost always that this
    block is silent on, or contradicts, a case the implementation hit.
 2. **Present the current pause evidence plainly** to the human:
-   - When the `escalations` array is non-empty, present its recorded entries in
-     their existing newest-first order. Do not replace recorded escalation
-     detail with `paused_reason`.
-   - When the `escalations` array is empty, first require `paused_reason` to be
-     text containing at least one non-whitespace character. If it is missing,
-     `null`, non-text, or blank after trimming, report a malformed resolve
-     context and do not write the resolution marker. Otherwise, present
-     `paused_reason` verbatim as the available evidence for the current pause
-     and disclose that no newer recorded escalation detail is available. Do not
-     read below the watermark, unfilter or recover an older artifact escalation,
-     or synthesize an escalation object from `paused_reason`.
+    - When the `escalations` array is non-empty, present its recorded entries in
+      their existing newest-first order. Do not replace recorded escalation
+      detail with `paused_reason`.
+    - When the `escalations` array is empty, first require `paused_reason` to be
+      text containing at least one non-whitespace character. If it is missing,
+      `null`, non-text, or blank after trimming, report a malformed resolve
+      context and do not write the resolution marker. Otherwise, present
+      `paused_reason` verbatim as the available evidence for the current pause
+      and disclose that no newer recorded escalation detail is available. Do not
+      read below the watermark, unfilter or recover an older artifact escalation,
+      or synthesize an escalation object from `paused_reason`.
 
-   Using the selected evidence, explain what is ambiguous or contradictory, why
-   it blocks safe implementation, and offer **2–4 concrete resolution options**
-   with a clear recommendation and its trade-offs. Keep it tight — quote the
-   relevant spec lines.
+    Using the selected evidence, explain what is ambiguous or contradictory, why
+    it blocks safe implementation, and offer **2–4 concrete resolution options**
+    with a clear recommendation and its trade-offs. Keep it tight — quote the
+    relevant spec lines.
 
 3. **Get the human's decision.** Ask follow-ups if the choice is unclear. Do not
    invent requirements; if the human is unsure, help them reason, don't guess.
@@ -216,28 +217,59 @@ Use the patch two ways:
   option to the human: _"the implementation read it as X, which is in fact what we
   want — amend the intent to say X, and resume **review** on the already-written
   change instead of re-implementing it."_ If the human chooses this:
-  1. Still **amend the intent** in the spec so it unambiguously says X (step 4
-     above is unchanged — the frozen intent must match the restored code).
-  2. Add **`"restore_patch": "<the saved patch path>"`** to `resolution.json`
-     (copy the path verbatim from the escalation detail / triage log).
+    1. Still **amend the intent** in the spec so it unambiguously says X (step 4
+       above is unchanged — the frozen intent must match the restored code).
+    2. Add **`"restore_patch": "<the saved patch path>"`** to `resolution.json`
+       (copy the path verbatim from the escalation detail / triage log).
 
-  The orchestrator then re-arms the spec to `in-review`, re-applies the patch onto
-  the baseline, and re-dispatches — the session resumes at the review step on the
-  restored diff. **Do NOT `git apply` the patch yourself and do NOT set the spec
-  status** — the orchestrator does both deterministically at re-arm.
+    The orchestrator then re-arms the spec to `in-review`, re-applies the patch onto
+    the baseline, and re-dispatches — the session resumes at the review step on the
+    restored diff. **Do NOT `git apply` the patch yourself and do NOT set the spec
+    status** — the orchestrator does both deterministically at re-arm.
 
-  **The restore must not overlap resolution commits.** Re-arm advances the
-  re-drive's baseline to the branch's post-resolve HEAD, but the saved patch was
-  diffed from the ORIGINAL baseline — so if this session left commits that touch
-  the patch's own files, the restore's `git apply` fails and the story
-  re-escalates (loudly, by design: the orchestrator never silently merges the
-  resolution with the stale attempt). If the resolution work already includes or
-  supersedes the attempted change, **omit `restore_patch`** — the commits survive
-  re-arm as the re-drive's starting point, so a from-scratch re-drive builds
-  directly on them.
+    **The restore must not overlap resolution commits.** Re-arm advances the
+    re-drive's baseline to the branch's post-resolve HEAD, but the saved patch was
+    diffed from the ORIGINAL baseline — so if this session left commits that touch
+    the patch's own files, the restore's `git apply` fails and the story
+    re-escalates (loudly, by design: the orchestrator never silently merges the
+    resolution with the stale attempt). If the resolution work already includes or
+    supersedes the attempted change, **omit `restore_patch`** — the commits survive
+    re-arm as the re-drive's starting point, so a from-scratch re-drive builds
+    directly on them.
 
 If the attempted reading was wrong (the common case), omit `restore_patch`
 entirely: the orchestrator re-drives from scratch against the corrected intent.
+
+## Special case: an environment-fault escalation
+
+When `env_fault_site` in the context is **not** `null`, the run paused because the
+**environment** failed, not the story: an operator `[environment]` probe failed (or
+a verify command declared or hit an environment fault) at the site it names —
+`verify:<role>`, `probe:decision:<role>`, `probe:claim:<role>` or
+`probe:dispatch:<role>`. The attempt was **not** charged.
+
+A `probe:claim:<role>` site means the dev, fix, review or workflow session wrote an
+`Environment fault: <what is broken>` line in its final `## Auto Run Result` and
+the orchestrator's own probe then failed. The line only triggered that probe — a
+claim the probes did not confirm never pauses the run, so the failed probe, not
+the session's prose, is the evidence. `paused_reason` quotes the claim on its
+`session claim:` line.
+
+- **No spec change is needed.** Do not clarify the intent or reinterpret the
+  story to explain the failure; `paused_reason` names the probe or command that
+  failed and its output tail.
+- Tell the human to **fix the environment** (start the stopped service, container,
+  emulator or database the probe checks) and confirm the probe passes by hand.
+- Then **re-arm the escalation** as usual (record a resolution that says the
+  environment was repaired); the attempt budget resets on re-arm. A plain re-arm
+  re-drives a dev session from the baseline. When the attempt's work should be
+  kept, the human can instead exit this session and run
+  `bmad-loop resolve <run> --reverify`: it keeps the tree at HEAD (in place, or
+  the story's kept worktree unit), replays verification on it and, when that
+  passes, reviews and commits it (a unit merges) with no dev session. A
+  `probe:dispatch:<role>` pause is not an escalation at all — no session ran, so
+  the human fixes the environment and runs `bmad-loop resume <run>` (the probes
+  re-run first); `resolve` refuses that pause.
 
 ## What you MUST NOT do
 

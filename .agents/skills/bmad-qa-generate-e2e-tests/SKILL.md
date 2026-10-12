@@ -40,7 +40,7 @@ Treat every entry in `{workflow.persistent_facts}` as foundational context you c
 
 ### Step 4: Load Config
 
-Load config from `{project-root}/_bmad/bmm/config.yaml` and resolve:
+Run `uv run {project-root}/_bmad/scripts/resolve_config.py --project-root {project-root}` and resolve:
 
 - `project_name`, `user_name`
 - `communication_language`, `document_output_language`
@@ -74,9 +74,9 @@ Check project for existing test framework:
 - Check for existing test files to understand patterns
 - Use whatever test framework the project already has
 - If no framework exists:
-  - Analyze source code to determine project type (React, Vue, Node API, etc.)
-  - Search online for current recommended test framework for that stack
-  - Suggest the meta framework and use it (or ask user to confirm)
+    - Analyze source code to determine project type (React, Vue, Node API, etc.)
+    - Search online for current recommended test framework for that stack
+    - Suggest the meta framework and use it (or ask user to confirm)
 
 ### Step 1: Identify Features
 
@@ -122,16 +122,20 @@ Output markdown summary:
 ## Generated Tests
 
 ### API Tests
+
 - [x] tests/api/endpoint.spec.ts - Endpoint validation
 
 ### E2E Tests
+
 - [x] tests/e2e/feature.spec.ts - User workflow
 
 ## Coverage
+
 - API endpoints: 5/10 covered
 - UI features: 3/8 covered
 
 ## Next Steps
+
 - Run tests in CI
 - Add more edge cases as needed
 ```
