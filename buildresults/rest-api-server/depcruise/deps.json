@@ -6594,6 +6594,23 @@
           "valid": true
         },
         {
+          "module": "@koa/cors",
+          "moduleSystem": "es6",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "npm",
+            "import"
+          ],
+          "resolved": "../../node_modules/@koa/cors/index.js",
+          "coreModule": false,
+          "followable": false,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": true,
+          "circular": false,
+          "valid": true
+        },
+        {
           "module": "@koa/router",
           "moduleSystem": "es6",
           "dynamic": true,
@@ -6817,6 +6834,20 @@
           "valid": true
         }
       ],
+      "orphan": false,
+      "valid": true
+    },
+    {
+      "source": "../../node_modules/@koa/cors/index.js",
+      "followable": false,
+      "coreModule": false,
+      "couldNotResolve": false,
+      "matchesDoNotFollow": true,
+      "dependencyTypes": [
+        "npm",
+        "import"
+      ],
+      "dependencies": [],
       "orphan": false,
       "valid": true
     },
@@ -8265,6 +8296,115 @@
       "valid": true
     },
     {
+      "source": "tests/cors.spec.cjs",
+      "dependencies": [
+        {
+          "module": "../source/ingress_surfaces/rest_api/index.js",
+          "moduleSystem": "es6",
+          "dynamic": true,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "dynamic-import"
+          ],
+          "resolved": "source/ingress_surfaces/rest_api/index.js",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "assert/strict",
+          "moduleSystem": "cjs",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "core",
+            "require"
+          ],
+          "protocol": "node:",
+          "resolved": "assert/strict",
+          "coreModule": true,
+          "followable": false,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "events",
+          "moduleSystem": "cjs",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "core",
+            "require"
+          ],
+          "protocol": "node:",
+          "resolved": "events",
+          "coreModule": true,
+          "followable": false,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "http",
+          "moduleSystem": "cjs",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "core",
+            "require"
+          ],
+          "protocol": "node:",
+          "resolved": "http",
+          "coreModule": true,
+          "followable": false,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "koa-redis",
+          "moduleSystem": "cjs",
+          "dynamic": false,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "npm",
+            "require"
+          ],
+          "resolved": "../../node_modules/koa-redis/lib/index.js",
+          "coreModule": false,
+          "followable": false,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": true,
+          "circular": false,
+          "valid": true
+        }
+      ],
+      "orphan": false,
+      "valid": true
+    },
+    {
+      "source": "assert/strict",
+      "followable": false,
+      "coreModule": true,
+      "couldNotResolve": false,
+      "matchesDoNotFollow": false,
+      "dependencyTypes": [
+        "core",
+        "require"
+      ],
+      "dependencies": [],
+      "orphan": false,
+      "valid": true
+    },
+    {
       "source": "tests/index.spec.cjs",
       "dependencies": [
         {
@@ -8299,6 +8439,83 @@
         "dynamic-import"
       ],
       "dependencies": [],
+      "orphan": false,
+      "valid": true
+    },
+    {
+      "source": "tests/jsonapi-boundaries.spec.cjs",
+      "dependencies": [
+        {
+          "module": "../custom_loaders/baseclass-loader.js",
+          "moduleSystem": "es6",
+          "dynamic": true,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "dynamic-import"
+          ],
+          "resolved": "custom_loaders/baseclass-loader.js",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "assert/strict",
+          "moduleSystem": "es6",
+          "dynamic": true,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "core",
+            "dynamic-import"
+          ],
+          "protocol": "node:",
+          "resolved": "assert/strict",
+          "coreModule": true,
+          "followable": false,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "json-api-serializer",
+          "moduleSystem": "es6",
+          "dynamic": true,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "npm",
+            "dynamic-import"
+          ],
+          "resolved": "../../node_modules/json-api-serializer/index.d.ts",
+          "coreModule": false,
+          "followable": false,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": true,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "module": "module",
+          "moduleSystem": "es6",
+          "dynamic": true,
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "core",
+            "dynamic-import"
+          ],
+          "protocol": "node:",
+          "resolved": "module",
+          "coreModule": true,
+          "followable": false,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        }
+      ],
       "orphan": false,
       "valid": true
     },
@@ -8426,20 +8643,6 @@
           "valid": true
         }
       ],
-      "orphan": false,
-      "valid": true
-    },
-    {
-      "source": "assert/strict",
-      "followable": false,
-      "coreModule": true,
-      "couldNotResolve": false,
-      "matchesDoNotFollow": false,
-      "dependencyTypes": [
-        "core",
-        "dynamic-import"
-      ],
-      "dependencies": [],
       "orphan": false,
       "valid": true
     },
@@ -9465,8 +9668,8 @@
     "info": 0,
     "ignore": 0,
     "advisedExitCode": 44,
-    "totalCruised": 173,
-    "totalDependenciesCruised": 356,
+    "totalCruised": 176,
+    "totalDependenciesCruised": 366,
     "optionsUsed": {
       "baseDir": "/home/vish/Work/twyr/code/twyr-backend-monorepo/servers/rest-api-server",
       "combinedDependencies": false,

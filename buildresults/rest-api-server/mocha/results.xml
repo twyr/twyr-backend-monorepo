@@ -1,15 +1,177 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="Mocha Tests" time="0.451" tests="14" failures="0">
-	<testsuite name="Root Suite" timestamp="2026-10-12T09:48:40" tests="0" time="0.000" failures="0">
+<testsuites name="Mocha Tests" time="0.857" tests="93" failures="0">
+	<testsuite name="Root Suite" timestamp="2026-10-13T08:22:19" tests="0" time="0.000" failures="0">
 	</testsuite>
-	<testsuite name="REST API Server Test Cases" timestamp="2026-10-12T09:48:40" tests="1" file="/home/vish/Work/twyr/code/twyr-backend-monorepo/servers/rest-api-server/tests/index.spec.cjs" time="0.414" failures="0">
-		<testcase name="REST API Server Test Cases Global Snooze for 400ms" time="0.411" classname="Global Snooze for 400ms">
+	<testsuite name="REST API CORS" timestamp="2026-10-13T08:22:19" tests="11" file="/home/vish/Work/twyr/code/twyr-backend-monorepo/servers/rest-api-server/tests/cors.spec.cjs" time="0.276" failures="0">
+		<testcase name="REST API CORS answers localhost preflights before authentication with requested headers and methods" time="0.189" classname="answers localhost preflights before authentication with requested headers and methods">
+		</testcase>
+		<testcase name="REST API CORS allows credentialed localhost responses and exposes the request id" time="0.015" classname="allows credentialed localhost responses and exposes the request id">
+		</testcase>
+		<testcase name="REST API CORS preserves credentialed CORS headers on localized authentication errors" time="0.005" classname="preserves credentialed CORS headers on localized authentication errors">
+		</testcase>
+		<testcase name="REST API CORS does not grant CORS access to https://untrusted.example on preflights, successes or errors" time="0.009" classname="does not grant CORS access to https://untrusted.example on preflights, successes or errors">
+		</testcase>
+		<testcase name="REST API CORS does not grant CORS access to http://localhost:8084 on preflights, successes or errors" time="0.007" classname="does not grant CORS access to http://localhost:8084 on preflights, successes or errors">
+		</testcase>
+		<testcase name="REST API CORS does not grant CORS access to http://localhost.evil.example:8083 on preflights, successes or errors" time="0.007" classname="does not grant CORS access to http://localhost.evil.example:8083 on preflights, successes or errors">
+		</testcase>
+		<testcase name="REST API CORS does not grant CORS access to null on preflights, successes or errors" time="0.005" classname="does not grant CORS access to null on preflights, successes or errors">
+		</testcase>
+		<testcase name="REST API CORS allows only origins in the configured allowlist" time="0.004" classname="allows only origins in the configured allowlist">
+		</testcase>
+		<testcase name="REST API CORS does not grant CORS access when the allowlist is missing" time="0.008" classname="does not grant CORS access when the allowlist is missing">
+		</testcase>
+		<testcase name="REST API CORS does not grant CORS access when the allowlist is empty" time="0.009" classname="does not grant CORS access when the allowlist is empty">
+		</testcase>
+		<testcase name="REST API CORS leaves requests without an Origin header working without CORS headers" time="0.002" classname="leaves requests without an Origin header working without CORS headers">
 		</testcase>
 	</testsuite>
-	<testsuite name="Explicit access and call regression cases" timestamp="2026-10-12T09:48:41" tests="13" file="/home/vish/Work/twyr/code/twyr-backend-monorepo/servers/rest-api-server/tests/optional-chaining.spec.cjs" time="0.035" failures="0">
-		<testcase name="Explicit access and call regression cases serializes absent errors and errors without usable stack frames" time="0.002" classname="serializes absent errors and errors without usable stack frames">
+	<testsuite name="REST API Server Test Cases" timestamp="2026-10-13T08:22:19" tests="1" file="/home/vish/Work/twyr/code/twyr-backend-monorepo/servers/rest-api-server/tests/index.spec.cjs" time="0.406" failures="0">
+		<testcase name="REST API Server Test Cases Global Snooze for 400ms" time="0.406" classname="Global Snooze for 400ms">
 		</testcase>
-		<testcase name="Explicit access and call regression cases retains nested error details and trimmed stack frames" time="0.001" classname="retains nested error details and trimmed stack frames">
+	</testsuite>
+	<testsuite name="JSON:API surface boundaries" timestamp="2026-10-13T08:22:19" tests="68" file="/home/vish/Work/twyr/code/twyr-backend-monorepo/servers/rest-api-server/tests/jsonapi-boundaries.spec.cjs" time="0.162" failures="0">
+		<testcase name="JSON:API surface boundaries users main create deserializes validated input and serializes its response" time="0.055" classname="users main create deserializes validated input and serializes its response">
+		</testcase>
+		<testcase name="JSON:API surface boundaries users main create rejects invalid input before conversion or dispatch" time="0.003" classname="users main create rejects invalid input before conversion or dispatch">
+		</testcase>
+		<testcase name="JSON:API surface boundaries users main update deserializes validated input and serializes its response" time="0.001" classname="users main update deserializes validated input and serializes its response">
+		</testcase>
+		<testcase name="JSON:API surface boundaries users main update rejects invalid input before conversion or dispatch" time="0.001" classname="users main update rejects invalid input before conversion or dispatch">
+		</testcase>
+		<testcase name="JSON:API surface boundaries users main propagates deserialization failures without dispatching" time="0.001" classname="users main propagates deserialization failures without dispatching">
+		</testcase>
+		<testcase name="JSON:API surface boundaries users main command leaves the response unset when serialization fails" time="0.001" classname="users main command leaves the response unset when serialization fails">
+		</testcase>
+		<testcase name="JSON:API surface boundaries users main query leaves the response unset when serialization fails" time="0.001" classname="users main query leaves the response unset when serialization fails">
+		</testcase>
+		<testcase name="JSON:API surface boundaries users main delete keeps its bodyless response" time="0.001" classname="users main delete keeps its bodyless response">
+		</testcase>
+		<testcase name="JSON:API surface boundaries users main query serializes raw middleware results including relationships" time="0.009" classname="users main query serializes raw middleware results including relationships">
+		</testcase>
+		<testcase name="JSON:API surface boundaries users contact create deserializes validated input and serializes its response" time="0.009" classname="users contact create deserializes validated input and serializes its response">
+		</testcase>
+		<testcase name="JSON:API surface boundaries users contact create rejects invalid input before conversion or dispatch" time="0.001" classname="users contact create rejects invalid input before conversion or dispatch">
+		</testcase>
+		<testcase name="JSON:API surface boundaries users contact update deserializes validated input and serializes its response" time="0.001" classname="users contact update deserializes validated input and serializes its response">
+		</testcase>
+		<testcase name="JSON:API surface boundaries users contact update rejects invalid input before conversion or dispatch" time="0.001" classname="users contact update rejects invalid input before conversion or dispatch">
+		</testcase>
+		<testcase name="JSON:API surface boundaries users contact propagates deserialization failures without dispatching" time="0.001" classname="users contact propagates deserialization failures without dispatching">
+		</testcase>
+		<testcase name="JSON:API surface boundaries users contact command leaves the response unset when serialization fails" time="0.001" classname="users contact command leaves the response unset when serialization fails">
+		</testcase>
+		<testcase name="JSON:API surface boundaries users contact query leaves the response unset when serialization fails" time="0.001" classname="users contact query leaves the response unset when serialization fails">
+		</testcase>
+		<testcase name="JSON:API surface boundaries users contact delete keeps its bodyless response" time="0.001" classname="users contact delete keeps its bodyless response">
+		</testcase>
+		<testcase name="JSON:API surface boundaries users contact query serializes raw middleware results including relationships" time="0.002" classname="users contact query serializes raw middleware results including relationships">
+		</testcase>
+		<testcase name="JSON:API surface boundaries users locale create deserializes validated input and serializes its response" time="0.002" classname="users locale create deserializes validated input and serializes its response">
+		</testcase>
+		<testcase name="JSON:API surface boundaries users locale create rejects invalid input before conversion or dispatch" time="0.001" classname="users locale create rejects invalid input before conversion or dispatch">
+		</testcase>
+		<testcase name="JSON:API surface boundaries users locale update deserializes validated input and serializes its response" time="0.001" classname="users locale update deserializes validated input and serializes its response">
+		</testcase>
+		<testcase name="JSON:API surface boundaries users locale update rejects invalid input before conversion or dispatch" time="0.001" classname="users locale update rejects invalid input before conversion or dispatch">
+		</testcase>
+		<testcase name="JSON:API surface boundaries users locale propagates deserialization failures without dispatching" time="0.000" classname="users locale propagates deserialization failures without dispatching">
+		</testcase>
+		<testcase name="JSON:API surface boundaries users locale command leaves the response unset when serialization fails" time="0.001" classname="users locale command leaves the response unset when serialization fails">
+		</testcase>
+		<testcase name="JSON:API surface boundaries users locale query leaves the response unset when serialization fails" time="0.002" classname="users locale query leaves the response unset when serialization fails">
+		</testcase>
+		<testcase name="JSON:API surface boundaries users locale delete keeps its bodyless response" time="0.000" classname="users locale delete keeps its bodyless response">
+		</testcase>
+		<testcase name="JSON:API surface boundaries users locale query serializes raw middleware results including relationships" time="0.002" classname="users locale query serializes raw middleware results including relationships">
+		</testcase>
+		<testcase name="JSON:API surface boundaries users basics middleware consumes plain create data and returns a raw profile" time="0.001" classname="users basics middleware consumes plain create data and returns a raw profile">
+		</testcase>
+		<testcase name="JSON:API surface boundaries users basics middleware consumes plain update data and returns a raw profile" time="0.001" classname="users basics middleware consumes plain update data and returns a raw profile">
+		</testcase>
+		<testcase name="JSON:API surface boundaries users contacts middleware accepts plain create data without mutating the caller" time="0.000" classname="users contacts middleware accepts plain create data without mutating the caller">
+		</testcase>
+		<testcase name="JSON:API surface boundaries users contacts middleware accepts plain update data without mutating the caller" time="0.000" classname="users contacts middleware accepts plain update data without mutating the caller">
+		</testcase>
+		<testcase name="JSON:API surface boundaries users locales middleware accepts plain create data without mutating the caller" time="0.001" classname="users locales middleware accepts plain create data without mutating the caller">
+		</testcase>
+		<testcase name="JSON:API surface boundaries users locales middleware accepts plain update data without mutating the caller" time="0.000" classname="users locales middleware accepts plain update data without mutating the caller">
+		</testcase>
+		<testcase name="JSON:API surface boundaries users login serializes the nested profile while preserving the session and response wrapper" time="0.009" classname="users login serializes the nested profile while preserving the session and response wrapper">
+		</testcase>
+		<testcase name="JSON:API surface boundaries system_admin main create deserializes validated input and serializes its response" time="0.003" classname="system_admin main create deserializes validated input and serializes its response">
+		</testcase>
+		<testcase name="JSON:API surface boundaries system_admin main create rejects invalid input before conversion or dispatch" time="0.001" classname="system_admin main create rejects invalid input before conversion or dispatch">
+		</testcase>
+		<testcase name="JSON:API surface boundaries system_admin main update deserializes validated input and serializes its response" time="0.001" classname="system_admin main update deserializes validated input and serializes its response">
+		</testcase>
+		<testcase name="JSON:API surface boundaries system_admin main update rejects invalid input before conversion or dispatch" time="0.001" classname="system_admin main update rejects invalid input before conversion or dispatch">
+		</testcase>
+		<testcase name="JSON:API surface boundaries system_admin main propagates deserialization failures without dispatching" time="0.000" classname="system_admin main propagates deserialization failures without dispatching">
+		</testcase>
+		<testcase name="JSON:API surface boundaries system_admin main command leaves the response unset when serialization fails" time="0.001" classname="system_admin main command leaves the response unset when serialization fails">
+		</testcase>
+		<testcase name="JSON:API surface boundaries system_admin main query leaves the response unset when serialization fails" time="0.001" classname="system_admin main query leaves the response unset when serialization fails">
+		</testcase>
+		<testcase name="JSON:API surface boundaries system_admin main delete keeps its bodyless response" time="0.001" classname="system_admin main delete keeps its bodyless response">
+		</testcase>
+		<testcase name="JSON:API surface boundaries system_admin main query serializes raw middleware results including relationships" time="0.003" classname="system_admin main query serializes raw middleware results including relationships">
+		</testcase>
+		<testcase name="JSON:API surface boundaries system_admin contact create deserializes validated input and serializes its response" time="0.003" classname="system_admin contact create deserializes validated input and serializes its response">
+		</testcase>
+		<testcase name="JSON:API surface boundaries system_admin contact create rejects invalid input before conversion or dispatch" time="0.000" classname="system_admin contact create rejects invalid input before conversion or dispatch">
+		</testcase>
+		<testcase name="JSON:API surface boundaries system_admin contact update deserializes validated input and serializes its response" time="0.000" classname="system_admin contact update deserializes validated input and serializes its response">
+		</testcase>
+		<testcase name="JSON:API surface boundaries system_admin contact update rejects invalid input before conversion or dispatch" time="0.000" classname="system_admin contact update rejects invalid input before conversion or dispatch">
+		</testcase>
+		<testcase name="JSON:API surface boundaries system_admin contact propagates deserialization failures without dispatching" time="0.000" classname="system_admin contact propagates deserialization failures without dispatching">
+		</testcase>
+		<testcase name="JSON:API surface boundaries system_admin contact command leaves the response unset when serialization fails" time="0.001" classname="system_admin contact command leaves the response unset when serialization fails">
+		</testcase>
+		<testcase name="JSON:API surface boundaries system_admin contact query leaves the response unset when serialization fails" time="0.001" classname="system_admin contact query leaves the response unset when serialization fails">
+		</testcase>
+		<testcase name="JSON:API surface boundaries system_admin contact delete keeps its bodyless response" time="0.001" classname="system_admin contact delete keeps its bodyless response">
+		</testcase>
+		<testcase name="JSON:API surface boundaries system_admin contact query serializes raw middleware results including relationships" time="0.001" classname="system_admin contact query serializes raw middleware results including relationships">
+		</testcase>
+		<testcase name="JSON:API surface boundaries system_admin locale create deserializes validated input and serializes its response" time="0.003" classname="system_admin locale create deserializes validated input and serializes its response">
+		</testcase>
+		<testcase name="JSON:API surface boundaries system_admin locale create rejects invalid input before conversion or dispatch" time="0.000" classname="system_admin locale create rejects invalid input before conversion or dispatch">
+		</testcase>
+		<testcase name="JSON:API surface boundaries system_admin locale update deserializes validated input and serializes its response" time="0.001" classname="system_admin locale update deserializes validated input and serializes its response">
+		</testcase>
+		<testcase name="JSON:API surface boundaries system_admin locale update rejects invalid input before conversion or dispatch" time="0.000" classname="system_admin locale update rejects invalid input before conversion or dispatch">
+		</testcase>
+		<testcase name="JSON:API surface boundaries system_admin locale propagates deserialization failures without dispatching" time="0.000" classname="system_admin locale propagates deserialization failures without dispatching">
+		</testcase>
+		<testcase name="JSON:API surface boundaries system_admin locale command leaves the response unset when serialization fails" time="0.000" classname="system_admin locale command leaves the response unset when serialization fails">
+		</testcase>
+		<testcase name="JSON:API surface boundaries system_admin locale query leaves the response unset when serialization fails" time="0.001" classname="system_admin locale query leaves the response unset when serialization fails">
+		</testcase>
+		<testcase name="JSON:API surface boundaries system_admin locale delete keeps its bodyless response" time="0.000" classname="system_admin locale delete keeps its bodyless response">
+		</testcase>
+		<testcase name="JSON:API surface boundaries system_admin locale query serializes raw middleware results including relationships" time="0.002" classname="system_admin locale query serializes raw middleware results including relationships">
+		</testcase>
+		<testcase name="JSON:API surface boundaries system_admin basics middleware consumes plain create data and returns a raw profile" time="0.001" classname="system_admin basics middleware consumes plain create data and returns a raw profile">
+		</testcase>
+		<testcase name="JSON:API surface boundaries system_admin basics middleware consumes plain update data and returns a raw profile" time="0.000" classname="system_admin basics middleware consumes plain update data and returns a raw profile">
+		</testcase>
+		<testcase name="JSON:API surface boundaries system_admin contacts middleware accepts plain create data without mutating the caller" time="0.000" classname="system_admin contacts middleware accepts plain create data without mutating the caller">
+		</testcase>
+		<testcase name="JSON:API surface boundaries system_admin contacts middleware accepts plain update data without mutating the caller" time="0.001" classname="system_admin contacts middleware accepts plain update data without mutating the caller">
+		</testcase>
+		<testcase name="JSON:API surface boundaries system_admin locales middleware accepts plain create data without mutating the caller" time="0.000" classname="system_admin locales middleware accepts plain create data without mutating the caller">
+		</testcase>
+		<testcase name="JSON:API surface boundaries system_admin locales middleware accepts plain update data without mutating the caller" time="0.000" classname="system_admin locales middleware accepts plain update data without mutating the caller">
+		</testcase>
+		<testcase name="JSON:API surface boundaries system_admin login serializes the nested profile while preserving the session and response wrapper" time="0.004" classname="system_admin login serializes the nested profile while preserving the session and response wrapper">
+		</testcase>
+	</testsuite>
+	<testsuite name="Explicit access and call regression cases" timestamp="2026-10-13T08:22:19" tests="13" file="/home/vish/Work/twyr/code/twyr-backend-monorepo/servers/rest-api-server/tests/optional-chaining.spec.cjs" time="0.011" failures="0">
+		<testcase name="Explicit access and call regression cases serializes absent errors and errors without usable stack frames" time="0.000" classname="serializes absent errors and errors without usable stack frames">
+		</testcase>
+		<testcase name="Explicit access and call regression cases retains nested error details and trimmed stack frames" time="0.000" classname="retains nested error details and trimmed stack frames">
 		</testcase>
 		<testcase name="Explicit access and call regression cases resolves root, child, and parent APIs and returns null for missing APIs" time="0.001" classname="resolves root, child, and parent APIs and returns null for missing APIs">
 		</testcase>
@@ -17,19 +179,19 @@
 		</testcase>
 		<testcase name="Explicit access and call regression cases reports a missing root repository and resolves repositories through a parent" time="0.000" classname="reports a missing root repository and resolves repositories through a parent">
 		</testcase>
-		<testcase name="Explicit access and call regression cases loads a user session without a primary locale or contact" time="0.002" classname="loads a user session without a primary locale or contact">
+		<testcase name="Explicit access and call regression cases loads a user session without a primary locale or contact" time="0.001" classname="loads a user session without a primary locale or contact">
 		</testcase>
 		<testcase name="Explicit access and call regression cases returns the domain error for an absent user session record" time="0.000" classname="returns the domain error for an absent user session record">
 		</testcase>
-		<testcase name="Explicit access and call regression cases loads a system-admin session without a primary locale or contact" time="0.002" classname="loads a system-admin session without a primary locale or contact">
+		<testcase name="Explicit access and call regression cases loads a system-admin session without a primary locale or contact" time="0.001" classname="loads a system-admin session without a primary locale or contact">
 		</testcase>
 		<testcase name="Explicit access and call regression cases returns the domain error for an absent system-admin session record" time="0.000" classname="returns the domain error for an absent system-admin session record">
 		</testcase>
-		<testcase name="Explicit access and call regression cases localizes an ordinary error without a code or nested errors" time="0.001" classname="localizes an ordinary error without a code or nested errors">
+		<testcase name="Explicit access and call regression cases localizes an ordinary error without a code or nested errors" time="0.000" classname="localizes an ordinary error without a code or nested errors">
 		</testcase>
 		<testcase name="Explicit access and call regression cases localizes aggregate errors with and without custom field metadata" time="0.000" classname="localizes aggregate errors with and without custom field metadata">
 		</testcase>
-		<testcase name="Explicit access and call regression cases supports repeated renderer cleanup and recreation" time="0.006" classname="supports repeated renderer cleanup and recreation">
+		<testcase name="Explicit access and call regression cases supports repeated renderer cleanup and recreation" time="0.004" classname="supports repeated renderer cleanup and recreation">
 		</testcase>
 		<testcase name="Explicit access and call regression cases allows configuration cleanup before initialization" time="0.001" classname="allows configuration cleanup before initialization">
 		</testcase>

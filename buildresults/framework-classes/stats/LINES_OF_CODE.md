@@ -1,4 +1,4 @@
-cloc|github.com/AlDanial/cloc v 1.96  T=0.03 s (878.2 files/s, 113890.3 lines/s)
+cloc|github.com/AlDanial/cloc v 1.96  T=0.03 s (953.1 files/s, 124137.9 lines/s)
 --- | ---
 
 File|blank|comment|code
@@ -11,15 +11,15 @@ File|blank|comment|code
 ./helpers/loader.js|18|70|77
 ./lib/lifecycle_managers/evas-base-lifecycle-manager.js|18|133|56
 ./.jsdocrc.json|0|0|52
-./lib/base_classes/evas-base-ingress-surface.js|17|173|47
-./lib/base_classes/evas-base-repository.js|15|137|43
+./lib/base_classes/evas-base-ingress-surface.js|17|177|47
+./lib/base_classes/evas-base-repository.js|15|141|43
 ./.mocharc.json|1|0|35
 ./lib/base_classes/evas-base-bounded-context.js|9|87|28
 ./lib/base_classes/evas-base-domain.js|9|88|26
 ./lib/base_classes/evas-base-artifact.js|7|84|23
-./lib/base_classes/evas-base-event-handler.js|5|84|18
-./lib/base_classes/evas-base-middleware.js|5|84|18
-./lib/base_classes/evas-base-surface.js|5|84|18
+./lib/base_classes/evas-base-event-handler.js|5|86|18
+./lib/base_classes/evas-base-middleware.js|5|86|18
+./lib/base_classes/evas-base-surface.js|5|86|18
 ./README.md|2|0|17
 ./tests/index.spec.cjs|3|1|16
 ./index.js|5|43|13
@@ -29,14 +29,14 @@ File|blank|comment|code
 ./.lintstagedrc.json|0|0|5
 ./tests/setup-mocks.cjs|0|0|5
 --------|--------|--------|--------
-SUM:|241|1771|1230
-cloc|github.com/AlDanial/cloc v 1.96  T=0.03 s (878.2 files/s, 113890.3 lines/s)
+SUM:|241|1785|1230
+cloc|github.com/AlDanial/cloc v 1.96  T=0.03 s (953.1 files/s, 124137.9 lines/s)
 --- | ---
 
 Language|files|blank|comment|code
 :-------|-------:|-------:|-------:|-------:
-JavaScript|19|236|1771|986
+JavaScript|19|236|1785|986
 JSON|5|3|0|227
 Markdown|1|2|0|17
 --------|--------|--------|--------|--------
-SUM:|25|241|1771|1230
+SUM:|25|241|1785|1230
