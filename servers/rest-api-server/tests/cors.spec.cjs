@@ -6,6 +6,7 @@ const { EventEmitter } = require('node:events');
 require('koa-redis');
 
 const localhostOrigin = 'http://localhost:8083';
+const localhostCors = { CORS_ALLOWED_ORIGINS: [localhostOrigin] };
 
 async function withApi(configuration, verify) {
 	const previousEnvironment = global.serverEnvironment;
@@ -77,7 +78,7 @@ async function withApi(configuration, verify) {
 
 describe('REST API CORS', function () {
 	it('answers localhost preflights before authentication with requested headers and methods', async function () {
-		await withApi({}, async ({ url, authenticationCalls }) => {
+		await withApi(localhostCors, async ({ url, authenticationCalls }) => {
 			const response = await fetch(`${url}/cors-check`, {
 				method: 'OPTIONS',
 				headers: {
@@ -109,7 +110,7 @@ describe('REST API CORS', function () {
 	});
 
 	it('allows credentialed localhost responses and exposes the request id', async function () {
-		await withApi({}, async ({ url }) => {
+		await withApi(localhostCors, async ({ url }) => {
 			const response = await fetch(`${url}/cors-check`, {
 				headers: { Origin: localhostOrigin }
 			});
@@ -133,7 +134,7 @@ describe('REST API CORS', function () {
 	});
 
 	it('preserves credentialed CORS headers on localized authentication errors', async function () {
-		await withApi({}, async ({ url }) => {
+		await withApi(localhostCors, async ({ url }) => {
 			const response = await fetch(`${url}/cors-error`, {
 				headers: { Origin: localhostOrigin }
 			});
@@ -157,7 +158,7 @@ describe('REST API CORS', function () {
 		'null'
 	]) {
 		it(`does not grant CORS access to ${origin} on preflights, successes or errors`, async function () {
-			await withApi({}, async ({ url }) => {
+			await withApi(localhostCors, async ({ url }) => {
 				for (const path of ['cors-check', 'cors-error']) {
 					const response = await fetch(`${url}/${path}`, {
 						headers: { Origin: origin }
@@ -190,7 +191,7 @@ describe('REST API CORS', function () {
 		});
 	}
 
-	it('uses the configured allowlist instead of the localhost default', async function () {
+	it('allows only origins in the configured allowlist', async function () {
 		const origin = 'https://frontend.example';
 		await withApi({ CORS_ALLOWED_ORIGINS: [origin] }, async ({ url }) => {
 			const response = await fetch(`${url}/cors-check`, {
@@ -213,8 +214,61 @@ describe('REST API CORS', function () {
 		});
 	});
 
+	for (const [label, configuration] of [
+		['missing', {}],
+		['empty', { CORS_ALLOWED_ORIGINS: [] }]
+	]) {
+		it(`does not grant CORS access when the allowlist is ${label}`, async function () {
+			await withApi(configuration, async ({ url }) => {
+				for (const origin of [
+					localhostOrigin,
+					'https://untrusted.example'
+				]) {
+					for (const path of ['cors-check', 'cors-error']) {
+						const response = await fetch(`${url}/${path}`, {
+							headers: { Origin: origin }
+						});
+						assert.equal(
+							response.status,
+							path === 'cors-check' ? 200 : 401
+						);
+						assert.equal(
+							response.headers.get('access-control-allow-origin'),
+							null
+						);
+						assert.equal(
+							response.headers.get(
+								'access-control-allow-credentials'
+							),
+							null
+						);
+						await response.arrayBuffer();
+					}
+					const response = await fetch(`${url}/cors-check`, {
+						method: 'OPTIONS',
+						headers: {
+							Origin: origin,
+							'Access-Control-Request-Method': 'POST'
+						}
+					});
+					assert.equal(
+						response.headers.get('access-control-allow-origin'),
+						null
+					);
+					assert.equal(
+						response.headers.get(
+							'access-control-allow-credentials'
+						),
+						null
+					);
+					await response.arrayBuffer();
+				}
+			});
+		});
+	}
+
 	it('leaves requests without an Origin header working without CORS headers', async function () {
-		await withApi({}, async ({ url }) => {
+		await withApi(localhostCors, async ({ url }) => {
 			const response = await fetch(`${url}/cors-check`);
 			assert.equal(response.status, 200);
 			assert.equal(
