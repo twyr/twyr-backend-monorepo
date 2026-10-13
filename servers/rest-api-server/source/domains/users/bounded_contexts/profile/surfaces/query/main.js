@@ -31,7 +31,19 @@ export class Main extends UserBaseSurface {
 	 * @category REST API Server/Domains/Users
 	 * @subcategory Profile/Surfaces/Query
 	 *
-	 * @ignore
+	 * @memberof Main
+	 * @instance
+	 * @public
+	 * @function
+	 * @name constructor
+	 *
+	 * @param {string} location - Filesystem location of the artifact.
+	 * @param {object} domainInterface - Domain APIs, repositories, models and event emitter.
+	 *
+	 * @returns {Main} A new Main instance.
+	 *
+	 * @description
+	 * Initializes the Main surface using its base class.
 	 */
 	constructor(location, domainInterface) {
 		super(location, domainInterface);
@@ -46,15 +58,15 @@ export class Main extends UserBaseSurface {
 	 * @memberof Main
 	 * @async
 	 * @instance
+	 * @public
 	 * @override
 	 * @function
 	 * @name load
 	 *
-	 * @returns {null} - Nothing
+	 * @returns {Promise<void>} Resolves after loading completes.
 	 *
 	 * @description
-	 * Sets the user role in the request headers for access control purposes
-	 * by passing it in to the base class load method
+	 * Loads the inherited surface infrastructure for Main.
 	 */
 	async load() {
 		await super.load();
@@ -69,19 +81,22 @@ export class Main extends UserBaseSurface {
 	 * @memberof Main
 	 * @async
 	 * @instance
+	 * @protected
 	 * @override
 	 * @function
 	 * @name _registerSurface
 	 *
-	 * @returns {null} - The routes to be added to the Rest API Router
+	 * @returns {Promise<object[]>} Resolves to the route definitions exposed by the surface.
 	 *
 	 * @description
-	 * Adds the route definitions and handlers for this surface to
-	 * the Rest API Router
+	 * Returns inherited and local route definitions, including their handlers
+	 * and any authorization middleware.
 	 */
 	async _registerSurface() {
+		// Step 1: Get the routes supplied by the base surface.
 		const baseRoutes = await super._registerSurface();
 
+		// Step 2: Add the routes and request middleware exposed by this surface.
 		baseRoutes.push({
 			version: 1,
 			httpMethod: 'GET',
@@ -99,11 +114,12 @@ export class Main extends UserBaseSurface {
 	 * @memberof Main
 	 * @async
 	 * @instance
+	 * @protected
 	 * @override
 	 * @function
 	 * @name _unregisterSurface
 	 *
-	 * @returns {null} - Nothing
+	 * @returns {Promise<void>} Resolves after registration changes complete.
 	 *
 	 * @description
 	 * Removes the route definitions and handlers for this surface from
@@ -124,17 +140,27 @@ export class Main extends UserBaseSurface {
 	 * @async
 	 * @instance
 	 * @private
-	 * @override
 	 * @function
 	 * @name #getProfile
 	 *
-	 * @returns {null} - Nothing
+	 * @param {object} ctxt - Koa context for `GET /`.
 	 *
-	 * @description Retrieves the profile associated with the logged in user.
+	 * @returns {Promise<void>} Resolves after the response has been written.
+	 *
+	 * @description
+	 * Handles `GET /`.
+	 * Reads profile data for the authenticated user and serializes the result.
+	 * Forwards the optional relationships query parameter and request locale.
+	 * Requires a session authorized by the `registered` RBAC middleware.
+	 *
 	 * @example
-	 * $ curl -X GET -H "Content-Type: application/json" -b ./cookies.txt ${base_url}/api/v1/users/profile/
+	 * // Invocation configuration [./servers/curl_example_data/api_v1_users_profile_read.curl]:
+	 * $ curl -X GET -H "Content-Type: application/json" -b ./cookies.txt "${base_url}/api/v1/users/profile/"
+	 * // Equivalent invocation using the configuration file:
+	 * $ curl --config ./servers/curl_example_data/api_v1_users_profile_read.curl "${base_url}/api/v1/users/profile/"
 	 */
 	async #getProfile(ctxt) {
+		// Step 1: Fetch the requested data through the middleware API.
 		const apiRegistry = this.domainInterface.apiRegistry;
 		const profileStatus = await apiRegistry.execute('READ', {
 			user: ctxt.state.user,
@@ -142,11 +168,14 @@ export class Main extends UserBaseSurface {
 			locale: ctxt.locale
 		});
 
+		// Step 2: Serialize the middleware result for the response.
 		const responseBody =
 			await this.domainInterface.serializer.serializeAsync(
 				'user',
 				profileStatus.body
 			);
+
+		// Step 3: Write the HTTP response using the serialized result.
 		ctxt.status = profileStatus.status;
 		ctxt.body = responseBody;
 	}
@@ -169,7 +198,16 @@ export default class MainSurfaceFactory extends EVASBaseFactory {
 	 * @category REST API Server/Domains/Users
 	 * @subcategory Profile/Surfaces/Query
 	 *
-	 * @ignore
+	 * @memberof MainSurfaceFactory
+	 * @instance
+	 * @public
+	 * @function
+	 * @name constructor
+	 *
+	 * @returns {MainSurfaceFactory} A new MainSurfaceFactory instance.
+	 *
+	 * @description
+	 * Initializes the MainSurfaceFactory factory using its base class.
 	 */
 	constructor() {
 		super();
@@ -184,15 +222,21 @@ export default class MainSurfaceFactory extends EVASBaseFactory {
 	 * @memberof MainSurfaceFactory
 	 * @async
 	 * @static
+	 * @public
 	 * @override
 	 * @function
 	 * @name createInstances
 	 *
 	 * @param {object} [domainInterface] - Domain functionality exposed to sub-artifacts
 	 *
-	 * @returns {Main} - The Main surface instance.
+	 * @returns {Promise<Main>} Resolves to the loaded Main surface instance.
+	 *
+	 * @description
+	 * Creates and loads the surface instance on first use, then reuses it.
+	 * Serializes access to the cached instance with the factory mutex.
 	 */
 	static async createInstances(domainInterface) {
+		// Create or reuse the loaded instance under the factory lock.
 		return await MainSurfaceFactory.#mutex.runExclusive(async () => {
 			if (!MainSurfaceFactory.#mainInstance) {
 				const mainInstance = new Main(
@@ -215,15 +259,19 @@ export default class MainSurfaceFactory extends EVASBaseFactory {
 	 * @memberof MainSurfaceFactory
 	 * @async
 	 * @static
+	 * @public
 	 * @override
 	 * @function
 	 * @name destroyInstances
 	 *
-	 * @returns {undefined} - Nothing.
+	 * @returns {Promise<void>} Resolves after the cached instance is unloaded and released.
 	 *
-	 * @description Clears the Main instance
+	 * @description
+	 * Unloads the cached surface instance and clears the factory reference
+	 * under the factory mutex.
 	 */
 	static async destroyInstances() {
+		// Unload and release cached instances under the factory lock.
 		await MainSurfaceFactory.#mutex.runExclusive(async () => {
 			await MainSurfaceFactory.#mainInstance?.unload();
 			MainSurfaceFactory.#mainInstance = undefined;
@@ -238,16 +286,17 @@ export default class MainSurfaceFactory extends EVASBaseFactory {
 	 * @subcategory Profile/Surfaces/Query
 	 *
 	 * @memberof MainSurfaceFactory
-	 * @async
 	 * @static
+	 * @public
 	 * @override
+	 * @readonly
 	 * @function
 	 * @name SurfaceName
 	 *
 	 * @returns {string} - Name of this surface.
 	 *
 	 * @description
-	 * Returns the name of this surface - Main
+	 * Returns the registered surface name: `Main`.
 	 */
 	static get SurfaceName() {
 		return 'Main';

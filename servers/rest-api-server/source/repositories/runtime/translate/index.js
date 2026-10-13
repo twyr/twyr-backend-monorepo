@@ -76,6 +76,7 @@ class Translate extends EVASBaseRepository {
 	async load() {
 		await super.load();
 
+		// Step 1: Merge translation defaults with environment and instance settings.
 		const defaultConfiguration = {
 			region: DEFAULT_TRANSLATE_REGION,
 			maxAttempts: DEFAULT_TRANSLATE_MAX_ATTEMPTS,
@@ -89,6 +90,7 @@ class Translate extends EVASBaseRepository {
 		const configuration =
 			await this._mergeConfiguration(defaultConfiguration);
 
+		// Step 2: Use supplied credentials or the SDK's default credential provider.
 		const translateConfiguration = {
 			region: configuration.region,
 			maxAttempts: configuration.maxAttempts
@@ -107,6 +109,7 @@ class Translate extends EVASBaseRepository {
 			};
 		}
 
+		// Step 3: Create the translation client with the resolved settings.
 		this.#translateClient = new TranslateClient(translateConfiguration);
 	}
 
@@ -128,6 +131,7 @@ class Translate extends EVASBaseRepository {
 	 * stop logic
 	 */
 	async unload() {
+		// Close the client and release repository resources when they are available.
 		this.#translateClient?.destroy();
 		this.#translateClient = undefined;
 
@@ -154,10 +158,12 @@ class Translate extends EVASBaseRepository {
 	 * Translates the provided text using AWS Translate.
 	 */
 	async translateText(translationInput) {
+		// Build the translation command.
 		const translateCommand = new TranslateTextCommand(
 			translationInput ?? {}
 		);
 
+		// Execute the command through the translation service.
 		const translatedText =
 			await this.#translateClient.send(translateCommand);
 		return translatedText;
@@ -232,6 +238,7 @@ export default class TranslateRepositoryFactory extends EVASBaseFactory {
 	 * @returns {Translate} - The Translate repository instance.
 	 */
 	static async createInstances(configuration, iocContainer) {
+		// Create or reuse the loaded instance under the factory lock.
 		const repositoryKey = Buffer.from(
 			safeJsonStringify(configuration ?? {})
 		).toString('base64');
@@ -278,7 +285,9 @@ export default class TranslateRepositoryFactory extends EVASBaseFactory {
 	 * @description Clears the cached {Translate} instances
 	 */
 	static async destroyInstances(configuration) {
+		// Unload and release cached instances under the factory lock.
 		await TranslateRepositoryFactory.#mutex.runExclusive(async () => {
+			// Unload only the requested configuration when one is supplied.
 			if (configuration) {
 				const repositoryKey = Buffer.from(
 					safeJsonStringify(configuration)
@@ -303,6 +312,7 @@ export default class TranslateRepositoryFactory extends EVASBaseFactory {
 				return;
 			}
 
+			// Otherwise, unload all configurations before clearing the cache.
 			const destroyResolutions = [];
 			TranslateRepositoryFactory.#translateInstances.forEach(
 				(translateInstance) => {

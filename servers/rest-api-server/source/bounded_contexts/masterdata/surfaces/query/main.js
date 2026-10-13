@@ -31,7 +31,19 @@ export class Main extends BaseSurface {
 	 * @category REST API Server/Bounded Contexts
 	 * @subcategory Masterdata/Surfaces/Query
 	 *
-	 * @ignore
+	 * @memberof Main
+	 * @instance
+	 * @public
+	 * @function
+	 * @name constructor
+	 *
+	 * @param {string} location - Filesystem location of the artifact.
+	 * @param {object} domainInterface - Domain APIs, repositories, models and event emitter.
+	 *
+	 * @returns {Main} A new Main instance.
+	 *
+	 * @description
+	 * Initializes the Main surface using its base class.
 	 */
 	constructor(location, domainInterface) {
 		super(location, domainInterface);
@@ -46,15 +58,15 @@ export class Main extends BaseSurface {
 	 * @memberof Main
 	 * @async
 	 * @instance
+	 * @public
 	 * @override
 	 * @function
 	 * @name load
 	 *
-	 * @returns {null} - Nothing
+	 * @returns {Promise<void>} Resolves after loading completes.
 	 *
 	 * @description
-	 * Sets the user role in the request headers for access control purposes
-	 * by passing it in to the base class load method
+	 * Loads the inherited surface infrastructure for Main.
 	 */
 	async load() {
 		await super.load();
@@ -69,19 +81,22 @@ export class Main extends BaseSurface {
 	 * @memberof Main
 	 * @async
 	 * @instance
+	 * @protected
 	 * @override
 	 * @function
 	 * @name _registerSurface
 	 *
-	 * @returns {null} - The routes to be added to the Rest API Router
+	 * @returns {Promise<object[]>} Resolves to the route definitions exposed by the surface.
 	 *
 	 * @description
-	 * Adds the route definitions and handlers for this surface to
-	 * the Rest API Router
+	 * Returns inherited and local route definitions, including their handlers
+	 * and any authorization middleware.
 	 */
 	async _registerSurface() {
+		// Step 1: Get the routes supplied by the base surface.
 		const baseRoutes = await super._registerSurface();
 
+		// Step 2: Add the routes and request middleware exposed by this surface.
 		baseRoutes.push({
 			version: 1,
 			httpMethod: 'GET',
@@ -170,11 +185,12 @@ export class Main extends BaseSurface {
 	 * @memberof Main
 	 * @async
 	 * @instance
+	 * @protected
 	 * @override
 	 * @function
 	 * @name _unregisterSurface
 	 *
-	 * @returns {null} - Nothing
+	 * @returns {Promise<void>} Resolves after registration changes complete.
 	 *
 	 * @description
 	 * Removes the route definitions and handlers for this surface from
@@ -195,30 +211,39 @@ export class Main extends BaseSurface {
 	 * @async
 	 * @instance
 	 * @private
-	 * @override
 	 * @function
 	 * @name #getContactTypes
 	 *
-	 * @returns {null} - Nothing
+	 * @param {object} ctxt - Koa context for `GET /contact-types` or `GET /contact-types/:id`.
+	 *
+	 * @returns {Promise<void>} Resolves after the response has been written.
 	 *
 	 * @description
-	 * Retrieves the contact types available in the system
-	 * mobile, email, fax, landline, etc.
+	 * Handles `GET /contact-types` and `GET /contact-types/:id`.
+	 * Fetches localized contact types such as mobile and email. The optional
+	 * `id` path parameter selects one contact type.
+	 * Requires a session authorized by the `registered` RBAC middleware.
 	 *
 	 * @example
-	 * // Retrieve all contact types
-	 * $ curl -X GET -H "Content-Type: application/json" -b ./cookies.txt ${base_url}/api/v1/masterdata/contact-types/
+	 * // Invocation configuration [./servers/curl_example_data/api_v1_masterdata_contact_types.curl]:
+	 * $ curl -X GET -H "Content-Type: application/json" -b ./cookies.txt "${base_url}/api/v1/masterdata/contact-types"
+	 * // Equivalent invocation using the configuration file:
+	 * $ curl --config ./servers/curl_example_data/api_v1_masterdata_contact_types.curl "${base_url}/api/v1/masterdata/contact-types"
 	 *
-	 * Array of contact types
-	 * $
+	 * // Invocation configuration [./servers/curl_example_data/api_v1_masterdata_contact_types_by_id.curl]:
+	 * $ curl -X GET -H "Content-Type: application/json" -b ./cookies.txt "${base_url}/api/v1/masterdata/contact-types/${id}"
+	 * // Equivalent invocation using the configuration file:
+	 * $ curl --config ./servers/curl_example_data/api_v1_masterdata_contact_types_by_id.curl "${base_url}/api/v1/masterdata/contact-types/${id}"
 	 */
 	async #getContactTypes(ctxt) {
+		// Step 1: Fetch the requested master data for the request locale.
 		const masterdataList = await this.#getMasterdata(
 			'CONTACT_TYPE',
 			ctxt.params.id,
 			ctxt.locale
 		);
 
+		// Step 2: Write the middleware result to the HTTP response.
 		ctxt.status = masterdataList.status;
 		ctxt.body = masterdataList.body;
 	}
@@ -231,29 +256,38 @@ export class Main extends BaseSurface {
 	 * @async
 	 * @instance
 	 * @private
-	 * @override
 	 * @function
 	 * @name #getGenders
 	 *
-	 * @returns {null} - Nothing
+	 * @param {object} ctxt - Koa context for `GET /genders` or `GET /genders/:id`.
+	 *
+	 * @returns {Promise<void>} Resolves after the response has been written.
 	 *
 	 * @description
-	 * Retrieves the genders available in the system
+	 * Handles `GET /genders` and `GET /genders/:id`.
+	 * Fetches localized gender records. The optional `id` path parameter selects
+	 * one gender record.
 	 *
 	 * @example
-	 * // Retrieve all genders
-	 * $ curl -X GET -H "Content-Type: application/json" -b ./cookies.txt ${base_url}/api/v1/masterdata/genders/
+	 * // Invocation configuration [./servers/curl_example_data/api_v1_masterdata_genders.curl]:
+	 * $ curl -X GET -H "Content-Type: application/json" "${base_url}/api/v1/masterdata/genders"
+	 * // Equivalent invocation using the configuration file:
+	 * $ curl --config ./servers/curl_example_data/api_v1_masterdata_genders.curl "${base_url}/api/v1/masterdata/genders"
 	 *
-	 * Array of genders
-	 * $
+	 * // Invocation configuration [./servers/curl_example_data/api_v1_masterdata_genders_by_id.curl]:
+	 * $ curl -X GET -H "Content-Type: application/json" "${base_url}/api/v1/masterdata/genders/${id}"
+	 * // Equivalent invocation using the configuration file:
+	 * $ curl --config ./servers/curl_example_data/api_v1_masterdata_genders_by_id.curl "${base_url}/api/v1/masterdata/genders/${id}"
 	 */
 	async #getGenders(ctxt) {
+		// Step 1: Fetch the requested master data for the request locale.
 		const masterdataList = await this.#getMasterdata(
 			'GENDER',
 			ctxt.params.id,
 			ctxt.locale
 		);
 
+		// Step 2: Write the middleware result to the HTTP response.
 		ctxt.status = masterdataList.status;
 		ctxt.body = masterdataList.body;
 	}
@@ -266,29 +300,38 @@ export class Main extends BaseSurface {
 	 * @async
 	 * @instance
 	 * @private
-	 * @override
 	 * @function
 	 * @name #getLocales
 	 *
-	 * @returns {null} - Nothing
+	 * @param {object} ctxt - Koa context for `GET /locales` or `GET /locales/:id`.
+	 *
+	 * @returns {Promise<void>} Resolves after the response has been written.
 	 *
 	 * @description
-	 * Retrieves the locales available in the system
+	 * Handles `GET /locales` and `GET /locales/:id`.
+	 * Fetches enabled locales and their labels in their own language.
+	 * The optional `id` path parameter selects one locale code.
 	 *
 	 * @example
-	 * // Retrieve all locales
-	 * $ curl -X GET -H "Content-Type: application/json" -b ./cookies.txt ${base_url}/api/v1/masterdata/locales/
+	 * // Invocation configuration [./servers/curl_example_data/api_v1_masterdata_locales.curl]:
+	 * $ curl -X GET -H "Content-Type: application/json" "${base_url}/api/v1/masterdata/locales"
+	 * // Equivalent invocation using the configuration file:
+	 * $ curl --config ./servers/curl_example_data/api_v1_masterdata_locales.curl "${base_url}/api/v1/masterdata/locales"
 	 *
-	 * Array of locales
-	 * $
+	 * // Invocation configuration [./servers/curl_example_data/api_v1_masterdata_locales_by_id.curl]:
+	 * $ curl -X GET -H "Content-Type: application/json" "${base_url}/api/v1/masterdata/locales/${id}"
+	 * // Equivalent invocation using the configuration file:
+	 * $ curl --config ./servers/curl_example_data/api_v1_masterdata_locales_by_id.curl "${base_url}/api/v1/masterdata/locales/${id}"
 	 */
 	async #getLocales(ctxt) {
+		// Step 1: Fetch the requested master data for the request locale.
 		const masterdataList = await this.#getMasterdata(
 			'LOCALE',
 			ctxt.params.id,
 			ctxt.locale
 		);
 
+		// Step 2: Write the middleware result to the HTTP response.
 		ctxt.status = masterdataList.status;
 		ctxt.body = masterdataList.body;
 	}
@@ -301,29 +344,39 @@ export class Main extends BaseSurface {
 	 * @async
 	 * @instance
 	 * @private
-	 * @override
 	 * @function
 	 * @name #getCountryCodes
 	 *
-	 * @returns {null} - Nothing
+	 * @param {object} ctxt - Koa context for `GET /country-codes` or `GET /country-codes/:iso_code`.
+	 *
+	 * @returns {Promise<void>} Resolves after the response has been written.
 	 *
 	 * @description
-	 * Retrieves the countries available in the system
+	 * Handles `GET /country-codes` and `GET /country-codes/:iso_code`.
+	 * Fetches enabled country codes for the request locale. The optional
+	 * `iso_code` path parameter selects one country.
+	 * Requires a session authorized by the `registered` RBAC middleware.
 	 *
 	 * @example
-	 * // Retrieve all countries
-	 * $ curl -X GET -H "Content-Type: application/json" -b ./cookies.txt ${base_url}/api/v1/masterdata/country-code/
+	 * // Invocation configuration [./servers/curl_example_data/api_v1_masterdata_country_codes.curl]:
+	 * $ curl -X GET -H "Content-Type: application/json" -b ./cookies.txt "${base_url}/api/v1/masterdata/country-codes"
+	 * // Equivalent invocation using the configuration file:
+	 * $ curl --config ./servers/curl_example_data/api_v1_masterdata_country_codes.curl "${base_url}/api/v1/masterdata/country-codes"
 	 *
-	 * Array of countries
-	 * $
+	 * // Invocation configuration [./servers/curl_example_data/api_v1_masterdata_country_codes_by_iso_code.curl]:
+	 * $ curl -X GET -H "Content-Type: application/json" -b ./cookies.txt "${base_url}/api/v1/masterdata/country-codes/${iso_code}"
+	 * // Equivalent invocation using the configuration file:
+	 * $ curl --config ./servers/curl_example_data/api_v1_masterdata_country_codes_by_iso_code.curl "${base_url}/api/v1/masterdata/country-codes/${iso_code}"
 	 */
 	async #getCountryCodes(ctxt) {
+		// Step 1: Fetch the requested master data for the request locale.
 		const masterdataList = await this.#getMasterdata(
 			'COUNTRY_CODES',
 			ctxt.params.iso_code,
 			ctxt.locale
 		);
 
+		// Step 2: Write the middleware result to the HTTP response.
 		ctxt.status = masterdataList.status;
 		ctxt.body = masterdataList.body;
 	}
@@ -336,29 +389,39 @@ export class Main extends BaseSurface {
 	 * @async
 	 * @instance
 	 * @private
-	 * @override
 	 * @function
 	 * @name #getSystemMessages
 	 *
-	 * @returns {null} - Nothing
+	 * @param {object} ctxt - Koa context for `GET /system-messages` or `GET /system-messages/:messageCode`.
+	 *
+	 * @returns {Promise<void>} Resolves after the response has been written.
 	 *
 	 * @description
-	 * Retrieves the system messages available in the system
+	 * Handles `GET /system-messages` and `GET /system-messages/:messageCode`.
+	 * Fetches localized system messages. The optional `messageCode` path
+	 * parameter is passed to the middleware as the master record identifier.
+	 * Requires a session authorized by the `registered` RBAC middleware.
 	 *
 	 * @example
-	 * // Retrieve all system messages
-	 * $ curl -X GET -H "Content-Type: application/json" -b ./cookies.txt ${base_url}/api/v1/masterdata/system-messages/
+	 * // Invocation configuration [./servers/curl_example_data/api_v1_masterdata_system_messages.curl]:
+	 * $ curl -X GET -H "Content-Type: application/json" -b ./cookies.txt "${base_url}/api/v1/masterdata/system-messages"
+	 * // Equivalent invocation using the configuration file:
+	 * $ curl --config ./servers/curl_example_data/api_v1_masterdata_system_messages.curl "${base_url}/api/v1/masterdata/system-messages"
 	 *
-	 * Array of countries
-	 * $
+	 * // Invocation configuration [./servers/curl_example_data/api_v1_masterdata_system_messages_by_message_code.curl]:
+	 * $ curl -X GET -H "Content-Type: application/json" -b ./cookies.txt "${base_url}/api/v1/masterdata/system-messages/${messageCode}"
+	 * // Equivalent invocation using the configuration file:
+	 * $ curl --config ./servers/curl_example_data/api_v1_masterdata_system_messages_by_message_code.curl "${base_url}/api/v1/masterdata/system-messages/${messageCode}"
 	 */
 	async #getSystemMessages(ctxt) {
+		// Step 1: Fetch the requested master data for the request locale.
 		const masterdataList = await this.#getMasterdata(
 			'SYSTEM_MESSAGES',
 			ctxt.params.messageCode,
 			ctxt.locale
 		);
 
+		// Step 2: Write the middleware result to the HTTP response.
 		ctxt.status = masterdataList.status;
 		ctxt.body = masterdataList.body;
 	}
@@ -367,8 +430,6 @@ export class Main extends BaseSurface {
 
 	// #region Private Methods
 	/**
-	 * Executes a masterdata API call and strips framework metadata fields from the response.
-	 *
 	 * @category REST API Server/Bounded Contexts
 	 * @subcategory Masterdata/Surfaces/Query
 	 *
@@ -383,9 +444,14 @@ export class Main extends BaseSurface {
 	 * @param {string} id - Optional record identifier.
 	 * @param {string} localeId - Locale used to resolve translated records.
 	 * @param {string} extraParameter - Optional extra parameter forwarded to the API.
+	 *
 	 * @returns {Promise<object>} HTTP response data containing cleaned masterdata records.
+	 *
+	 * @description
+	 * Executes a masterdata API call and strips framework metadata fields from the response.
 	 */
 	async #getMasterdata(masterdataType, id, localeId, extraParameter) {
+		// Step 1: Fetch the requested master data through the API registry.
 		const apiRegistry = this.domainInterface.apiRegistry;
 		let masterdataList = await apiRegistry.execute(
 			masterdataType,
@@ -394,6 +460,7 @@ export class Main extends BaseSurface {
 			extraParameter
 		);
 
+		// Step 2: Remove storage timestamps from each record before returning the result.
 		masterdataList.body = (masterdataList.body ?? []).map((item) => {
 			delete item['created_at'];
 			delete item['updated_at'];
@@ -422,7 +489,16 @@ export default class MainSurfaceFactory extends EVASBaseFactory {
 	 * @category REST API Server/Bounded Contexts
 	 * @subcategory Masterdata/Surfaces/Query
 	 *
-	 * @ignore
+	 * @memberof MainSurfaceFactory
+	 * @instance
+	 * @public
+	 * @function
+	 * @name constructor
+	 *
+	 * @returns {MainSurfaceFactory} A new MainSurfaceFactory instance.
+	 *
+	 * @description
+	 * Initializes the MainSurfaceFactory factory using its base class.
 	 */
 	constructor() {
 		super();
@@ -437,15 +513,21 @@ export default class MainSurfaceFactory extends EVASBaseFactory {
 	 * @memberof MainSurfaceFactory
 	 * @async
 	 * @static
+	 * @public
 	 * @override
 	 * @function
-	 * @name createInstance
+	 * @name createInstances
 	 *
 	 * @param {object} [domainInterface] - Domain functionality exposed to sub-artifacts
 	 *
-	 * @returns {Main} - The Main surface instance.
+	 * @returns {Promise<Main>} Resolves to the loaded Main surface instance.
+	 *
+	 * @description
+	 * Creates and loads the surface instance on first use, then reuses it.
+	 * Serializes access to the cached instance with the factory mutex.
 	 */
 	static async createInstances(domainInterface) {
+		// Create or reuse the loaded instance under the factory lock.
 		return await MainSurfaceFactory.#mutex.runExclusive(async () => {
 			if (!MainSurfaceFactory.#mainInstance) {
 				const mainInstance = new Main(
@@ -468,15 +550,19 @@ export default class MainSurfaceFactory extends EVASBaseFactory {
 	 * @memberof MainSurfaceFactory
 	 * @async
 	 * @static
+	 * @public
 	 * @override
 	 * @function
 	 * @name destroyInstances
 	 *
-	 * @returns {undefined} - Nothing.
+	 * @returns {Promise<void>} Resolves after the cached instance is unloaded and released.
 	 *
-	 * @description Clears the Main instance
+	 * @description
+	 * Unloads the cached surface instance and clears the factory reference
+	 * under the factory mutex.
 	 */
 	static async destroyInstances() {
+		// Unload and release cached instances under the factory lock.
 		await MainSurfaceFactory.#mutex.runExclusive(async () => {
 			await MainSurfaceFactory.#mainInstance?.unload();
 			MainSurfaceFactory.#mainInstance = undefined;
@@ -492,16 +578,17 @@ export default class MainSurfaceFactory extends EVASBaseFactory {
 	 * @subcategory Masterdata/Surfaces/Query
 	 *
 	 * @memberof MainSurfaceFactory
-	 * @async
 	 * @static
+	 * @public
 	 * @override
+	 * @readonly
 	 * @function
 	 * @name SurfaceName
 	 *
 	 * @returns {string} - Name of this surface.
 	 *
 	 * @description
-	 * Returns the name of this surface - Main
+	 * Returns the registered surface name: `Main`.
 	 */
 	static get SurfaceName() {
 		return 'Main';

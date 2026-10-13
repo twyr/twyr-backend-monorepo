@@ -27,7 +27,19 @@ export class BaseEventHandler extends EVASBaseEventHandler {
 	 * @category REST API Server/Base Classes
 	 * @subcategory Base Classes
 	 *
-	 * @ignore
+	 * @memberof BaseEventHandler
+	 * @instance
+	 * @public
+	 * @function
+	 * @name constructor
+	 *
+	 * @param {string} location - Filesystem location of the artifact.
+	 * @param {object} domainInterface - Domain APIs, repositories, models and event emitter.
+	 *
+	 * @returns {BaseEventHandler} A new BaseEventHandler instance.
+	 *
+	 * @description
+	 * Initializes the BaseEventHandler event handler using its base class.
 	 */
 	constructor(location, domainInterface) {
 		super(location, domainInterface);
@@ -42,17 +54,18 @@ export class BaseEventHandler extends EVASBaseEventHandler {
 	 * @memberof BaseEventHandler
 	 * @async
 	 * @instance
+	 * @public
 	 * @override
 	 * @function
 	 * @name load
 	 *
-	 * @returns {null} - Nothing
+	 * @returns {Promise<void>} Resolves after loading completes.
 	 *
 	 * @description
-	 * To be overridden by artifact implementations - for implementing custom
-	 * start logic
+	 * Loads the inherited event handler infrastructure for BaseEventHandler.
 	 */
 	async load() {
+		// Load the base artifact, then register the derived event handlers.
 		await super.load();
 		await this._registerHandlers();
 	}
@@ -64,17 +77,18 @@ export class BaseEventHandler extends EVASBaseEventHandler {
 	 * @memberof BaseEventHandler
 	 * @async
 	 * @instance
+	 * @public
 	 * @override
 	 * @function
 	 * @name unload
 	 *
-	 * @returns {null} - Nothing
+	 * @returns {Promise<void>} Resolves after unloading completes.
 	 *
 	 * @description
-	 * To be overridden by artifact implementations - for implementing custom
-	 * stop logic
+	 * Unloads the event handler infrastructure.
 	 */
 	async unload() {
+		// Remove event handlers before releasing the base artifact.
 		await this._unregisterHandlers();
 		await super.unload();
 	}
@@ -88,15 +102,15 @@ export class BaseEventHandler extends EVASBaseEventHandler {
 	 * @memberof BaseEventHandler
 	 * @async
 	 * @instance
+	 * @protected
 	 * @override
 	 * @function
 	 * @name _registerHandlers
 	 *
-	 * @returns {null} - Nothing
+	 * @returns {Promise<object[]>} Resolves to the inherited registration definitions; empty by default.
 	 *
 	 * @description
-	 * To be overridden by artifact implementations - for adding their API
-	 * to the eventEmitter in the domainInterface
+	 * Provides an empty set of registration definitions for derived artifacts to extend.
 	 */
 	async _registerHandlers() {
 		return [];
@@ -109,11 +123,12 @@ export class BaseEventHandler extends EVASBaseEventHandler {
 	 * @memberof BaseEventHandler
 	 * @async
 	 * @instance
+	 * @protected
 	 * @override
 	 * @function
 	 * @name _unregisterHandlers
 	 *
-	 * @returns {null} - Nothing
+	 * @returns {Promise<void>} Resolves after registration changes complete.
 	 *
 	 * @description
 	 * To be overridden by artifact implementations - for removing their API

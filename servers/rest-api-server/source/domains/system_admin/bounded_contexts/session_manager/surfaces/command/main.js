@@ -36,7 +36,19 @@ export class Main extends SystemAdminBaseSurface {
 	 * @category REST API Server/Domains/System Admin
 	 * @subcategory Session Manager/Surfaces/Command
 	 *
-	 * @ignore
+	 * @memberof Main
+	 * @instance
+	 * @public
+	 * @function
+	 * @name constructor
+	 *
+	 * @param {string} location - Filesystem location of the artifact.
+	 * @param {object} domainInterface - Domain APIs, repositories, models and event emitter.
+	 *
+	 * @returns {Main} A new Main instance.
+	 *
+	 * @description
+	 * Initializes the Main surface using its base class.
 	 */
 	constructor(location, domainInterface) {
 		super(location, domainInterface);
@@ -51,13 +63,15 @@ export class Main extends SystemAdminBaseSurface {
 	 * @memberof Main
 	 * @async
 	 * @instance
+	 * @public
 	 * @override
 	 * @function
 	 * @name load
 	 *
-	 * @returns {Promise<void>} Resolves when the surface has loaded.
+	 * @returns {Promise<void>} Resolves after loading completes.
 	 *
-	 * @description Loads the surface and its inherited route infrastructure.
+	 * @description
+	 * Loads the inherited surface infrastructure for Main.
 	 */
 	async load() {
 		await super.load();
@@ -70,16 +84,21 @@ export class Main extends SystemAdminBaseSurface {
 	 * @memberof Main
 	 * @async
 	 * @instance
+	 * @public
 	 * @override
 	 * @function
 	 * @name unload
 	 *
-	 * @returns {Promise<void>} Resolves when the surface has unloaded.
+	 * @returns {Promise<void>} Resolves after unloading completes.
 	 *
-	 * @description Unloads the surface and clears the local Joi validation schema cache.
+	 * @description
+	 * Unloads the surface infrastructure and clears cached validation schemas.
 	 */
 	async unload() {
+		// Release the surface routes.
 		await super.unload();
+
+		// Discard cached validation schemas.
 		this.#validationSchemaMap.clear();
 	}
 	// #endregion
@@ -92,20 +111,22 @@ export class Main extends SystemAdminBaseSurface {
 	 * @memberof Main
 	 * @async
 	 * @instance
+	 * @protected
 	 * @override
 	 * @function
 	 * @name _registerSurface
 	 *
-	 * @returns {Promise<Array>} Routes to be added to the REST API router.
+	 * @returns {Promise<object[]>} Resolves to the route definitions exposed by the surface.
 	 *
 	 * @description
-	 * Registers the user session command routes:
-	 * `POST /generate-otp`, `POST /validate-otp`, `POST /login`, and
-	 * `POST /logout` where logout requires the `registered` RBAC middleware.
+	 * Returns inherited and local route definitions, including their handlers
+	 * and any authorization middleware.
 	 */
 	async _registerSurface() {
+		// Step 1: Get the routes supplied by the base surface.
 		const baseRoutes = await super._registerSurface();
 
+		// Step 2: Add the routes and request middleware exposed by this surface.
 		baseRoutes.push({
 			version: 1,
 			httpMethod: 'POST',
@@ -145,13 +166,15 @@ export class Main extends SystemAdminBaseSurface {
 	 * @memberof Main
 	 * @async
 	 * @instance
+	 * @protected
 	 * @override
 	 * @function
 	 * @name _unregisterSurface
 	 *
-	 * @returns {Promise<void>} Resolves when the surface routes are unregistered.
+	 * @returns {Promise<void>} Resolves after registration changes complete.
 	 *
-	 * @description Removes the command surface routes from the REST API router.
+	 * @description
+	 * Removes the command surface routes from the REST API router.
 	 */
 	async _unregisterSurface() {
 		await super._unregisterSurface();
@@ -165,26 +188,31 @@ export class Main extends SystemAdminBaseSurface {
 	 * @memberof Main
 	 * @async
 	 * @instance
+	 * @protected
 	 * @override
 	 * @function
 	 * @name _setupValidationSchemas
 	 *
-	 * @param {Map} [validationSchemaMap] - Map to be populated with the validation schemas.
+	 * @param {Map} [validationSchemaMap] - Map to populate; defaults to the surface cache when available.
 	 *
-	 * @returns {Map} Map containing the validation schemas.
+	 * @returns {Promise<void>} Resolves after the validation schemas are cached.
 	 *
 	 * @description
 	 * Registers Joi schemas for:
-	 * `POST /generate-otp` with `username` matching `/^\\+\\d{12}$/`,
+	 * `POST /generate-otp` with `username` matching `/^\+\d{12}$/`,
 	 * `POST /validate-otp` with the same `username` plus a four digit `password`,
 	 * and `POST /login` with the same `username` and four digit `password`.
 	 */
 	async _setupValidationSchemas(validationSchemaMap) {
+		// Step 1: Reuse the supplied schema map or the surface cache.
 		validationSchemaMap = validationSchemaMap ?? this.#validationSchemaMap;
+
+		// Step 2: Apply the base validation schemas.
 		validationSchemaMap = await super._setupValidationSchemas(
 			validationSchemaMap
 		);
 
+		// Step 3: Build the OTP generation schema when it is missing.
 		let generateOtpSchema = validationSchemaMap.get(
 			'GENERATE_OTP_VALIDATION_SCHEMA'
 		);
@@ -205,12 +233,14 @@ export class Main extends SystemAdminBaseSurface {
 					})
 			});
 
+			// Cache the schema for subsequent requests.
 			validationSchemaMap.set(
 				'GENERATE_OTP_VALIDATION_SCHEMA',
 				generateOtpSchema
 			);
 		}
 
+		// Step 4: Build the OTP validation schema when it is missing.
 		let validateOtpSchema = validationSchemaMap.get(
 			'VALIDATE_OTP_VALIDATION_SCHEMA'
 		);
@@ -248,12 +278,14 @@ export class Main extends SystemAdminBaseSurface {
 					})
 			});
 
+			// Cache the schema for subsequent requests.
 			validationSchemaMap.set(
 				'VALIDATE_OTP_VALIDATION_SCHEMA',
 				validateOtpSchema
 			);
 		}
 
+		// Step 5: Build the login schema when it is missing.
 		let loginValidationSchema = validationSchemaMap.get(
 			'LOGIN_VALIDATION_SCHEMA'
 		);
@@ -291,6 +323,7 @@ export class Main extends SystemAdminBaseSurface {
 					})
 			});
 
+			// Cache the schema for subsequent requests.
 			validationSchemaMap.set(
 				'LOGIN_VALIDATION_SCHEMA',
 				loginValidationSchema
@@ -317,16 +350,18 @@ export class Main extends SystemAdminBaseSurface {
 	 *
 	 * @description
 	 * Handles `POST /generate-otp`.
-	 * Validates a request body shaped as `{ username }` where `username`
-	 * is a required string matching `/^\\+\\d{12}$/`, then triggers OTP generation.
+	 * Validates `{ username }`, requiring `username` to match `/^\+\d{12}$/`,
+	 * then requests OTP generation and writes the middleware response.
 	 *
 	 * @example
 	 * // Given the following input data [./servers/curl_example_data/api_v1_system_admin_session_manager_generate_otp.json]:
-	 * $ curl -X POST -H "Content-Type: application/json" -d @./servers/curl_example_data/api_v1_system_admin_session_manager_generate_otp.json ${base_url}/api/v1/system_admin/session-manager/generate-otp
-	 *
-	 * OTP metadata is returned for the supplied user contact number.
+	 * // Invocation configuration [./servers/curl_example_data/api_v1_system_admin_session_manager_generate_otp.curl]:
+	 * $ curl -X POST -H "Content-Type: application/json" -d @./servers/curl_example_data/api_v1_system_admin_session_manager_generate_otp.json "${base_url}/api/v1/system-admin/session-manager/generate-otp"
+	 * // Equivalent invocation using the configuration file:
+	 * $ curl --config ./servers/curl_example_data/api_v1_system_admin_session_manager_generate_otp.curl "${base_url}/api/v1/system-admin/session-manager/generate-otp"
 	 */
 	async #generateOtp(ctxt) {
+		// Step 1: Validate the OTP request against its schema.
 		try {
 			const generateOtpSchema = this.#validationSchemaMap.get(
 				'GENERATE_OTP_VALIDATION_SCHEMA'
@@ -335,6 +370,7 @@ export class Main extends SystemAdminBaseSurface {
 				abortEarly: false
 			});
 		} catch (error) {
+			// Convert input validation failures into handler errors.
 			const validationError = this._convertValidationErrorToHandlerError(
 				error,
 				'EVASERVER::INPUT_VALIDATION_ERROR'
@@ -343,12 +379,14 @@ export class Main extends SystemAdminBaseSurface {
 			throw validationError;
 		}
 
+		// Step 2: Execute the OTP operation through the middleware API.
 		const apiRegistry = this.domainInterface.apiRegistry;
 		const otpStatus = await apiRegistry.execute('GENERATE_OTP', {
 			username: ctxt?.request?.body?.username,
 			locale: ctxt.locale
 		});
 
+		// Step 3: Write the OTP result to the HTTP response.
 		ctxt.status = otpStatus.status;
 		ctxt.body = otpStatus.body;
 	}
@@ -370,17 +408,19 @@ export class Main extends SystemAdminBaseSurface {
 	 *
 	 * @description
 	 * Handles `POST /validate-otp`.
-	 * Validates a request body shaped as `{ username, password }` where
-	 * `username` is required and matches `/^\\+\\d{12}$/` and `password`
-	 * is a required four digit string matching `/^\\d{4}$/`.
+	 * Validates `{ username, password }`, requiring `username` to match
+	 * `/^\+\d{12}$/` and `password` to be a four digit string matching `/^\d{4}$/`.
+	 * Writes the OTP validation result returned by the middleware.
 	 *
 	 * @example
 	 * // Given the following input data [./servers/curl_example_data/api_v1_system_admin_session_manager_validate_otp.json]:
-	 * $ curl -X POST -H "Content-Type: application/json" -d @./servers/curl_example_data/api_v1_system_admin_session_manager_validate_otp.json ${base_url}/api/v1/system_admin/session-manager/validate-otp
-	 *
-	 * The response indicates whether the supplied OTP is valid.
+	 * // Invocation configuration [./servers/curl_example_data/api_v1_system_admin_session_manager_validate_otp.curl]:
+	 * $ curl -X POST -H "Content-Type: application/json" -d @./servers/curl_example_data/api_v1_system_admin_session_manager_validate_otp.json "${base_url}/api/v1/system-admin/session-manager/validate-otp"
+	 * // Equivalent invocation using the configuration file:
+	 * $ curl --config ./servers/curl_example_data/api_v1_system_admin_session_manager_validate_otp.curl "${base_url}/api/v1/system-admin/session-manager/validate-otp"
 	 */
 	async #validateOtp(ctxt) {
+		// Step 1: Validate the OTP request against its schema.
 		try {
 			const validateOtpSchema = this.#validationSchemaMap.get(
 				'VALIDATE_OTP_VALIDATION_SCHEMA'
@@ -389,6 +429,7 @@ export class Main extends SystemAdminBaseSurface {
 				abortEarly: false
 			});
 		} catch (error) {
+			// Convert input validation failures into handler errors.
 			const validationError = this._convertValidationErrorToHandlerError(
 				error,
 				'EVASERVER::INPUT_VALIDATION_ERROR'
@@ -397,6 +438,7 @@ export class Main extends SystemAdminBaseSurface {
 			throw validationError;
 		}
 
+		// Step 2: Execute the OTP operation through the middleware API.
 		const apiRegistry = this.domainInterface.apiRegistry;
 		const otpStatus = await apiRegistry.execute('VALIDATE_OTP', {
 			username: ctxt?.request?.body?.username,
@@ -404,6 +446,7 @@ export class Main extends SystemAdminBaseSurface {
 			locale: ctxt.locale
 		});
 
+		// Step 3: Write the OTP result to the HTTP response.
 		ctxt.status = otpStatus.status;
 		ctxt.body = otpStatus.body;
 	}
@@ -425,18 +468,19 @@ export class Main extends SystemAdminBaseSurface {
 	 *
 	 * @description
 	 * Handles `POST /login`.
-	 * Validates a request body shaped as `{ username, password }` where
-	 * `username` is required and matches `/^\\+\\d{12}$/` and `password`
-	 * is a required four digit string matching `/^\\d{4}$/`.
-	 * If no active session exists, the route authenticates the user and creates
-	 * the session cookie.
+	 * Validates the same username and four digit password format as OTP validation.
+	 * Rejects an existing authenticated session, authenticates the system admin,
+	 * and writes the serialized profile while storing the session identity.
 	 *
 	 * @example
-	 * $ curl -X POST -H "Content-Type: application/json" -d '{"username":"+911234567890", "password":"1270"}' -c ./cookies.txt ${base_url}/api/v1/system_admin/session-manager/login
-	 *
-	 * The authenticated user profile is returned and the session cookie is set.
+	 * // Given the following input data [./servers/curl_example_data/api_v1_system_admin_session_manager_login.json]:
+	 * // Invocation configuration [./servers/curl_example_data/api_v1_system_admin_session_manager_login.curl]:
+	 * $ curl -X POST -H "Content-Type: application/json" -c ./cookies.txt -d @./servers/curl_example_data/api_v1_system_admin_session_manager_login.json "${base_url}/api/v1/system-admin/session-manager/login"
+	 * // Equivalent invocation using the configuration file:
+	 * $ curl --config ./servers/curl_example_data/api_v1_system_admin_session_manager_login.curl "${base_url}/api/v1/system-admin/session-manager/login"
 	 */
 	async #login(ctxt) {
+		// Step 1: Reject login when the request already has an active session.
 		if (ctxt.isAuthenticated()) {
 			const userError = new Error(
 				'EVASERVER::SYSTEM_ADMIN::SESSION_MANAGER::EXISTING_ACTIVE_SESSION'
@@ -448,6 +492,7 @@ export class Main extends SystemAdminBaseSurface {
 			throw userError;
 		}
 
+		// Step 2: Validate the submitted login credentials.
 		try {
 			const loginValidationSchema = this.#validationSchemaMap.get(
 				'LOGIN_VALIDATION_SCHEMA'
@@ -465,12 +510,14 @@ export class Main extends SystemAdminBaseSurface {
 			throw validationError;
 		}
 
+		// Step 3: Authenticate the credentials using the configured Passport strategy.
 		const authRepository =
 			await this.domainInterface.iocContainer.resolve('Auth');
 		const authenticator = authRepository.authenticate('system-admin-local');
 
 		await authenticator(ctxt, async () => {});
 
+		// Step 4: Run the login middleware to prepare the profile and session data.
 		const apiRegistry = this.domainInterface.apiRegistry;
 		const postLoginStatus = await apiRegistry.execute('LOGIN', {
 			user: ctxt.state.user,
@@ -478,13 +525,17 @@ export class Main extends SystemAdminBaseSurface {
 			locale: ctxt.locale
 		});
 
+		// Step 5: Serialize the profile for the login response.
 		const profileBody =
 			await this.domainInterface.serializer.serializeAsync(
 				'system_admin',
 				postLoginStatus.body.body
 			);
 
+		// Step 6: Store the session identity before writing the login response.
 		ctxt.session.passport.user = postLoginStatus.sessionData;
+
+		// Step 7: Write the login response with the serialized profile.
 		ctxt.status = postLoginStatus.status;
 		ctxt.body = { ...postLoginStatus.body, body: profileBody };
 		ctxt.locale = postLoginStatus.locale ?? ctxt.locale;
@@ -507,16 +558,19 @@ export class Main extends SystemAdminBaseSurface {
 	 *
 	 * @description
 	 * Handles `POST /logout`.
-	 * This route has no Joi body validation and instead relies on the route definition:
-	 * it is a `POST /logout` endpoint guarded by the `registered` RBAC middleware and
-	 * logs out the currently authenticated user session.
+	 * Logs out the authenticated system admin, requests cache invalidation through
+	 * the logout middleware, and writes the localized response. The request body is unused.
+	 * Requires a session authorized by the `registered` RBAC middleware.
 	 *
 	 * @example
-	 * $ curl -X POST -b ./cookies.txt ${base_url}/api/v1/system_admin/session-manager/logout
-	 *
-	 * A localized logout response is returned for the current user session.
+	 * // Given the following input data [./servers/curl_example_data/api_v1_system_admin_session_manager_logout.json]:
+	 * // Invocation configuration [./servers/curl_example_data/api_v1_system_admin_session_manager_logout.curl]:
+	 * $ curl -X POST -H "Content-Type: application/json" -b ./cookies.txt -d @./servers/curl_example_data/api_v1_system_admin_session_manager_logout.json "${base_url}/api/v1/system-admin/session-manager/logout"
+	 * // Equivalent invocation using the configuration file:
+	 * $ curl --config ./servers/curl_example_data/api_v1_system_admin_session_manager_logout.curl "${base_url}/api/v1/system-admin/session-manager/logout"
 	 */
 	async #logout(ctxt) {
+		// Step 1: Capture the user details needed after the Passport session is cleared.
 		const userId = ctxt?.state?.user?.id;
 		const userLocale = ctxt.locale;
 		const userRole = ctxt?.session?.passport?.user?.['role'];
@@ -526,8 +580,10 @@ export class Main extends SystemAdminBaseSurface {
 			ctxt?.state?.user?.mobile_no ??
 			'';
 
+		// Step 2: Clear the Passport login.
 		await ctxt.logout();
 
+		// Step 3: Run the logout middleware using the captured user details.
 		const apiRegistry = this.domainInterface.apiRegistry;
 		const logoutStatus = await apiRegistry.execute('LOGOUT', {
 			userId: userId,
@@ -535,12 +591,14 @@ export class Main extends SystemAdminBaseSurface {
 			locale: userLocale
 		});
 
+		// Step 4: Retain user details for request auditing.
 		ctxt.state.user = {
 			id: userId,
 			role: userRole,
 			mobile_no: ctxt?.state?.user?.mobile_no
 		};
 
+		// Step 5: Write the logout response using the original request locale.
 		ctxt.status = logoutStatus.status;
 		ctxt.body = logoutStatus.body;
 		ctxt.locale = userLocale;
@@ -568,7 +626,16 @@ export default class MainSurfaceFactory extends EVASBaseFactory {
 	 * @category REST API Server/Domains/System Admin
 	 * @subcategory Session Manager/Surfaces/Command
 	 *
-	 * @ignore
+	 * @memberof MainSurfaceFactory
+	 * @instance
+	 * @public
+	 * @function
+	 * @name constructor
+	 *
+	 * @returns {MainSurfaceFactory} A new MainSurfaceFactory instance.
+	 *
+	 * @description
+	 * Initializes the MainSurfaceFactory factory using its base class.
 	 */
 	constructor() {
 		super();
@@ -583,15 +650,21 @@ export default class MainSurfaceFactory extends EVASBaseFactory {
 	 * @memberof MainSurfaceFactory
 	 * @async
 	 * @static
+	 * @public
 	 * @override
 	 * @function
-	 * @name createInstance
+	 * @name createInstances
 	 *
 	 * @param {object} [domainInterface] - Domain functionality exposed to sub-artifacts
 	 *
-	 * @returns {Promise<Main>} Resolves to the Main surface instance.
+	 * @returns {Promise<Main>} Resolves to the loaded Main surface instance.
+	 *
+	 * @description
+	 * Creates and loads the surface instance on first use, then reuses it.
+	 * Serializes access to the cached instance with the factory mutex.
 	 */
 	static async createInstances(domainInterface) {
+		// Create or reuse the loaded instance under the factory lock.
 		return await MainSurfaceFactory.#mutex.runExclusive(async () => {
 			if (!MainSurfaceFactory.#mainInstance) {
 				const mainInstance = new Main(
@@ -614,15 +687,19 @@ export default class MainSurfaceFactory extends EVASBaseFactory {
 	 * @memberof MainSurfaceFactory
 	 * @async
 	 * @static
+	 * @public
 	 * @override
 	 * @function
 	 * @name destroyInstances
 	 *
-	 * @returns {Promise<void>} Resolves when the cached Main instance is cleared.
+	 * @returns {Promise<void>} Resolves after the cached instance is unloaded and released.
 	 *
-	 * @description Destroys the cached Main command surface instance.
+	 * @description
+	 * Unloads the cached surface instance and clears the factory reference
+	 * under the factory mutex.
 	 */
 	static async destroyInstances() {
+		// Unload and release cached instances under the factory lock.
 		await MainSurfaceFactory.#mutex.runExclusive(async () => {
 			await MainSurfaceFactory.#mainInstance?.unload();
 			MainSurfaceFactory.#mainInstance = undefined;
@@ -638,16 +715,17 @@ export default class MainSurfaceFactory extends EVASBaseFactory {
 	 * @subcategory Session Manager/Surfaces/Command
 	 *
 	 * @memberof MainSurfaceFactory
-	 * @async
 	 * @static
+	 * @public
 	 * @override
+	 * @readonly
 	 * @function
 	 * @name SurfaceName
 	 *
 	 * @returns {string} Name of this surface.
 	 *
 	 * @description
-	 * Returns the surface name: `Main`.
+	 * Returns the registered surface name: `Main`.
 	 */
 	static get SurfaceName() {
 		return 'Main';

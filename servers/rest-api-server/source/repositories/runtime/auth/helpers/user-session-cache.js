@@ -9,6 +9,7 @@ const getUserDetails = async function getUserDetails(
 	cacheRepository,
 	databaseRepository
 ) {
+	// Step 1: Return the cached session snapshot when it is available.
 	const userRole = 'user';
 	const cacheKey = `twyr!entity!value!aggregate!${userRole}!${userId}!basics`;
 
@@ -17,6 +18,7 @@ const getUserDetails = async function getUserDetails(
 		return JSON.parse(cachedUser);
 	}
 
+	// Step 2: Load the active account from the database on a cache miss.
 	cachedUser = await databaseRepository.raw(
 		`SELECT * FROM users WHERE id = ? AND is_deleted = false`,
 		[userId]
@@ -35,6 +37,7 @@ const getUserDetails = async function getUserDetails(
 	cachedUser = cachedUser.rows[0];
 	cachedUser.role = userRole;
 
+	// Step 3: Resolve the primary profile locale.
 	let primaryLocale = undefined;
 	const localeDetails = await databaseRepository.raw(
 		`SELECT locale_id FROM user_locales WHERE user_id = ? AND is_primary = true`,
@@ -42,6 +45,7 @@ const getUserDetails = async function getUserDetails(
 	);
 	primaryLocale = localeDetails.rows.shift()?.locale_id;
 
+	// Step 4: Load an available name record for the profile locale.
 	let localizedName = undefined;
 	if (primaryLocale) {
 		localizedName = await databaseRepository.raw(
@@ -80,6 +84,7 @@ const getUserDetails = async function getUserDetails(
 	cachedUser['last_name'] = localizedNameRow.last_name;
 	cachedUser['nickname'] = localizedNameRow.nickname;
 
+	// Step 5: Add localized gender, contact, and locale details to the session snapshot.
 	let genderDetails = undefined;
 	if (primaryLocale) {
 		genderDetails = await databaseRepository.raw(
@@ -141,6 +146,7 @@ const getUserDetails = async function getUserDetails(
 	cachedUser['locales'] = localizedLocaleDetails.rows ?? [];
 	cachedUser['primary_locale'] = primaryLocale;
 
+	// Step 6: Cache the assembled snapshot with the environment-specific expiry.
 	const cacheMulti = await cacheRepository.multi();
 	cacheMulti.set(
 		`twyr!entity!value!aggregate!${userRole}!${userId}!basics`,

@@ -103,6 +103,7 @@ class Notification extends EVASBaseRepository {
 	 * Sends out notifications based on the input data.
 	 */
 	async send(notificationData) {
+		// Log the notification payload until a delivery provider is implemented.
 		const logger = await this.iocContainer.resolve('Logger');
 		logger.info(
 			`\nTODO: IMPLEMENT ACTUAL NOTIFICATION MECHANISM\nSending notifications: ${safeJsonStringify(
@@ -183,6 +184,7 @@ export default class NotificationRepositoryFactory extends EVASBaseFactory {
 	 * @returns {Notification} - The Notification repository instance.
 	 */
 	static async createInstances(configuration, iocContainer) {
+		// Create or reuse the loaded instance under the factory lock.
 		await NotificationRepositoryFactory.#mutex.runExclusive(async () => {
 			if (!NotificationRepositoryFactory.#notificationInstance) {
 				const notificationInstance = new Notification(
@@ -218,6 +220,7 @@ export default class NotificationRepositoryFactory extends EVASBaseFactory {
 	 * @description Clears the cached {Notification} instances
 	 */
 	static async destroyInstances(/*configuration*/) {
+		// Unload and release cached instances under the factory lock.
 		await NotificationRepositoryFactory.#mutex.runExclusive(async () => {
 			if (!NotificationRepositoryFactory.#notificationInstance) return;
 

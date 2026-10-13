@@ -131,6 +131,7 @@ class MongoDB extends EVASBaseRepository {
 	 * stop logic
 	 */
 	async unload() {
+		// Close the client and release repository resources when they are available.
 		if (!this.#mongoose) return;
 
 		await this.#mongoose.close();
@@ -178,6 +179,7 @@ class MongoDB extends EVASBaseRepository {
 	 * @returns {Promise<void>} Resolves after the error is logged.
 	 */
 	async #mongoConnectionError(error) {
+		// Forward the diagnostic event to the shared logger.
 		const logger = await this.iocContainer.resolve('Logger');
 		logger.error(
 			`${this.name}::#mongoConnectionError: ${error.message} @\n${error.stack}`
@@ -232,6 +234,7 @@ export default class MongoDBRepositoryFactory extends EVASBaseFactory {
 	 * @returns {MongoDB} - The MongoDB repository instance.
 	 */
 	static async createInstances(configuration, iocContainer) {
+		// Create or reuse the loaded instance under the factory lock.
 		const repositoryKey = Buffer.from(
 			safeJsonStringify(configuration ?? {})
 		).toString('base64');
@@ -276,7 +279,9 @@ export default class MongoDBRepositoryFactory extends EVASBaseFactory {
 	 * @description Clears the cached {MongoDB} instances
 	 */
 	static async destroyInstances(configuration) {
+		// Unload and release cached instances under the factory lock.
 		await MongoDBRepositoryFactory.#mutex.runExclusive(async () => {
+			// Unload only the requested configuration when one is supplied.
 			if (configuration) {
 				const repositoryKey = Buffer.from(
 					safeJsonStringify(configuration)
@@ -301,6 +306,7 @@ export default class MongoDBRepositoryFactory extends EVASBaseFactory {
 				return;
 			}
 
+			// Otherwise, unload all configurations before clearing the cache.
 			const destroyResolutions = [];
 			MongoDBRepositoryFactory.#mongodbInstances.forEach(
 				(MongoDBInstance) => {

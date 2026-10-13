@@ -34,21 +34,42 @@ export class Basics extends UserBaseMiddleware {
 	 * @category REST API Server/Domains/Users
 	 * @subcategory Profile/Middlewares
 	 *
-	 * @ignore
+	 * @memberof Basics
+	 * @instance
+	 * @public
+	 * @function
+	 * @name constructor
+	 *
+	 * @param {string} location - Filesystem location of the artifact.
+	 * @param {object} domainInterface - Domain APIs, repositories, models and event emitter.
+	 *
+	 * @returns {Basics} A new Basics instance.
+	 *
+	 * @description
+	 * Initializes the Basics middleware using its base class.
 	 */
 	constructor(location, domainInterface) {
 		super(location, domainInterface);
 	}
 
 	/**
-	 * Registers profile middleware APIs with the domain API registry.
-	 *
 	 * @category REST API Server/Domains/Users
 	 * @subcategory Profile/Middlewares
 	 *
-	 * @returns {Promise<null|undefined>} Nothing when registration succeeds.
+	 * @memberof Basics
+	 * @async
+	 * @instance
+	 * @protected
+	 * @function
+	 * @name _registerApi
+	 *
+	 * @returns {Promise<void>} Resolves after registration changes complete.
+	 *
+	 * @description
+	 * Registers profile middleware APIs with the domain API registry.
 	 */
 	async _registerApi() {
+		// Step 1: Register inherited and local middleware APIs, collecting any failures.
 		const errors = [];
 
 		try {
@@ -75,7 +96,10 @@ export class Basics extends UserBaseMiddleware {
 				apiRegistry.register('DELETE', this.#deleteBasics.bind(this))
 			);
 
+			// Step 2: Wait for every registration operation to settle.
 			registerResolutions = await Promise.allSettled(registerResolutions);
+
+			// Step 3: Collect the failures from rejected operations.
 			for (const registerResolution of registerResolutions) {
 				if (registerResolution.status === 'fulfilled') continue;
 				errors.push(registerResolution.reason);
@@ -84,6 +108,7 @@ export class Basics extends UserBaseMiddleware {
 			errors.push(error);
 		}
 
+		// Step 4: Propagate collected failures after all operations have been attempted.
 		if (!errors.length) return;
 		const propagatedError = createErrorForPropagation(
 			`${this.name}::_registerApi error`,
@@ -93,14 +118,23 @@ export class Basics extends UserBaseMiddleware {
 	}
 
 	/**
-	 * Unregisters profile middleware APIs from the domain API registry.
-	 *
 	 * @category REST API Server/Domains/Users
 	 * @subcategory Profile/Middlewares
 	 *
-	 * @returns {Promise<null|undefined>} Nothing when unregistration succeeds.
+	 * @memberof Basics
+	 * @async
+	 * @instance
+	 * @protected
+	 * @function
+	 * @name _unregisterApi
+	 *
+	 * @returns {Promise<void>} Resolves after registration changes complete.
+	 *
+	 * @description
+	 * Unregisters profile middleware APIs from the domain API registry.
 	 */
 	async _unregisterApi() {
+		// Step 1: Remove the local middleware APIs, collecting any failures.
 		const errors = [];
 
 		try {
@@ -120,9 +154,12 @@ export class Basics extends UserBaseMiddleware {
 				apiRegistry.unregister('CREATE', this.#createBasics.bind(this))
 			);
 
+			// Step 2: Wait for every removal operation to settle.
 			unregisterResolutions = await Promise.allSettled(
 				unregisterResolutions
 			);
+
+			// Step 3: Collect the failures from rejected operations.
 			for (const unregisterResolution of unregisterResolutions) {
 				if (unregisterResolution.status === 'fulfilled') continue;
 				errors.push(unregisterResolution.reason);
@@ -133,6 +170,7 @@ export class Basics extends UserBaseMiddleware {
 			errors.push(error);
 		}
 
+		// Step 4: Propagate collected failures after all operations have been attempted.
 		if (!errors.length) return;
 		const propagatedError = createErrorForPropagation(
 			`${this.name}::_unregisterApi error`,
@@ -142,9 +180,6 @@ export class Basics extends UserBaseMiddleware {
 	}
 
 	/**
-	 * Creates a user profile after validating the submitted OTP, then persists
-	 * localized name records for the requested locale and its translations.
-	 *
 	 * @category REST API Server/Domains/Users
 	 * @subcategory Profile/Middlewares
 	 *
@@ -158,9 +193,15 @@ export class Basics extends UserBaseMiddleware {
 	 * @param {object} payload - API payload containing profile creation data.
 	 * @param {object} payload.data - Deserialized profile data.
 	 * @param {string} payload.locale - The current context locale.
+	 *
 	 * @returns {Promise<object>} HTTP response data for the created profile.
+	 *
+	 * @description
+	 * Creates a user profile after validating the submitted OTP, then persists
+	 * localized name records for the requested locale and its translations.
 	 */
 	async #createBasics({ data, locale }) {
+		// Step 1: Resolve the models needed to create the profile and related records.
 		const Models = await this._getModelsFromDomain([
 			{ type: 'relational', name: 'user' },
 			{ type: 'relational', name: 'user-locale' },
@@ -177,6 +218,7 @@ export class Basics extends UserBaseMiddleware {
 
 		const user = { ...data };
 
+		// Step 2: Check the submitted OTP against the cached code.
 		const cacheRepository =
 			await this.domainInterface.iocContainer.resolve('Cache');
 		const otpNumber = await this._executeWithBackOff(async () => {
@@ -191,6 +233,7 @@ export class Basics extends UserBaseMiddleware {
 			throw userError;
 		}
 
+		// Step 3: Reject a duplicate active profile for the supplied mobile number.
 		const existingUser = await this._executeWithBackOff(async () => {
 			return UserModel.query()
 				.where('mobile_no', '=', user.mobile_no)
@@ -206,6 +249,7 @@ export class Basics extends UserBaseMiddleware {
 			throw userError;
 		}
 
+		// Step 4: Localize the submitted name fields.
 		const nameLocaleCode = user.locale_id ?? user.locale_code ?? locale;
 		const userNameFields = {
 			locale_code: nameLocaleCode,
@@ -219,6 +263,8 @@ export class Basics extends UserBaseMiddleware {
 
 		const localizedUserNames =
 			await this.#localizeUserNames(userNameFields);
+
+		// Step 5: Resolve the mobile contact type required by the profile.
 		const mobileContactType = await this._executeWithBackOff(async () => {
 			return ContactTypeMasterModel.query()
 				.where('name', '=', 'mobile')
@@ -234,6 +280,7 @@ export class Basics extends UserBaseMiddleware {
 			throw userError;
 		}
 
+		// Step 6: Remove generated fields and fields stored in related records.
 		delete user.id;
 		delete user.otp;
 		delete user.first_name;
@@ -245,6 +292,7 @@ export class Basics extends UserBaseMiddleware {
 		delete user.created_at;
 		delete user.updated_at;
 
+		// Step 7: Create the profile with its related records in a serializable transaction.
 		let createdUser = undefined;
 		await this._executeWithBackOff(async () => {
 			const trx = await UserModel.startTransaction();
@@ -288,10 +336,12 @@ export class Basics extends UserBaseMiddleware {
 			}
 		});
 
+		// Step 8: Request invalidation of the session cache.
 		this.domainInterface.eventEmitter.emit('USER::INVALIDATE_CACHE', {
 			userId: createdUser.id
 		});
 
+		// Step 9: Read the newly created profile for the response.
 		const createdUserResponse = await this.#readBasics({
 			user: createdUser,
 			locale: nameLocaleCode
@@ -304,9 +354,6 @@ export class Basics extends UserBaseMiddleware {
 	}
 
 	/**
-	 * Reads the persisted profile for the authenticated user, ensuring a
-	 * localized user-name record exists for the requested locale.
-	 *
 	 * @category REST API Server/Domains/Users
 	 * @subcategory Profile/Middlewares
 	 *
@@ -320,9 +367,15 @@ export class Basics extends UserBaseMiddleware {
 	 * @param {object} payload - API payload containing the current user.
 	 * @param {object} payload.user - The authenticated user record.
 	 * @param {string} [payload.locale] - Locale requested for localized name data.
+	 *
 	 * @returns {Promise<object>} HTTP response data for the stored profile.
+	 *
+	 * @description
+	 * Reads the persisted profile for the authenticated user, ensuring a
+	 * localized user-name record exists for the requested locale.
 	 */
 	async #readBasics({ user, locale }) {
+		// Step 1: Load the active profile with its contacts, locales, and names.
 		const UserModel = await this._getModelsFromDomain([
 			{ type: 'relational', name: 'user' }
 		]);
@@ -343,6 +396,7 @@ export class Basics extends UserBaseMiddleware {
 				.first();
 		});
 
+		// Step 2: Choose the requested locale or an available profile locale.
 		const requestedLocale =
 			locale ??
 			storedUser?.locales?.find((storedLocale) => storedLocale.is_primary)
@@ -350,12 +404,16 @@ export class Basics extends UserBaseMiddleware {
 			storedUser?.names?.[0]?.locale_id;
 
 		if (storedUser && requestedLocale) {
+			// Create the localized name record when it is missing.
 			await this.#ensureUserNamesForLocale(storedUser, requestedLocale);
+
+			// Keep the name record for the selected locale.
 			storedUser.names = storedUser.names?.filter((nameByLocale) => {
 				return nameByLocale.locale_id === requestedLocale;
 			});
 		}
 
+		// Step 3: Expose locale codes on the locale and name records before returning the profile.
 		storedUser?.locales?.forEach((storedLocale) => {
 			if (storedLocale.locale_id && !storedLocale.locale_code) {
 				storedLocale.locale_code = storedLocale.locale_id;
@@ -374,9 +432,6 @@ export class Basics extends UserBaseMiddleware {
 	}
 
 	/**
-	 * Updates mutable fields on the authenticated user's profile, including
-	 * localized user-name records for the requested locale.
-	 *
 	 * @category REST API Server/Domains/Users
 	 * @subcategory Profile/Middlewares
 	 *
@@ -390,9 +445,15 @@ export class Basics extends UserBaseMiddleware {
 	 * @param {object} payload - API payload containing the user and update body.
 	 * @param {object} payload.user - The authenticated user record.
 	 * @param {object} payload.data - Deserialized profile update data.
+	 *
 	 * @returns {Promise<object>} HTTP response data for the updated profile.
+	 *
+	 * @description
+	 * Updates mutable fields on the authenticated user's profile, including
+	 * localized user-name records for the requested locale.
 	 */
 	async #updateBasics({ user, data }) {
+		// Step 1: Resolve the profile and localized-name models.
 		const Models = await this._getModelsFromDomain([
 			{ type: 'relational', name: 'user' },
 			{ type: 'relational', name: 'user-name-by-locale' }
@@ -400,6 +461,7 @@ export class Basics extends UserBaseMiddleware {
 		const UserModel = Models[0];
 		const UserNameByLocaleModel = Models[1];
 
+		// Step 2: Remove protected fields from the profile update.
 		const dataToBeUpdated = { ...data };
 
 		delete dataToBeUpdated.id;
@@ -407,6 +469,8 @@ export class Basics extends UserBaseMiddleware {
 		delete dataToBeUpdated.updated_at;
 		delete dataToBeUpdated.is_deleted;
 		delete dataToBeUpdated.otp;
+
+		// Step 3: Separate the localized name changes from the profile fields.
 		const nameLocaleCode =
 			dataToBeUpdated.locale_id ??
 			dataToBeUpdated.locale_code ??
@@ -429,12 +493,14 @@ export class Basics extends UserBaseMiddleware {
 			})
 		};
 
+		// Step 4: Load the existing name locales.
 		let existingNameRecords = await this._executeWithBackOff(async () => {
 			return UserNameByLocaleModel.query()
 				.where('user_id', '=', user.id)
 				.select('id', 'locale_id');
 		});
 
+		// Step 5: Translate submitted name changes for the existing locales.
 		const hasNameFieldsToUpdate =
 			Object.keys(userNameFields ?? []).filter((key) => {
 				return key !== 'locale_code';
@@ -446,6 +512,7 @@ export class Basics extends UserBaseMiddleware {
 				)
 			: undefined;
 
+		// Step 6: Update the profile and insert or patch localized names in one transaction.
 		delete dataToBeUpdated.locale_id;
 		delete dataToBeUpdated.locale_code;
 		delete dataToBeUpdated.first_name;
@@ -458,10 +525,12 @@ export class Basics extends UserBaseMiddleware {
 			await trx.raw('SET TRANSACTION ISOLATION LEVEL SERIALIZABLE');
 
 			try {
+				// Patch the profile fields within the transaction.
 				await UserModel.query(trx).patchAndFetchById(user.id, {
 					...dataToBeUpdated
 				});
 
+				// Insert or update each localized name record within the same transaction.
 				if (localizedUserNames) {
 					const locales = Object.keys(localizedUserNames) ?? [];
 					for (const locale of locales) {
@@ -499,16 +568,16 @@ export class Basics extends UserBaseMiddleware {
 			}
 		});
 
+		// Step 7: Request invalidation of the cached session.
 		this.domainInterface.eventEmitter.emit('USER::INVALIDATE_CACHE', {
 			userId: user.id
 		});
 
+		// Step 8: Return the refreshed profile in the requested name locale.
 		return this.#readBasics({ user, locale: nameLocaleCode });
 	}
 
 	/**
-	 * Soft-deletes the authenticated user's profile.
-	 *
 	 * @category REST API Server/Domains/Users
 	 * @subcategory Profile/Middlewares
 	 *
@@ -521,9 +590,14 @@ export class Basics extends UserBaseMiddleware {
 	 *
 	 * @param {object} payload - API payload containing the current user.
 	 * @param {object} payload.user - The authenticated user record.
+	 *
 	 * @returns {Promise<object>} HTTP response data for the delete operation.
+	 *
+	 * @description
+	 * Soft-deletes the authenticated user's profile.
 	 */
 	async #deleteBasics({ user }) {
+		// Step 1: Soft-delete the profile while retaining its stored record.
 		const UserModel = await this._getModelsFromDomain([
 			{ type: 'relational', name: 'user' }
 		]);
@@ -534,19 +608,18 @@ export class Basics extends UserBaseMiddleware {
 			});
 		});
 
+		// Step 2: Request invalidation of the cached session.
 		this.domainInterface.eventEmitter.emit('USER::INVALIDATE_CACHE', {
 			userId: user.id
 		});
 
+		// Step 3: Return the deletion status.
 		return {
 			status: 204
 		};
 	}
 
 	/**
-	 * Translates user-name fields into the requested locales and returns a
-	 * locale-keyed map ready for persistence.
-	 *
 	 * @category REST API Server/Domains/Users
 	 * @subcategory Profile/Middlewares
 	 *
@@ -565,15 +638,22 @@ export class Basics extends UserBaseMiddleware {
 	 * @param {string} [userNameFields.nickname] - Nickname value.
 	 * @param {string[]} [otherLocalesRequested] - Additional locale codes that
 	 * should be translated alongside the source locale.
+	 *
 	 * @returns {Promise<object>} Locale-keyed name payloads for persistence.
+	 *
+	 * @description
+	 * Translates user-name fields into the requested locales and returns a
+	 * locale-keyed map ready for persistence.
 	 */
 
 	async #localizeUserNames(userNameFields, otherLocalesRequested) {
+		// Step 1: Collect the requested locales, the source locale, and the English fallback.
 		let requestedLocales = new Set(otherLocalesRequested ?? []);
 		requestedLocales.add(userNameFields.locale_code);
 		requestedLocales.add('en-IN');
 		requestedLocales = [...requestedLocales].filter(Boolean);
 
+		// Step 2: Prepare a name record for each locale.
 		const localizedUserNames = {};
 		requestedLocales.forEach((locale) => {
 			// eslint-disable-next-line security/detect-object-injection
@@ -582,9 +662,12 @@ export class Basics extends UserBaseMiddleware {
 			};
 		});
 
+		// Step 3: Resolve the translation service before processing the name fields.
 		const translateRepository =
 			await this.domainInterface.iocContainer.resolve('Translate');
 
+		// Step 4: Preserve blank values and matching scripts; translate other name fields
+		// into each requested locale.
 		const userNameFieldKeys = Object.keys(userNameFields) ?? [];
 		for (let i = 0; i < userNameFieldKeys.length; i++) {
 			// eslint-disable-next-line security/detect-object-injection
@@ -638,9 +721,6 @@ export class Basics extends UserBaseMiddleware {
 	}
 
 	/**
-	 * Ensures the user has a localized name row for the requested locale by
-	 * translating from the first available stored name row when needed.
-	 *
 	 * @category REST API Server/Domains/Users
 	 * @subcategory Profile/Middlewares
 	 *
@@ -653,10 +733,16 @@ export class Basics extends UserBaseMiddleware {
 	 *
 	 * @param {object} user - User model with related localized name rows loaded.
 	 * @param {string} locale - Locale code that must exist for the response.
+	 *
 	 * @returns {Promise<void>} Resolves after the localized name row exists.
+	 *
+	 * @description
+	 * Ensures the user has a localized name row for the requested locale by
+	 * translating from the first available stored name row when needed.
 	 */
 
 	async #ensureUserNamesForLocale(user, locale) {
+		// Step 1: Check whether the requested localized name already exists.
 		const UserNameByLocaleModel = await this._getModelsFromDomain([
 			{ type: 'relational', name: 'user-name-by-locale' }
 		]);
@@ -666,9 +752,11 @@ export class Basics extends UserBaseMiddleware {
 		});
 		if (userNamesForLocale) return;
 
+		// Step 2: Choose an available source name for the missing locale.
 		const baseNameRecord = user.names?.[0];
 		if (!baseNameRecord?.locale_id) return;
 
+		// Step 3: Translate the source name into the missing locale.
 		const localizedUserNames = await this.#localizeUserNames(
 			{
 				...(baseNameRecord.locale_id && {
@@ -690,6 +778,7 @@ export class Basics extends UserBaseMiddleware {
 			[locale]
 		);
 
+		// Step 4: Persist the missing localized name.
 		const localizedNameRecord = await this._executeWithBackOff(async () => {
 			return UserNameByLocaleModel.query().insertAndFetch({
 				user_id: user.id,
@@ -698,6 +787,7 @@ export class Basics extends UserBaseMiddleware {
 			});
 		});
 
+		// Step 5: Add the saved name record to the loaded profile.
 		user.names.push(localizedNameRecord);
 	}
 
@@ -732,27 +822,42 @@ export default class BasicsMiddlewareFactory extends EVASBaseFactory {
 	 * @category REST API Server/Domains/Users
 	 * @subcategory Profile/Middlewares
 	 *
-	 * @ignore
+	 * @memberof BasicsMiddlewareFactory
+	 * @instance
+	 * @public
+	 * @function
+	 * @name constructor
+	 *
+	 * @returns {BasicsMiddlewareFactory} A new BasicsMiddlewareFactory instance.
+	 *
+	 * @description
+	 * Initializes the BasicsMiddlewareFactory factory using its base class.
 	 */
 	constructor() {
 		super();
 	}
 
 	/**
-	 * Creates or reuses the singleton basics middleware instance.
-	 *
 	 * @category REST API Server/Domains/Users
 	 * @subcategory Profile/Middlewares
 	 *
 	 * @memberof BasicsMiddlewareFactory
+	 * @async
 	 * @static
+	 * @public
 	 * @function
 	 * @name createInstances
 	 *
 	 * @param {object} domainInterface - Domain functionality exposed to sub-artifacts.
-	 * @returns {Promise<Basics>} The singleton middleware instance.
+	 *
+	 * @returns {Promise<Basics>} Resolves to the loaded Basics middleware instance.
+	 *
+	 * @description
+	 * Creates and loads the middleware instance on first use, then reuses it.
+	 * Serializes access to the cached instance with the factory mutex.
 	 */
 	static async createInstances(domainInterface) {
+		// Create or reuse the loaded instance under the factory lock.
 		return await BasicsMiddlewareFactory.#mutex.runExclusive(async () => {
 			if (!BasicsMiddlewareFactory.#basicsInstance) {
 				const basicsInstance = new Basics(
@@ -769,19 +874,24 @@ export default class BasicsMiddlewareFactory extends EVASBaseFactory {
 	}
 
 	/**
-	 * Destroys the singleton basics middleware instance.
-	 *
 	 * @category REST API Server/Domains/Users
 	 * @subcategory Profile/Middlewares
 	 *
 	 * @memberof BasicsMiddlewareFactory
+	 * @async
 	 * @static
+	 * @public
 	 * @function
 	 * @name destroyInstances
 	 *
-	 * @returns {Promise<void>} Resolves after the instance is unloaded.
+	 * @returns {Promise<void>} Resolves after the cached instance is unloaded and released.
+	 *
+	 * @description
+	 * Unloads the cached middleware instance and clears the factory reference
+	 * under the factory mutex.
 	 */
 	static async destroyInstances() {
+		// Unload and release cached instances under the factory lock.
 		await BasicsMiddlewareFactory.#mutex.runExclusive(async () => {
 			await BasicsMiddlewareFactory.#basicsInstance?.unload();
 			BasicsMiddlewareFactory.#basicsInstance = undefined;
@@ -789,17 +899,20 @@ export default class BasicsMiddlewareFactory extends EVASBaseFactory {
 	}
 
 	/**
-	 * Gets the exported middleware name.
-	 *
 	 * @category REST API Server/Domains/Users
 	 * @subcategory Profile/Middlewares
 	 *
 	 * @memberof BasicsMiddlewareFactory
 	 * @static
+	 * @public
 	 * @readonly
-	 * @member {string}
+	 * @function
 	 * @name MiddlewareName
+	 *
 	 * @returns {string} The middleware class name.
+	 *
+	 * @description
+	 * Returns the registered middleware name: `Basics`.
 	 */
 	static get MiddlewareName() {
 		return 'Basics';

@@ -108,19 +108,13 @@ class Cache extends EVASBaseRepository {
 		);
 		this.#redis.on('error', this.#handleRedisError.bind(this));
 
-		//
-		// PATCH STUFF THAT WE NEED
-		//
+		// Provide the legacy Redis command name expected by the session store.
 		this.#redis.setex = this.#redis.setEx.bind(this.#redis);
 
 		// Step 3: Open a connection to the server
 		await this.#redis.connect();
 
-		// Step 4: In development mode, monitor all the commands
-		// sent to the cache server
-		//
-		// TODO: ONCE the Redis driver fixes its bugs
-		//
+		// TODO: Re-enable development command monitoring after the Redis driver issues are fixed.
 		/*
 		if (serverEnvironment === 'production') return;
 		if (this?.configuration) return;
@@ -154,11 +148,13 @@ class Cache extends EVASBaseRepository {
 	 * stop logic
 	 */
 	async unload() {
+		// Disconnect the optional command monitor.
 		if (this.#monitor) {
 			await this.#monitor.disconnect();
 			this.#monitor = undefined;
 		}
 
+		// Disconnect the Redis client before unloading the repository.
 		if (this.#redis) {
 			await this.#redis.disconnect();
 			this.#redis = undefined;
@@ -251,11 +247,13 @@ class Cache extends EVASBaseRepository {
 	 * @returns {Promise<void>} Resolves after logging unless the retry budget is exhausted.
 	 */
 	async #handleRedisError(error) {
+		// Step 1: Log the connection failure together with the current retry count.
 		const logger = await this.iocContainer.resolve('Logger');
 		logger.error(
 			`Redis Error (Re-try count = ${this.#retryCount}): ${error.message}\n${error.stack}`
 		);
 
+		// Step 2: Propagate the failure once the configured retry limit has been exceeded.
 		if (this.#retryCount > DEFAULT_MAX_RETRY_COUNT) throw error;
 	}
 	// #endregion
@@ -309,6 +307,7 @@ export default class CacheRepositoryFactory extends EVASBaseFactory {
 	 * @returns {Cache} - The cache repository instance.
 	 */
 	static async createInstances(configuration, iocContainer) {
+		// Create or reuse the loaded instance under the factory lock.
 		const repositoryKey = Buffer.from(
 			safeJsonStringify(configuration ?? {})
 		).toString('base64');
@@ -351,7 +350,9 @@ export default class CacheRepositoryFactory extends EVASBaseFactory {
 	 * @description Clears the cached {Cache} instances
 	 */
 	static async destroyInstances(configuration) {
+		// Unload and release cached instances under the factory lock.
 		await CacheRepositoryFactory.#mutex.runExclusive(async () => {
+			// Unload only the requested configuration when one is supplied.
 			if (configuration) {
 				const repositoryKey = Buffer.from(
 					safeJsonStringify(configuration)
@@ -368,6 +369,7 @@ export default class CacheRepositoryFactory extends EVASBaseFactory {
 				return;
 			}
 
+			// Otherwise, unload all configurations before clearing the cache.
 			const destroyResolutions = [];
 			CacheRepositoryFactory.#cacheInstances.forEach((cacheInstance) => {
 				destroyResolutions.push(cacheInstance.unload());

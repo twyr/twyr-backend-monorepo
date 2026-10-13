@@ -32,7 +32,19 @@ export class Contacts extends UserBaseMiddleware {
 	 * @category REST API Server/Domains/Users
 	 * @subcategory Profile/Middlewares
 	 *
-	 * @ignore
+	 * @memberof Contacts
+	 * @instance
+	 * @public
+	 * @function
+	 * @name constructor
+	 *
+	 * @param {string} location - Filesystem location of the artifact.
+	 * @param {object} domainInterface - Domain APIs, repositories, models and event emitter.
+	 *
+	 * @returns {Contacts} A new Contacts instance.
+	 *
+	 * @description
+	 * Initializes the Contacts middleware using its base class.
 	 */
 	constructor(location, domainInterface) {
 		super(location, domainInterface);
@@ -47,16 +59,18 @@ export class Contacts extends UserBaseMiddleware {
 	 * @memberof Contacts
 	 * @async
 	 * @instance
+	 * @protected
 	 * @override
 	 * @function
 	 * @name _registerApi
 	 *
-	 * @returns {null} - The array of API to be registered
+	 * @returns {Promise<void>} Resolves after registration changes complete.
 	 *
 	 * @description
 	 * Adds the API to the apiRegistry in the domainInterface
 	 */
 	async _registerApi() {
+		// Step 1: Register inherited and local middleware APIs, collecting any failures.
 		const errors = [];
 
 		try {
@@ -95,7 +109,10 @@ export class Contacts extends UserBaseMiddleware {
 				)
 			);
 
+			// Step 2: Wait for every registration operation to settle.
 			registerResolutions = await Promise.allSettled(registerResolutions);
+
+			// Step 3: Collect the failures from rejected operations.
 			for (const registerResolution of registerResolutions) {
 				if (registerResolution.status === 'fulfilled') continue;
 				errors.push(registerResolution.reason);
@@ -104,6 +121,7 @@ export class Contacts extends UserBaseMiddleware {
 			errors.push(error);
 		}
 
+		// Step 4: Propagate collected failures after all operations have been attempted.
 		if (!errors.length) return;
 		const propagatedError = createErrorForPropagation(
 			`${this.name}::_registerApi error`,
@@ -119,16 +137,18 @@ export class Contacts extends UserBaseMiddleware {
 	 * @memberof Contacts
 	 * @async
 	 * @instance
+	 * @protected
 	 * @override
 	 * @function
 	 * @name _unregisterApi
 	 *
-	 * @returns {null} - Nothing
+	 * @returns {Promise<void>} Resolves after registration changes complete.
 	 *
 	 * @description
 	 * Removes the API from the apiRegistry in the domainInterface
 	 */
 	async _unregisterApi() {
+		// Step 1: Remove the local middleware APIs, collecting any failures.
 		const errors = [];
 
 		try {
@@ -160,9 +180,12 @@ export class Contacts extends UserBaseMiddleware {
 				)
 			);
 
+			// Step 2: Wait for every removal operation to settle.
 			unregisterResolutions = await Promise.allSettled(
 				unregisterResolutions
 			);
+
+			// Step 3: Collect the failures from rejected operations.
 			for (const unregisterResolution of unregisterResolutions) {
 				if (unregisterResolution.status === 'fulfilled') continue;
 				errors.push(unregisterResolution.reason);
@@ -173,6 +196,7 @@ export class Contacts extends UserBaseMiddleware {
 			errors.push(error);
 		}
 
+		// Step 4: Propagate collected failures after all operations have been attempted.
 		if (!errors.length) return;
 		const propagatedError = createErrorForPropagation(
 			`${this.name}::_unregisterApi error`,
@@ -200,9 +224,11 @@ export class Contacts extends UserBaseMiddleware {
 	 *
 	 * @returns {Promise<object>} Response payload containing the created contact.
 	 *
-	 * @description Creates a contact record for the logged in user.
+	 * @description
+	 * Creates a contact record for the logged in user.
 	 */
 	async #createContacts({ user, data }) {
+		// Create the contact through the domain entity helper and return its result.
 		return this._createUserEntity({
 			model: { type: 'relational', name: 'user-contact' },
 			user,
@@ -228,9 +254,11 @@ export class Contacts extends UserBaseMiddleware {
 	 *
 	 * @returns {Promise<object>} Response payload containing one or more contacts.
 	 *
-	 * @description Reads contact data associated with the logged in user.
+	 * @description
+	 * Reads contact data associated with the logged in user.
 	 */
 	async #readContacts({ user, contactId }) {
+		// Read the contact through the domain entity helper and return its result.
 		return this._readUserEntity({
 			model: { type: 'relational', name: 'user-contact' },
 			user,
@@ -256,9 +284,11 @@ export class Contacts extends UserBaseMiddleware {
 	 *
 	 * @returns {Promise<object>} Response payload containing the updated contact.
 	 *
-	 * @description Updates a contact record for the logged in user.
+	 * @description
+	 * Updates a contact record for the logged in user.
 	 */
 	async #updateContacts({ user, data }) {
+		// Update the contact through the domain entity helper.
 		const returnValue = await this._updateUserEntity({
 			model: { type: 'relational', name: 'user-contact' },
 			user,
@@ -266,6 +296,7 @@ export class Contacts extends UserBaseMiddleware {
 			relationships: '[user, contactType]'
 		});
 
+		// Return the entity helper result.
 		return {
 			status: returnValue.status,
 			body: returnValue.body
@@ -289,9 +320,11 @@ export class Contacts extends UserBaseMiddleware {
 	 *
 	 * @returns {Promise<object>} Response payload containing the delete status.
 	 *
-	 * @description Deletes a contact record for the logged in user.
+	 * @description
+	 * Deletes a contact record for the logged in user.
 	 */
 	async #deleteContacts({ user, contactId }) {
+		// Delete the contact through the domain entity helper.
 		const returnValue = await this._deleteUserEntity({
 			model: { type: 'relational', name: 'user-contact' },
 			user,
@@ -299,6 +332,7 @@ export class Contacts extends UserBaseMiddleware {
 			eventName: 'USER::CONTACT_DELETED'
 		});
 
+		// Return the entity helper result.
 		return { status: returnValue.status };
 	}
 	// #endregion
@@ -320,7 +354,16 @@ export default class ContactsMiddlewareFactory extends EVASBaseFactory {
 	 * @category REST API Server/Domains/Users
 	 * @subcategory Profile/Middlewares
 	 *
-	 * @ignore
+	 * @memberof ContactsMiddlewareFactory
+	 * @instance
+	 * @public
+	 * @function
+	 * @name constructor
+	 *
+	 * @returns {ContactsMiddlewareFactory} A new ContactsMiddlewareFactory instance.
+	 *
+	 * @description
+	 * Initializes the ContactsMiddlewareFactory factory using its base class.
 	 */
 	constructor() {
 		super();
@@ -335,15 +378,21 @@ export default class ContactsMiddlewareFactory extends EVASBaseFactory {
 	 * @memberof ContactsMiddlewareFactory
 	 * @async
 	 * @static
+	 * @public
 	 * @override
 	 * @function
 	 * @name createInstances
 	 *
 	 * @param {object} [domainInterface] - Domain functionality exposed to sub-artifacts
 	 *
-	 * @returns {Contacts} - The Contacts middleware instance.
+	 * @returns {Promise<Contacts>} Resolves to the loaded Contacts middleware instance.
+	 *
+	 * @description
+	 * Creates and loads the middleware instance on first use, then reuses it.
+	 * Serializes access to the cached instance with the factory mutex.
 	 */
 	static async createInstances(domainInterface) {
+		// Create or reuse the loaded instance under the factory lock.
 		return await ContactsMiddlewareFactory.#mutex.runExclusive(async () => {
 			if (!ContactsMiddlewareFactory.#contactsInstance) {
 				const contactsInstance = new Contacts(
@@ -366,15 +415,19 @@ export default class ContactsMiddlewareFactory extends EVASBaseFactory {
 	 * @memberof ContactsMiddlewareFactory
 	 * @async
 	 * @static
+	 * @public
 	 * @override
 	 * @function
 	 * @name destroyInstances
 	 *
-	 * @returns {undefined} - Nothing.
+	 * @returns {Promise<void>} Resolves after the cached instance is unloaded and released.
 	 *
-	 * @description Clears the Contacts instance
+	 * @description
+	 * Unloads the cached middleware instance and clears the factory reference
+	 * under the factory mutex.
 	 */
 	static async destroyInstances() {
+		// Unload and release cached instances under the factory lock.
 		await ContactsMiddlewareFactory.#mutex.runExclusive(async () => {
 			await ContactsMiddlewareFactory.#contactsInstance?.unload();
 			ContactsMiddlewareFactory.#contactsInstance = undefined;
@@ -389,16 +442,17 @@ export default class ContactsMiddlewareFactory extends EVASBaseFactory {
 	 * @subcategory Profile/Middlewares
 	 *
 	 * @memberof ContactsMiddlewareFactory
-	 * @async
 	 * @static
+	 * @public
 	 * @override
+	 * @readonly
 	 * @function
 	 * @name MiddlewareName
 	 *
 	 * @returns {string} - Name of this middleware.
 	 *
 	 * @description
-	 * Returns the name of this middleware - Contacts
+	 * Returns the registered middleware name: `Contacts`.
 	 */
 	static get MiddlewareName() {
 		return 'Contacts';

@@ -61,7 +61,10 @@ class MessageI18N extends EVASBaseRepository {
 	async load() {
 		await super.load();
 
+		// Step 1: Configure the enabled locales and their fallbacks.
 		await this.#setupI18N();
+
+		// Step 2: Populate the translation catalogs from the database.
 		await this.#loadTranslations();
 
 		return;
@@ -85,6 +88,7 @@ class MessageI18N extends EVASBaseRepository {
 	 * stop logic
 	 */
 	async unload() {
+		// Unload the base repository and release the translation instance.
 		await super.unload();
 		this.#i18n = undefined;
 	}
@@ -134,13 +138,13 @@ class MessageI18N extends EVASBaseRepository {
 		const databaseRepository =
 			await this.iocContainer.resolve('SQLDatabase');
 
-		// Step 1: Get all the locales we've enabled in the system,
-		// along with the fallbacks
+		// Step 1: Load the enabled locales
 		let enabledLocales = await databaseRepository.raw(
 			`SELECT code FROM locale_master WHERE is_enabled = true;`
 		);
 		this.#enabledLocales = enabledLocales.rows.map((row) => row.code) ?? [];
 
+		// Step 2: Prepare an empty catalog for each enabled locale
 		const staticCatalog = {};
 		(this.#enabledLocales ?? []).forEach((el) => {
 			// eslint-disable-next-line security/detect-object-injection
@@ -150,6 +154,8 @@ class MessageI18N extends EVASBaseRepository {
 		// TODO: Write a DB FUNCTION to walk up the priority tree of fallbacks
 		// and return the full list of fallbacks for each locale.
 		// For now, just get the direct fallbacks
+
+		// Step 3: Load the highest-priority direct fallback for each locale
 		const fallbackLocales = await databaseRepository(
 			'locale_fallback_master'
 		)
@@ -164,7 +170,7 @@ class MessageI18N extends EVASBaseRepository {
 			i18nFallbacks[locale_code] = fallback_locale_code;
 		});
 
-		// Step 2: Setup the i18n instance
+		// Step 4: Setup the i18n instance
 		let I18n = await import('i18n');
 		I18n = I18n['default'];
 
@@ -206,14 +212,14 @@ class MessageI18N extends EVASBaseRepository {
 		const databaseRepository =
 			await this.iocContainer.resolve('SQLDatabase');
 
-		// Step 2: Fetch the system messages from the database
+		// Step 1: Fetch messages for enabled locales from the database
 		let systemMessages = await databaseRepository(
 			'system_message_by_locale'
 		)
 			.select('message_id', 'locale_id', 'message_text')
 			.whereIn('locale_id', this.#enabledLocales);
 
-		// Step 3: Organize the messages into locales, etc.
+		// Step 2: Group message text by locale and message identifier
 		const i18nCatalog = {};
 		for (const systemMessage of systemMessages) {
 			const { message_id, locale_id, message_text } = systemMessage;
@@ -228,7 +234,7 @@ class MessageI18N extends EVASBaseRepository {
 			i18nCatalog[locale_id][message_id] = message_text;
 		}
 
-		// Step 4: Load the messages into i18n
+		// Step 3: Populate each locale catalog with its stored messages
 		for (const localeCode of Object.keys(i18nCatalog)) {
 			this.#i18n.addLocale(localeCode);
 			this.#i18n.setLocale(localeCode);
@@ -264,14 +270,13 @@ class MessageI18N extends EVASBaseRepository {
 	 * @returns {Promise<string>} The translated message.
 	 */
 	async #translate(key, locale, variables) {
-		// Implementation for translation logic goes here
-		// This is a placeholder implementation
-		// return `Translated(${key}, ${locale}, ${safeJsonStringify?.(variables ?? {})})`;
+		// Step 1: Translate the message key with the supplied locale and variables
 		let translatedMessage = this.#i18n.__(
 			{ phrase: key, locale: locale },
 			variables
 		);
 
+		// Step 2: Reload locale catalogs under the mutex when the key is missing.
 		if (translatedMessage === key) {
 			await this.#translationReloadMutex.runExclusive(async () => {
 				this.#i18n = undefined;
@@ -280,6 +285,7 @@ class MessageI18N extends EVASBaseRepository {
 			});
 		}
 
+		// Step 3: Retry translation with the refreshed catalog.
 		if (translatedMessage === key) {
 			translatedMessage = this.#i18n.__(
 				{ phrase: key, locale: locale },
@@ -287,6 +293,7 @@ class MessageI18N extends EVASBaseRepository {
 			);
 		}
 
+		// Step 4: Try the generic translation error message in the requested locale.
 		if (translatedMessage === key) {
 			translatedMessage = this.#i18n.__(
 				{
@@ -297,6 +304,7 @@ class MessageI18N extends EVASBaseRepository {
 			);
 		}
 
+		// Step 5: Fall back to the generic translation error message in English.
 		if (translatedMessage === key) {
 			translatedMessage = this.#i18n.__(
 				{
@@ -327,6 +335,7 @@ class MessageI18N extends EVASBaseRepository {
 	 * @returns {Promise<void>} Resolves after the message is logged.
 	 */
 	async #i18nDebugLog(message) {
+		// Forward the diagnostic event to the shared logger.
 		const logger = await this.iocContainer.resolve('Logger');
 		logger.debug(`i18n::debug: ${message}`);
 	}
@@ -348,6 +357,7 @@ class MessageI18N extends EVASBaseRepository {
 	 * @returns {Promise<void>} Resolves after the message is logged.
 	 */
 	async #i18nWarnLog(message) {
+		// Forward the diagnostic event to the shared logger.
 		const logger = await this.iocContainer.resolve('Logger');
 		logger.warn(`i18n::warn: ${message}`);
 	}
@@ -369,6 +379,7 @@ class MessageI18N extends EVASBaseRepository {
 	 * @returns {Promise<void>} Resolves after the message is logged.
 	 */
 	async #i18nErrorLog(message) {
+		// Forward the diagnostic event to the shared logger.
 		const logger = await this.iocContainer.resolve('Logger');
 		logger.error(`i18n::error: ${message}`);
 	}
@@ -422,6 +433,7 @@ export default class MessageI18NRepositoryFactory extends EVASBaseFactory {
 	 * @returns {MessageI18N} - The MessageI18N repository instance.
 	 */
 	static async createInstances(configuration, iocContainer) {
+		// Create or reuse the loaded instance under the factory lock.
 		const repositoryKey = Buffer.from(
 			safeJsonStringify(configuration ?? {})
 		).toString('base64');
@@ -469,7 +481,9 @@ export default class MessageI18NRepositoryFactory extends EVASBaseFactory {
 	 * @description Clears the cached {MessageI18N} instances
 	 */
 	static async destroyInstances(configuration) {
+		// Unload and release cached instances under the factory lock.
 		await MessageI18NRepositoryFactory.#mutex.runExclusive(async () => {
+			// Unload only the requested configuration when one is supplied.
 			if (configuration) {
 				const repositoryKey = Buffer.from(
 					safeJsonStringify(configuration)
@@ -494,6 +508,7 @@ export default class MessageI18NRepositoryFactory extends EVASBaseFactory {
 				return;
 			}
 
+			// Otherwise, unload all configurations before clearing the cache.
 			const destroyResolutions = [];
 			MessageI18NRepositoryFactory.#messageI18NInstances.forEach(
 				(sqlDatabaseInstance) => {

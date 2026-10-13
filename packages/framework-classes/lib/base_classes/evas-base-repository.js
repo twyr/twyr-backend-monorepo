@@ -34,6 +34,7 @@ export class EVASBaseRepository extends EVASBaseArtifact {
 	 * @ignore
 	 */
 	constructor(location, iocContainer, configuration) {
+		// Initialize the artifact and retain its container and configuration.
 		super(location);
 
 		this.#iocContainer = iocContainer;
@@ -81,6 +82,7 @@ export class EVASBaseRepository extends EVASBaseArtifact {
 	 * stop logic
 	 */
 	async unload() {
+		// Release the configuration and container before unloading the base artifact.
 		this.#configuration = undefined;
 		this.#iocContainer = undefined;
 
@@ -112,6 +114,7 @@ export class EVASBaseRepository extends EVASBaseArtifact {
 	 * - Merge the configuration passed into this instance
 	 */
 	async _mergeConfiguration(defaultConfiguration, repositoryName) {
+		// Step 1: Read the environment configuration for this artifact.
 		const configRepository =
 			await this.iocContainer.resolve('Configuration');
 
@@ -119,6 +122,7 @@ export class EVASBaseRepository extends EVASBaseArtifact {
 			repositoryName ?? this.name
 		);
 
+		// Step 2: Merge defaults, environment settings, and instance overrides in that order.
 		const instanceConfiguration = this.configuration ?? {};
 
 		const mergedConfiguration = merge(

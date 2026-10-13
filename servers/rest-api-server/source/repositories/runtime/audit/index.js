@@ -64,6 +64,7 @@ class Audit extends EVASBaseRepository {
 	async load() {
 		await super.load();
 
+		// Merge audit configuration and determine whether database persistence is enabled.
 		const configuration = await this._mergeConfiguration({});
 		this.#auditEnabled = configuration.enable ?? false;
 	}
@@ -106,20 +107,24 @@ class Audit extends EVASBaseRepository {
 	 * @returns {null} Nothing.
 	 *
 	 * @description
-	 * Sends data to an audit server.
+	 * Logs the cleaned audit payload and starts MongoDB persistence when enabled.
 	 */
 	async publish(auditData) {
+		// Step 1: Clean confidential and empty fields from the audit payload.
 		const auditPayload = this.#cleanBeforePublish(auditData);
 
+		// Step 2: Log the cleaned payload before checking whether persistence is enabled.
 		const logger = await this.iocContainer.resolve('Logger');
 		logger.debug(
 			`Audit Payload: ${safeJsonStringify(auditPayload, undefined, '\t')}\n`
 		);
 		if (!this.#auditEnabled) return;
 
+		// Step 3: Convert timestamps for database persistence.
 		auditPayload['start_time'] = new Date(auditPayload['start_time']);
 		auditPayload['end_time'] = new Date(auditPayload['end_time']);
 
+		// Step 4: Prepare the audit document using the MongoDB connection.
 		const connectionInstance = await this.iocContainer.resolve('MongoDB');
 
 		const UserAuditTrailModel =
@@ -127,9 +132,7 @@ class Audit extends EVASBaseRepository {
 
 		const userAuditTrailModel = new UserAuditTrailModel(auditPayload);
 
-		// NOTE: Deliberately NOT awaiting here
-		// No sense wasting time waiting for this
-		// and reducing server performance
+		// Step 5: Start saving the audit document without waiting for completion
 		userAuditTrailModel.save();
 
 		// TODO: Send to an actual Audit Server
@@ -179,6 +182,7 @@ class Audit extends EVASBaseRepository {
 	#cleanBeforePublish(auditPayload) {
 		if (!auditPayload) return;
 
+		// Step 1: Recursively remove falsy entries and mask confidential fields.
 		const confidentialKeyList = ['password', 'image', 'random'];
 
 		const keys = Object.keys(auditPayload);
@@ -203,6 +207,7 @@ class Audit extends EVASBaseRepository {
 			}
 		}
 
+		// Step 2: Omit objects left empty after cleaning.
 		if (!Object.keys(auditPayload).length) return;
 		return auditPayload;
 	}
@@ -254,6 +259,7 @@ export default class AuditRepositoryFactory extends EVASBaseFactory {
 	 * @returns {Audit} - The Audit repository instance.
 	 */
 	static async createInstances(configuration, iocContainer) {
+		// Create or reuse the loaded instance under the factory lock.
 		const scope = configuration ?? 'server';
 		await AuditRepositoryFactory.#mutex.runExclusive(async () => {
 			if (!AuditRepositoryFactory.#auditInstances.has(scope)) {
@@ -292,8 +298,10 @@ export default class AuditRepositoryFactory extends EVASBaseFactory {
 	 * @description Clears the cached {Audit} instances
 	 */
 	static async destroyInstances(configuration) {
+		// Unload and release cached instances under the factory lock.
 		await AuditRepositoryFactory.#mutex.runExclusive(async () => {
 			const scope = configuration ?? 'server';
+			// Unload only the requested configuration when one is supplied.
 			if (configuration) {
 				if (!AuditRepositoryFactory.#auditInstances.has(scope)) return;
 
@@ -305,6 +313,7 @@ export default class AuditRepositoryFactory extends EVASBaseFactory {
 				return;
 			}
 
+			// Otherwise, unload all configurations before clearing the cache.
 			const destroyResolutions = [];
 			AuditRepositoryFactory.#auditInstances.forEach((auditInstance) => {
 				destroyResolutions.push(auditInstance.unload());

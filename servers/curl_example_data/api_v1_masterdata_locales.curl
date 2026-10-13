@@ -1,0 +1,6 @@
+# GET /api/v1/masterdata/locales
+# Run from the repository root.
+# curl --config ./servers/curl_example_data/api_v1_masterdata_locales.curl "${base_url}/api/v1/masterdata/locales"
+# Set base_url to the running server origin (for example http://127.0.0.1:9090).
+request = "GET"
+header = "Content-Type: application/json"

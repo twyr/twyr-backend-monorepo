@@ -41,7 +41,19 @@ export class BaseMiddleware extends EVASBaseMiddleware {
 	 * @category REST API Server/Base Classes
 	 * @subcategory Base Classes
 	 *
-	 * @ignore
+	 * @memberof BaseMiddleware
+	 * @instance
+	 * @public
+	 * @function
+	 * @name constructor
+	 *
+	 * @param {string} location - Filesystem location of the artifact.
+	 * @param {object} domainInterface - Domain APIs, repositories, models and event emitter.
+	 *
+	 * @returns {BaseMiddleware} A new BaseMiddleware instance.
+	 *
+	 * @description
+	 * Initializes the BaseMiddleware middleware using its base class.
 	 */
 	constructor(location, domainInterface) {
 		super(location, domainInterface);
@@ -56,17 +68,18 @@ export class BaseMiddleware extends EVASBaseMiddleware {
 	 * @memberof BaseMiddleware
 	 * @async
 	 * @instance
+	 * @public
 	 * @override
 	 * @function
 	 * @name load
 	 *
-	 * @returns {null} - Nothing
+	 * @returns {Promise<void>} Resolves after loading completes.
 	 *
 	 * @description
-	 * To be overridden by artifact implementations - for implementing custom
-	 * start logic
+	 * Loads the inherited middleware infrastructure for BaseMiddleware.
 	 */
 	async load() {
+		// Load the base artifact, then register the derived middleware APIs.
 		await super.load();
 		await this._registerApi();
 	}
@@ -78,17 +91,18 @@ export class BaseMiddleware extends EVASBaseMiddleware {
 	 * @memberof BaseMiddleware
 	 * @async
 	 * @instance
+	 * @public
 	 * @override
 	 * @function
 	 * @name unload
 	 *
-	 * @returns {null} - Nothing
+	 * @returns {Promise<void>} Resolves after unloading completes.
 	 *
 	 * @description
-	 * To be overridden by artifact implementations - for implementing custom
-	 * stop logic
+	 * Unloads the middleware infrastructure.
 	 */
 	async unload() {
+		// Remove middleware APIs before releasing the base artifact.
 		await this._unregisterApi();
 		await super.unload();
 	}
@@ -102,15 +116,15 @@ export class BaseMiddleware extends EVASBaseMiddleware {
 	 * @memberof BaseMiddleware
 	 * @async
 	 * @instance
+	 * @protected
 	 * @override
 	 * @function
 	 * @name _registerApi
 	 *
-	 * @returns {null} - Nothing
+	 * @returns {Promise<object[]>} Resolves to the inherited registration definitions; empty by default.
 	 *
 	 * @description
-	 * To be overridden by artifact implementations - for adding their API
-	 * to the apiRegistry in the domainInterface
+	 * Provides an empty set of registration definitions for derived artifacts to extend.
 	 */
 	async _registerApi() {
 		return [];
@@ -123,11 +137,12 @@ export class BaseMiddleware extends EVASBaseMiddleware {
 	 * @memberof BaseMiddleware
 	 * @async
 	 * @instance
+	 * @protected
 	 * @override
 	 * @function
 	 * @name _unregisterApi
 	 *
-	 * @returns {null} - Nothing
+	 * @returns {Promise<void>} Resolves after registration changes complete.
 	 *
 	 * @description
 	 * To be overridden by artifact implementations - for removing their API
@@ -146,17 +161,21 @@ export class BaseMiddleware extends EVASBaseMiddleware {
 	 * @memberof BaseMiddleware
 	 * @async
 	 * @instance
+	 * @protected
 	 * @override
 	 * @function
 	 * @name _executeWithBackOff
 	 *
-	 * @returns {null} - Nothing
+	 * @param {Function} method - Operation to retry until it succeeds or retries are exhausted.
+	 *
+	 * @returns {Promise<*>} Resolves to the operation result.
 	 *
 	 * @description
-	 * Surrounds the given method with an exponential back-off retry mechanism
-	 * to enable circuit breaker like functionality
+	 * Runs the supplied operation with exponential backoff and logs retry failures.
+	 * Marks the propagated error as HTTP 503 if every retry fails.
 	 */
 	async _executeWithBackOff(method) {
+		// Step 1: Retry the operation with exponential backoff and log each failure.
 		const logger =
 			await this.domainInterface.iocContainer.resolve('Logger');
 
@@ -172,6 +191,7 @@ export class BaseMiddleware extends EVASBaseMiddleware {
 
 			return returnValue;
 		} catch (error) {
+			// Step 2: Mark exhausted retries as service-unavailable errors before propagating them.
 			error.status = HTTP_ERROR_SERVICE_UNAVAILABLE;
 			throw error;
 		}
@@ -184,19 +204,25 @@ export class BaseMiddleware extends EVASBaseMiddleware {
 	 * @memberof BaseMiddleware
 	 * @async
 	 * @instance
+	 * @protected
 	 * @override
 	 * @function
 	 * @name _getModelsFromDomain
 	 *
-	 * @returns {null} - Nothing
+	 * @param {object|object[]} modelList - Model descriptor or descriptors containing `type` and `name`.
+	 *
+	 * @returns {Promise<Function|Function[]|undefined>} One resolved model, multiple models, or undefined when none resolve.
 	 *
 	 * @description
-	 * Fetches the models from the domainInterface
+	 * Resolves model descriptors through the domain interface.
+	 * Aggregates lookup failures before returning the resolved model classes.
 	 */
 	async _getModelsFromDomain(modelList) {
+		// Step 1: Resolve the requested models.
 		let models = await this.domainInterface.models(modelList);
 		const errors = [];
 
+		// Step 2: Separate successful resolutions from lookup errors.
 		models = models
 			.map((model) => {
 				if (model.error) {
@@ -210,6 +236,7 @@ export class BaseMiddleware extends EVASBaseMiddleware {
 				return model ?? false;
 			});
 
+		// Step 3: Propagate lookup failures before returning any resolved values.
 		if (errors.length) {
 			const propagatedError = createErrorForPropagation(
 				`${this.name}::_getModelsFromDomain: error fetching models`,
@@ -219,6 +246,7 @@ export class BaseMiddleware extends EVASBaseMiddleware {
 			throw propagatedError;
 		}
 
+		// Step 4: Return a single resolved value directly, or the full collection.
 		if (models.length <= 1) {
 			models = models.pop();
 		}
@@ -233,19 +261,25 @@ export class BaseMiddleware extends EVASBaseMiddleware {
 	 * @memberof BaseMiddleware
 	 * @async
 	 * @instance
+	 * @protected
 	 * @override
 	 * @function
 	 * @name _getTemplatesFromDomain
 	 *
-	 * @returns {null} - Nothing
+	 * @param {object[]} templateList - Template descriptors containing `type` and `action`.
+	 *
+	 * @returns {Promise<Buffer|Buffer[]|undefined>} One template buffer, multiple buffers, or undefined when none resolve.
 	 *
 	 * @description
-	 * Fetches the templates from the domainInterface
+	 * Resolves template descriptors through the domain interface.
+	 * Aggregates lookup failures before returning the template file contents.
 	 */
 	async _getTemplatesFromDomain(templateList) {
+		// Step 1: Resolve the requested templates.
 		let templates = await this.domainInterface.templates(templateList);
 		const errors = [];
 
+		// Step 2: Separate successful resolutions from lookup errors.
 		templates = templates
 			.map((template) => {
 				if (template.error) {
@@ -259,6 +293,7 @@ export class BaseMiddleware extends EVASBaseMiddleware {
 				return template ?? false;
 			});
 
+		// Step 3: Propagate lookup failures before returning any resolved values.
 		if (errors.length) {
 			const propagatedError = createErrorForPropagation(
 				`${this.name}::_getTemplatesFromDomain: error fetching templates`,
@@ -268,6 +303,7 @@ export class BaseMiddleware extends EVASBaseMiddleware {
 			throw propagatedError;
 		}
 
+		// Step 4: Return a single resolved value directly, or the full collection.
 		if (templates.length <= 1) {
 			templates = templates.pop();
 		}

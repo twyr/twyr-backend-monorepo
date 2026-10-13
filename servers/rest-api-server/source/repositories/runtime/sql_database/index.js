@@ -159,6 +159,7 @@ class SQLDatabase extends EVASBaseRepository {
 	 * stop logic
 	 */
 	async unload() {
+		// Close the client and release repository resources when they are available.
 		if (!this.#knex) return;
 
 		await this.#knex.destroy();
@@ -205,6 +206,7 @@ class SQLDatabase extends EVASBaseRepository {
 	 * @returns {Promise<void>} Resolves after the query text is normalized.
 	 */
 	async #databaseQuery(queryData) {
+		// Normalize SQL whitespace in the query event payload.
 		queryData.sql = queryData.sql
 			.replaceAll('\\t', ' ')
 			.replaceAll('\\n', ' ')
@@ -240,7 +242,10 @@ class SQLDatabase extends EVASBaseRepository {
 	 * @returns {Promise<void>} Resolves after the query metadata is normalized.
 	 */
 	async #databaseQueryResponse(queryResponse, query) {
+		// Extract the rows from the query response.
 		query.response = query.response?.rows;
+
+		// Normalize SQL whitespace in the response event.
 		query.sql = query.sql
 			.replaceAll('\\t', ' ')
 			.replaceAll('\\n', ' ')
@@ -276,6 +281,7 @@ class SQLDatabase extends EVASBaseRepository {
 	 * @returns {Promise<void>} Resolves after the error is logged.
 	 */
 	async #databaseQueryError(error, query) {
+		// Serialize the database error alongside its query details for logging.
 		const queryLog = Object.assign({}, query);
 		queryLog.error = errorSerializer(error);
 
@@ -306,6 +312,7 @@ class SQLDatabase extends EVASBaseRepository {
 	 * @returns {Promise<void>} Resolves after the notice is logged.
 	 */
 	async #databaseNotice(notice) {
+		// Forward the diagnostic event to the shared logger.
 		const logger = await this.iocContainer.resolve('Logger');
 		logger.info(
 			`${this.name}#databaseNotice: ${safeJsonStringify(
@@ -363,6 +370,7 @@ export default class SQLDatabaseRepositoryFactory extends EVASBaseFactory {
 	 * @returns {SQLDatabase} - The SQLDatabase repository instance.
 	 */
 	static async createInstances(configuration, iocContainer) {
+		// Create or reuse the loaded instance under the factory lock.
 		const repositoryKey = Buffer.from(
 			safeJsonStringify(configuration ?? {})
 		).toString('base64');
@@ -407,7 +415,9 @@ export default class SQLDatabaseRepositoryFactory extends EVASBaseFactory {
 	 * @description Clears the cached {SQLDatabase} instances
 	 */
 	static async destroyInstances(configuration) {
+		// Unload and release cached instances under the factory lock.
 		await SQLDatabaseRepositoryFactory.#mutex.runExclusive(async () => {
+			// Unload only the requested configuration when one is supplied.
 			if (configuration) {
 				const repositoryKey = Buffer.from(
 					safeJsonStringify(configuration)
@@ -432,6 +442,7 @@ export default class SQLDatabaseRepositoryFactory extends EVASBaseFactory {
 				return;
 			}
 
+			// Otherwise, unload all configurations before clearing the cache.
 			const destroyResolutions = [];
 			SQLDatabaseRepositoryFactory.#sqldbInstances.forEach(
 				(sqlDatabaseInstance) => {

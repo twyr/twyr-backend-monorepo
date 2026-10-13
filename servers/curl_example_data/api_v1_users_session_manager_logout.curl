@@ -1,0 +1,9 @@
+# POST /api/v1/users/session-manager/logout
+# Run from the repository root.
+# curl --config ./servers/curl_example_data/api_v1_users_session_manager_logout.curl "${base_url}/api/v1/users/session-manager/logout"
+# Set base_url to the running server origin (for example http://127.0.0.1:9090).
+# Use cookies.txt from a successful login in the corresponding domain.
+request = "POST"
+header = "Content-Type: application/json"
+cookie = "./cookies.txt"
+data = "@./servers/curl_example_data/api_v1_users_session_manager_logout.json"

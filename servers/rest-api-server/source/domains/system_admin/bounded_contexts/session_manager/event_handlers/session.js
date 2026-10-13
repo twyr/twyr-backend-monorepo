@@ -32,7 +32,19 @@ export class Session extends BaseEventHandler {
 	 * @category REST API Server/Domains/System Admin
 	 * @subcategory Session Manager/Event Handlers
 	 *
-	 * @ignore
+	 * @memberof Session
+	 * @instance
+	 * @public
+	 * @function
+	 * @name constructor
+	 *
+	 * @param {string} location - Filesystem location of the artifact.
+	 * @param {object} domainInterface - Domain APIs, repositories, models and event emitter.
+	 *
+	 * @returns {Session} A new Session instance.
+	 *
+	 * @description
+	 * Initializes the Session event handler using its base class.
 	 */
 	constructor(location, domainInterface) {
 		super(location, domainInterface);
@@ -47,16 +59,18 @@ export class Session extends BaseEventHandler {
 	 * @memberof Session
 	 * @async
 	 * @instance
+	 * @protected
 	 * @override
 	 * @function
 	 * @name _registerHandlers
 	 *
-	 * @returns {Promise<void>|undefined} Resolves when handler registration completes.
+	 * @returns {Promise<void>} Resolves after registration changes complete.
 	 *
 	 * @description
 	 * Registers the user session event handlers with the domain event emitter.
 	 */
 	async _registerHandlers() {
+		// Step 1: Register inherited and local event handlers, collecting any failures.
 		const errors = [];
 
 		try {
@@ -77,7 +91,10 @@ export class Session extends BaseEventHandler {
 				)
 			);
 
+			// Step 2: Wait for every registration operation to settle.
 			registerResolutions = await Promise.allSettled(registerResolutions);
+
+			// Step 3: Collect the failures from rejected operations.
 			for (const registerResolution of registerResolutions) {
 				if (registerResolution.status === 'fulfilled') continue;
 				errors.push(registerResolution.reason);
@@ -86,6 +103,7 @@ export class Session extends BaseEventHandler {
 			errors.push(error);
 		}
 
+		// Step 4: Propagate collected failures after all operations have been attempted.
 		if (!errors.length) return;
 
 		const propagatedError = createErrorForPropagation(
@@ -103,16 +121,18 @@ export class Session extends BaseEventHandler {
 	 * @memberof Session
 	 * @async
 	 * @instance
+	 * @protected
 	 * @override
 	 * @function
 	 * @name _unregisterHandlers
 	 *
-	 * @returns {Promise<void>|undefined} Resolves when handler deregistration completes.
+	 * @returns {Promise<void>} Resolves after registration changes complete.
 	 *
 	 * @description
 	 * Removes the user session event handlers from the domain event emitter.
 	 */
 	async _unregisterHandlers() {
+		// Step 1: Remove the local event handlers, collecting any failures.
 		const errors = [];
 
 		try {
@@ -126,9 +146,12 @@ export class Session extends BaseEventHandler {
 				)
 			);
 
+			// Step 2: Wait for every removal operation to settle.
 			unregisterResolutions = await Promise.allSettled(
 				unregisterResolutions
 			);
+
+			// Step 3: Collect the failures from rejected operations.
 			for (const unregisterResolution of unregisterResolutions) {
 				if (unregisterResolution.status === 'fulfilled') continue;
 				errors.push(unregisterResolution.reason);
@@ -139,6 +162,7 @@ export class Session extends BaseEventHandler {
 			errors.push(error);
 		}
 
+		// Step 4: Propagate collected failures after all operations have been attempted.
 		if (!errors.length) return;
 
 		const propagatedError = createErrorForPropagation(
@@ -168,15 +192,18 @@ export class Session extends BaseEventHandler {
 	 * @returns {Promise<void>} Resolves when the cache entry is deleted and logged.
 	 *
 	 * @description
-	 * Deletes the cached user session snapshot after a logout-triggered
-	 * cache invalidation event.
+	 * Deletes the cached session snapshot for the event user and logs completion.
+	 * Runs when the domain emits its cache invalidation event, including after logout
+	 * and profile, contact, or locale changes.
 	 */
 	async #postLogoutCleanup(eventData) {
+		// Step 1: Delete the cached session snapshot for the event user.
 		const cache = await this.domainInterface.iocContainer.resolve('Cache');
 		await cache.del(
 			`twyr!entity!value!aggregate!system_admin!${eventData.userId}!basics`
 		);
 
+		// Step 2: Log the completed cache invalidation.
 		const logger =
 			await this.domainInterface.iocContainer.resolve('Logger');
 		logger.debug(
@@ -202,7 +229,16 @@ export default class SessionEventHandlerFactory extends EVASBaseFactory {
 	 * @category REST API Server/Domains/System Admin
 	 * @subcategory Session Manager/Event Handlers
 	 *
-	 * @ignore
+	 * @memberof SessionEventHandlerFactory
+	 * @instance
+	 * @public
+	 * @function
+	 * @name constructor
+	 *
+	 * @returns {SessionEventHandlerFactory} A new SessionEventHandlerFactory instance.
+	 *
+	 * @description
+	 * Initializes the SessionEventHandlerFactory factory using its base class.
 	 */
 	constructor() {
 		super();
@@ -217,15 +253,21 @@ export default class SessionEventHandlerFactory extends EVASBaseFactory {
 	 * @memberof SessionEventHandlerFactory
 	 * @async
 	 * @static
+	 * @public
 	 * @override
 	 * @function
-	 * @name createInstance
+	 * @name createInstances
 	 *
 	 * @param {object} [domainInterface] - Domain functionality exposed to sub-artifacts
 	 *
-	 * @returns {Promise<Session>} Resolves to the Session event handler instance.
+	 * @returns {Promise<Session>} Resolves to the loaded Session event handler instance.
+	 *
+	 * @description
+	 * Creates and loads the event handler instance on first use, then reuses it.
+	 * Serializes access to the cached instance with the factory mutex.
 	 */
 	static async createInstances(domainInterface) {
+		// Create or reuse the loaded instance under the factory lock.
 		return await SessionEventHandlerFactory.#mutex.runExclusive(
 			async () => {
 				if (!SessionEventHandlerFactory.#eventHandlerInstance) {
@@ -251,15 +293,19 @@ export default class SessionEventHandlerFactory extends EVASBaseFactory {
 	 * @memberof SessionEventHandlerFactory
 	 * @async
 	 * @static
+	 * @public
 	 * @override
 	 * @function
 	 * @name destroyInstances
 	 *
-	 * @returns {Promise<void>} Resolves when the cached Session instance is cleared.
+	 * @returns {Promise<void>} Resolves after the cached instance is unloaded and released.
 	 *
-	 * @description Destroys the cached Session event handler instance.
+	 * @description
+	 * Unloads the cached event handler instance and clears the factory reference
+	 * under the factory mutex.
 	 */
 	static async destroyInstances() {
+		// Unload and release cached instances under the factory lock.
 		await SessionEventHandlerFactory.#mutex.runExclusive(async () => {
 			await SessionEventHandlerFactory.#eventHandlerInstance?.unload();
 			SessionEventHandlerFactory.#eventHandlerInstance = undefined;
@@ -275,16 +321,17 @@ export default class SessionEventHandlerFactory extends EVASBaseFactory {
 	 * @subcategory Session Manager/Event Handlers
 	 *
 	 * @memberof SessionEventHandlerFactory
-	 * @async
 	 * @static
+	 * @public
 	 * @override
+	 * @readonly
 	 * @function
 	 * @name EventHandlerName
 	 *
 	 * @returns {string} Name of this event handler.
 	 *
 	 * @description
-	 * Returns the event handler name: `Session`.
+	 * Returns the registered event handler name: `Session`.
 	 */
 	static get EventHandlerName() {
 		return 'Session';

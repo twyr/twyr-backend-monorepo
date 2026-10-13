@@ -31,6 +31,7 @@ export default async function localStrategy(
 	cacheRepository,
 	databaseRepository
 ) {
+	// Register the local Passport strategy with access to the current request.
 	let LocalStrategy = await import('passport-local');
 	LocalStrategy = LocalStrategy.Strategy;
 
@@ -40,6 +41,7 @@ export default async function localStrategy(
 			{ passReqToCallback: true },
 			async (request, username, password, callback) => {
 				try {
+					// Step 1: Find the account associated with the submitted mobile number.
 					let userRecord = await databaseRepository.raw(
 						`SELECT * FROM users WHERE mobile_no = ?`,
 						[username]
@@ -57,6 +59,7 @@ export default async function localStrategy(
 						throw userError;
 					}
 
+					// Step 2: Reject missing or mismatched cached OTPs.
 					const otpNumber = await cacheRepository.get(
 						`user-otp-${username}`
 					);
@@ -83,6 +86,7 @@ export default async function localStrategy(
 						throw userError;
 					}
 
+					// Step 3: Return the authenticated account to Passport.
 					callback(undefined, userRecord);
 				} catch (error) {
 					callback(error);

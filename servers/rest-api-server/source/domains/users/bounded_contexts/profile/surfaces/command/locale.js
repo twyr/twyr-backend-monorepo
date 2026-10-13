@@ -35,7 +35,19 @@ export class Locale extends UserBaseSurface {
 	 * @category REST API Server/Domains/Users
 	 * @subcategory Profile/Surfaces/Command
 	 *
-	 * @ignore
+	 * @memberof Locale
+	 * @instance
+	 * @public
+	 * @function
+	 * @name constructor
+	 *
+	 * @param {string} location - Filesystem location of the artifact.
+	 * @param {object} domainInterface - Domain APIs, repositories, models and event emitter.
+	 *
+	 * @returns {Locale} A new Locale instance.
+	 *
+	 * @description
+	 * Initializes the Locale surface using its base class.
 	 */
 	constructor(location, domainInterface) {
 		super(location, domainInterface);
@@ -50,15 +62,15 @@ export class Locale extends UserBaseSurface {
 	 * @memberof Locale
 	 * @async
 	 * @instance
+	 * @public
 	 * @override
 	 * @function
 	 * @name load
 	 *
-	 * @returns {null} - Nothing
+	 * @returns {Promise<void>} Resolves after loading completes.
 	 *
 	 * @description
-	 * Sets the user role in the request headers for access control purposes
-	 * by passing it in to the base class load method
+	 * Loads the inherited surface infrastructure for Locale.
 	 */
 	async load() {
 		await super.load();
@@ -73,19 +85,22 @@ export class Locale extends UserBaseSurface {
 	 * @memberof Locale
 	 * @async
 	 * @instance
+	 * @protected
 	 * @override
 	 * @function
 	 * @name _registerSurface
 	 *
-	 * @returns {null} - The routes to be added to the Rest API Router
+	 * @returns {Promise<object[]>} Resolves to the route definitions exposed by the surface.
 	 *
 	 * @description
-	 * Adds the route definitions and handlers for this surface to
-	 * the Rest API Router
+	 * Returns inherited and local route definitions, including their handlers
+	 * and any authorization middleware.
 	 */
 	async _registerSurface() {
+		// Step 1: Get the routes supplied by the base surface.
 		const baseRoutes = await super._registerSurface();
 
+		// Step 2: Add the routes and request middleware exposed by this surface.
 		baseRoutes.push({
 			version: 1,
 			httpMethod: 'POST',
@@ -118,11 +133,12 @@ export class Locale extends UserBaseSurface {
 	 * @memberof Locale
 	 * @async
 	 * @instance
+	 * @protected
 	 * @override
 	 * @function
 	 * @name _unregisterSurface
 	 *
-	 * @returns {null} - Nothing
+	 * @returns {Promise<void>} Resolves after registration changes complete.
 	 *
 	 * @description
 	 * Removes the route definitions and handlers for this surface from
@@ -140,13 +156,14 @@ export class Locale extends UserBaseSurface {
 	 * @memberof Locale
 	 * @async
 	 * @instance
+	 * @protected
 	 * @override
 	 * @function
 	 * @name _setupValidationSchemas
 	 *
-	 * @param {string} [validationSchemaMap] - Map to be populated with the validation schemas.
+	 * @param {Map} [validationSchemaMap] - Map to populate; defaults to the surface cache when available.
 	 *
-	 * @returns {Map} - Map containing the validation schemas
+	 * @returns {Promise<Map|undefined>} Resolves to the supplied or cached validation schema map.
 	 *
 	 * @description
 	 * Registers Joi schemas used by the locale routes. The authenticated
@@ -154,11 +171,15 @@ export class Locale extends UserBaseSurface {
 	 * `user_id`.
 	 */
 	async _setupValidationSchemas(validationSchemaMap) {
+		// Step 1: Reuse the supplied schema map or the surface cache.
 		validationSchemaMap = validationSchemaMap ?? this.#validationSchemaMap;
+
+		// Step 2: Apply the base validation schemas.
 		validationSchemaMap = await super._setupValidationSchemas(
 			validationSchemaMap
 		);
 
+		// Step 3: Build the create schema when it is missing.
 		let createSchema = validationSchemaMap.get(
 			'CREATE_LOCALE_VALIDATION_SCHEMA'
 		);
@@ -185,12 +206,14 @@ export class Locale extends UserBaseSurface {
 				})
 			});
 
+			// Cache the schema for subsequent requests.
 			validationSchemaMap.set(
 				'CREATE_LOCALE_VALIDATION_SCHEMA',
 				createSchema
 			);
 		}
 
+		// Step 4: Build the update schema when it is missing.
 		let updateSchema = validationSchemaMap.get(
 			'UPDATE_LOCALE_VALIDATION_SCHEMA'
 		);
@@ -221,6 +244,7 @@ export class Locale extends UserBaseSurface {
 				})
 			});
 
+			// Cache the schema for subsequent requests.
 			validationSchemaMap.set(
 				'UPDATE_LOCALE_VALIDATION_SCHEMA',
 				updateSchema
@@ -240,19 +264,31 @@ export class Locale extends UserBaseSurface {
 	 * @async
 	 * @instance
 	 * @private
-	 * @override
 	 * @function
 	 * @name #createLocale
 	 *
-	 * @returns {null} - Nothing
+	 * @param {object} ctxt - Koa context for `POST /create`.
 	 *
-	 * @description Creates a new locale for the logged in user. The
-	 * `user_id` relationship is derived from `user?.id`.
+	 * @returns {Promise<void>} Resolves after the response has been written.
+	 *
+	 * @description
+	 * Handles `POST /create`.
+	 * Validates and deserializes the request, then invokes the create middleware
+	 * and serializes its result. Requires JSON:API `data.type` to be `user_locale`
+	 * and an attributes object containing a locale_id string.
+	 * The user_id owner is taken from the authenticated session.
+	 * Optional attributes is_primary are booleans.
+	 * Requires a session authorized by the `registered` RBAC middleware.
+	 *
 	 * @example
 	 * // Given the following input data [./servers/curl_example_data/api_v1_users_profile_locale_create.json]:
-	 * $ curl -X POST -H "Content-Type: application/json" -b ./cookies.txt -d @./servers/curl_example_data/api_v1_users_profile_locale_create.json ${base_url}/api/v1/users/profile/locale/create
+	 * // Invocation configuration [./servers/curl_example_data/api_v1_users_profile_locale_create.curl]:
+	 * $ curl -X POST -H "Content-Type: application/json" -b ./cookies.txt -d @./servers/curl_example_data/api_v1_users_profile_locale_create.json "${base_url}/api/v1/users/profile/locale/create"
+	 * // Equivalent invocation using the configuration file:
+	 * $ curl --config ./servers/curl_example_data/api_v1_users_profile_locale_create.curl "${base_url}/api/v1/users/profile/locale/create"
 	 */
 	async #createLocale(ctxt) {
+		// Step 1: Validate the request body against its schema.
 		const createLocaleSchema = this.#validationSchemaMap.get(
 			'CREATE_LOCALE_VALIDATION_SCHEMA'
 		);
@@ -262,6 +298,7 @@ export class Locale extends UserBaseSurface {
 				abortEarly: false
 			});
 		} catch (error) {
+			// Convert validation failures into handler errors.
 			const validationError = this._convertValidationErrorToHandlerError(
 				error,
 				'EVASERVER::INPUT_VALIDATION_ERROR'
@@ -270,6 +307,7 @@ export class Locale extends UserBaseSurface {
 			throw validationError;
 		}
 
+		// Step 2: Deserialize the request body into the domain payload.
 		const localePayload =
 			await this.domainInterface.serializer.deserializeAsync(
 				'user_locale',
@@ -277,17 +315,21 @@ export class Locale extends UserBaseSurface {
 			);
 		localePayload.user_id = ctxt?.state?.user?.id;
 
+		// Step 3: Invoke the matching middleware API with the domain payload.
 		const apiRegistry = this.domainInterface.apiRegistry;
 		const localeStatus = await apiRegistry.execute('CREATE_LOCALE', {
 			user: ctxt.state.user,
 			data: localePayload
 		});
 
+		// Step 4: Serialize the middleware result for the response.
 		const responseBody =
 			await this.domainInterface.serializer.serializeAsync(
 				'user_locale',
 				localeStatus.body
 			);
+
+		// Step 5: Write the HTTP response using the serialized result.
 		ctxt.status = localeStatus.status;
 		ctxt.body = responseBody;
 	}
@@ -300,19 +342,30 @@ export class Locale extends UserBaseSurface {
 	 * @async
 	 * @instance
 	 * @private
-	 * @override
 	 * @function
 	 * @name #updateLocale
 	 *
-	 * @returns {null} - Nothing
+	 * @param {object} ctxt - Koa context for `PATCH /update`.
 	 *
-	 * @description Updates an existing locale for the logged in user. The
-	 * `user_id` relationship is derived from `user?.id`.
+	 * @returns {Promise<void>} Resolves after the response has been written.
+	 *
+	 * @description
+	 * Handles `PATCH /update`.
+	 * Validates JSON:API `data.type` as `user_locale`,
+	 * a required UUID v4 or v7 `data.id`, and an attributes object.
+	 * Deserializes the update, invokes the middleware for the authenticated user,
+	 * and serializes the response.
+	 * Requires a session authorized by the `registered` RBAC middleware.
+	 *
 	 * @example
 	 * // Given the following input data [./servers/curl_example_data/api_v1_users_profile_locale_update.json]:
-	 * $ curl -X PATCH -H "Content-Type: application/json" -b ./cookies.txt -d @./servers/curl_example_data/api_v1_users_profile_locale_update.json ${base_url}/api/v1/users/profile/locale/update
+	 * // Invocation configuration [./servers/curl_example_data/api_v1_users_profile_locale_update.curl]:
+	 * $ curl -X PATCH -H "Content-Type: application/json" -b ./cookies.txt -d @./servers/curl_example_data/api_v1_users_profile_locale_update.json "${base_url}/api/v1/users/profile/locale/update"
+	 * // Equivalent invocation using the configuration file:
+	 * $ curl --config ./servers/curl_example_data/api_v1_users_profile_locale_update.curl "${base_url}/api/v1/users/profile/locale/update"
 	 */
 	async #updateLocale(ctxt) {
+		// Step 1: Validate the request body against its schema.
 		const updateLocaleSchema = this.#validationSchemaMap.get(
 			'UPDATE_LOCALE_VALIDATION_SCHEMA'
 		);
@@ -322,6 +375,7 @@ export class Locale extends UserBaseSurface {
 				abortEarly: false
 			});
 		} catch (error) {
+			// Convert validation failures into handler errors.
 			const validationError = this._convertValidationErrorToHandlerError(
 				error,
 				'EVASERVER::INPUT_VALIDATION_ERROR'
@@ -330,6 +384,7 @@ export class Locale extends UserBaseSurface {
 			throw validationError;
 		}
 
+		// Step 2: Deserialize the request body into the domain payload.
 		const localePayload =
 			await this.domainInterface.serializer.deserializeAsync(
 				'user_locale',
@@ -337,17 +392,21 @@ export class Locale extends UserBaseSurface {
 			);
 		localePayload.user_id = ctxt?.state?.user?.id;
 
+		// Step 3: Invoke the matching middleware API with the domain payload.
 		const apiRegistry = this.domainInterface.apiRegistry;
 		const localeUpdateStatus = await apiRegistry.execute('UPDATE_LOCALE', {
 			user: ctxt.state.user,
 			data: localePayload
 		});
 
+		// Step 4: Serialize the middleware result for the response.
 		const responseBody =
 			await this.domainInterface.serializer.serializeAsync(
 				'user_locale',
 				localeUpdateStatus.body
 			);
+
+		// Step 5: Write the HTTP response using the serialized result.
 		ctxt.status = localeUpdateStatus.status;
 		ctxt.body = responseBody;
 	}
@@ -360,23 +419,34 @@ export class Locale extends UserBaseSurface {
 	 * @async
 	 * @instance
 	 * @private
-	 * @override
 	 * @function
 	 * @name #deleteLocale
 	 *
-	 * @returns {null} - Nothing
+	 * @param {object} ctxt - Koa context for `DELETE /delete/:localeId`.
 	 *
-	 * @description Deletes a locale for the logged in user.
+	 * @returns {Promise<void>} Resolves after the response has been written.
+	 *
+	 * @description
+	 * Handles `DELETE /delete/:localeId`.
+	 * Passes the authenticated user and the localeId path parameter to
+	 * the delete middleware and writes its response status. No request body is required.
+	 * Requires a session authorized by the `registered` RBAC middleware.
+	 *
 	 * @example
-	 * $ curl -X DELETE -H "Content-Type: application/json" -b ./cookies.txt ${base_url}/api/v1/users/profile/locale/delete/${localeId}
+	 * // Invocation configuration [./servers/curl_example_data/api_v1_users_profile_locale_delete_by_locale_id.curl]:
+	 * $ curl -X DELETE -H "Content-Type: application/json" -b ./cookies.txt "${base_url}/api/v1/users/profile/locale/delete/${localeId}"
+	 * // Equivalent invocation using the configuration file:
+	 * $ curl --config ./servers/curl_example_data/api_v1_users_profile_locale_delete_by_locale_id.curl "${base_url}/api/v1/users/profile/locale/delete/${localeId}"
 	 */
 	async #deleteLocale(ctxt) {
+		// Step 1: Invoke the delete API with the authenticated user and request identifiers.
 		const apiRegistry = this.domainInterface.apiRegistry;
 		const localeDeleteStatus = await apiRegistry.execute('DELETE_LOCALE', {
 			user: ctxt.state.user,
 			localeId: ctxt.params.localeId
 		});
 
+		// Step 2: Write the deletion status returned by the middleware.
 		ctxt.status = localeDeleteStatus.status;
 	}
 	// #endregion
@@ -402,7 +472,16 @@ export default class LocaleSurfaceFactory extends EVASBaseFactory {
 	 * @category REST API Server/Domains/Users
 	 * @subcategory Profile/Surfaces/Command
 	 *
-	 * @ignore
+	 * @memberof LocaleSurfaceFactory
+	 * @instance
+	 * @public
+	 * @function
+	 * @name constructor
+	 *
+	 * @returns {LocaleSurfaceFactory} A new LocaleSurfaceFactory instance.
+	 *
+	 * @description
+	 * Initializes the LocaleSurfaceFactory factory using its base class.
 	 */
 	constructor() {
 		super();
@@ -417,15 +496,21 @@ export default class LocaleSurfaceFactory extends EVASBaseFactory {
 	 * @memberof LocaleSurfaceFactory
 	 * @async
 	 * @static
+	 * @public
 	 * @override
 	 * @function
 	 * @name createInstances
 	 *
 	 * @param {object} [domainInterface] - Domain functionality exposed to sub-artifacts
 	 *
-	 * @returns {Locale} - The Locale surface instance.
+	 * @returns {Promise<Locale>} Resolves to the loaded Locale surface instance.
+	 *
+	 * @description
+	 * Creates and loads the surface instance on first use, then reuses it.
+	 * Serializes access to the cached instance with the factory mutex.
 	 */
 	static async createInstances(domainInterface) {
+		// Create or reuse the loaded instance under the factory lock.
 		return await LocaleSurfaceFactory.#mutex.runExclusive(async () => {
 			if (!LocaleSurfaceFactory.#localeInstance) {
 				const localeInstance = new Locale(
@@ -448,15 +533,19 @@ export default class LocaleSurfaceFactory extends EVASBaseFactory {
 	 * @memberof LocaleSurfaceFactory
 	 * @async
 	 * @static
+	 * @public
 	 * @override
 	 * @function
 	 * @name destroyInstances
 	 *
-	 * @returns {undefined} - Nothing.
+	 * @returns {Promise<void>} Resolves after the cached instance is unloaded and released.
 	 *
-	 * @description Clears the Locale instance
+	 * @description
+	 * Unloads the cached surface instance and clears the factory reference
+	 * under the factory mutex.
 	 */
 	static async destroyInstances() {
+		// Unload and release cached instances under the factory lock.
 		await LocaleSurfaceFactory.#mutex.runExclusive(async () => {
 			await LocaleSurfaceFactory.#localeInstance?.unload();
 			LocaleSurfaceFactory.#localeInstance = undefined;
@@ -471,16 +560,17 @@ export default class LocaleSurfaceFactory extends EVASBaseFactory {
 	 * @subcategory Profile/Surfaces/Command
 	 *
 	 * @memberof LocaleSurfaceFactory
-	 * @async
 	 * @static
+	 * @public
 	 * @override
+	 * @readonly
 	 * @function
 	 * @name SurfaceName
 	 *
 	 * @returns {string} - Name of this surface.
 	 *
 	 * @description
-	 * Returns the name of this surface - Locale
+	 * Returns the registered surface name: `Locale`.
 	 */
 	static get SurfaceName() {
 		return 'Locale';

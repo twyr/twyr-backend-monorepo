@@ -1,0 +1,8 @@
+# GET /api/v1/masterdata/country-codes
+# Run from the repository root.
+# curl --config ./servers/curl_example_data/api_v1_masterdata_country_codes.curl "${base_url}/api/v1/masterdata/country-codes"
+# Set base_url to the running server origin (for example http://127.0.0.1:9090).
+# Use cookies.txt from a successful login in the corresponding domain.
+request = "GET"
+header = "Content-Type: application/json"
+cookie = "./cookies.txt"

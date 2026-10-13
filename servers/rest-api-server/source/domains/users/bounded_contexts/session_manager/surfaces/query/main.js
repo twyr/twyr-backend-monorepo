@@ -31,7 +31,19 @@ export class Main extends UserBaseSurface {
 	 * @category REST API Server/Domains/Users
 	 * @subcategory Session Manager/Surfaces/Query
 	 *
-	 * @ignore
+	 * @memberof Main
+	 * @instance
+	 * @public
+	 * @function
+	 * @name constructor
+	 *
+	 * @param {string} location - Filesystem location of the artifact.
+	 * @param {object} domainInterface - Domain APIs, repositories, models and event emitter.
+	 *
+	 * @returns {Main} A new Main instance.
+	 *
+	 * @description
+	 * Initializes the Main surface using its base class.
 	 */
 	constructor(location, domainInterface) {
 		super(location, domainInterface);
@@ -46,13 +58,15 @@ export class Main extends UserBaseSurface {
 	 * @memberof Main
 	 * @async
 	 * @instance
+	 * @public
 	 * @override
 	 * @function
 	 * @name load
 	 *
-	 * @returns {Promise<void>} Resolves when the surface has loaded.
+	 * @returns {Promise<void>} Resolves after loading completes.
 	 *
-	 * @description Loads the surface and its inherited route infrastructure.
+	 * @description
+	 * Loads the inherited surface infrastructure for Main.
 	 */
 	async load() {
 		await super.load();
@@ -65,13 +79,15 @@ export class Main extends UserBaseSurface {
 	 * @memberof Main
 	 * @async
 	 * @instance
+	 * @public
 	 * @override
 	 * @function
 	 * @name unload
 	 *
-	 * @returns {Promise<void>} Resolves when the surface has unloaded.
+	 * @returns {Promise<void>} Resolves after unloading completes.
 	 *
-	 * @description Unloads the surface and releases inherited resources.
+	 * @description
+	 * Unloads the surface infrastructure.
 	 */
 	async unload() {
 		await super.unload();
@@ -86,17 +102,22 @@ export class Main extends UserBaseSurface {
 	 * @memberof Main
 	 * @async
 	 * @instance
+	 * @protected
 	 * @override
 	 * @function
 	 * @name _registerSurface
 	 *
-	 * @returns {Promise<Array>} Routes to be added to the REST API router.
+	 * @returns {Promise<object[]>} Resolves to the route definitions exposed by the surface.
 	 *
-	 * @description Registers the `GET /validate-session` route for user sessions.
+	 * @description
+	 * Returns inherited and local route definitions, including their handlers
+	 * and any authorization middleware.
 	 */
 	async _registerSurface() {
+		// Step 1: Get the routes supplied by the base surface.
 		const baseRoutes = await super._registerSurface();
 
+		// Step 2: Add the routes and request middleware exposed by this surface.
 		baseRoutes.push({
 			version: 1,
 			httpMethod: 'GET',
@@ -114,13 +135,15 @@ export class Main extends UserBaseSurface {
 	 * @memberof Main
 	 * @async
 	 * @instance
+	 * @protected
 	 * @override
 	 * @function
 	 * @name _unregisterSurface
 	 *
-	 * @returns {Promise<void>} Resolves when the surface routes are unregistered.
+	 * @returns {Promise<void>} Resolves after registration changes complete.
 	 *
-	 * @description Removes the query surface routes from the REST API router.
+	 * @description
+	 * Removes the query surface routes from the REST API router.
 	 */
 	async _unregisterSurface() {
 		await super._unregisterSurface();
@@ -145,16 +168,18 @@ export class Main extends UserBaseSurface {
 	 * @returns {Promise<void>} Resolves after the response has been written.
 	 *
 	 * @description
-	 * Validates the user session exposed at `GET /validate-session`.
-	 * This route accepts no request body and returns the current authenticated
-	 * session state based on `ctxt.state.user`.
+	 * Handles `GET /validate-session`.
+	 * Accepts no request body. Writes HTTP 200 with the current authenticated
+	 * session details, or HTTP 400 when no authenticated user is present.
 	 *
 	 * @example
-	 * $ curl -b ./cookies.txt ${base_url}/api/v1/users/session-manager/validate-session
-	 *
-	 * Session is authenticated or not authenticated, depending on the active cookie.
+	 * // Invocation configuration [./servers/curl_example_data/api_v1_users_session_manager_validate_session.curl]:
+	 * $ curl -X GET -H "Content-Type: application/json" -b ./cookies.txt "${base_url}/api/v1/users/session-manager/validate-session"
+	 * // Equivalent invocation using the configuration file:
+	 * $ curl --config ./servers/curl_example_data/api_v1_users_session_manager_validate_session.curl "${base_url}/api/v1/users/session-manager/validate-session"
 	 */
 	async #validateSession(ctxt) {
+		// Report whether the request has an authenticated user and include their session details.
 		if (ctxt.state.user) {
 			ctxt.status = 200;
 			ctxt.body = {
@@ -194,7 +219,16 @@ export default class MainSurfaceFactory extends EVASBaseFactory {
 	 * @category REST API Server/Domains/Users
 	 * @subcategory Session Manager/Surfaces/Query
 	 *
-	 * @ignore
+	 * @memberof MainSurfaceFactory
+	 * @instance
+	 * @public
+	 * @function
+	 * @name constructor
+	 *
+	 * @returns {MainSurfaceFactory} A new MainSurfaceFactory instance.
+	 *
+	 * @description
+	 * Initializes the MainSurfaceFactory factory using its base class.
 	 */
 	constructor() {
 		super();
@@ -209,15 +243,21 @@ export default class MainSurfaceFactory extends EVASBaseFactory {
 	 * @memberof MainSurfaceFactory
 	 * @async
 	 * @static
+	 * @public
 	 * @override
 	 * @function
-	 * @name createInstance
+	 * @name createInstances
 	 *
 	 * @param {object} [domainInterface] - Domain functionality exposed to sub-artifacts
 	 *
-	 * @returns {Promise<Main>} Resolves to the Main surface instance.
+	 * @returns {Promise<Main>} Resolves to the loaded Main surface instance.
+	 *
+	 * @description
+	 * Creates and loads the surface instance on first use, then reuses it.
+	 * Serializes access to the cached instance with the factory mutex.
 	 */
 	static async createInstances(domainInterface) {
+		// Create or reuse the loaded instance under the factory lock.
 		return await MainSurfaceFactory.#mutex.runExclusive(async () => {
 			if (!MainSurfaceFactory.#mainInstance) {
 				const mainInstance = new Main(
@@ -240,15 +280,19 @@ export default class MainSurfaceFactory extends EVASBaseFactory {
 	 * @memberof MainSurfaceFactory
 	 * @async
 	 * @static
+	 * @public
 	 * @override
 	 * @function
 	 * @name destroyInstances
 	 *
-	 * @returns {Promise<void>} Resolves when the cached Main instance is cleared.
+	 * @returns {Promise<void>} Resolves after the cached instance is unloaded and released.
 	 *
-	 * @description Destroys the cached Main query surface instance.
+	 * @description
+	 * Unloads the cached surface instance and clears the factory reference
+	 * under the factory mutex.
 	 */
 	static async destroyInstances() {
+		// Unload and release cached instances under the factory lock.
 		await MainSurfaceFactory.#mutex.runExclusive(async () => {
 			await MainSurfaceFactory.#mainInstance?.unload();
 			MainSurfaceFactory.#mainInstance = undefined;
@@ -264,16 +308,17 @@ export default class MainSurfaceFactory extends EVASBaseFactory {
 	 * @subcategory Session Manager/Surfaces/Query
 	 *
 	 * @memberof MainSurfaceFactory
-	 * @async
 	 * @static
+	 * @public
 	 * @override
+	 * @readonly
 	 * @function
 	 * @name SurfaceName
 	 *
 	 * @returns {string} Name of this surface.
 	 *
 	 * @description
-	 * Returns the surface name: `Main`.
+	 * Returns the registered surface name: `Main`.
 	 */
 	static get SurfaceName() {
 		return 'Main';

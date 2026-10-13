@@ -35,7 +35,19 @@ export class Session extends BaseMiddleware {
 	 * @category REST API Server/Domains/System Admin
 	 * @subcategory Session Manager/Middlewares
 	 *
-	 * @ignore
+	 * @memberof Session
+	 * @instance
+	 * @public
+	 * @function
+	 * @name constructor
+	 *
+	 * @param {string} location - Filesystem location of the artifact.
+	 * @param {object} domainInterface - Domain APIs, repositories, models and event emitter.
+	 *
+	 * @returns {Session} A new Session instance.
+	 *
+	 * @description
+	 * Initializes the Session middleware using its base class.
 	 */
 	constructor(location, domainInterface) {
 		super(location, domainInterface);
@@ -50,15 +62,18 @@ export class Session extends BaseMiddleware {
 	 * @memberof Session
 	 * @async
 	 * @instance
+	 * @protected
 	 * @override
 	 * @function
 	 * @name _registerApi
 	 *
-	 * @returns {Promise<void>|undefined} Resolves when middleware APIs are registered.
+	 * @returns {Promise<void>} Resolves after registration changes complete.
 	 *
-	 * @description Registers the user session middleware APIs with the domain API registry.
+	 * @description
+	 * Registers the user session middleware APIs with the domain API registry.
 	 */
 	async _registerApi() {
+		// Step 1: Register inherited and local middleware APIs, collecting any failures.
 		const errors = [];
 
 		try {
@@ -91,7 +106,10 @@ export class Session extends BaseMiddleware {
 				apiRegistry.register('LOGOUT', this.#logout.bind(this))
 			);
 
+			// Step 2: Wait for every registration operation to settle.
 			registerResolutions = await Promise.allSettled(registerResolutions);
+
+			// Step 3: Collect the failures from rejected operations.
 			for (const registerResolution of registerResolutions) {
 				if (registerResolution.status === 'fulfilled') continue;
 				errors.push(registerResolution.reason);
@@ -100,6 +118,7 @@ export class Session extends BaseMiddleware {
 			errors.push(error);
 		}
 
+		// Step 4: Propagate collected failures after all operations have been attempted.
 		if (!errors.length) return;
 
 		const propagatedError = createErrorForPropagation(
@@ -117,15 +136,18 @@ export class Session extends BaseMiddleware {
 	 * @memberof Session
 	 * @async
 	 * @instance
+	 * @protected
 	 * @override
 	 * @function
 	 * @name _unregisterApi
 	 *
-	 * @returns {Promise<void>|undefined} Resolves when middleware APIs are unregistered.
+	 * @returns {Promise<void>} Resolves after registration changes complete.
 	 *
-	 * @description Removes the user session middleware APIs from the domain API registry.
+	 * @description
+	 * Removes the user session middleware APIs from the domain API registry.
 	 */
 	async _unregisterApi() {
+		// Step 1: Remove the local middleware APIs, collecting any failures.
 		const errors = [];
 
 		try {
@@ -151,9 +173,12 @@ export class Session extends BaseMiddleware {
 				)
 			);
 
+			// Step 2: Wait for every removal operation to settle.
 			unregisterResolutions = await Promise.allSettled(
 				unregisterResolutions
 			);
+
+			// Step 3: Collect the failures from rejected operations.
 			for (const unregisterResolution of unregisterResolutions) {
 				if (unregisterResolution.status === 'fulfilled') continue;
 				errors.push(unregisterResolution.reason);
@@ -164,6 +189,7 @@ export class Session extends BaseMiddleware {
 			errors.push(error);
 		}
 
+		// Step 4: Propagate collected failures after all operations have been attempted.
 		if (!errors.length) return;
 
 		const propagatedError = createErrorForPropagation(
@@ -198,12 +224,14 @@ export class Session extends BaseMiddleware {
 	 * the localized SMS payload for the user login flow.
 	 */
 	async #generateOtp({ username, locale }) {
+		// Step 1: Use a random OTP in production and the fixed development OTP otherwise.
 		let secureOtp = 9090;
 
 		if (global.serverEnvironment === 'production') {
 			secureOtp = randomInt(1000, 10_000);
 		}
 
+		// Step 2: Store the OTP with a ten-minute expiry, retrying the cache transaction.
 		const cacheRepository =
 			await this.domainInterface.iocContainer.resolve('Cache');
 
@@ -215,12 +243,14 @@ export class Session extends BaseMiddleware {
 			return cacheMulti.exec();
 		});
 
+		// Step 3: Format the OTP expiry time for the request locale.
 		let expiryTime = DateTime.now().plus({ minutes: 10 });
 		expiryTime = expiryTime
 			.setLocale(locale)
 			.toLocaleString(DateTime.TIME_WITH_SHORT_OFFSET)
 			.toLocaleUpperCase();
 
+		// Step 4: Translate the OTP notification message.
 		const i18nRepository =
 			await this.domainInterface.iocContainer.resolve('MessageI18N');
 
@@ -233,11 +263,13 @@ export class Session extends BaseMiddleware {
 			}
 		);
 
+		// Step 5: Translate the response message for the caller.
 		const responseMessage = await i18nRepository.translate(
 			'SYSTEM_ADMIN::SESSION_MANAGER::OTP_MESSAGE_RESPONSE',
 			locale
 		);
 
+		// Step 6: Return the SMS payload and response message for the caller.
 		const responseMsgStruct = {
 			type: 'sms',
 			deviceId: username,
@@ -275,6 +307,7 @@ export class Session extends BaseMiddleware {
 	 * Fetches the cached user OTP and compares it with the supplied four digit code.
 	 */
 	async #validateOtp({ username, password, locale }) {
+		// Step 1: Read the cached OTP.
 		const cacheRepository =
 			await this.domainInterface.iocContainer.resolve('Cache');
 
@@ -282,8 +315,10 @@ export class Session extends BaseMiddleware {
 			return cacheRepository.get(`system-admin-otp-${username}`);
 		});
 
+		// Step 2: Compare the stored OTP with the submitted password.
 		const isOtpValid = (storedOtp ?? '') === password;
 
+		// Step 3: Translate the message for an invalid OTP.
 		const i18nRepository =
 			await this.domainInterface.iocContainer.resolve('MessageI18N');
 
@@ -297,6 +332,7 @@ export class Session extends BaseMiddleware {
 			);
 		}
 
+		// Step 4: Return the status of the OTP comparison.
 		return {
 			status: isOtpValid ? 200 : 401,
 			body: isValidMessage
@@ -324,10 +360,12 @@ export class Session extends BaseMiddleware {
 	 * authenticated session.
 	 */
 	async #login({ user }) {
+		// Step 1: Emit the login event.
 		this.domainInterface.eventEmitter.emit('SYSTEM_ADMIN_LOGIN', {
 			userId: user.id
 		});
 
+		// Step 2: Fetch the profile for the session.
 		const apiRegistry = this.domainInterface.apiRegistry;
 		const profileStatus = await apiRegistry.execute(
 			'SYSTEMADMIN::PROFILE::READ',
@@ -337,6 +375,7 @@ export class Session extends BaseMiddleware {
 			}
 		);
 
+		// Step 3: Return the session identity alongside the profile result.
 		return {
 			status: 200,
 			sessionData: {
@@ -369,6 +408,7 @@ export class Session extends BaseMiddleware {
 	 * Emits the user cache invalidation event and returns the localized logout response.
 	 */
 	async #logout({ userId, userName, locale }) {
+		// Step 1: Request invalidation of the cached session snapshot.
 		this.domainInterface.eventEmitter.emit(
 			'SYSTEM_ADMIN::INVALIDATE_CACHE',
 			{
@@ -376,6 +416,7 @@ export class Session extends BaseMiddleware {
 			}
 		);
 
+		// Step 2: Translate the logout message.
 		const i18nRepository =
 			await this.domainInterface.iocContainer.resolve('MessageI18N');
 
@@ -385,6 +426,7 @@ export class Session extends BaseMiddleware {
 			{ userName: userName }
 		);
 
+		// Step 3: Return the translated logout response.
 		return {
 			status: 200,
 			body: responseMessage
@@ -409,7 +451,16 @@ export default class SessionMiddlewareFactory extends EVASBaseFactory {
 	 * @category REST API Server/Domains/System Admin
 	 * @subcategory Session Manager/Middlewares
 	 *
-	 * @ignore
+	 * @memberof SessionMiddlewareFactory
+	 * @instance
+	 * @public
+	 * @function
+	 * @name constructor
+	 *
+	 * @returns {SessionMiddlewareFactory} A new SessionMiddlewareFactory instance.
+	 *
+	 * @description
+	 * Initializes the SessionMiddlewareFactory factory using its base class.
 	 */
 	constructor() {
 		super();
@@ -424,15 +475,21 @@ export default class SessionMiddlewareFactory extends EVASBaseFactory {
 	 * @memberof SessionMiddlewareFactory
 	 * @async
 	 * @static
+	 * @public
 	 * @override
 	 * @function
-	 * @name createInstance
+	 * @name createInstances
 	 *
 	 * @param {object} [domainInterface] - Domain functionality exposed to sub-artifacts
 	 *
-	 * @returns {Promise<Session>} Resolves to the Session middleware instance.
+	 * @returns {Promise<Session>} Resolves to the loaded Session middleware instance.
+	 *
+	 * @description
+	 * Creates and loads the middleware instance on first use, then reuses it.
+	 * Serializes access to the cached instance with the factory mutex.
 	 */
 	static async createInstances(domainInterface) {
+		// Create or reuse the loaded instance under the factory lock.
 		return await SessionMiddlewareFactory.#mutex.runExclusive(async () => {
 			if (!SessionMiddlewareFactory.#sessionInstance) {
 				const sessionInstance = new Session(
@@ -455,15 +512,19 @@ export default class SessionMiddlewareFactory extends EVASBaseFactory {
 	 * @memberof SessionMiddlewareFactory
 	 * @async
 	 * @static
+	 * @public
 	 * @override
 	 * @function
 	 * @name destroyInstances
 	 *
-	 * @returns {Promise<void>} Resolves when the cached Session instance is cleared.
+	 * @returns {Promise<void>} Resolves after the cached instance is unloaded and released.
 	 *
-	 * @description Destroys the cached Session middleware instance.
+	 * @description
+	 * Unloads the cached middleware instance and clears the factory reference
+	 * under the factory mutex.
 	 */
 	static async destroyInstances() {
+		// Unload and release cached instances under the factory lock.
 		await SessionMiddlewareFactory.#mutex.runExclusive(async () => {
 			await SessionMiddlewareFactory.#sessionInstance?.unload();
 			SessionMiddlewareFactory.#sessionInstance = undefined;
@@ -479,16 +540,17 @@ export default class SessionMiddlewareFactory extends EVASBaseFactory {
 	 * @subcategory Session Manager/Middlewares
 	 *
 	 * @memberof SessionMiddlewareFactory
-	 * @async
 	 * @static
+	 * @public
 	 * @override
+	 * @readonly
 	 * @function
 	 * @name MiddlewareName
 	 *
 	 * @returns {string} Name of this middleware.
 	 *
 	 * @description
-	 * Returns the middleware name: `Session`.
+	 * Returns the registered middleware name: `Session`.
 	 */
 	static get MiddlewareName() {
 		return 'Session';

@@ -1,0 +1,9 @@
+# PATCH /api/v1/users/profile/contact/update
+# Run from the repository root.
+# curl --config ./servers/curl_example_data/api_v1_users_profile_contact_update.curl "${base_url}/api/v1/users/profile/contact/update"
+# Set base_url to the running server origin (for example http://127.0.0.1:9090).
+# Use cookies.txt from a successful login in the corresponding domain.
+request = "PATCH"
+header = "Content-Type: application/json"
+cookie = "./cookies.txt"
+data = "@./servers/curl_example_data/api_v1_users_profile_contact_update.json"

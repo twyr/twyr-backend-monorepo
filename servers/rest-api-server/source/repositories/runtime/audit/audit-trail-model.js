@@ -56,12 +56,14 @@ export default class ModelFactory {
 	 * @returns {Mongoose.Model} - The UserAuditTrail Model instance.
 	 */
 	static async createInstance(connectionInstance) {
+		// Step 1: Reuse the audit model already registered on this connection.
 		// eslint-disable-next-line security/detect-object-injection
 		if (connectionInstance.models[MODEL_NAME]) {
 			// eslint-disable-next-line security/detect-object-injection
 			return connectionInstance.models[MODEL_NAME];
 		}
 
+		// Step 2: Define the audit-trail schema and its collection settings.
 		let mongoose = await import('mongoose');
 		mongoose = mongoose['default'];
 
@@ -109,6 +111,7 @@ export default class ModelFactory {
 			}
 		);
 
+		// Step 3: Register the schema on the supplied connection and return the model.
 		const UserAuditTrailModel = connectionInstance.model(
 			MODEL_NAME,
 			UserAuditTrailSchema,

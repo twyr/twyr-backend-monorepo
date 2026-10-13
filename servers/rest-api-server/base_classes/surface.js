@@ -30,7 +30,19 @@ export class BaseSurface extends EVASBaseSurface {
 	 * @category REST API Server/Base Classes
 	 * @subcategory Base Classes
 	 *
-	 * @ignore
+	 * @memberof BaseSurface
+	 * @instance
+	 * @public
+	 * @function
+	 * @name constructor
+	 *
+	 * @param {string} location - Filesystem location of the artifact.
+	 * @param {object} domainInterface - Domain APIs, repositories, models and event emitter.
+	 *
+	 * @returns {BaseSurface} A new BaseSurface instance.
+	 *
+	 * @description
+	 * Initializes the BaseSurface surface using its base class.
 	 */
 	constructor(location, domainInterface) {
 		super(location, domainInterface);
@@ -45,15 +57,15 @@ export class BaseSurface extends EVASBaseSurface {
 	 * @memberof BaseSurface
 	 * @async
 	 * @instance
+	 * @public
 	 * @override
 	 * @function
 	 * @name load
 	 *
-	 * @returns {null} - Nothing
+	 * @returns {Promise<void>} Resolves after loading completes.
 	 *
 	 * @description
-	 * To be overridden by artifact implementations - for implementing custom
-	 * start logic
+	 * Loads the base artifact, registers surface routers, and initializes validation schemas.
 	 */
 	async load() {
 		await super.load();
@@ -72,17 +84,18 @@ export class BaseSurface extends EVASBaseSurface {
 	 * @memberof BaseSurface
 	 * @async
 	 * @instance
+	 * @public
 	 * @override
 	 * @function
 	 * @name unload
 	 *
-	 * @returns {null} - Nothing
+	 * @returns {Promise<void>} Resolves after unloading completes.
 	 *
 	 * @description
-	 * To be overridden by artifact implementations - for implementing custom
-	 * stop logic
+	 * Unloads the surface infrastructure.
 	 */
 	async unload() {
+		// Remove surface routes before releasing the base artifact.
 		await this._unregisterSurface();
 		await super.unload();
 	}
@@ -96,15 +109,16 @@ export class BaseSurface extends EVASBaseSurface {
 	 * @memberof BaseSurface
 	 * @async
 	 * @instance
+	 * @protected
 	 * @override
 	 * @function
 	 * @name _registerSurface
 	 *
-	 * @returns {Array} - Array containing the routes exposed by this surface
+	 * @returns {Promise<object[]>} Resolves to the route definitions exposed by the surface.
 	 *
 	 * @description
-	 * To be overridden by artifact implementations - for registering custom
-	 * routes with the surface's Koa Router instance
+	 * Returns inherited and local route definitions, including their handlers
+	 * and any authorization middleware.
 	 */
 	async _registerSurface() {
 		return [];
@@ -117,21 +131,24 @@ export class BaseSurface extends EVASBaseSurface {
 	 * @memberof BaseSurface
 	 * @async
 	 * @instance
+	 * @protected
 	 * @override
 	 * @function
 	 * @name _unregisterSurface
 	 *
-	 * @returns {null} - Nothing
+	 * @returns {Promise<void>} Resolves after registration changes complete.
 	 *
 	 * @description
 	 * To be overridden by artifact implementations - for un-registering
 	 * the routes exposed by this surface
 	 */
 	async _unregisterSurface() {
+		// Clear the registered routes.
 		this.#routers.forEach((router) => {
 			router.stack.length = 0;
 		});
 
+		// Discard the surface routers.
 		this.#routers.clear();
 		return;
 	}
@@ -143,13 +160,14 @@ export class BaseSurface extends EVASBaseSurface {
 	 * @memberof BaseSurface
 	 * @async
 	 * @instance
+	 * @protected
 	 * @override
 	 * @function
 	 * @name _rbac
 	 *
 	 * @param {string} [permission] - A Boolean Expression String with the required User permissions
 	 *
-	 * @returns {Function} - Koa Middleware
+	 * @returns {Promise<Function>} - Koa Middleware
 	 *
 	 * @description
 	 * Used by artifact implementations for adding a RBAC middleware
@@ -159,14 +177,23 @@ export class BaseSurface extends EVASBaseSurface {
 	 */
 	async _rbac(/*permission*/) {
 		/**
-		 * No-op permission middleware used by the default base implementation.
-		 *
 		 * @category REST API Server/Base Classes
 		 * @subcategory Base Classes
 		 *
+		 * @memberof BaseSurface
+		 * @async
+		 * @inner
+		 * @private
+		 * @function
+		 * @name permissionCheckerMiddleware
+		 *
 		 * @param {object} ctxt - Koa request context.
 		 * @param {Function} next - Next Koa middleware.
+		 *
 		 * @returns {Promise<void>} Resolves after downstream middleware completes.
+		 *
+		 * @description
+		 * No-op permission middleware used by the default base implementation.
 		 */
 		const permissionCheckerMiddleware =
 			async function permissionCheckerMiddleware(ctxt, next) {
@@ -184,11 +211,12 @@ export class BaseSurface extends EVASBaseSurface {
 	 * @memberof BaseSurface
 	 * @async
 	 * @instance
+	 * @protected
 	 * @override
 	 * @function
 	 * @name _abac
 	 *
-	 * @returns {Function} - Koa Middleware
+	 * @returns {Promise<Function>} - Koa Middleware
 	 *
 	 * @description
 	 * Used by artifact implementations for adding a ABAC middleware
@@ -203,14 +231,23 @@ export class BaseSurface extends EVASBaseSurface {
 	 */
 	async _abac() {
 		/**
-		 * No-op asset access middleware used by the default base implementation.
-		 *
 		 * @category REST API Server/Base Classes
 		 * @subcategory Base Classes
 		 *
+		 * @memberof BaseSurface
+		 * @async
+		 * @inner
+		 * @private
+		 * @function
+		 * @name assetAccessCheckerMiddleware
+		 *
 		 * @param {object} ctxt - Koa request context.
 		 * @param {Function} next - Next Koa middleware.
+		 *
 		 * @returns {Promise<void>} Resolves after downstream middleware completes.
+		 *
+		 * @description
+		 * No-op asset access middleware used by the default base implementation.
 		 */
 		const assetAccessCheckerMiddleware =
 			async function assetAccessCheckerMiddleware(ctxt, next) {
@@ -228,12 +265,13 @@ export class BaseSurface extends EVASBaseSurface {
 	 * @memberof BaseSurface
 	 * @async
 	 * @instance
+	 * @protected
 	 * @function
 	 * @name _setupValidationSchemas
 	 *
-	 * @param {string} [validationSchemaMap] - Map to be populated with the validation schemas.
+	 * @param {Map} [validationSchemaMap] - Map supplied by a derived surface.
 	 *
-	 * @returns {Map} - Map containing the validation schemas
+	 * @returns {Promise<Map|undefined>} Resolves to the supplied or cached validation schema map.
 	 *
 	 * @description
 	 * To be overridden by artifact implementations - for registering custom
@@ -249,13 +287,14 @@ export class BaseSurface extends EVASBaseSurface {
 	 *
 	 * @memberof BaseSurface
 	 * @instance
+	 * @protected
 	 * @function
 	 * @name _convertValidationErrorToHandlerError
 	 *
-	 * @param {Object} [joiError] - The Joi validation error object
-	 * @param {string} [errorCode] - The error code to be set on the error object
+	 * @param {object} [joiError] - Joi validation error containing field-level details.
+	 * @param {string} [errorCode] - Code assigned to the aggregate handler error.
 	 *
-	 * @returns {Error} - Error for the handler to throw
+	 * @returns {Error|undefined} The aggregate handler error, or undefined when no Joi error is supplied.
 	 *
 	 * @description
 	 * Used by artifact implementations for converting a
@@ -267,6 +306,7 @@ export class BaseSurface extends EVASBaseSurface {
 		let returnError = undefined;
 		if (!joiError) return returnError;
 
+		// Step 1: Convert each Joi detail into an error with its validation context.
 		const errors = joiError.details.map((d) => {
 			const e = new Error(d.message);
 			e.code = d.message;
@@ -275,6 +315,7 @@ export class BaseSurface extends EVASBaseSurface {
 			return e;
 		});
 
+		// Step 2: Combine the detail errors under the supplied handler error code.
 		returnError = createErrorForPropagation(errorCode, errors);
 		return returnError;
 	}
@@ -282,8 +323,6 @@ export class BaseSurface extends EVASBaseSurface {
 
 	// #region Private Methods
 	/**
-	 * Computes the URL prefix for the surface from its filesystem location and class name.
-	 *
 	 * @category REST API Server/Base Classes
 	 * @subcategory Base Classes
 	 *
@@ -295,6 +334,9 @@ export class BaseSurface extends EVASBaseSurface {
 	 * @name #computeSurfacePath
 	 *
 	 * @returns {Promise<string>} The normalized surface path prefix.
+	 *
+	 * @description
+	 * Computes the URL prefix for the surface from its filesystem location and class name.
 	 */
 	async #computeSurfacePath() {
 		let inflection = await import('inflection');
@@ -327,7 +369,7 @@ export class BaseSurface extends EVASBaseSurface {
 			'dasherize'
 		]);
 
-		// Step 2: Setup the surface router, and add the surface
+		// Step 3: Append the surface name to the URL path
 		let inflectedName = inflection.transform(this.name, [
 			'foreignKey',
 			'dasherize'
@@ -338,6 +380,7 @@ export class BaseSurface extends EVASBaseSurface {
 				? surfacePath
 				: join(surfacePath, inflectedName);
 
+		// Step 4: Normalize the final URL path
 		surfacePath = surfacePath.replaceAll('-id', '');
 		surfacePath = normalize(surfacePath);
 		if (surfacePath.endsWith('/')) surfacePath = surfacePath.slice(0, -1);
@@ -346,8 +389,6 @@ export class BaseSurface extends EVASBaseSurface {
 	}
 
 	/**
-	 * Builds versioned routers for this surface and mounts them on the ingress surface.
-	 *
 	 * @category REST API Server/Base Classes
 	 * @subcategory Base Classes
 	 *
@@ -359,6 +400,9 @@ export class BaseSurface extends EVASBaseSurface {
 	 * @name #setupRouter
 	 *
 	 * @returns {Promise<void>} Resolves after all routes are registered.
+	 *
+	 * @description
+	 * Builds versioned routers for this surface and mounts them on the ingress surface.
 	 */
 	async #setupRouter() {
 		// Step 1: Compute the surface path based on the file location
@@ -366,9 +410,7 @@ export class BaseSurface extends EVASBaseSurface {
 		// registered by this surface
 		const surfacePath = await this.#computeSurfacePath();
 
-		// Step 2: Get the surface surface definition by calling the _registerSurface
-		// method implemented by the artifact implementation - which returns an array
-		// of route definitions for this surface
+		// Step 2: Get the route definitions supplied by the derived surface
 		const surface = await this._registerSurface();
 
 		// Step 3: For each route definition returned by the surface, add the route to
@@ -398,7 +440,7 @@ export class BaseSurface extends EVASBaseSurface {
 			router[httpMethod](restPath, ...routeMiddlewares);
 		}
 
-		// Finally, add this router to the RESTApi Ingress Surface...
+		// Step 4: Attach each versioned surface router to the REST ingress router
 		const restApiInstance =
 			await this.domainInterface.iocContainer.resolve('RestApi');
 		const mainRouters = restApiInstance.routers;

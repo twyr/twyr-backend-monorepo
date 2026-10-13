@@ -1,0 +1,7 @@
+# POST /api/v1/users/session-manager/generate-otp
+# Run from the repository root.
+# curl --config ./servers/curl_example_data/api_v1_users_session_manager_generate_otp.curl "${base_url}/api/v1/users/session-manager/generate-otp"
+# Set base_url to the running server origin (for example http://127.0.0.1:9090).
+request = "POST"
+header = "Content-Type: application/json"
+data = "@./servers/curl_example_data/api_v1_users_session_manager_generate_otp.json"

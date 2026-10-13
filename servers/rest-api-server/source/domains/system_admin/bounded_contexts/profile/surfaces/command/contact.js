@@ -35,7 +35,19 @@ export class Contact extends SystemAdminBaseSurface {
 	 * @category REST API Server/Domains/System Admin
 	 * @subcategory Profile/Surfaces/Command
 	 *
-	 * @ignore
+	 * @memberof Contact
+	 * @instance
+	 * @public
+	 * @function
+	 * @name constructor
+	 *
+	 * @param {string} location - Filesystem location of the artifact.
+	 * @param {object} domainInterface - Domain APIs, repositories, models and event emitter.
+	 *
+	 * @returns {Contact} A new Contact instance.
+	 *
+	 * @description
+	 * Initializes the Contact surface using its base class.
 	 */
 	constructor(location, domainInterface) {
 		super(location, domainInterface);
@@ -50,15 +62,15 @@ export class Contact extends SystemAdminBaseSurface {
 	 * @memberof Contact
 	 * @async
 	 * @instance
+	 * @public
 	 * @override
 	 * @function
 	 * @name load
 	 *
-	 * @returns {null} - Nothing
+	 * @returns {Promise<void>} Resolves after loading completes.
 	 *
 	 * @description
-	 * Sets the user role in the request headers for access control purposes
-	 * by passing it in to the base class load method
+	 * Loads the inherited surface infrastructure for Contact.
 	 */
 	async load() {
 		await super.load();
@@ -73,19 +85,22 @@ export class Contact extends SystemAdminBaseSurface {
 	 * @memberof Contact
 	 * @async
 	 * @instance
+	 * @protected
 	 * @override
 	 * @function
 	 * @name _registerSurface
 	 *
-	 * @returns {null} - The routes to be added to the Rest API Router
+	 * @returns {Promise<object[]>} Resolves to the route definitions exposed by the surface.
 	 *
 	 * @description
-	 * Adds the route definitions and handlers for this surface to
-	 * the Rest API Router
+	 * Returns inherited and local route definitions, including their handlers
+	 * and any authorization middleware.
 	 */
 	async _registerSurface() {
+		// Step 1: Get the routes supplied by the base surface.
 		const baseRoutes = await super._registerSurface();
 
+		// Step 2: Add the routes and request middleware exposed by this surface.
 		baseRoutes.push({
 			version: 1,
 			httpMethod: 'POST',
@@ -118,11 +133,12 @@ export class Contact extends SystemAdminBaseSurface {
 	 * @memberof Contact
 	 * @async
 	 * @instance
+	 * @protected
 	 * @override
 	 * @function
 	 * @name _unregisterSurface
 	 *
-	 * @returns {null} - Nothing
+	 * @returns {Promise<void>} Resolves after registration changes complete.
 	 *
 	 * @description
 	 * Removes the route definitions and handlers for this surface from
@@ -140,13 +156,14 @@ export class Contact extends SystemAdminBaseSurface {
 	 * @memberof Contact
 	 * @async
 	 * @instance
+	 * @protected
 	 * @override
 	 * @function
 	 * @name _setupValidationSchemas
 	 *
-	 * @param {string} [validationSchemaMap] - Map to be populated with the validation schemas.
+	 * @param {Map} [validationSchemaMap] - Map to populate; defaults to the surface cache when available.
 	 *
-	 * @returns {Map} - Map containing the validation schemas
+	 * @returns {Promise<Map|undefined>} Resolves to the supplied or cached validation schema map.
 	 *
 	 * @description
 	 * Registers Joi schemas used by the contact routes. The authenticated
@@ -154,11 +171,15 @@ export class Contact extends SystemAdminBaseSurface {
 	 * `system_admin_id`.
 	 */
 	async _setupValidationSchemas(validationSchemaMap) {
+		// Step 1: Reuse the supplied schema map or the surface cache.
 		validationSchemaMap = validationSchemaMap ?? this.#validationSchemaMap;
+
+		// Step 2: Apply the base validation schemas.
 		validationSchemaMap = await super._setupValidationSchemas(
 			validationSchemaMap
 		);
 
+		// Step 3: Build the create schema when it is missing.
 		let createSchema = validationSchemaMap.get(
 			'CREATE_CONTACT_VALIDATION_SCHEMA'
 		);
@@ -200,12 +221,14 @@ export class Contact extends SystemAdminBaseSurface {
 				})
 			});
 
+			// Cache the schema for subsequent requests.
 			validationSchemaMap.set(
 				'CREATE_CONTACT_VALIDATION_SCHEMA',
 				createSchema
 			);
 		}
 
+		// Step 4: Build the update schema when it is missing.
 		let updateSchema = validationSchemaMap.get(
 			'UPDATE_CONTACT_VALIDATION_SCHEMA'
 		);
@@ -247,6 +270,7 @@ export class Contact extends SystemAdminBaseSurface {
 				})
 			});
 
+			// Cache the schema for subsequent requests.
 			validationSchemaMap.set(
 				'UPDATE_CONTACT_VALIDATION_SCHEMA',
 				updateSchema
@@ -266,19 +290,31 @@ export class Contact extends SystemAdminBaseSurface {
 	 * @async
 	 * @instance
 	 * @private
-	 * @override
 	 * @function
 	 * @name #createContact
 	 *
-	 * @returns {null} - Nothing
+	 * @param {object} ctxt - Koa context for `POST /create`.
 	 *
-	 * @description Creates a new contact for the logged in user. The
-	 * `system_admin_id` relationship is derived from `user?.id`.
+	 * @returns {Promise<void>} Resolves after the response has been written.
+	 *
+	 * @description
+	 * Handles `POST /create`.
+	 * Validates and deserializes the request, then invokes the create middleware
+	 * and serializes its result. Requires JSON:API `data.type` to be `system_admin_contact`
+	 * and an attributes object containing a UUID v4 or v7 contact_type_id and contact string.
+	 * The system_admin_id owner is taken from the authenticated session.
+	 * Optional attributes verified and is_primary are booleans.
+	 * Requires a session authorized by the `registered` RBAC middleware.
+	 *
 	 * @example
 	 * // Given the following input data [./servers/curl_example_data/api_v1_system_admin_profile_contact_create.json]:
-	 * $ curl -X POST -H "Content-Type: application/json" -b ./cookies.txt -d @./servers/curl_example_data/api_v1_system_admin_profile_contact_create.json ${base_url}/api/v1/system_admin/profile/contact/create
+	 * // Invocation configuration [./servers/curl_example_data/api_v1_system_admin_profile_contact_create.curl]:
+	 * $ curl -X POST -H "Content-Type: application/json" -b ./cookies.txt -d @./servers/curl_example_data/api_v1_system_admin_profile_contact_create.json "${base_url}/api/v1/system-admin/profile/contact/create"
+	 * // Equivalent invocation using the configuration file:
+	 * $ curl --config ./servers/curl_example_data/api_v1_system_admin_profile_contact_create.curl "${base_url}/api/v1/system-admin/profile/contact/create"
 	 */
 	async #createContact(ctxt) {
+		// Step 1: Validate the request body against its schema.
 		const createContactSchema = this.#validationSchemaMap.get(
 			'CREATE_CONTACT_VALIDATION_SCHEMA'
 		);
@@ -288,6 +324,7 @@ export class Contact extends SystemAdminBaseSurface {
 				abortEarly: false
 			});
 		} catch (error) {
+			// Convert validation failures into handler errors.
 			const validationError = this._convertValidationErrorToHandlerError(
 				error,
 				'EVASERVER::INPUT_VALIDATION_ERROR'
@@ -296,6 +333,7 @@ export class Contact extends SystemAdminBaseSurface {
 			throw validationError;
 		}
 
+		// Step 2: Deserialize the request body into the domain payload.
 		const contactPayload =
 			await this.domainInterface.serializer.deserializeAsync(
 				'system_admin_contact',
@@ -303,17 +341,21 @@ export class Contact extends SystemAdminBaseSurface {
 			);
 		contactPayload.system_admin_id = ctxt?.state?.user?.id;
 
+		// Step 3: Invoke the matching middleware API with the domain payload.
 		const apiRegistry = this.domainInterface.apiRegistry;
 		const contactStatus = await apiRegistry.execute('CREATE_CONTACT', {
 			user: ctxt.state.user,
 			data: contactPayload
 		});
 
+		// Step 4: Serialize the middleware result for the response.
 		const responseBody =
 			await this.domainInterface.serializer.serializeAsync(
 				'system_admin_contact',
 				contactStatus.body
 			);
+
+		// Step 5: Write the HTTP response using the serialized result.
 		ctxt.status = contactStatus.status;
 		ctxt.body = responseBody;
 	}
@@ -326,19 +368,30 @@ export class Contact extends SystemAdminBaseSurface {
 	 * @async
 	 * @instance
 	 * @private
-	 * @override
 	 * @function
 	 * @name #updateContact
 	 *
-	 * @returns {null} - Nothing
+	 * @param {object} ctxt - Koa context for `PATCH /update`.
 	 *
-	 * @description Updates an existing contact for the logged in user. The
-	 * `system_admin_id` relationship is derived from `user?.id`.
+	 * @returns {Promise<void>} Resolves after the response has been written.
+	 *
+	 * @description
+	 * Handles `PATCH /update`.
+	 * Validates JSON:API `data.type` as `system_admin_contact`,
+	 * a required UUID v4 or v7 `data.id`, and an attributes object.
+	 * Deserializes the update, invokes the middleware for the authenticated system admin,
+	 * and serializes the response.
+	 * Requires a session authorized by the `registered` RBAC middleware.
+	 *
 	 * @example
 	 * // Given the following input data [./servers/curl_example_data/api_v1_system_admin_profile_contact_update.json]:
-	 * $ curl -X PATCH -H "Content-Type: application/json" -b ./cookies.txt -d @./servers/curl_example_data/api_v1_system_admin_profile_contact_update.json ${base_url}/api/v1/system_admin/profile/contact/update
+	 * // Invocation configuration [./servers/curl_example_data/api_v1_system_admin_profile_contact_update.curl]:
+	 * $ curl -X PATCH -H "Content-Type: application/json" -b ./cookies.txt -d @./servers/curl_example_data/api_v1_system_admin_profile_contact_update.json "${base_url}/api/v1/system-admin/profile/contact/update"
+	 * // Equivalent invocation using the configuration file:
+	 * $ curl --config ./servers/curl_example_data/api_v1_system_admin_profile_contact_update.curl "${base_url}/api/v1/system-admin/profile/contact/update"
 	 */
 	async #updateContact(ctxt) {
+		// Step 1: Validate the request body against its schema.
 		const updateContactSchema = this.#validationSchemaMap.get(
 			'UPDATE_CONTACT_VALIDATION_SCHEMA'
 		);
@@ -348,6 +401,7 @@ export class Contact extends SystemAdminBaseSurface {
 				abortEarly: false
 			});
 		} catch (error) {
+			// Convert validation failures into handler errors.
 			const validationError = this._convertValidationErrorToHandlerError(
 				error,
 				'EVASERVER::INPUT_VALIDATION_ERROR'
@@ -356,6 +410,7 @@ export class Contact extends SystemAdminBaseSurface {
 			throw validationError;
 		}
 
+		// Step 2: Deserialize the request body into the domain payload.
 		const contactPayload =
 			await this.domainInterface.serializer.deserializeAsync(
 				'system_admin_contact',
@@ -363,6 +418,7 @@ export class Contact extends SystemAdminBaseSurface {
 			);
 		contactPayload.system_admin_id = ctxt?.state?.user?.id;
 
+		// Step 3: Invoke the matching middleware API with the domain payload.
 		const apiRegistry = this.domainInterface.apiRegistry;
 		const contactUpdateStatus = await apiRegistry.execute(
 			'UPDATE_CONTACT',
@@ -372,11 +428,14 @@ export class Contact extends SystemAdminBaseSurface {
 			}
 		);
 
+		// Step 4: Serialize the middleware result for the response.
 		const responseBody =
 			await this.domainInterface.serializer.serializeAsync(
 				'system_admin_contact',
 				contactUpdateStatus.body
 			);
+
+		// Step 5: Write the HTTP response using the serialized result.
 		ctxt.status = contactUpdateStatus.status;
 		ctxt.body = responseBody;
 	}
@@ -389,17 +448,27 @@ export class Contact extends SystemAdminBaseSurface {
 	 * @async
 	 * @instance
 	 * @private
-	 * @override
 	 * @function
 	 * @name #deleteContact
 	 *
-	 * @returns {null} - Nothing
+	 * @param {object} ctxt - Koa context for `DELETE /delete/:contactId`.
 	 *
-	 * @description Deletes a contact for the logged in user.
+	 * @returns {Promise<void>} Resolves after the response has been written.
+	 *
+	 * @description
+	 * Handles `DELETE /delete/:contactId`.
+	 * Passes the authenticated system admin and the contactId path parameter to
+	 * the delete middleware and writes its response status. No request body is required.
+	 * Requires a session authorized by the `registered` RBAC middleware.
+	 *
 	 * @example
-	 * $ curl -X DELETE -H "Content-Type: application/json" -b ./cookies.txt ${base_url}/api/v1/system_admin/profile/contact/delete/${contactId}
+	 * // Invocation configuration [./servers/curl_example_data/api_v1_system_admin_profile_contact_delete_by_contact_id.curl]:
+	 * $ curl -X DELETE -H "Content-Type: application/json" -b ./cookies.txt "${base_url}/api/v1/system-admin/profile/contact/delete/${contactId}"
+	 * // Equivalent invocation using the configuration file:
+	 * $ curl --config ./servers/curl_example_data/api_v1_system_admin_profile_contact_delete_by_contact_id.curl "${base_url}/api/v1/system-admin/profile/contact/delete/${contactId}"
 	 */
 	async #deleteContact(ctxt) {
+		// Step 1: Invoke the delete API with the authenticated user and request identifiers.
 		const apiRegistry = this.domainInterface.apiRegistry;
 		const contactDeleteStatus = await apiRegistry.execute(
 			'DELETE_CONTACT',
@@ -409,6 +478,7 @@ export class Contact extends SystemAdminBaseSurface {
 			}
 		);
 
+		// Step 2: Write the deletion status returned by the middleware.
 		ctxt.status = contactDeleteStatus.status;
 	}
 	// #endregion
@@ -434,7 +504,16 @@ export default class ContactSurfaceFactory extends EVASBaseFactory {
 	 * @category REST API Server/Domains/System Admin
 	 * @subcategory Profile/Surfaces/Command
 	 *
-	 * @ignore
+	 * @memberof ContactSurfaceFactory
+	 * @instance
+	 * @public
+	 * @function
+	 * @name constructor
+	 *
+	 * @returns {ContactSurfaceFactory} A new ContactSurfaceFactory instance.
+	 *
+	 * @description
+	 * Initializes the ContactSurfaceFactory factory using its base class.
 	 */
 	constructor() {
 		super();
@@ -449,15 +528,21 @@ export default class ContactSurfaceFactory extends EVASBaseFactory {
 	 * @memberof ContactSurfaceFactory
 	 * @async
 	 * @static
+	 * @public
 	 * @override
 	 * @function
 	 * @name createInstances
 	 *
 	 * @param {object} [domainInterface] - Domain functionality exposed to sub-artifacts
 	 *
-	 * @returns {Contact} - The Contact surface instance.
+	 * @returns {Promise<Contact>} Resolves to the loaded Contact surface instance.
+	 *
+	 * @description
+	 * Creates and loads the surface instance on first use, then reuses it.
+	 * Serializes access to the cached instance with the factory mutex.
 	 */
 	static async createInstances(domainInterface) {
+		// Create or reuse the loaded instance under the factory lock.
 		return await ContactSurfaceFactory.#mutex.runExclusive(async () => {
 			if (!ContactSurfaceFactory.#contactInstance) {
 				const contactInstance = new Contact(
@@ -480,15 +565,19 @@ export default class ContactSurfaceFactory extends EVASBaseFactory {
 	 * @memberof ContactSurfaceFactory
 	 * @async
 	 * @static
+	 * @public
 	 * @override
 	 * @function
 	 * @name destroyInstances
 	 *
-	 * @returns {undefined} - Nothing.
+	 * @returns {Promise<void>} Resolves after the cached instance is unloaded and released.
 	 *
-	 * @description Clears the Contact instance
+	 * @description
+	 * Unloads the cached surface instance and clears the factory reference
+	 * under the factory mutex.
 	 */
 	static async destroyInstances() {
+		// Unload and release cached instances under the factory lock.
 		await ContactSurfaceFactory.#mutex.runExclusive(async () => {
 			await ContactSurfaceFactory.#contactInstance?.unload();
 			ContactSurfaceFactory.#contactInstance = undefined;
@@ -503,16 +592,17 @@ export default class ContactSurfaceFactory extends EVASBaseFactory {
 	 * @subcategory Profile/Surfaces/Command
 	 *
 	 * @memberof ContactSurfaceFactory
-	 * @async
 	 * @static
+	 * @public
 	 * @override
+	 * @readonly
 	 * @function
 	 * @name SurfaceName
 	 *
 	 * @returns {string} - Name of this surface.
 	 *
 	 * @description
-	 * Returns the name of this surface - Contact
+	 * Returns the registered surface name: `Contact`.
 	 */
 	static get SurfaceName() {
 		return 'Contact';

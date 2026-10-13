@@ -1,0 +1,8 @@
+# POST /api/v1/system-admin/session-manager/validate-otp
+# Run from the repository root.
+# curl --config ./servers/curl_example_data/api_v1_system_admin_session_manager_validate_otp.curl "${base_url}/api/v1/system-admin/session-manager/validate-otp"
+# Set base_url to the running server origin (for example http://127.0.0.1:9090).
+# Replace password in the JSON file with the current OTP (9090 outside production).
+request = "POST"
+header = "Content-Type: application/json"
+data = "@./servers/curl_example_data/api_v1_system_admin_session_manager_validate_otp.json"

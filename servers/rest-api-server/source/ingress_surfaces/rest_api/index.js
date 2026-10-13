@@ -58,7 +58,7 @@ const DEFAULT_MAX_API_VERSION = 1;
  * @param {object} [iocContainer] - IoC module providing DI repositories
  * @param {object} [configuration] - requested repository configuration
  *
- * @classdesc The RestApi Repository Class.
+ * @classdesc The REST API ingress surface.
  */
 class RestApi extends EVASBaseIngressSurface {
 	// #region Constructor
@@ -66,7 +66,20 @@ class RestApi extends EVASBaseIngressSurface {
 	 * @category REST API Server/Ingress Surfaces
 	 * @subcategory REST API
 	 *
-	 * @ignore
+	 * @memberof RestApi
+	 * @instance
+	 * @public
+	 * @function
+	 * @name constructor
+	 *
+	 * @param {string} location - Filesystem location of the artifact.
+	 * @param {object} iocContainer - Container providing ingress repositories.
+	 * @param {object} [configuration] - Configuration for the ingress surface.
+	 *
+	 * @returns {RestApi} A new RestApi instance.
+	 *
+	 * @description
+	 * Initializes the RestApi ingress surface using its base class.
 	 */
 	constructor(location, iocContainer, configuration) {
 		super(location, iocContainer, configuration);
@@ -81,15 +94,15 @@ class RestApi extends EVASBaseIngressSurface {
 	 * @memberof RestApi
 	 * @async
 	 * @instance
+	 * @public
 	 * @override
 	 * @function
 	 * @name load
 	 *
-	 * @returns {null} - Nothing
+	 * @returns {Promise<void>} Resolves after loading completes.
 	 *
 	 * @description
-	 * To be overridden by artifact implementations - for implementing custom
-	 * start logic
+	 * Loads the ingress artifact and configures Koa middleware, sessions, and versioned routers.
 	 */
 	async load() {
 		await super.load();
@@ -97,7 +110,7 @@ class RestApi extends EVASBaseIngressSurface {
 		const cache = await this.iocContainer.resolve('Cache');
 
 		/**
-		 * Step 1: Setup the configuration
+		 * Step 1: Resolve the ingress configuration
 		 *
 		 * @category REST API Server/Ingress Surfaces
 		 * @subcategory REST API
@@ -112,6 +125,7 @@ class RestApi extends EVASBaseIngressSurface {
 			configuration = await configRepository.getConfig(this.name);
 		}
 
+		// Step 2: Prepare session settings from the resolved configuration
 		const sessionConfig = {
 			keys: configuration['SESSION_KEYS'] ?? [
 				DEFAULT_SESSION_ENCRYPTION_KEY
@@ -133,7 +147,7 @@ class RestApi extends EVASBaseIngressSurface {
 		};
 
 		/**
-		 * Step 2: Setup Koa Application.
+		 * Step 3: Configure the Koa application and request middleware
 		 *
 		 * @category REST API Server/Ingress Surfaces
 		 * @subcategory REST API
@@ -141,7 +155,7 @@ class RestApi extends EVASBaseIngressSurface {
 		 * @ignore
 		 */
 
-		// Step 2.1: Instantiate Koa
+		// Step 3.1: Instantiate Koa
 		let Koa = await import('koa');
 		Koa = Koa['default'];
 
@@ -151,8 +165,8 @@ class RestApi extends EVASBaseIngressSurface {
 		this.#koaApp.keys = sessionConfig.keys;
 		this.#koaApp.proxy = global.serverEnvironment === 'production';
 
-		// Handle CORS preflights before sessions and authentication. Override
-		// the localhost default with an array of exact CORS_ALLOWED_ORIGINS.
+		// Step 3.2: Handle CORS preflights before sessions and authentication
+		// using the configured list of exact allowed origins.
 		const corsAllowedOrigins = new Set(
 			configuration['CORS_ALLOWED_ORIGINS']
 		);
@@ -168,14 +182,14 @@ class RestApi extends EVASBaseIngressSurface {
 			})
 		);
 
-		// Step 2.2: The audit log hook...
+		// Step 3.3: The audit log hook...
 		this.#koaApp.use(
 			createAuditLogMiddleware({
 				iocContainer: this.iocContainer
 			})
 		);
 
-		// Step 2.3: The Global Error Handler
+		// Step 3.4: The Global Error Handler
 		this.#koaApp.use(
 			createErrorLogMiddleware({
 				iocContainer: this.iocContainer,
@@ -183,7 +197,7 @@ class RestApi extends EVASBaseIngressSurface {
 			})
 		);
 
-		// Step 2.4: Assign each request an id to enable
+		// Step 3.5: Assign each request an id to enable
 		// distributed tracing...
 		let requestId = await import('koa-requestid');
 		requestId = requestId['default'];
@@ -195,12 +209,11 @@ class RestApi extends EVASBaseIngressSurface {
 			})
 		);
 
-		// Step 2.5: Hide the powered-by header to
-		// prevent external entities from easily
-		// guessing the stack
+		// Step 3.6: Disable Nagle's algorithm on request sockets
 		this.#koaApp.use(async (ctxt, next) => {
 			ctxt.request.socket.setNoDelay(true);
 
+			// Set the request ID and configured powered-by response headers.
 			ctxt.set('X-Request-Id', ctxt.state.id);
 			ctxt.set(
 				'X-Powered-By',
@@ -210,7 +223,7 @@ class RestApi extends EVASBaseIngressSurface {
 			await next();
 		});
 
-		// Step 2.6: Add in the device identifier
+		// Step 3.7: Add in the device identifier
 		let device = await import('device');
 		device = device['default'];
 
@@ -219,7 +232,7 @@ class RestApi extends EVASBaseIngressSurface {
 			await next();
 		});
 
-		// Step 2.7: Sessions
+		// Step 3.8: Sessions
 		let koaSessionRedisStore = await import('koa-redis');
 		koaSessionRedisStore = koaSessionRedisStore['default'];
 
@@ -247,13 +260,13 @@ class RestApi extends EVASBaseIngressSurface {
 
 		this.#koaApp.use(koaSession);
 
-		// Step 2.8: Passport based authentication...
+		// Step 3.9: Passport based authentication...
 		const authRepository = await this.iocContainer.resolve('Auth');
 
 		this.#koaApp.use(authRepository.initialize());
 		this.#koaApp.use(authRepository.session());
 
-		// Step 2.9: Set locale for this request
+		// Step 3.10: Set locale for this request
 		const i18nRepository = await this.iocContainer.resolve('MessageI18N');
 		this.#koaApp.use(async (ctxt, next) => {
 			const localeId =
@@ -277,7 +290,7 @@ class RestApi extends EVASBaseIngressSurface {
 			await next();
 		});
 
-		// Step 2.10: The body parsers...
+		// Step 3.11: The body parsers...
 		const bodyParserConfig = {
 			jsonLimit:
 				configuration['MAX_PAYLOAD_SIZE'] ?? DEFAULT_MAX_PAYLOAD_SIZE,
@@ -297,7 +310,7 @@ class RestApi extends EVASBaseIngressSurface {
 
 		this.#koaApp.use(koaBodyParser(bodyParserConfig));
 
-		// Finally, add in the router for each allowed version...
+		// Step 4: Attach a router for each supported API version
 		let Router = await import('@koa/router');
 		Router = Router['default'];
 
@@ -325,17 +338,18 @@ class RestApi extends EVASBaseIngressSurface {
 	 * @memberof RestApi
 	 * @async
 	 * @instance
+	 * @public
 	 * @override
 	 * @function
 	 * @name unload
 	 *
-	 * @returns {null} - Nothing
+	 * @returns {Promise<void>} Resolves after unloading completes.
 	 *
 	 * @description
-	 * To be overridden by artifact implementations - for implementing custom
-	 * stop logic
+	 * Unloads the ingress surface infrastructure.
 	 */
 	async unload() {
+		// Unload the base artifact, then stop the ingress server.
 		await super.unload();
 		await this.stop();
 	}
@@ -349,11 +363,12 @@ class RestApi extends EVASBaseIngressSurface {
 	 * @memberof RestApi
 	 * @async
 	 * @instance
+	 * @public
 	 * @override
 	 * @function
 	 * @name start
 	 *
-	 * @returns {null} - Nothing
+	 * @returns {Promise<void>} Resolves after starting completes.
 	 *
 	 * @description
 	 * Starts listening on the configured port.
@@ -361,8 +376,10 @@ class RestApi extends EVASBaseIngressSurface {
 	async start() {
 		if (this.#protocolServer) return;
 
+		// Step 1: Read the local network interfaces.
 		const networkList = networkInterfaces.networkInterfaces();
 
+		// Step 2: Resolve the HTTP server configuration.
 		let configuration = this.configuration;
 		if (!configuration) {
 			const configRepository =
@@ -371,10 +388,10 @@ class RestApi extends EVASBaseIngressSurface {
 			configuration = await configRepository.getConfig(this.name);
 		}
 
-		// Step 1: Create the Server
+		// Step 3: Create the Server
 		this.#protocolServer = http.createServer(this.#koaApp.callback());
 
-		// Step 2: Start listening to events
+		// Step 4: Start listening to events
 		this.#protocolServer.on(
 			'connection',
 			this.#serverConnection.bind(this)
@@ -385,7 +402,7 @@ class RestApi extends EVASBaseIngressSurface {
 			this.#handleProtocolServerError.bind(this)
 		);
 
-		// Step 3: Listen on configured port...
+		// Step 5: Listen on configured port...
 		const listenPort = Number(
 			configuration['SERVER_PORT'] ?? DEFAULT_SERVER_PORT
 		);
@@ -398,6 +415,7 @@ class RestApi extends EVASBaseIngressSurface {
 						return;
 					}
 
+					// Step 5.1: Outside production, list the registered API routes.
 					const routerStack = [];
 					this.#routers.forEach((router) => {
 						const thisStack = router.stack
@@ -430,6 +448,7 @@ class RestApi extends EVASBaseIngressSurface {
 						)}`
 					);
 
+					// Step 5.2: Print the network addresses and port accepting requests.
 					const forPrint = [];
 					Object.keys(networkList).forEach((networkName) => {
 						const networkInterfaceAddresses =
@@ -461,11 +480,12 @@ class RestApi extends EVASBaseIngressSurface {
 	 * @memberof RestApi
 	 * @async
 	 * @instance
+	 * @public
 	 * @override
 	 * @function
 	 * @name stop
 	 *
-	 * @returns {null} - Nothing
+	 * @returns {Promise<void>} Resolves after stopping completes.
 	 *
 	 * @description
 	 * Stops listening on the configured port.
@@ -473,6 +493,7 @@ class RestApi extends EVASBaseIngressSurface {
 	async stop() {
 		if (!this.#protocolServer) return;
 
+		// Step 1: Detach protocol-server listeners.
 		this.#protocolServer.off(
 			'error',
 			this.#handleProtocolServerError.bind(this)
@@ -483,34 +504,41 @@ class RestApi extends EVASBaseIngressSurface {
 			this.#serverConnection.bind(this)
 		);
 
+		// Step 2: Close the active HTTP connections and stop the server.
 		this.#protocolServer.closeAllConnections();
 		this.#protocolServer.close();
 		this.#protocolServer = undefined;
 
+		// Step 3: Release the Koa application and its error listener.
 		this.#koaApp.off('error', this.#handleKoaAppError.bind(this));
 		this.#koaApp = undefined;
 
+		// Step 4: Clear the route definitions for each API version.
 		this.#routers.forEach((router) => {
 			router.stack.length = 0;
 		});
 
+		// Step 5: Discard the versioned router references.
 		this.#routers.clear();
 	}
 	// #endregion
 
 	// #region Getters / Setters
 	/**
-	 * Exposes the registered routers and lifecycle controls for the REST ingress surface.
-	 *
 	 * @category REST API Server/Ingress Surfaces
 	 * @subcategory REST API
 	 *
 	 * @memberof RestApi
 	 * @instance
+	 * @public
 	 * @readonly
-	 * @member {object}
+	 * @function
 	 * @name interface
+	 *
 	 * @returns {object} Router collection and bound start/stop methods.
+	 *
+	 * @description
+	 * Exposes the registered routers and lifecycle controls for the REST ingress surface.
 	 */
 	get interface() {
 		return {
@@ -524,8 +552,6 @@ class RestApi extends EVASBaseIngressSurface {
 
 	// #region Private Methods
 	/**
-	 * Logs each new socket connection accepted by the HTTP server.
-	 *
 	 * @category REST API Server/Ingress Surfaces
 	 * @subcategory REST API
 	 *
@@ -537,16 +563,19 @@ class RestApi extends EVASBaseIngressSurface {
 	 * @name #serverConnection
 	 *
 	 * @param {object} socket - Node.js socket instance for the connection.
+	 *
 	 * @returns {Promise<void>} Resolves after the connection count is logged.
+	 *
+	 * @description
+	 * Logs each new socket connection accepted by the HTTP server.
 	 */
 	async #serverConnection(socket) {
+		// Log the accepted connection count through the shared logger.
 		const logger = await this.iocContainer.resolve('Logger');
 		logger.debug(`Server Connections: ${socket._server._connections}`);
 	}
 
 	/**
-	 * Logs protocol-server errors raised by the HTTP server.
-	 *
 	 * @category REST API Server/Ingress Surfaces
 	 * @subcategory REST API
 	 *
@@ -558,8 +587,12 @@ class RestApi extends EVASBaseIngressSurface {
 	 * @name #handleProtocolServerError
 	 *
 	 * @returns {Promise<void>} Resolves after the error is logged.
+	 *
+	 * @description
+	 * Logs protocol-server errors raised by the HTTP server.
 	 */
 	async #handleProtocolServerError() {
+		// Log the protocol-server error through the shared logger.
 		const logger = await this.iocContainer.resolve('Logger');
 		logger.error(
 			`Server Error: ${safeJsonStringify(arguments, undefined, '\t')}`
@@ -567,8 +600,6 @@ class RestApi extends EVASBaseIngressSurface {
 	}
 
 	/**
-	 * Logs errors emitted directly by the Koa application.
-	 *
 	 * @category REST API Server/Ingress Surfaces
 	 * @subcategory REST API
 	 *
@@ -580,8 +611,12 @@ class RestApi extends EVASBaseIngressSurface {
 	 * @name #handleKoaAppError
 	 *
 	 * @returns {Promise<void>} Resolves after the error is logged.
+	 *
+	 * @description
+	 * Logs errors emitted directly by the Koa application.
 	 */
 	async #handleKoaAppError() {
+		// Log the Koa application error through the shared logger.
 		const logger = await this.iocContainer.resolve('Logger');
 		logger.error(
 			`Koa App Error: ${safeJsonStringify(arguments, undefined, '\t')}`
@@ -589,8 +624,6 @@ class RestApi extends EVASBaseIngressSurface {
 	}
 
 	/**
-	 * Logs Koa session lifecycle events emitted by the session middleware.
-	 *
 	 * @category REST API Server/Ingress Surfaces
 	 * @subcategory REST API
 	 *
@@ -602,8 +635,12 @@ class RestApi extends EVASBaseIngressSurface {
 	 * @name #handleKoaSessionEvents
 	 *
 	 * @returns {Promise<void>} Resolves after the event is logged.
+	 *
+	 * @description
+	 * Logs Koa session lifecycle events emitted by the session middleware.
 	 */
 	async #handleKoaSessionEvents() {
+		// Log the Koa session event through the shared logger.
 		const logger = await this.iocContainer.resolve('Logger');
 		logger.info(
 			`Koa Session Event: ${safeJsonStringify(
@@ -615,8 +652,6 @@ class RestApi extends EVASBaseIngressSurface {
 	}
 
 	/**
-	 * Logs request-body parsing errors raised by the body-parser middleware.
-	 *
 	 * @category REST API Server/Ingress Surfaces
 	 * @subcategory REST API
 	 *
@@ -628,8 +663,12 @@ class RestApi extends EVASBaseIngressSurface {
 	 * @name #handleKoaBodyParserError
 	 *
 	 * @returns {Promise<void>} Resolves after the error is logged.
+	 *
+	 * @description
+	 * Logs request-body parsing errors raised by the body-parser middleware.
 	 */
 	async #handleKoaBodyParserError() {
+		// Log the request-body parsing error through the shared logger.
 		const logger = await this.iocContainer.resolve('Logger');
 		logger.error(
 			`Koa Body Parser Error: ${safeJsonStringify(
@@ -665,7 +704,16 @@ export default class IngressSurfaceFactory extends EVASBaseFactory {
 	 * @category REST API Server/Ingress Surfaces
 	 * @subcategory REST API
 	 *
-	 * @ignore
+	 * @memberof IngressSurfaceFactory
+	 * @instance
+	 * @public
+	 * @function
+	 * @name constructor
+	 *
+	 * @returns {IngressSurfaceFactory} A new IngressSurfaceFactory instance.
+	 *
+	 * @description
+	 * Initializes the IngressSurfaceFactory factory using its base class.
 	 */
 	constructor() {
 		super();
@@ -680,16 +728,22 @@ export default class IngressSurfaceFactory extends EVASBaseFactory {
 	 * @memberof IngressSurfaceFactory
 	 * @async
 	 * @static
+	 * @public
 	 * @override
 	 * @function
-	 * @name createInstance
+	 * @name createInstances
 	 *
 	 * @param {object} [configuration] - requested repository configuration
 	 * @param {object} [iocContainer] - IoC Container providing DI Repositories
 	 *
-	 * @returns {RestApi} - The RestApi repository instance.
+	 * @returns {Promise<object>} Resolves to the ingress interface with routers and start/stop controls.
+	 *
+	 * @description
+	 * Creates and loads the ingress surface instance on first use, then reuses it.
+	 * Serializes access to the cached instance with the factory mutex.
 	 */
 	static async createInstances(configuration, iocContainer) {
+		// Create or reuse the loaded instance under the factory lock.
 		await IngressSurfaceFactory.#mutex.runExclusive(async () => {
 			if (!IngressSurfaceFactory.#restApiInstance) {
 				const restApiInstance = new RestApi(
@@ -713,18 +767,21 @@ export default class IngressSurfaceFactory extends EVASBaseFactory {
 	 * @memberof IngressSurfaceFactory
 	 * @async
 	 * @static
-	 * @override
+	 * @public
 	 * @function
 	 * @name destroyInstances
 	 *
-	 * @param {object} [configuration] - requested repository configuration
+	 * @param {string} [configuration='server'] - Reserved configuration selector; currently unused.
 	 *
-	 * @returns {undefined} - Nothing.
+	 * @returns {Promise<void>} Resolves after the cached instance is unloaded and released.
 	 *
-	 * @description Clears the cached {RestApi} instances
+	 * @description
+	 * Unloads the cached ingress surface instance and clears the factory reference
+	 * under the factory mutex.
 	 */
 	// eslint-disable-next-line no-unused-vars
 	static async destroyInstances(configuration = 'server') {
+		// Unload and release cached instances under the factory lock.
 		await IngressSurfaceFactory.#mutex.runExclusive(async () => {
 			if (!IngressSurfaceFactory.#restApiInstance) return;
 
@@ -742,16 +799,17 @@ export default class IngressSurfaceFactory extends EVASBaseFactory {
 	 * @subcategory REST API
 	 *
 	 * @memberof IngressSurfaceFactory
-	 * @async
 	 * @static
+	 * @public
 	 * @override
+	 * @readonly
 	 * @function
 	 * @name IngressSurfaceName
 	 *
 	 * @returns {string} - Name of this repository.
 	 *
 	 * @description
-	 * Returns the name of this repository - RestApi
+	 * Returns the registered ingress surface name: `RestApi`.
 	 */
 	static get IngressSurfaceName() {
 		return 'RestApi';

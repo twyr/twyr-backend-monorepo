@@ -19,22 +19,50 @@ const AUDIT_LOG_IGNORE_PATHS = [
 ];
 
 /**
- * Creates the audit log middleware for Koa.
- *
  * @category REST API Server/Ingress Surfaces
  * @subcategory REST API/Koa Middlewares
  *
- * @param {object} dependencies - Required dependencies.
- * @param {object} dependencies.iocContainer - IoC container instance.
+ * @memberof RestApi
+ * @static
+ * @public
+ * @function
+ * @name createAuditLogMiddleware
  *
- * @returns {Function} - Koa middleware
+ * @param {object} dependencies - Dependencies for request audit logging.
+ * @param {object} dependencies.iocContainer - Container exposing Logger and Audit repositories.
+ *
+ * @returns {Function} Async Koa middleware that records request and response metadata.
+ *
+ * @description
+ * Creates Koa middleware that measures request duration, captures errors and
+ * request/response metadata, and publishes an audit record. Successful health
+ * and user session probes are excluded from publication.
  */
 export function createAuditLogMiddleware(dependencies) {
 	const { iocContainer } = dependencies ?? {};
 
+	/**
+	 * @category REST API Server/Ingress Surfaces
+	 * @subcategory REST API/Koa Middlewares
+	 *
+	 * @memberof createAuditLogMiddleware
+	 * @async
+	 * @inner
+	 * @private
+	 * @function
+	 * @name auditLog
+	 *
+	 * @param {object} ctxt - Koa request context.
+	 * @param {Function} next - Next Koa middleware.
+	 *
+	 * @returns {Promise<void>} Resolves after the request is handled and its audit record is published or skipped.
+	 *
+	 * @description
+	 * Runs downstream middleware, captures timing and response details, and
+	 * publishes an audit record unless the request is an excluded successful probe.
+	 */
 	return async function auditLog(ctxt, next) {
-		// Step 1: Define the audit log data structure, and populate
-		// the basics
+		// Step 1: Initialize the request audit record
 		const logMessageMeta = {
 			id: ctxt.state.id,
 
@@ -78,7 +106,7 @@ export function createAuditLogMiddleware(dependencies) {
 			logger.debug(`\n${'='.repeat(process.stdout.columns)}`);
 		}
 
-		// Step 3: Now, execute the request, and log the time taken
+		// Step 3: Execute the request while capturing any failure
 		const startTime = process.hrtime.bigint();
 		logMessageMeta['start_time'] = new Date().valueOf();
 		try {
@@ -87,6 +115,8 @@ export function createAuditLogMiddleware(dependencies) {
 			logMessageMeta['error'] = error;
 			ctxt.status = error.status ?? 422;
 		}
+
+		// Step 4: Record the request completion time and duration
 		logMessageMeta['end_time'] = new Date().valueOf();
 		const endTime = process.hrtime.bigint();
 
@@ -94,7 +124,7 @@ export function createAuditLogMiddleware(dependencies) {
 			endTime - startTime
 		).milliseconds;
 
-		// Step 4: Fill in the user details, etc...
+		// Step 5: Refresh user details after authentication and request handling
 		logMessageMeta['user'] = {
 			id: ctxt?.state?.user?.['id'] ?? '???',
 			name: `${ctxt?.state?.user?.['first_name'] ?? '???'} ${
@@ -106,17 +136,16 @@ export function createAuditLogMiddleware(dependencies) {
 				'???'
 		};
 
-		// Step 5: Fill in the request header details
+		// Step 6: Capture the request and response headers
 		logMessageMeta['request-meta']['headers'] = JSON.parse(
 			safeJsonStringify(ctxt.request.headers)
 		);
 
-		// Step 6: Fill in the response header details
 		logMessageMeta['response-meta']['headers'] = JSON.parse(
 			safeJsonStringify(ctxt.response.headers)
 		);
 
-		// Step 7: Fill in the request / response data payload
+		// Step 7: Capture the request parameters and response payload
 		logMessageMeta['data']['query'] = JSON.parse(
 			safeJsonStringify(ctxt.query ?? {})
 		);
@@ -130,13 +159,15 @@ export function createAuditLogMiddleware(dependencies) {
 			? 'BUFFER'
 			: JSON.parse(safeJsonStringify(ctxt.body || {}));
 
-		// Step 7: If there was an error, serialize it for logging
+		// Step 8: Mark responses with a failure status
 		logMessageMeta['error'] ??= ctxt.status >= 400;
+
+		// Step 9: Serialize captured errors for audit logging
 		if (logMessageMeta['error'] instanceof Error) {
 			logMessageMeta['error'] = errorSerializer(logMessageMeta['error']);
 		}
 
-		// Step 8: Fill in the response status / error details
+		// Step 10: Record the final response status and error description
 		const statusCodes = http['STATUS_CODES'];
 		logMessageMeta['response-meta']['status'] = {
 			code: logMessageMeta['error'].status ?? ctxt.status,
@@ -146,14 +177,14 @@ export function createAuditLogMiddleware(dependencies) {
 				statusCodes[logMessageMeta['error'].status ?? ctxt.status]
 		};
 
-		// Step 9: Don't Audit Log health check calls, etc., to reduce noise.
+		// Step 11: Skip successful health and session probes to reduce audit noise.
 		if (
 			AUDIT_LOG_IGNORE_PATHS.includes(ctxt.path) &&
 			!logMessageMeta['error']
 		)
 			return;
 
-		// Finally, publish the audit log and throw error if any
+		// Step 12: Publish the completed audit record
 		const auditRepository = await iocContainer.resolve('Audit');
 		auditRepository.publish(logMessageMeta);
 	};

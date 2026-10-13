@@ -1,0 +1,9 @@
+# GET /api/v1/users/profile/contact/:contactId
+# Run from the repository root.
+# curl --config ./servers/curl_example_data/api_v1_users_profile_contact_by_contact_id.curl "${base_url}/api/v1/users/profile/contact/${contactId}"
+# Set base_url to the running server origin (for example http://127.0.0.1:9090).
+# Set contactId to an existing record identifier.
+# Use cookies.txt from a successful login in the corresponding domain.
+request = "GET"
+header = "Content-Type: application/json"
+cookie = "./cookies.txt"

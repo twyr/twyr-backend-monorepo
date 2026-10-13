@@ -101,14 +101,17 @@ class Renderer extends EVASBaseRepository {
 	 * Renders data, and modifies the input to include rendered data.
 	 */
 	async render(renderData) {
+		// Step 1: Load the EJS renderer.
 		let ejs = await import('ejs');
 		ejs = ejs['default'];
 
+		// Step 2: Configure asynchronous rendering for this environment.
 		const options = {
 			async: true,
 			compileDebug: global.serverEnvironment !== 'production'
 		};
 
+		// Step 3: Render the requested templates with their individual data payloads.
 		let renderResolutions = [];
 		for (const renderItem of renderData) {
 			renderResolutions.push(
@@ -120,7 +123,10 @@ class Renderer extends EVASBaseRepository {
 			);
 		}
 
+		// Step 4: Wait for all template renders to settle.
 		renderResolutions = await Promise.allSettled(renderResolutions);
+
+		// Step 5: Attach documents to successful render results.
 		renderResolutions.forEach((renderedData, index) => {
 			if (renderedData.status === 'fulfilled') {
 				// eslint-disable-next-line security/detect-object-injection
@@ -201,6 +207,7 @@ export default class RendererRepositoryFactory extends EVASBaseFactory {
 	 * @returns {Renderer} - The Renderer repository instance.
 	 */
 	static async createInstances(configuration, iocContainer) {
+		// Create or reuse the loaded instance under the factory lock.
 		await RendererRepositoryFactory.#mutex.runExclusive(async () => {
 			if (!RendererRepositoryFactory.#rendererInstance) {
 				const rendererInstance = new Renderer(
@@ -235,6 +242,7 @@ export default class RendererRepositoryFactory extends EVASBaseFactory {
 	 * @description Clears the cached {Renderer} instances
 	 */
 	static async destroyInstances(/*configuration*/) {
+		// Unload and release cached instances under the factory lock.
 		await RendererRepositoryFactory.#mutex.runExclusive(async () => {
 			if (!RendererRepositoryFactory.#rendererInstance) return;
 

@@ -65,17 +65,22 @@ class Auth extends EVASBaseRepository {
 	async load() {
 		await super.load();
 
+		// Step 1: Load the Passport instance used by the authentication repository.
 		const passport = await import('koa-passport');
 		this.#passport = passport['default'];
 
+		// Step 2: Discover the available authentication strategy modules.
 		const authStrategyPath = resolve(join(this.__dirname, 'strategies'));
 
 		// eslint-disable-next-line security/detect-non-literal-fs-filename
 		const availableStrategies = await readdir(authStrategyPath);
+
+		// Step 3: Resolve the cache and database repositories required by the strategies.
 		const cacheRepository = await this.iocContainer.resolve('Cache');
 		const databaseRepository =
 			await this.iocContainer.resolve('SQLDatabase');
 
+		// Step 4: Load each available JavaScript strategy.
 		for (const strategyFile of availableStrategies) {
 			if (extname(strategyFile) !== '.js') continue;
 			const thisStrategyPath = join(authStrategyPath, strategyFile);
@@ -84,6 +89,8 @@ class Auth extends EVASBaseRepository {
 			thisStrategy = thisStrategy['default'];
 
 			if (!thisStrategy) continue;
+
+			// Register the strategy with Passport.
 			await thisStrategy(
 				this.#passport,
 				cacheRepository,
@@ -110,6 +117,7 @@ class Auth extends EVASBaseRepository {
 	 * stop logic
 	 */
 	async unload() {
+		// Release the Passport instance and unload the base repository.
 		this.#passport = undefined;
 		await super.unload();
 	}
@@ -180,6 +188,7 @@ export default class AuthRepositoryFactory extends EVASBaseFactory {
 	 * @returns {Auth} - The Auth repository instance.
 	 */
 	static async createInstances(configuration, iocContainer) {
+		// Create or reuse the loaded instance under the factory lock.
 		const repositoryKey = Buffer.from(
 			safeJsonStringify(configuration ?? {})
 		).toString('base64');
@@ -222,7 +231,9 @@ export default class AuthRepositoryFactory extends EVASBaseFactory {
 	 * @description Clears the cached {Auth} instances
 	 */
 	static async destroyInstances(configuration) {
+		// Unload and release cached instances under the factory lock.
 		await AuthRepositoryFactory.#mutex.runExclusive(async () => {
+			// Unload only the requested configuration when one is supplied.
 			if (configuration) {
 				const repositoryKey = Buffer.from(
 					safeJsonStringify(configuration)
@@ -239,6 +250,7 @@ export default class AuthRepositoryFactory extends EVASBaseFactory {
 				return;
 			}
 
+			// Otherwise, unload all configurations before clearing the cache.
 			const destroyResolutions = [];
 			AuthRepositoryFactory.#authInstances.forEach((authInstance) => {
 				destroyResolutions.push(authInstance.unload());

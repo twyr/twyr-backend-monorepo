@@ -23,14 +23,17 @@ export default async function serializeDeserialize(
 	cacheRepository,
 	databaseRepository
 ) {
+	// Step 1: Map supported session roles to their profile cache helpers.
 	const sessionCacheMap = new Map();
 	sessionCacheMap.set('user', userSessionCache);
 	sessionCacheMap.set('system_admin', systemAdminSessionCache);
 
+	// Step 2: Register serialization of the user identifier into the Passport session.
 	passportInstance.serializeUser(async (request, user, callback) => {
 		callback(undefined, user.id);
 	});
 
+	// Step 3: Restore the session user through the role-specific cache helper.
 	passportInstance.deserializeUser(async (request, sessionUser, callback) => {
 		try {
 			const sessionUserId =
@@ -59,6 +62,7 @@ export default async function serializeDeserialize(
 
 			callback(undefined, deserializedUser);
 		} catch (error) {
+			// Report lookup failures through the Passport callback.
 			callback(error);
 		}
 	});

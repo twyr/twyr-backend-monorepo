@@ -1,0 +1,7 @@
+# GET /api/v1/masterdata/genders/:id
+# Run from the repository root.
+# curl --config ./servers/curl_example_data/api_v1_masterdata_genders_by_id.curl "${base_url}/api/v1/masterdata/genders/${id}"
+# Set base_url to the running server origin (for example http://127.0.0.1:9090).
+# Set id to an existing record identifier.
+request = "GET"
+header = "Content-Type: application/json"

@@ -1,0 +1,9 @@
+# GET /api/v1/system-admin/profile/locale/:localeId
+# Run from the repository root.
+# curl --config ./servers/curl_example_data/api_v1_system_admin_profile_locale_by_locale_id.curl "${base_url}/api/v1/system-admin/profile/locale/${localeId}"
+# Set base_url to the running server origin (for example http://127.0.0.1:9090).
+# Set localeId to an existing record identifier.
+# Use cookies.txt from a successful login in the corresponding domain.
+request = "GET"
+header = "Content-Type: application/json"
+cookie = "./cookies.txt"

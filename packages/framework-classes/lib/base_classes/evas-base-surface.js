@@ -31,6 +31,7 @@ export class EVASBaseSurface extends EVASBaseArtifact {
 	 * @ignore
 	 */
 	constructor(location, domainInterface) {
+		// Initialize the artifact and retain the domain services for derived classes.
 		super(location);
 		this.#domainInterface = domainInterface;
 	}
@@ -76,6 +77,7 @@ export class EVASBaseSurface extends EVASBaseArtifact {
 	 * stop logic
 	 */
 	async unload() {
+		// Release the domain services and unload the base artifact.
 		this.#domainInterface = undefined;
 		await super.unload();
 	}

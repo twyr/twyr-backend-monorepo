@@ -86,7 +86,7 @@ class Logger extends EVASBaseRepository {
 		const configuration =
 			await this._mergeConfiguration(defaultConfiguration);
 
-		// Step 2: Setup the client
+		// Step 2: Configure Winston formatting, transports, and failure logs
 		let winston = await import('winston');
 		winston = winston['default'];
 
@@ -146,7 +146,7 @@ class Logger extends EVASBaseRepository {
 			format: loggerFormat
 		});
 
-		// Step 3: Open the logger instance
+		// Step 3: Create the logger with the configured transports
 		this.#winston = winston.createLogger({
 			level: loggerLevel,
 			transports: loggerTransports,
@@ -173,6 +173,7 @@ class Logger extends EVASBaseRepository {
 	 * stop logic
 	 */
 	async unload() {
+		// Close and clear the logger before releasing the base repository.
 		this.#winston?.close();
 		this.#winston?.clear();
 		this.#winston = undefined;
@@ -246,6 +247,7 @@ export default class LoggerRepositoryFactory extends EVASBaseFactory {
 	 * @returns {Logger} - The logger repository instance.
 	 */
 	static async createInstances(configuration, iocContainer) {
+		// Create or reuse the loaded instance under the factory lock.
 		const repositoryKey = Buffer.from(
 			safeJsonStringify(configuration ?? {})
 		).toString('base64');
@@ -288,7 +290,9 @@ export default class LoggerRepositoryFactory extends EVASBaseFactory {
 	 * @description Clears the cached {Logger} instances
 	 */
 	static async destroyInstances(configuration) {
+		// Unload and release cached instances under the factory lock.
 		await LoggerRepositoryFactory.#mutex.runExclusive(async () => {
+			// Unload only the requested configuration when one is supplied.
 			if (configuration) {
 				const repositoryKey = Buffer.from(
 					safeJsonStringify(configuration)
@@ -307,6 +311,7 @@ export default class LoggerRepositoryFactory extends EVASBaseFactory {
 				return;
 			}
 
+			// Otherwise, unload all configurations before clearing the cache.
 			const destroyResolutions = [];
 			LoggerRepositoryFactory.#loggerInstances.forEach(
 				(loggerInstance) => {
