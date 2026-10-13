@@ -268,11 +268,6 @@
 							<li><a href="REST%20API%20Server_Ingress%20Surfaces.REST%20API.IngressSurfaceFactory.html">REST API Server/Ingress Surfaces/REST API/IngressSurfaceFactory</a></li>
 							<li><a href="REST%20API%20Server_Ingress%20Surfaces.REST%20API.RestApi.html">REST API Server/Ingress Surfaces/REST API/RestApi</a></li>
 						</ul>
-						<h3>Global</h3>
-						<ul>
-							<li><a href="global.html#createAuditLogMiddleware">createAuditLogMiddleware</a></li>
-							<li><a href="global.html#createErrorLogMiddleware">createErrorLogMiddleware</a></li>
-						</ul>
 					</div>
 					<div class="category">
 						<h2>REST API Server/Repositories/Init</h2>
@@ -387,6 +382,7 @@ export default async function localStrategy(
 	cacheRepository,
 	databaseRepository
 ) {
+	// Register the local Passport strategy with access to the current request.
 	let LocalStrategy = await import('passport-local');
 	LocalStrategy = LocalStrategy.Strategy;
 
@@ -396,6 +392,7 @@ export default async function localStrategy(
 			{ passReqToCallback: true },
 			async (request, username, password, callback) => {
 				try {
+					// Step 1: Find the account associated with the submitted mobile number.
 					let userRecord = await databaseRepository.raw(
 						`SELECT * FROM system_admins WHERE mobile_no = ?`,
 						[username]
@@ -413,6 +410,7 @@ export default async function localStrategy(
 						throw userError;
 					}
 
+					// Step 2: Reject missing or mismatched cached OTPs.
 					const otpNumber = await cacheRepository.get(
 						`system-admin-otp-${username}`
 					);
@@ -428,6 +426,7 @@ export default async function localStrategy(
 						throw userError;
 					}
 
+					// Step 3: Return the authenticated account to Passport.
 					callback(undefined, userRecord);
 				} catch (error) {
 					callback(error);

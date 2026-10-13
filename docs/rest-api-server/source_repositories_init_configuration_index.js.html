@@ -268,11 +268,6 @@
 							<li><a href="REST%20API%20Server_Ingress%20Surfaces.REST%20API.IngressSurfaceFactory.html">REST API Server/Ingress Surfaces/REST API/IngressSurfaceFactory</a></li>
 							<li><a href="REST%20API%20Server_Ingress%20Surfaces.REST%20API.RestApi.html">REST API Server/Ingress Surfaces/REST API/RestApi</a></li>
 						</ul>
-						<h3>Global</h3>
-						<ul>
-							<li><a href="global.html#createAuditLogMiddleware">createAuditLogMiddleware</a></li>
-							<li><a href="global.html#createErrorLogMiddleware">createErrorLogMiddleware</a></li>
-						</ul>
 					</div>
 					<div class="category">
 						<h2>REST API Server/Repositories/Init</h2>
@@ -456,6 +451,7 @@ class Configuration extends EVASBaseRepository {
 	async getConfig(artifactName) {
 		// TODO: MOVE AWAY FROM process.env AND MOVE TOWARDS SOMETHING
 		// MORE SOPHISTICATED - DATABASE, REDIS, VAULT, ETC.
+		// Read the artifact configuration from the environment and parse its JSON value.
 		const artifactConfig =
 			process.env[artifactName.toUpperCase()] ?? undefined;
 		return JSON.parse(artifactConfig ?? '{}');
@@ -525,6 +521,7 @@ export default class ConfigurationRepositoryFactory extends EVASBaseFactory {
 	 * @returns {Configuration} - The configuration repository instance.
 	 */
 	static async createInstances(configuration, iocContainer) {
+		// Create or reuse the loaded instance under the factory lock.
 		await ConfigurationRepositoryFactory.#mutex.runExclusive(async () => {
 			if (!ConfigurationRepositoryFactory.#configurationInstance) {
 				const configurationInstance = new Configuration(
@@ -558,6 +555,7 @@ export default class ConfigurationRepositoryFactory extends EVASBaseFactory {
 	 * @description Clears the cached {Configuration} instances
 	 */
 	static async destroyInstances() {
+		// Unload and release cached instances under the factory lock.
 		await ConfigurationRepositoryFactory.#mutex.runExclusive(async () => {
 			await ConfigurationRepositoryFactory.#configurationInstance?.unload();
 			ConfigurationRepositoryFactory.#configurationInstance = undefined;

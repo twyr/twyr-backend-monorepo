@@ -268,11 +268,6 @@
 							<li><a href="REST%20API%20Server_Ingress%20Surfaces.REST%20API.IngressSurfaceFactory.html">REST API Server/Ingress Surfaces/REST API/IngressSurfaceFactory</a></li>
 							<li><a href="REST%20API%20Server_Ingress%20Surfaces.REST%20API.RestApi.html">REST API Server/Ingress Surfaces/REST API/RestApi</a></li>
 						</ul>
-						<h3>Global</h3>
-						<ul>
-							<li><a href="global.html#createAuditLogMiddleware">createAuditLogMiddleware</a></li>
-							<li><a href="global.html#createErrorLogMiddleware">createErrorLogMiddleware</a></li>
-						</ul>
 					</div>
 					<div class="category">
 						<h2>REST API Server/Repositories/Init</h2>
@@ -388,7 +383,19 @@ export class Masterdata extends BaseMiddleware {
 	 * @category REST API Server/Bounded Contexts
 	 * @subcategory Masterdata/Middlewares
 	 *
-	 * @ignore
+	 * @memberof Masterdata
+	 * @instance
+	 * @public
+	 * @function
+	 * @name constructor
+	 *
+	 * @param {string} location - Filesystem location of the artifact.
+	 * @param {object} domainInterface - Domain APIs, repositories, models and event emitter.
+	 *
+	 * @returns {Masterdata} A new Masterdata instance.
+	 *
+	 * @description
+	 * Initializes the Masterdata middleware using its base class.
 	 */
 	constructor(location, domainInterface) {
 		super(location, domainInterface);
@@ -403,16 +410,18 @@ export class Masterdata extends BaseMiddleware {
 	 * @memberof Masterdata
 	 * @async
 	 * @instance
+	 * @protected
 	 * @override
 	 * @function
 	 * @name _registerApi
 	 *
-	 * @returns {null} - The array of API to be registered
+	 * @returns {Promise&lt;void>} Resolves after registration changes complete.
 	 *
 	 * @description
 	 * Adds the API to the apiRegistry in the domainInterface
 	 */
 	async _registerApi() {
+		// Step 1: Register inherited and local middleware APIs, collecting any failures.
 		const errors = [];
 
 		try {
@@ -450,7 +459,10 @@ export class Masterdata extends BaseMiddleware {
 					this.#getSystemMessages.bind(this)
 				)
 			);
+			// Step 2: Wait for every registration operation to settle.
 			registerResolutions = await Promise.allSettled(registerResolutions);
+
+			// Step 3: Collect the failures from rejected operations.
 			for (const registerResolution of registerResolutions) {
 				if (registerResolution.status === 'fulfilled') continue;
 				errors.push(registerResolution.reason);
@@ -459,6 +471,7 @@ export class Masterdata extends BaseMiddleware {
 			errors.push(error);
 		}
 
+		// Step 4: Propagate collected failures after all operations have been attempted.
 		if (!errors.length) return;
 
 		const propagatedError = createErrorForPropagation(
@@ -476,16 +489,18 @@ export class Masterdata extends BaseMiddleware {
 	 * @memberof Masterdata
 	 * @async
 	 * @instance
+	 * @protected
 	 * @override
 	 * @function
 	 * @name _unregisterApi
 	 *
-	 * @returns {null} - Nothing
+	 * @returns {Promise&lt;void>} Resolves after registration changes complete.
 	 *
 	 * @description
 	 * Removes the API from the apiRegistry in the domainInterface
 	 */
 	async _unregisterApi() {
+		// Step 1: Remove the local middleware APIs, collecting any failures.
 		const errors = [];
 
 		try {
@@ -517,9 +532,12 @@ export class Masterdata extends BaseMiddleware {
 				)
 			);
 
+			// Step 2: Wait for every removal operation to settle.
 			unregisterResolutions = await Promise.allSettled(
 				unregisterResolutions
 			);
+
+			// Step 3: Collect the failures from rejected operations.
 			for (const unregisterResolution of unregisterResolutions) {
 				if (unregisterResolution.status === 'fulfilled') continue;
 				errors.push(unregisterResolution.reason);
@@ -530,6 +548,7 @@ export class Masterdata extends BaseMiddleware {
 			errors.push(error);
 		}
 
+		// Step 4: Propagate collected failures after all operations have been attempted.
 		if (!errors.length) return;
 
 		const propagatedError = createErrorForPropagation(
@@ -543,8 +562,6 @@ export class Masterdata extends BaseMiddleware {
 
 	// #region Handlers
 	/**
-	 * Retrieves contact-type master data from the domain model layer.
-	 *
 	 * @category REST API Server/Bounded Contexts
 	 * @subcategory Masterdata/Middlewares
 	 *
@@ -557,9 +574,14 @@ export class Masterdata extends BaseMiddleware {
 	 *
 	 * @param {string} id - Optional contact type id.
 	 * @param {string} localeId - Locale used to resolve translated records.
+	 *
 	 * @returns {Promise&lt;object>} HTTP response data containing the resolved records.
+	 *
+	 * @description
+	 * Retrieves contact-type master data from the domain model layer.
 	 */
 	async #getContactTypes(id, localeId) {
+		// Fetch localized contact types.
 		const masterdata = await this.#getMasterdata(
 			'contact_type_master',
 			'id',
@@ -569,6 +591,7 @@ export class Masterdata extends BaseMiddleware {
 			localeId
 		);
 
+		// Return the fetched master data with a successful status.
 		return {
 			status: 200,
 			body: masterdata
@@ -576,8 +599,6 @@ export class Masterdata extends BaseMiddleware {
 	}
 
 	/**
-	 * Retrieves gender master data from the domain model layer.
-	 *
 	 * @category REST API Server/Bounded Contexts
 	 * @subcategory Masterdata/Middlewares
 	 *
@@ -590,9 +611,14 @@ export class Masterdata extends BaseMiddleware {
 	 *
 	 * @param {string} id - Optional gender id.
 	 * @param {string} localeId - Locale used to resolve translated records.
+	 *
 	 * @returns {Promise&lt;object>} HTTP response data containing the resolved records.
+	 *
+	 * @description
+	 * Retrieves gender master data from the domain model layer.
 	 */
 	async #getGenders(id, localeId) {
+		// Fetch localized genders.
 		const masterdata = await this.#getMasterdata(
 			'gender_master',
 			'id',
@@ -602,6 +628,7 @@ export class Masterdata extends BaseMiddleware {
 			localeId
 		);
 
+		// Return the fetched master data with a successful status.
 		return {
 			status: 200,
 			body: masterdata
@@ -609,8 +636,6 @@ export class Masterdata extends BaseMiddleware {
 	}
 
 	/**
-	 * Retrieves enabled locale master data from the domain model layer.
-	 *
 	 * @category REST API Server/Bounded Contexts
 	 * @subcategory Masterdata/Middlewares
 	 *
@@ -622,9 +647,14 @@ export class Masterdata extends BaseMiddleware {
 	 * @name #getLocales
 	 *
 	 * @param {string} id - Optional locale code.
+	 *
 	 * @returns {Promise&lt;object>} HTTP response data containing the resolved records.
+	 *
+	 * @description
+	 * Retrieves enabled locale master data from the domain model layer.
 	 */
 	async #getLocales(id /*localeId*/) {
+		// Step 1: Fetch locale records and their localized labels.
 		let masterdata = await this.#getMasterdata(
 			'locale_master',
 			'code',
@@ -633,6 +663,7 @@ export class Masterdata extends BaseMiddleware {
 			id
 		);
 
+		// Step 2: Keep enabled locales whose labels are in their own language.
 		masterdata = masterdata.filter((locale) => {
 			return locale.is_enabled &amp;&amp; locale.code === locale.locale_id;
 		});
@@ -644,8 +675,6 @@ export class Masterdata extends BaseMiddleware {
 	}
 
 	/**
-	 * Retrieves enabled country-code master data from the domain model layer.
-	 *
 	 * @category REST API Server/Bounded Contexts
 	 * @subcategory Masterdata/Middlewares
 	 *
@@ -658,9 +687,14 @@ export class Masterdata extends BaseMiddleware {
 	 *
 	 * @param {string} iso_code - Optional ISO country code.
 	 * @param {string} localeId - Locale used to resolve translated records.
+	 *
 	 * @returns {Promise&lt;object>} HTTP response data containing the resolved records.
+	 *
+	 * @description
+	 * Retrieves enabled country-code master data from the domain model layer.
 	 */
 	async #getCountryCodes(iso_code, localeId) {
+		// Step 1: Fetch country codes for the requested locale.
 		let masterdata = await this.#getMasterdata(
 			'country_code_master',
 			'iso_code',
@@ -670,6 +704,7 @@ export class Masterdata extends BaseMiddleware {
 			localeId
 		);
 
+		// Step 2: Return only enabled country codes.
 		masterdata = masterdata.filter((countryCode) => {
 			return countryCode.is_enabled;
 		});
@@ -681,8 +716,6 @@ export class Masterdata extends BaseMiddleware {
 	}
 
 	/**
-	 * Retrieves system-message master data from the domain model layer.
-	 *
 	 * @category REST API Server/Bounded Contexts
 	 * @subcategory Masterdata/Middlewares
 	 *
@@ -695,9 +728,14 @@ export class Masterdata extends BaseMiddleware {
 	 *
 	 * @param {string} messageCode - Optional system message id.
 	 * @param {string} localeId - Locale used to resolve translated records.
+	 *
 	 * @returns {Promise&lt;object>} HTTP response data containing the resolved records.
+	 *
+	 * @description
+	 * Retrieves system-message master data from the domain model layer.
 	 */
 	async #getSystemMessages(messageCode, localeId) {
+		// Fetch localized system messages.
 		const masterdata = await this.#getMasterdata(
 			'system_message_master',
 			'id',
@@ -707,6 +745,7 @@ export class Masterdata extends BaseMiddleware {
 			localeId
 		);
 
+		// Return the fetched master data with a successful status.
 		return {
 			status: 200,
 			body: masterdata
@@ -717,8 +756,6 @@ export class Masterdata extends BaseMiddleware {
 
 	// #region PrivateMethods
 	/**
-	 * Executes the common masterdata lookup query pattern for the requested tables.
-	 *
 	 * @category REST API Server/Bounded Contexts
 	 * @subcategory Masterdata/Middlewares
 	 *
@@ -735,7 +772,11 @@ export class Masterdata extends BaseMiddleware {
 	 * @param {string} localeTableField - Join field used for localized lookups.
 	 * @param {string} id - Optional record identifier to filter by.
 	 * @param {string} localeId - Locale used to resolve translated records.
+	 *
 	 * @returns {Promise&lt;object[]>} Matching masterdata records.
+	 *
+	 * @description
+	 * Executes the common masterdata lookup query pattern for the requested tables.
 	 */
 	async #getMasterdata(
 		masterTableName,
@@ -745,12 +786,15 @@ export class Masterdata extends BaseMiddleware {
 		id,
 		localeId
 	) {
+		// Step 1: Resolve the database connection for the master-data query.
 		const dbRepository =
 			await this.domainInterface.iocContainer.resolve('SQLDatabase');
 
 		// eslint-disable-next-line no-useless-assignment
 		let masterdata = undefined;
 
+		// Step 2: Query the master table, joining localized records when available
+		// and applying the supplied identifier and locale filters.
 		if (localeTableName) {
 			masterdata = await this._executeWithBackOff(async () => {
 				if (id &amp;&amp; localeId) {
@@ -809,6 +853,7 @@ export class Masterdata extends BaseMiddleware {
 			});
 		}
 
+		// Step 3: Return the rows from the database result.
 		masterdata = masterdata.rows;
 		return masterdata;
 	}
@@ -831,7 +876,16 @@ export default class MasterdataMiddlewareFactory extends EVASBaseFactory {
 	 * @category REST API Server/Bounded Contexts
 	 * @subcategory Masterdata/Middlewares
 	 *
-	 * @ignore
+	 * @memberof MasterdataMiddlewareFactory
+	 * @instance
+	 * @public
+	 * @function
+	 * @name constructor
+	 *
+	 * @returns {MasterdataMiddlewareFactory} A new MasterdataMiddlewareFactory instance.
+	 *
+	 * @description
+	 * Initializes the MasterdataMiddlewareFactory factory using its base class.
 	 */
 	constructor() {
 		super();
@@ -846,15 +900,21 @@ export default class MasterdataMiddlewareFactory extends EVASBaseFactory {
 	 * @memberof MasterdataMiddlewareFactory
 	 * @async
 	 * @static
+	 * @public
 	 * @override
 	 * @function
-	 * @name createInstance
+	 * @name createInstances
 	 *
 	 * @param {object} [domainInterface] - Domain functionality exposed to sub-artifacts
 	 *
-	 * @returns {Masterdata} - The Masterdata middleware instance.
+	 * @returns {Promise&lt;Masterdata>} Resolves to the loaded Masterdata middleware instance.
+	 *
+	 * @description
+	 * Creates and loads the middleware instance on first use, then reuses it.
+	 * Serializes access to the cached instance with the factory mutex.
 	 */
 	static async createInstances(domainInterface) {
+		// Create or reuse the loaded instance under the factory lock.
 		return await MasterdataMiddlewareFactory.#mutex.runExclusive(
 			async () => {
 				if (!MasterdataMiddlewareFactory.#masterdataInstance) {
@@ -880,15 +940,19 @@ export default class MasterdataMiddlewareFactory extends EVASBaseFactory {
 	 * @memberof MasterdataMiddlewareFactory
 	 * @async
 	 * @static
+	 * @public
 	 * @override
 	 * @function
 	 * @name destroyInstances
 	 *
-	 * @returns {undefined} - Nothing.
+	 * @returns {Promise&lt;void>} Resolves after the cached instance is unloaded and released.
 	 *
-	 * @description Clears the Masterdata instance
+	 * @description
+	 * Unloads the cached middleware instance and clears the factory reference
+	 * under the factory mutex.
 	 */
 	static async destroyInstances() {
+		// Unload and release cached instances under the factory lock.
 		await MasterdataMiddlewareFactory.#mutex.runExclusive(async () => {
 			await MasterdataMiddlewareFactory.#masterdataInstance?.unload();
 			MasterdataMiddlewareFactory.#masterdataInstance = undefined;
@@ -904,16 +968,17 @@ export default class MasterdataMiddlewareFactory extends EVASBaseFactory {
 	 * @subcategory Masterdata/Middlewares
 	 *
 	 * @memberof MasterdataMiddlewareFactory
-	 * @async
 	 * @static
+	 * @public
 	 * @override
+	 * @readonly
 	 * @function
 	 * @name MiddlewareName
 	 *
 	 * @returns {string} - Name of this middleware.
 	 *
 	 * @description
-	 * Returns the name of this middleware - Masterdata
+	 * Returns the registered middleware name: `Masterdata`.
 	 */
 	static get MiddlewareName() {
 		return 'Masterdata';

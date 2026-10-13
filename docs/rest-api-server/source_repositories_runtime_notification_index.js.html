@@ -268,11 +268,6 @@
 							<li><a href="REST%20API%20Server_Ingress%20Surfaces.REST%20API.IngressSurfaceFactory.html">REST API Server/Ingress Surfaces/REST API/IngressSurfaceFactory</a></li>
 							<li><a href="REST%20API%20Server_Ingress%20Surfaces.REST%20API.RestApi.html">REST API Server/Ingress Surfaces/REST API/RestApi</a></li>
 						</ul>
-						<h3>Global</h3>
-						<ul>
-							<li><a href="global.html#createAuditLogMiddleware">createAuditLogMiddleware</a></li>
-							<li><a href="global.html#createErrorLogMiddleware">createErrorLogMiddleware</a></li>
-						</ul>
 					</div>
 					<div class="category">
 						<h2>REST API Server/Repositories/Init</h2>
@@ -459,6 +454,7 @@ class Notification extends EVASBaseRepository {
 	 * Sends out notifications based on the input data.
 	 */
 	async send(notificationData) {
+		// Log the notification payload until a delivery provider is implemented.
 		const logger = await this.iocContainer.resolve('Logger');
 		logger.info(
 			`\nTODO: IMPLEMENT ACTUAL NOTIFICATION MECHANISM\nSending notifications: ${safeJsonStringify(
@@ -539,6 +535,7 @@ export default class NotificationRepositoryFactory extends EVASBaseFactory {
 	 * @returns {Notification} - The Notification repository instance.
 	 */
 	static async createInstances(configuration, iocContainer) {
+		// Create or reuse the loaded instance under the factory lock.
 		await NotificationRepositoryFactory.#mutex.runExclusive(async () => {
 			if (!NotificationRepositoryFactory.#notificationInstance) {
 				const notificationInstance = new Notification(
@@ -574,6 +571,7 @@ export default class NotificationRepositoryFactory extends EVASBaseFactory {
 	 * @description Clears the cached {Notification} instances
 	 */
 	static async destroyInstances(/*configuration*/) {
+		// Unload and release cached instances under the factory lock.
 		await NotificationRepositoryFactory.#mutex.runExclusive(async () => {
 			if (!NotificationRepositoryFactory.#notificationInstance) return;
 

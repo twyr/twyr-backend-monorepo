@@ -268,11 +268,6 @@
 							<li><a href="REST%20API%20Server_Ingress%20Surfaces.REST%20API.IngressSurfaceFactory.html">REST API Server/Ingress Surfaces/REST API/IngressSurfaceFactory</a></li>
 							<li><a href="REST%20API%20Server_Ingress%20Surfaces.REST%20API.RestApi.html">REST API Server/Ingress Surfaces/REST API/RestApi</a></li>
 						</ul>
-						<h3>Global</h3>
-						<ul>
-							<li><a href="global.html#createAuditLogMiddleware">createAuditLogMiddleware</a></li>
-							<li><a href="global.html#createErrorLogMiddleware">createErrorLogMiddleware</a></li>
-						</ul>
 					</div>
 					<div class="category">
 						<h2>REST API Server/Repositories/Init</h2>
@@ -430,6 +425,83 @@
 							</ul>
 							<div class='vertical-section'>
 								<h1>Methods</h1>
+								<h2 class="subsection-title">Constructor</h2>
+								<div class="members">
+									<div class="member">
+										<h4 class="name" id="constructor">
+											<a class="href-link" href="#constructor">#</a>
+											<span class="code-name">
+												constructor<span class="signature">(location, domainInterface)</span><span class="type-signature"> &rarr; {Main}</span>
+											</span>
+										</h4>
+										<p class="summary">Initializes the Main surface using its base class.</p>
+										<div class="description">
+											<p>Initializes the Main surface using its base class.</p>
+										</div>
+										<h5>Parameters:</h5>
+										<div class="table-container">
+											<table class="params table">
+												<thead>
+													<tr>
+														<th>Name</th>
+														<th>Type</th>
+														<th class="last">Description</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr class="deep-level-0">
+														<td class="name"><code>location</code></td>
+														<td class="type">
+															<code class="param-type">string</code>
+														</td>
+														<td class="description last">
+															<p>Filesystem location of the artifact.</p>
+														</td>
+													</tr>
+													<tr class="deep-level-0">
+														<td class="name"><code>domainInterface</code></td>
+														<td class="type">
+															<code class="param-type">object</code>
+														</td>
+														<td class="description last">
+															<p>Domain APIs, repositories, models and event emitter.</p>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+										<dl class="details">
+											<dt class="tag-overrides">Overrides:</dt>
+											<dd class="tag-overrides">
+												<ul class="dummy">
+													<li>
+														UserBaseSurface#constructor
+													</li>
+												</ul>
+											</dd>
+											<p class="tag-source">
+												<a href="source_bounded_contexts_masterdata_surfaces_query_main.js.html" class="button">View Source</a>
+												<span>
+													<a href="source_bounded_contexts_masterdata_surfaces_query_main.js.html">source/bounded_contexts/masterdata/surfaces/query/main.js</a>, <a href="source_bounded_contexts_masterdata_surfaces_query_main.js.html#line30">line 30</a>
+												</span>
+											</p>
+										</dl>
+										<div class='columns method-parameter'>
+											<div class="column is-2"><label>Returns:</label></div>
+											<div class="column is-10">
+												<div class="columns">
+													<div class='param-desc column is-7'>
+														<p>A new Main instance.</p>
+													</div>
+													<div class='column is-5 has-text-left'>
+														<label>Type: </label>
+														<code class="param-type">Main</code>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
 								<h2 class="subsection-title">Lifecycle Methods</h2>
 								<div class="members">
 									<div class="member">
@@ -437,15 +509,12 @@
 											<a class="href-link" href="#load">#</a>
 											<span class='tag'>async</span>
 											<span class="code-name">
-												load<span class="signature">()</span><span class="type-signature"> &rarr; {null}</span>
+												load<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span>
 											</span>
 										</h4>
-										<p class="summary">
-										<p>Sets the user role in the request headers for access control purposes
-											by passing it in to the base class load method</p>.</p>
+										<p class="summary">Loads the inherited surface infrastructure for Main.</p>
 										<div class="description">
-											<p>Sets the user role in the request headers for access control purposes
-												by passing it in to the base class load method</p>
+											<p>Loads the inherited surface infrastructure for Main.</p>
 										</div>
 										<dl class="details">
 											<dt class="tag-overrides">Overrides:</dt>
@@ -459,7 +528,7 @@
 											<p class="tag-source">
 												<a href="source_bounded_contexts_masterdata_surfaces_query_main.js.html" class="button">View Source</a>
 												<span>
-													<a href="source_bounded_contexts_masterdata_surfaces_query_main.js.html">source/bounded_contexts/masterdata/surfaces/query/main.js</a>, <a href="source_bounded_contexts_masterdata_surfaces_query_main.js.html#line42">line 42</a>
+													<a href="source_bounded_contexts_masterdata_surfaces_query_main.js.html">source/bounded_contexts/masterdata/surfaces/query/main.js</a>, <a href="source_bounded_contexts_masterdata_surfaces_query_main.js.html#line54">line 54</a>
 												</span>
 											</p>
 										</dl>
@@ -468,13 +537,11 @@
 											<div class="column is-10">
 												<div class="columns">
 													<div class='param-desc column is-7'>
-														<ul>
-															<li>Nothing</li>
-														</ul>
+														<p>Resolves after loading completes.</p>
 													</div>
 													<div class='column is-5 has-text-left'>
 														<label>Type: </label>
-														<code class="param-type">null</code>
+														<code class="param-type">Promise.&lt;void></code>
 													</div>
 												</div>
 											</div>
@@ -487,16 +554,18 @@
 										<h4 class="name" id="_registerSurface">
 											<a class="href-link" href="#_registerSurface">#</a>
 											<span class='tag'>async</span>
+											<span class='tag'>protected</span>
 											<span class="code-name">
-												_registerSurface<span class="signature">()</span><span class="type-signature"> &rarr; {null}</span>
+												_registerSurface<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;object>>}</span>
 											</span>
 										</h4>
 										<p class="summary">
-										<p>Adds the route definitions and handlers for this surface to
-											the Rest API Router</p>.</p>
+										<p>Returns inherited and local route definitions, including their handlers
+											and any authorization middleware.</p>
+										</p>
 										<div class="description">
-											<p>Adds the route definitions and handlers for this surface to
-												the Rest API Router</p>
+											<p>Returns inherited and local route definitions, including their handlers
+												and any authorization middleware.</p>
 										</div>
 										<dl class="details">
 											<dt class="tag-overrides">Overrides:</dt>
@@ -510,7 +579,7 @@
 											<p class="tag-source">
 												<a href="source_bounded_contexts_masterdata_surfaces_query_main.js.html" class="button">View Source</a>
 												<span>
-													<a href="source_bounded_contexts_masterdata_surfaces_query_main.js.html">source/bounded_contexts/masterdata/surfaces/query/main.js</a>, <a href="source_bounded_contexts_masterdata_surfaces_query_main.js.html#line65">line 65</a>
+													<a href="source_bounded_contexts_masterdata_surfaces_query_main.js.html">source/bounded_contexts/masterdata/surfaces/query/main.js</a>, <a href="source_bounded_contexts_masterdata_surfaces_query_main.js.html#line77">line 77</a>
 												</span>
 											</p>
 										</dl>
@@ -519,13 +588,11 @@
 											<div class="column is-10">
 												<div class="columns">
 													<div class='param-desc column is-7'>
-														<ul>
-															<li>The routes to be added to the Rest API Router</li>
-														</ul>
+														<p>Resolves to the route definitions exposed by the surface.</p>
 													</div>
 													<div class='column is-5 has-text-left'>
 														<label>Type: </label>
-														<code class="param-type">null</code>
+														<code class="param-type">Promise.&lt;Array.&lt;object>></code>
 													</div>
 												</div>
 											</div>
@@ -535,8 +602,9 @@
 										<h4 class="name" id="_unregisterSurface">
 											<a class="href-link" href="#_unregisterSurface">#</a>
 											<span class='tag'>async</span>
+											<span class='tag'>protected</span>
 											<span class="code-name">
-												_unregisterSurface<span class="signature">()</span><span class="type-signature"> &rarr; {null}</span>
+												_unregisterSurface<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span>
 											</span>
 										</h4>
 										<p class="summary">
@@ -558,7 +626,7 @@
 											<p class="tag-source">
 												<a href="source_bounded_contexts_masterdata_surfaces_query_main.js.html" class="button">View Source</a>
 												<span>
-													<a href="source_bounded_contexts_masterdata_surfaces_query_main.js.html">source/bounded_contexts/masterdata/surfaces/query/main.js</a>, <a href="source_bounded_contexts_masterdata_surfaces_query_main.js.html#line166">line 166</a>
+													<a href="source_bounded_contexts_masterdata_surfaces_query_main.js.html">source/bounded_contexts/masterdata/surfaces/query/main.js</a>, <a href="source_bounded_contexts_masterdata_surfaces_query_main.js.html#line181">line 181</a>
 												</span>
 											</p>
 										</dl>
@@ -567,13 +635,11 @@
 											<div class="column is-10">
 												<div class="columns">
 													<div class='param-desc column is-7'>
-														<ul>
-															<li>Nothing</li>
-														</ul>
+														<p>Resolves after registration changes complete.</p>
 													</div>
 													<div class='column is-5 has-text-left'>
 														<label>Type: </label>
-														<code class="param-type">null</code>
+														<code class="param-type">Promise.&lt;void></code>
 													</div>
 												</div>
 											</div>
@@ -588,22 +654,45 @@
 											<span class='tag'>async</span>
 											<span class='tag'>private</span>
 											<span class="code-name">
-												getContactTypes<span class="signature">()</span><span class="type-signature"> &rarr; {null}</span>
+												getContactTypes<span class="signature">(ctxt)</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span>
 											</span>
 										</h4>
-										<p class="summary">
-										<p>Retrieves the contact types available in the system
-											mobile, email, fax, landline, etc.</p>
-										</p>
+										<p class="summary">Handles <code>GET /contact-types</code> and <code>GET /contact-types/:id</code>.</p>
 										<div class="description">
-											<p>Retrieves the contact types available in the system
-												mobile, email, fax, landline, etc.</p>
+											<p>Handles <code>GET /contact-types</code> and <code>GET /contact-types/:id</code>.
+												Fetches localized contact types such as mobile and email. The optional
+												<code>id</code> path parameter selects one contact type.
+												Requires a session authorized by the <code>registered</code> RBAC middleware.
+											</p>
+										</div>
+										<h5>Parameters:</h5>
+										<div class="table-container">
+											<table class="params table">
+												<thead>
+													<tr>
+														<th>Name</th>
+														<th>Type</th>
+														<th class="last">Description</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr class="deep-level-0">
+														<td class="name"><code>ctxt</code></td>
+														<td class="type">
+															<code class="param-type">object</code>
+														</td>
+														<td class="description last">
+															<p>Koa context for <code>GET /contact-types</code> or <code>GET /contact-types/:id</code>.</p>
+														</td>
+													</tr>
+												</tbody>
+											</table>
 										</div>
 										<dl class="details">
 											<p class="tag-source">
 												<a href="source_bounded_contexts_masterdata_surfaces_query_main.js.html" class="button">View Source</a>
 												<span>
-													<a href="source_bounded_contexts_masterdata_surfaces_query_main.js.html">source/bounded_contexts/masterdata/surfaces/query/main.js</a>, <a href="source_bounded_contexts_masterdata_surfaces_query_main.js.html#line190">line 190</a>
+													<a href="source_bounded_contexts_masterdata_surfaces_query_main.js.html">source/bounded_contexts/masterdata/surfaces/query/main.js</a>, <a href="source_bounded_contexts_masterdata_surfaces_query_main.js.html#line206">line 206</a>
 												</span>
 											</p>
 										</dl>
@@ -612,23 +701,25 @@
 											<div class="column is-10">
 												<div class="columns">
 													<div class='param-desc column is-7'>
-														<ul>
-															<li>Nothing</li>
-														</ul>
+														<p>Resolves after the response has been written.</p>
 													</div>
 													<div class='column is-5 has-text-left'>
 														<label>Type: </label>
-														<code class="param-type">null</code>
+														<code class="param-type">Promise.&lt;void></code>
 													</div>
 												</div>
 											</div>
 										</div>
 										<h5>Example</h5>
-										<pre class="prettyprint"><code>// Retrieve all contact types
-$ curl -X GET -H "Content-Type: application/json" -b ./cookies.txt ${base_url}/api/v1/masterdata/contact-types/
+										<pre class="prettyprint"><code>// Invocation configuration [./servers/curl_example_data/api_v1_masterdata_contact_types.curl]:
+$ curl -X GET -H "Content-Type: application/json" -b ./cookies.txt "${base_url}/api/v1/masterdata/contact-types"
+// Equivalent invocation using the configuration file:
+$ curl --config ./servers/curl_example_data/api_v1_masterdata_contact_types.curl "${base_url}/api/v1/masterdata/contact-types"
 
-Array of contact types
-$</code></pre>
+// Invocation configuration [./servers/curl_example_data/api_v1_masterdata_contact_types_by_id.curl]:
+$ curl -X GET -H "Content-Type: application/json" -b ./cookies.txt "${base_url}/api/v1/masterdata/contact-types/${id}"
+// Equivalent invocation using the configuration file:
+$ curl --config ./servers/curl_example_data/api_v1_masterdata_contact_types_by_id.curl "${base_url}/api/v1/masterdata/contact-types/${id}"</code></pre>
 									</div>
 									<div class="member">
 										<h4 class="name" id="getGenders">
@@ -636,19 +727,43 @@ $</code></pre>
 											<span class='tag'>async</span>
 											<span class='tag'>private</span>
 											<span class="code-name">
-												getGenders<span class="signature">()</span><span class="type-signature"> &rarr; {null}</span>
+												getGenders<span class="signature">(ctxt)</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span>
 											</span>
 										</h4>
-										<p class="summary">
-										<p>Retrieves the genders available in the system</p>.</p>
+										<p class="summary">Handles <code>GET /genders</code> and <code>GET /genders/:id</code>.</p>
 										<div class="description">
-											<p>Retrieves the genders available in the system</p>
+											<p>Handles <code>GET /genders</code> and <code>GET /genders/:id</code>.
+												Fetches localized gender records. The optional <code>id</code> path parameter selects
+												one gender record.</p>
+										</div>
+										<h5>Parameters:</h5>
+										<div class="table-container">
+											<table class="params table">
+												<thead>
+													<tr>
+														<th>Name</th>
+														<th>Type</th>
+														<th class="last">Description</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr class="deep-level-0">
+														<td class="name"><code>ctxt</code></td>
+														<td class="type">
+															<code class="param-type">object</code>
+														</td>
+														<td class="description last">
+															<p>Koa context for <code>GET /genders</code> or <code>GET /genders/:id</code>.</p>
+														</td>
+													</tr>
+												</tbody>
+											</table>
 										</div>
 										<dl class="details">
 											<p class="tag-source">
 												<a href="source_bounded_contexts_masterdata_surfaces_query_main.js.html" class="button">View Source</a>
 												<span>
-													<a href="source_bounded_contexts_masterdata_surfaces_query_main.js.html">source/bounded_contexts/masterdata/surfaces/query/main.js</a>, <a href="source_bounded_contexts_masterdata_surfaces_query_main.js.html#line226">line 226</a>
+													<a href="source_bounded_contexts_masterdata_surfaces_query_main.js.html">source/bounded_contexts/masterdata/surfaces/query/main.js</a>, <a href="source_bounded_contexts_masterdata_surfaces_query_main.js.html#line251">line 251</a>
 												</span>
 											</p>
 										</dl>
@@ -657,23 +772,25 @@ $</code></pre>
 											<div class="column is-10">
 												<div class="columns">
 													<div class='param-desc column is-7'>
-														<ul>
-															<li>Nothing</li>
-														</ul>
+														<p>Resolves after the response has been written.</p>
 													</div>
 													<div class='column is-5 has-text-left'>
 														<label>Type: </label>
-														<code class="param-type">null</code>
+														<code class="param-type">Promise.&lt;void></code>
 													</div>
 												</div>
 											</div>
 										</div>
 										<h5>Example</h5>
-										<pre class="prettyprint"><code>// Retrieve all genders
-$ curl -X GET -H "Content-Type: application/json" -b ./cookies.txt ${base_url}/api/v1/masterdata/genders/
+										<pre class="prettyprint"><code>// Invocation configuration [./servers/curl_example_data/api_v1_masterdata_genders.curl]:
+$ curl -X GET -H "Content-Type: application/json" "${base_url}/api/v1/masterdata/genders"
+// Equivalent invocation using the configuration file:
+$ curl --config ./servers/curl_example_data/api_v1_masterdata_genders.curl "${base_url}/api/v1/masterdata/genders"
 
-Array of genders
-$</code></pre>
+// Invocation configuration [./servers/curl_example_data/api_v1_masterdata_genders_by_id.curl]:
+$ curl -X GET -H "Content-Type: application/json" "${base_url}/api/v1/masterdata/genders/${id}"
+// Equivalent invocation using the configuration file:
+$ curl --config ./servers/curl_example_data/api_v1_masterdata_genders_by_id.curl "${base_url}/api/v1/masterdata/genders/${id}"</code></pre>
 									</div>
 									<div class="member">
 										<h4 class="name" id="getLocales">
@@ -681,19 +798,43 @@ $</code></pre>
 											<span class='tag'>async</span>
 											<span class='tag'>private</span>
 											<span class="code-name">
-												getLocales<span class="signature">()</span><span class="type-signature"> &rarr; {null}</span>
+												getLocales<span class="signature">(ctxt)</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span>
 											</span>
 										</h4>
-										<p class="summary">
-										<p>Retrieves the locales available in the system</p>.</p>
+										<p class="summary">Handles <code>GET /locales</code> and <code>GET /locales/:id</code>.</p>
 										<div class="description">
-											<p>Retrieves the locales available in the system</p>
+											<p>Handles <code>GET /locales</code> and <code>GET /locales/:id</code>.
+												Fetches enabled locales and their labels in their own language.
+												The optional <code>id</code> path parameter selects one locale code.</p>
+										</div>
+										<h5>Parameters:</h5>
+										<div class="table-container">
+											<table class="params table">
+												<thead>
+													<tr>
+														<th>Name</th>
+														<th>Type</th>
+														<th class="last">Description</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr class="deep-level-0">
+														<td class="name"><code>ctxt</code></td>
+														<td class="type">
+															<code class="param-type">object</code>
+														</td>
+														<td class="description last">
+															<p>Koa context for <code>GET /locales</code> or <code>GET /locales/:id</code>.</p>
+														</td>
+													</tr>
+												</tbody>
+											</table>
 										</div>
 										<dl class="details">
 											<p class="tag-source">
 												<a href="source_bounded_contexts_masterdata_surfaces_query_main.js.html" class="button">View Source</a>
 												<span>
-													<a href="source_bounded_contexts_masterdata_surfaces_query_main.js.html">source/bounded_contexts/masterdata/surfaces/query/main.js</a>, <a href="source_bounded_contexts_masterdata_surfaces_query_main.js.html#line261">line 261</a>
+													<a href="source_bounded_contexts_masterdata_surfaces_query_main.js.html">source/bounded_contexts/masterdata/surfaces/query/main.js</a>, <a href="source_bounded_contexts_masterdata_surfaces_query_main.js.html#line295">line 295</a>
 												</span>
 											</p>
 										</dl>
@@ -702,23 +843,25 @@ $</code></pre>
 											<div class="column is-10">
 												<div class="columns">
 													<div class='param-desc column is-7'>
-														<ul>
-															<li>Nothing</li>
-														</ul>
+														<p>Resolves after the response has been written.</p>
 													</div>
 													<div class='column is-5 has-text-left'>
 														<label>Type: </label>
-														<code class="param-type">null</code>
+														<code class="param-type">Promise.&lt;void></code>
 													</div>
 												</div>
 											</div>
 										</div>
 										<h5>Example</h5>
-										<pre class="prettyprint"><code>// Retrieve all locales
-$ curl -X GET -H "Content-Type: application/json" -b ./cookies.txt ${base_url}/api/v1/masterdata/locales/
+										<pre class="prettyprint"><code>// Invocation configuration [./servers/curl_example_data/api_v1_masterdata_locales.curl]:
+$ curl -X GET -H "Content-Type: application/json" "${base_url}/api/v1/masterdata/locales"
+// Equivalent invocation using the configuration file:
+$ curl --config ./servers/curl_example_data/api_v1_masterdata_locales.curl "${base_url}/api/v1/masterdata/locales"
 
-Array of locales
-$</code></pre>
+// Invocation configuration [./servers/curl_example_data/api_v1_masterdata_locales_by_id.curl]:
+$ curl -X GET -H "Content-Type: application/json" "${base_url}/api/v1/masterdata/locales/${id}"
+// Equivalent invocation using the configuration file:
+$ curl --config ./servers/curl_example_data/api_v1_masterdata_locales_by_id.curl "${base_url}/api/v1/masterdata/locales/${id}"</code></pre>
 									</div>
 									<div class="member">
 										<h4 class="name" id="getCountryCodes">
@@ -726,19 +869,45 @@ $</code></pre>
 											<span class='tag'>async</span>
 											<span class='tag'>private</span>
 											<span class="code-name">
-												getCountryCodes<span class="signature">()</span><span class="type-signature"> &rarr; {null}</span>
+												getCountryCodes<span class="signature">(ctxt)</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span>
 											</span>
 										</h4>
-										<p class="summary">
-										<p>Retrieves the countries available in the system</p>.</p>
+										<p class="summary">Handles <code>GET /country-codes</code> and <code>GET /country-codes/:iso_code</code>.</p>
 										<div class="description">
-											<p>Retrieves the countries available in the system</p>
+											<p>Handles <code>GET /country-codes</code> and <code>GET /country-codes/:iso_code</code>.
+												Fetches enabled country codes for the request locale. The optional
+												<code>iso_code</code> path parameter selects one country.
+												Requires a session authorized by the <code>registered</code> RBAC middleware.
+											</p>
+										</div>
+										<h5>Parameters:</h5>
+										<div class="table-container">
+											<table class="params table">
+												<thead>
+													<tr>
+														<th>Name</th>
+														<th>Type</th>
+														<th class="last">Description</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr class="deep-level-0">
+														<td class="name"><code>ctxt</code></td>
+														<td class="type">
+															<code class="param-type">object</code>
+														</td>
+														<td class="description last">
+															<p>Koa context for <code>GET /country-codes</code> or <code>GET /country-codes/:iso_code</code>.</p>
+														</td>
+													</tr>
+												</tbody>
+											</table>
 										</div>
 										<dl class="details">
 											<p class="tag-source">
 												<a href="source_bounded_contexts_masterdata_surfaces_query_main.js.html" class="button">View Source</a>
 												<span>
-													<a href="source_bounded_contexts_masterdata_surfaces_query_main.js.html">source/bounded_contexts/masterdata/surfaces/query/main.js</a>, <a href="source_bounded_contexts_masterdata_surfaces_query_main.js.html#line296">line 296</a>
+													<a href="source_bounded_contexts_masterdata_surfaces_query_main.js.html">source/bounded_contexts/masterdata/surfaces/query/main.js</a>, <a href="source_bounded_contexts_masterdata_surfaces_query_main.js.html#line339">line 339</a>
 												</span>
 											</p>
 										</dl>
@@ -747,23 +916,25 @@ $</code></pre>
 											<div class="column is-10">
 												<div class="columns">
 													<div class='param-desc column is-7'>
-														<ul>
-															<li>Nothing</li>
-														</ul>
+														<p>Resolves after the response has been written.</p>
 													</div>
 													<div class='column is-5 has-text-left'>
 														<label>Type: </label>
-														<code class="param-type">null</code>
+														<code class="param-type">Promise.&lt;void></code>
 													</div>
 												</div>
 											</div>
 										</div>
 										<h5>Example</h5>
-										<pre class="prettyprint"><code>// Retrieve all countries
-$ curl -X GET -H "Content-Type: application/json" -b ./cookies.txt ${base_url}/api/v1/masterdata/country-code/
+										<pre class="prettyprint"><code>// Invocation configuration [./servers/curl_example_data/api_v1_masterdata_country_codes.curl]:
+$ curl -X GET -H "Content-Type: application/json" -b ./cookies.txt "${base_url}/api/v1/masterdata/country-codes"
+// Equivalent invocation using the configuration file:
+$ curl --config ./servers/curl_example_data/api_v1_masterdata_country_codes.curl "${base_url}/api/v1/masterdata/country-codes"
 
-Array of countries
-$</code></pre>
+// Invocation configuration [./servers/curl_example_data/api_v1_masterdata_country_codes_by_iso_code.curl]:
+$ curl -X GET -H "Content-Type: application/json" -b ./cookies.txt "${base_url}/api/v1/masterdata/country-codes/${iso_code}"
+// Equivalent invocation using the configuration file:
+$ curl --config ./servers/curl_example_data/api_v1_masterdata_country_codes_by_iso_code.curl "${base_url}/api/v1/masterdata/country-codes/${iso_code}"</code></pre>
 									</div>
 									<div class="member">
 										<h4 class="name" id="getSystemMessages">
@@ -771,19 +942,44 @@ $</code></pre>
 											<span class='tag'>async</span>
 											<span class='tag'>private</span>
 											<span class="code-name">
-												getSystemMessages<span class="signature">()</span><span class="type-signature"> &rarr; {null}</span>
+												getSystemMessages<span class="signature">(ctxt)</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span>
 											</span>
 										</h4>
-										<p class="summary">
-										<p>Retrieves the system messages available in the system</p>.</p>
+										<p class="summary">Handles <code>GET /system-messages</code> and <code>GET /system-messages/:messageCode</code>.</p>
 										<div class="description">
-											<p>Retrieves the system messages available in the system</p>
+											<p>Handles <code>GET /system-messages</code> and <code>GET /system-messages/:messageCode</code>.
+												Fetches localized system messages. The optional <code>messageCode</code> path
+												parameter is passed to the middleware as the master record identifier.
+												Requires a session authorized by the <code>registered</code> RBAC middleware.</p>
+										</div>
+										<h5>Parameters:</h5>
+										<div class="table-container">
+											<table class="params table">
+												<thead>
+													<tr>
+														<th>Name</th>
+														<th>Type</th>
+														<th class="last">Description</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr class="deep-level-0">
+														<td class="name"><code>ctxt</code></td>
+														<td class="type">
+															<code class="param-type">object</code>
+														</td>
+														<td class="description last">
+															<p>Koa context for <code>GET /system-messages</code> or <code>GET /system-messages/:messageCode</code>.</p>
+														</td>
+													</tr>
+												</tbody>
+											</table>
 										</div>
 										<dl class="details">
 											<p class="tag-source">
 												<a href="source_bounded_contexts_masterdata_surfaces_query_main.js.html" class="button">View Source</a>
 												<span>
-													<a href="source_bounded_contexts_masterdata_surfaces_query_main.js.html">source/bounded_contexts/masterdata/surfaces/query/main.js</a>, <a href="source_bounded_contexts_masterdata_surfaces_query_main.js.html#line331">line 331</a>
+													<a href="source_bounded_contexts_masterdata_surfaces_query_main.js.html">source/bounded_contexts/masterdata/surfaces/query/main.js</a>, <a href="source_bounded_contexts_masterdata_surfaces_query_main.js.html#line384">line 384</a>
 												</span>
 											</p>
 										</dl>
@@ -792,23 +988,25 @@ $</code></pre>
 											<div class="column is-10">
 												<div class="columns">
 													<div class='param-desc column is-7'>
-														<ul>
-															<li>Nothing</li>
-														</ul>
+														<p>Resolves after the response has been written.</p>
 													</div>
 													<div class='column is-5 has-text-left'>
 														<label>Type: </label>
-														<code class="param-type">null</code>
+														<code class="param-type">Promise.&lt;void></code>
 													</div>
 												</div>
 											</div>
 										</div>
 										<h5>Example</h5>
-										<pre class="prettyprint"><code>// Retrieve all system messages
-$ curl -X GET -H "Content-Type: application/json" -b ./cookies.txt ${base_url}/api/v1/masterdata/system-messages/
+										<pre class="prettyprint"><code>// Invocation configuration [./servers/curl_example_data/api_v1_masterdata_system_messages.curl]:
+$ curl -X GET -H "Content-Type: application/json" -b ./cookies.txt "${base_url}/api/v1/masterdata/system-messages"
+// Equivalent invocation using the configuration file:
+$ curl --config ./servers/curl_example_data/api_v1_masterdata_system_messages.curl "${base_url}/api/v1/masterdata/system-messages"
 
-Array of countries
-$</code></pre>
+// Invocation configuration [./servers/curl_example_data/api_v1_masterdata_system_messages_by_message_code.curl]:
+$ curl -X GET -H "Content-Type: application/json" -b ./cookies.txt "${base_url}/api/v1/masterdata/system-messages/${messageCode}"
+// Equivalent invocation using the configuration file:
+$ curl --config ./servers/curl_example_data/api_v1_masterdata_system_messages_by_message_code.curl "${base_url}/api/v1/masterdata/system-messages/${messageCode}"</code></pre>
 									</div>
 								</div>
 								<h2 class="subsection-title">Private Methods</h2>
@@ -880,7 +1078,7 @@ $</code></pre>
 											<p class="tag-source">
 												<a href="source_bounded_contexts_masterdata_surfaces_query_main.js.html" class="button">View Source</a>
 												<span>
-													<a href="source_bounded_contexts_masterdata_surfaces_query_main.js.html">source/bounded_contexts/masterdata/surfaces/query/main.js</a>, <a href="source_bounded_contexts_masterdata_surfaces_query_main.js.html#line369">line 369</a>
+													<a href="source_bounded_contexts_masterdata_surfaces_query_main.js.html">source/bounded_contexts/masterdata/surfaces/query/main.js</a>, <a href="source_bounded_contexts_masterdata_surfaces_query_main.js.html#line432">line 432</a>
 												</span>
 											</p>
 										</dl>

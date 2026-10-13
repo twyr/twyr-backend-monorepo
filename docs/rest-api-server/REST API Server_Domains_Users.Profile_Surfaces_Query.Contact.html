@@ -268,11 +268,6 @@
 							<li><a href="REST%20API%20Server_Ingress%20Surfaces.REST%20API.IngressSurfaceFactory.html">REST API Server/Ingress Surfaces/REST API/IngressSurfaceFactory</a></li>
 							<li><a href="REST%20API%20Server_Ingress%20Surfaces.REST%20API.RestApi.html">REST API Server/Ingress Surfaces/REST API/RestApi</a></li>
 						</ul>
-						<h3>Global</h3>
-						<ul>
-							<li><a href="global.html#createAuditLogMiddleware">createAuditLogMiddleware</a></li>
-							<li><a href="global.html#createErrorLogMiddleware">createErrorLogMiddleware</a></li>
-						</ul>
 					</div>
 					<div class="category">
 						<h2>REST API Server/Repositories/Init</h2>
@@ -430,6 +425,83 @@
 							</ul>
 							<div class='vertical-section'>
 								<h1>Methods</h1>
+								<h2 class="subsection-title">Constructor</h2>
+								<div class="members">
+									<div class="member">
+										<h4 class="name" id="constructor">
+											<a class="href-link" href="#constructor">#</a>
+											<span class="code-name">
+												constructor<span class="signature">(location, domainInterface)</span><span class="type-signature"> &rarr; {Contact}</span>
+											</span>
+										</h4>
+										<p class="summary">Initializes the Contact surface using its base class.</p>
+										<div class="description">
+											<p>Initializes the Contact surface using its base class.</p>
+										</div>
+										<h5>Parameters:</h5>
+										<div class="table-container">
+											<table class="params table">
+												<thead>
+													<tr>
+														<th>Name</th>
+														<th>Type</th>
+														<th class="last">Description</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr class="deep-level-0">
+														<td class="name"><code>location</code></td>
+														<td class="type">
+															<code class="param-type">string</code>
+														</td>
+														<td class="description last">
+															<p>Filesystem location of the artifact.</p>
+														</td>
+													</tr>
+													<tr class="deep-level-0">
+														<td class="name"><code>domainInterface</code></td>
+														<td class="type">
+															<code class="param-type">object</code>
+														</td>
+														<td class="description last">
+															<p>Domain APIs, repositories, models and event emitter.</p>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+										<dl class="details">
+											<dt class="tag-overrides">Overrides:</dt>
+											<dd class="tag-overrides">
+												<ul class="dummy">
+													<li>
+														UserBaseSurface#constructor
+													</li>
+												</ul>
+											</dd>
+											<p class="tag-source">
+												<a href="source_domains_users_bounded_contexts_profile_surfaces_query_contact.js.html" class="button">View Source</a>
+												<span>
+													<a href="source_domains_users_bounded_contexts_profile_surfaces_query_contact.js.html">source/domains/users/bounded_contexts/profile/surfaces/query/contact.js</a>, <a href="source_domains_users_bounded_contexts_profile_surfaces_query_contact.js.html#line30">line 30</a>
+												</span>
+											</p>
+										</dl>
+										<div class='columns method-parameter'>
+											<div class="column is-2"><label>Returns:</label></div>
+											<div class="column is-10">
+												<div class="columns">
+													<div class='param-desc column is-7'>
+														<p>A new Contact instance.</p>
+													</div>
+													<div class='column is-5 has-text-left'>
+														<label>Type: </label>
+														<code class="param-type">Contact</code>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
 								<h2 class="subsection-title">Lifecycle Methods</h2>
 								<div class="members">
 									<div class="member">
@@ -437,15 +509,12 @@
 											<a class="href-link" href="#load">#</a>
 											<span class='tag'>async</span>
 											<span class="code-name">
-												load<span class="signature">()</span><span class="type-signature"> &rarr; {null}</span>
+												load<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span>
 											</span>
 										</h4>
-										<p class="summary">
-										<p>Sets the user role in the request headers for access control purposes
-											by passing it in to the base class load method</p>.</p>
+										<p class="summary">Loads the inherited surface infrastructure for Contact.</p>
 										<div class="description">
-											<p>Sets the user role in the request headers for access control purposes
-												by passing it in to the base class load method</p>
+											<p>Loads the inherited surface infrastructure for Contact.</p>
 										</div>
 										<dl class="details">
 											<dt class="tag-overrides">Overrides:</dt>
@@ -459,7 +528,7 @@
 											<p class="tag-source">
 												<a href="source_domains_users_bounded_contexts_profile_surfaces_query_contact.js.html" class="button">View Source</a>
 												<span>
-													<a href="source_domains_users_bounded_contexts_profile_surfaces_query_contact.js.html">source/domains/users/bounded_contexts/profile/surfaces/query/contact.js</a>, <a href="source_domains_users_bounded_contexts_profile_surfaces_query_contact.js.html#line42">line 42</a>
+													<a href="source_domains_users_bounded_contexts_profile_surfaces_query_contact.js.html">source/domains/users/bounded_contexts/profile/surfaces/query/contact.js</a>, <a href="source_domains_users_bounded_contexts_profile_surfaces_query_contact.js.html#line54">line 54</a>
 												</span>
 											</p>
 										</dl>
@@ -468,13 +537,11 @@
 											<div class="column is-10">
 												<div class="columns">
 													<div class='param-desc column is-7'>
-														<ul>
-															<li>Nothing</li>
-														</ul>
+														<p>Resolves after loading completes.</p>
 													</div>
 													<div class='column is-5 has-text-left'>
 														<label>Type: </label>
-														<code class="param-type">null</code>
+														<code class="param-type">Promise.&lt;void></code>
 													</div>
 												</div>
 											</div>
@@ -487,16 +554,18 @@
 										<h4 class="name" id="_registerSurface">
 											<a class="href-link" href="#_registerSurface">#</a>
 											<span class='tag'>async</span>
+											<span class='tag'>protected</span>
 											<span class="code-name">
-												_registerSurface<span class="signature">()</span><span class="type-signature"> &rarr; {null}</span>
+												_registerSurface<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;object>>}</span>
 											</span>
 										</h4>
 										<p class="summary">
-										<p>Adds the route definitions and handlers for this surface to
-											the Rest API Router</p>.</p>
+										<p>Returns inherited and local route definitions, including their handlers
+											and any authorization middleware.</p>
+										</p>
 										<div class="description">
-											<p>Adds the route definitions and handlers for this surface to
-												the Rest API Router</p>
+											<p>Returns inherited and local route definitions, including their handlers
+												and any authorization middleware.</p>
 										</div>
 										<dl class="details">
 											<dt class="tag-overrides">Overrides:</dt>
@@ -510,7 +579,7 @@
 											<p class="tag-source">
 												<a href="source_domains_users_bounded_contexts_profile_surfaces_query_contact.js.html" class="button">View Source</a>
 												<span>
-													<a href="source_domains_users_bounded_contexts_profile_surfaces_query_contact.js.html">source/domains/users/bounded_contexts/profile/surfaces/query/contact.js</a>, <a href="source_domains_users_bounded_contexts_profile_surfaces_query_contact.js.html#line65">line 65</a>
+													<a href="source_domains_users_bounded_contexts_profile_surfaces_query_contact.js.html">source/domains/users/bounded_contexts/profile/surfaces/query/contact.js</a>, <a href="source_domains_users_bounded_contexts_profile_surfaces_query_contact.js.html#line77">line 77</a>
 												</span>
 											</p>
 										</dl>
@@ -519,13 +588,11 @@
 											<div class="column is-10">
 												<div class="columns">
 													<div class='param-desc column is-7'>
-														<ul>
-															<li>The routes to be added to the Rest API Router</li>
-														</ul>
+														<p>Resolves to the route definitions exposed by the surface.</p>
 													</div>
 													<div class='column is-5 has-text-left'>
 														<label>Type: </label>
-														<code class="param-type">null</code>
+														<code class="param-type">Promise.&lt;Array.&lt;object>></code>
 													</div>
 												</div>
 											</div>
@@ -535,8 +602,9 @@
 										<h4 class="name" id="_unregisterSurface">
 											<a class="href-link" href="#_unregisterSurface">#</a>
 											<span class='tag'>async</span>
+											<span class='tag'>protected</span>
 											<span class="code-name">
-												_unregisterSurface<span class="signature">()</span><span class="type-signature"> &rarr; {null}</span>
+												_unregisterSurface<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span>
 											</span>
 										</h4>
 										<p class="summary">
@@ -558,7 +626,7 @@
 											<p class="tag-source">
 												<a href="source_domains_users_bounded_contexts_profile_surfaces_query_contact.js.html" class="button">View Source</a>
 												<span>
-													<a href="source_domains_users_bounded_contexts_profile_surfaces_query_contact.js.html">source/domains/users/bounded_contexts/profile/surfaces/query/contact.js</a>, <a href="source_domains_users_bounded_contexts_profile_surfaces_query_contact.js.html#line103">line 103</a>
+													<a href="source_domains_users_bounded_contexts_profile_surfaces_query_contact.js.html">source/domains/users/bounded_contexts/profile/surfaces/query/contact.js</a>, <a href="source_domains_users_bounded_contexts_profile_surfaces_query_contact.js.html#line118">line 118</a>
 												</span>
 											</p>
 										</dl>
@@ -567,13 +635,11 @@
 											<div class="column is-10">
 												<div class="columns">
 													<div class='param-desc column is-7'>
-														<ul>
-															<li>Nothing</li>
-														</ul>
+														<p>Resolves after registration changes complete.</p>
 													</div>
 													<div class='column is-5 has-text-left'>
 														<label>Type: </label>
-														<code class="param-type">null</code>
+														<code class="param-type">Promise.&lt;void></code>
 													</div>
 												</div>
 											</div>
@@ -588,18 +654,44 @@
 											<span class='tag'>async</span>
 											<span class='tag'>private</span>
 											<span class="code-name">
-												getContact<span class="signature">()</span><span class="type-signature"> &rarr; {null}</span>
+												getContact<span class="signature">(ctxt)</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span>
 											</span>
 										</h4>
-										<p class="summary">Retrieves the contact data associated with the logged in user.</p>
+										<p class="summary">Handles <code>GET /</code> and <code>GET /:contactId</code>.</p>
 										<div class="description">
-											<p>Retrieves the contact data associated with the logged in user.</p>
+											<p>Handles <code>GET /</code> and <code>GET /:contactId</code>.
+												Reads contact data for the authenticated user and serializes the result.
+												The optional contactId path parameter selects one record; omitting it lists records.
+												Requires a session authorized by the <code>registered</code> RBAC middleware.</p>
+										</div>
+										<h5>Parameters:</h5>
+										<div class="table-container">
+											<table class="params table">
+												<thead>
+													<tr>
+														<th>Name</th>
+														<th>Type</th>
+														<th class="last">Description</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr class="deep-level-0">
+														<td class="name"><code>ctxt</code></td>
+														<td class="type">
+															<code class="param-type">object</code>
+														</td>
+														<td class="description last">
+															<p>Koa context for <code>GET /</code> or <code>GET /:contactId</code>.</p>
+														</td>
+													</tr>
+												</tbody>
+											</table>
 										</div>
 										<dl class="details">
 											<p class="tag-source">
 												<a href="source_domains_users_bounded_contexts_profile_surfaces_query_contact.js.html" class="button">View Source</a>
 												<span>
-													<a href="source_domains_users_bounded_contexts_profile_surfaces_query_contact.js.html">source/domains/users/bounded_contexts/profile/surfaces/query/contact.js</a>, <a href="source_domains_users_bounded_contexts_profile_surfaces_query_contact.js.html#line127">line 127</a>
+													<a href="source_domains_users_bounded_contexts_profile_surfaces_query_contact.js.html">source/domains/users/bounded_contexts/profile/surfaces/query/contact.js</a>, <a href="source_domains_users_bounded_contexts_profile_surfaces_query_contact.js.html#line143">line 143</a>
 												</span>
 											</p>
 										</dl>
@@ -608,20 +700,25 @@
 											<div class="column is-10">
 												<div class="columns">
 													<div class='param-desc column is-7'>
-														<ul>
-															<li>Nothing</li>
-														</ul>
+														<p>Resolves after the response has been written.</p>
 													</div>
 													<div class='column is-5 has-text-left'>
 														<label>Type: </label>
-														<code class="param-type">null</code>
+														<code class="param-type">Promise.&lt;void></code>
 													</div>
 												</div>
 											</div>
 										</div>
-										<h5>Examples</h5>
-										<pre class="prettyprint"><code>$ curl -X GET -H "Content-Type: application/json" -b ./cookies.txt ${base_url}/api/v1/users/profile/contact/</code></pre>
-										<pre class="prettyprint"><code>$ curl -X GET -H "Content-Type: application/json" -b ./cookies.txt ${base_url}/api/v1/users/profile/contact/${contactId}</code></pre>
+										<h5>Example</h5>
+										<pre class="prettyprint"><code>// Invocation configuration [./servers/curl_example_data/api_v1_users_profile_contact_read.curl]:
+$ curl -X GET -H "Content-Type: application/json" -b ./cookies.txt "${base_url}/api/v1/users/profile/contact/"
+// Equivalent invocation using the configuration file:
+$ curl --config ./servers/curl_example_data/api_v1_users_profile_contact_read.curl "${base_url}/api/v1/users/profile/contact/"
+
+// Invocation configuration [./servers/curl_example_data/api_v1_users_profile_contact_by_contact_id.curl]:
+$ curl -X GET -H "Content-Type: application/json" -b ./cookies.txt "${base_url}/api/v1/users/profile/contact/${contactId}"
+// Equivalent invocation using the configuration file:
+$ curl --config ./servers/curl_example_data/api_v1_users_profile_contact_by_contact_id.curl "${base_url}/api/v1/users/profile/contact/${contactId}"</code></pre>
 									</div>
 								</div>
 							</div>

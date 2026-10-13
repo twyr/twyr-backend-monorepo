@@ -268,11 +268,6 @@
 							<li><a href="REST%20API%20Server_Ingress%20Surfaces.REST%20API.IngressSurfaceFactory.html">REST API Server/Ingress Surfaces/REST API/IngressSurfaceFactory</a></li>
 							<li><a href="REST%20API%20Server_Ingress%20Surfaces.REST%20API.RestApi.html">REST API Server/Ingress Surfaces/REST API/RestApi</a></li>
 						</ul>
-						<h3>Global</h3>
-						<ul>
-							<li><a href="global.html#createAuditLogMiddleware">createAuditLogMiddleware</a></li>
-							<li><a href="global.html#createErrorLogMiddleware">createErrorLogMiddleware</a></li>
-						</ul>
 					</div>
 					<div class="category">
 						<h2>REST API Server/Repositories/Init</h2>
@@ -430,14 +425,92 @@
 							</ul>
 							<div class='vertical-section'>
 								<h1>Methods</h1>
+								<h2 class="subsection-title">Constructor</h2>
+								<div class="members">
+									<div class="member">
+										<h4 class="name" id="constructor">
+											<a class="href-link" href="#constructor">#</a>
+											<span class="code-name">
+												constructor<span class="signature">(location, domainInterface)</span><span class="type-signature"> &rarr; {Masterdata}</span>
+											</span>
+										</h4>
+										<p class="summary">Initializes the Masterdata middleware using its base class.</p>
+										<div class="description">
+											<p>Initializes the Masterdata middleware using its base class.</p>
+										</div>
+										<h5>Parameters:</h5>
+										<div class="table-container">
+											<table class="params table">
+												<thead>
+													<tr>
+														<th>Name</th>
+														<th>Type</th>
+														<th class="last">Description</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr class="deep-level-0">
+														<td class="name"><code>location</code></td>
+														<td class="type">
+															<code class="param-type">string</code>
+														</td>
+														<td class="description last">
+															<p>Filesystem location of the artifact.</p>
+														</td>
+													</tr>
+													<tr class="deep-level-0">
+														<td class="name"><code>domainInterface</code></td>
+														<td class="type">
+															<code class="param-type">object</code>
+														</td>
+														<td class="description last">
+															<p>Domain APIs, repositories, models and event emitter.</p>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+										<dl class="details">
+											<dt class="tag-overrides">Overrides:</dt>
+											<dd class="tag-overrides">
+												<ul class="dummy">
+													<li>
+														BaseMiddleware#constructor
+													</li>
+												</ul>
+											</dd>
+											<p class="tag-source">
+												<a href="source_bounded_contexts_masterdata_middlewares_masterdata.js.html" class="button">View Source</a>
+												<span>
+													<a href="source_bounded_contexts_masterdata_middlewares_masterdata.js.html">source/bounded_contexts/masterdata/middlewares/masterdata.js</a>, <a href="source_bounded_contexts_masterdata_middlewares_masterdata.js.html#line31">line 31</a>
+												</span>
+											</p>
+										</dl>
+										<div class='columns method-parameter'>
+											<div class="column is-2"><label>Returns:</label></div>
+											<div class="column is-10">
+												<div class="columns">
+													<div class='param-desc column is-7'>
+														<p>A new Masterdata instance.</p>
+													</div>
+													<div class='column is-5 has-text-left'>
+														<label>Type: </label>
+														<code class="param-type">Masterdata</code>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
 								<h2 class="subsection-title">Protected Methods, to be overridden by derived classes</h2>
 								<div class="members">
 									<div class="member">
 										<h4 class="name" id="_registerApi">
 											<a class="href-link" href="#_registerApi">#</a>
 											<span class='tag'>async</span>
+											<span class='tag'>protected</span>
 											<span class="code-name">
-												_registerApi<span class="signature">()</span><span class="type-signature"> &rarr; {null}</span>
+												_registerApi<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span>
 											</span>
 										</h4>
 										<p class="summary">
@@ -457,7 +530,7 @@
 											<p class="tag-source">
 												<a href="source_bounded_contexts_masterdata_middlewares_masterdata.js.html" class="button">View Source</a>
 												<span>
-													<a href="source_bounded_contexts_masterdata_middlewares_masterdata.js.html">source/bounded_contexts/masterdata/middlewares/masterdata.js</a>, <a href="source_bounded_contexts_masterdata_middlewares_masterdata.js.html#line43">line 43</a>
+													<a href="source_bounded_contexts_masterdata_middlewares_masterdata.js.html">source/bounded_contexts/masterdata/middlewares/masterdata.js</a>, <a href="source_bounded_contexts_masterdata_middlewares_masterdata.js.html#line55">line 55</a>
 												</span>
 											</p>
 										</dl>
@@ -466,13 +539,11 @@
 											<div class="column is-10">
 												<div class="columns">
 													<div class='param-desc column is-7'>
-														<ul>
-															<li>The array of API to be registered</li>
-														</ul>
+														<p>Resolves after registration changes complete.</p>
 													</div>
 													<div class='column is-5 has-text-left'>
 														<label>Type: </label>
-														<code class="param-type">null</code>
+														<code class="param-type">Promise.&lt;void></code>
 													</div>
 												</div>
 											</div>
@@ -482,8 +553,9 @@
 										<h4 class="name" id="_unregisterApi">
 											<a class="href-link" href="#_unregisterApi">#</a>
 											<span class='tag'>async</span>
+											<span class='tag'>protected</span>
 											<span class="code-name">
-												_unregisterApi<span class="signature">()</span><span class="type-signature"> &rarr; {null}</span>
+												_unregisterApi<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span>
 											</span>
 										</h4>
 										<p class="summary">
@@ -503,7 +575,7 @@
 											<p class="tag-source">
 												<a href="source_bounded_contexts_masterdata_middlewares_masterdata.js.html" class="button">View Source</a>
 												<span>
-													<a href="source_bounded_contexts_masterdata_middlewares_masterdata.js.html">source/bounded_contexts/masterdata/middlewares/masterdata.js</a>, <a href="source_bounded_contexts_masterdata_middlewares_masterdata.js.html#line116">line 116</a>
+													<a href="source_bounded_contexts_masterdata_middlewares_masterdata.js.html">source/bounded_contexts/masterdata/middlewares/masterdata.js</a>, <a href="source_bounded_contexts_masterdata_middlewares_masterdata.js.html#line134">line 134</a>
 												</span>
 											</p>
 										</dl>
@@ -512,13 +584,11 @@
 											<div class="column is-10">
 												<div class="columns">
 													<div class='param-desc column is-7'>
-														<ul>
-															<li>Nothing</li>
-														</ul>
+														<p>Resolves after registration changes complete.</p>
 													</div>
 													<div class='column is-5 has-text-left'>
 														<label>Type: </label>
-														<code class="param-type">null</code>
+														<code class="param-type">Promise.&lt;void></code>
 													</div>
 												</div>
 											</div>
@@ -576,7 +646,7 @@
 											<p class="tag-source">
 												<a href="source_bounded_contexts_masterdata_middlewares_masterdata.js.html" class="button">View Source</a>
 												<span>
-													<a href="source_bounded_contexts_masterdata_middlewares_masterdata.js.html">source/bounded_contexts/masterdata/middlewares/masterdata.js</a>, <a href="source_bounded_contexts_masterdata_middlewares_masterdata.js.html#line189">line 189</a>
+													<a href="source_bounded_contexts_masterdata_middlewares_masterdata.js.html">source/bounded_contexts/masterdata/middlewares/masterdata.js</a>, <a href="source_bounded_contexts_masterdata_middlewares_masterdata.js.html#line213">line 213</a>
 												</span>
 											</p>
 										</dl>
@@ -644,7 +714,7 @@
 											<p class="tag-source">
 												<a href="source_bounded_contexts_masterdata_middlewares_masterdata.js.html" class="button">View Source</a>
 												<span>
-													<a href="source_bounded_contexts_masterdata_middlewares_masterdata.js.html">source/bounded_contexts/masterdata/middlewares/masterdata.js</a>, <a href="source_bounded_contexts_masterdata_middlewares_masterdata.js.html#line222">line 222</a>
+													<a href="source_bounded_contexts_masterdata_middlewares_masterdata.js.html">source/bounded_contexts/masterdata/middlewares/masterdata.js</a>, <a href="source_bounded_contexts_masterdata_middlewares_masterdata.js.html#line250">line 250</a>
 												</span>
 											</p>
 										</dl>
@@ -703,7 +773,7 @@
 											<p class="tag-source">
 												<a href="source_bounded_contexts_masterdata_middlewares_masterdata.js.html" class="button">View Source</a>
 												<span>
-													<a href="source_bounded_contexts_masterdata_middlewares_masterdata.js.html">source/bounded_contexts/masterdata/middlewares/masterdata.js</a>, <a href="source_bounded_contexts_masterdata_middlewares_masterdata.js.html#line255">line 255</a>
+													<a href="source_bounded_contexts_masterdata_middlewares_masterdata.js.html">source/bounded_contexts/masterdata/middlewares/masterdata.js</a>, <a href="source_bounded_contexts_masterdata_middlewares_masterdata.js.html#line287">line 287</a>
 												</span>
 											</p>
 										</dl>
@@ -771,7 +841,7 @@
 											<p class="tag-source">
 												<a href="source_bounded_contexts_masterdata_middlewares_masterdata.js.html" class="button">View Source</a>
 												<span>
-													<a href="source_bounded_contexts_masterdata_middlewares_masterdata.js.html">source/bounded_contexts/masterdata/middlewares/masterdata.js</a>, <a href="source_bounded_contexts_masterdata_middlewares_masterdata.js.html#line290">line 290</a>
+													<a href="source_bounded_contexts_masterdata_middlewares_masterdata.js.html">source/bounded_contexts/masterdata/middlewares/masterdata.js</a>, <a href="source_bounded_contexts_masterdata_middlewares_masterdata.js.html#line326">line 326</a>
 												</span>
 											</p>
 										</dl>
@@ -839,7 +909,7 @@
 											<p class="tag-source">
 												<a href="source_bounded_contexts_masterdata_middlewares_masterdata.js.html" class="button">View Source</a>
 												<span>
-													<a href="source_bounded_contexts_masterdata_middlewares_masterdata.js.html">source/bounded_contexts/masterdata/middlewares/masterdata.js</a>, <a href="source_bounded_contexts_masterdata_middlewares_masterdata.js.html#line327">line 327</a>
+													<a href="source_bounded_contexts_masterdata_middlewares_masterdata.js.html">source/bounded_contexts/masterdata/middlewares/masterdata.js</a>, <a href="source_bounded_contexts_masterdata_middlewares_masterdata.js.html#line367">line 367</a>
 												</span>
 											</p>
 										</dl>
@@ -946,7 +1016,7 @@
 											<p class="tag-source">
 												<a href="source_bounded_contexts_masterdata_middlewares_masterdata.js.html" class="button">View Source</a>
 												<span>
-													<a href="source_bounded_contexts_masterdata_middlewares_masterdata.js.html">source/bounded_contexts/masterdata/middlewares/masterdata.js</a>, <a href="source_bounded_contexts_masterdata_middlewares_masterdata.js.html#line363">line 363</a>
+													<a href="source_bounded_contexts_masterdata_middlewares_masterdata.js.html">source/bounded_contexts/masterdata/middlewares/masterdata.js</a>, <a href="source_bounded_contexts_masterdata_middlewares_masterdata.js.html#line407">line 407</a>
 												</span>
 											</p>
 										</dl>

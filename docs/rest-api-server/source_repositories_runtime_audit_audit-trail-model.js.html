@@ -268,11 +268,6 @@
 							<li><a href="REST%20API%20Server_Ingress%20Surfaces.REST%20API.IngressSurfaceFactory.html">REST API Server/Ingress Surfaces/REST API/IngressSurfaceFactory</a></li>
 							<li><a href="REST%20API%20Server_Ingress%20Surfaces.REST%20API.RestApi.html">REST API Server/Ingress Surfaces/REST API/RestApi</a></li>
 						</ul>
-						<h3>Global</h3>
-						<ul>
-							<li><a href="global.html#createAuditLogMiddleware">createAuditLogMiddleware</a></li>
-							<li><a href="global.html#createErrorLogMiddleware">createErrorLogMiddleware</a></li>
-						</ul>
 					</div>
 					<div class="category">
 						<h2>REST API Server/Repositories/Init</h2>
@@ -412,12 +407,14 @@ export default class ModelFactory {
 	 * @returns {Mongoose.Model} - The UserAuditTrail Model instance.
 	 */
 	static async createInstance(connectionInstance) {
+		// Step 1: Reuse the audit model already registered on this connection.
 		// eslint-disable-next-line security/detect-object-injection
 		if (connectionInstance.models[MODEL_NAME]) {
 			// eslint-disable-next-line security/detect-object-injection
 			return connectionInstance.models[MODEL_NAME];
 		}
 
+		// Step 2: Define the audit-trail schema and its collection settings.
 		let mongoose = await import('mongoose');
 		mongoose = mongoose['default'];
 
@@ -465,6 +462,7 @@ export default class ModelFactory {
 			}
 		);
 
+		// Step 3: Register the schema on the supplied connection and return the model.
 		const UserAuditTrailModel = connectionInstance.model(
 			MODEL_NAME,
 			UserAuditTrailSchema,

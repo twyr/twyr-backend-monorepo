@@ -268,11 +268,6 @@
 							<li><a href="REST%20API%20Server_Ingress%20Surfaces.REST%20API.IngressSurfaceFactory.html">REST API Server/Ingress Surfaces/REST API/IngressSurfaceFactory</a></li>
 							<li><a href="REST%20API%20Server_Ingress%20Surfaces.REST%20API.RestApi.html">REST API Server/Ingress Surfaces/REST API/RestApi</a></li>
 						</ul>
-						<h3>Global</h3>
-						<ul>
-							<li><a href="global.html#createAuditLogMiddleware">createAuditLogMiddleware</a></li>
-							<li><a href="global.html#createErrorLogMiddleware">createErrorLogMiddleware</a></li>
-						</ul>
 					</div>
 					<div class="category">
 						<h2>REST API Server/Repositories/Init</h2>
@@ -430,14 +425,92 @@
 							</ul>
 							<div class='vertical-section'>
 								<h1>Methods</h1>
+								<h2 class="subsection-title">Constructor</h2>
+								<div class="members">
+									<div class="member">
+										<h4 class="name" id="constructor">
+											<a class="href-link" href="#constructor">#</a>
+											<span class="code-name">
+												constructor<span class="signature">(location, domainInterface)</span><span class="type-signature"> &rarr; {Session}</span>
+											</span>
+										</h4>
+										<p class="summary">Initializes the Session event handler using its base class.</p>
+										<div class="description">
+											<p>Initializes the Session event handler using its base class.</p>
+										</div>
+										<h5>Parameters:</h5>
+										<div class="table-container">
+											<table class="params table">
+												<thead>
+													<tr>
+														<th>Name</th>
+														<th>Type</th>
+														<th class="last">Description</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr class="deep-level-0">
+														<td class="name"><code>location</code></td>
+														<td class="type">
+															<code class="param-type">string</code>
+														</td>
+														<td class="description last">
+															<p>Filesystem location of the artifact.</p>
+														</td>
+													</tr>
+													<tr class="deep-level-0">
+														<td class="name"><code>domainInterface</code></td>
+														<td class="type">
+															<code class="param-type">object</code>
+														</td>
+														<td class="description last">
+															<p>Domain APIs, repositories, models and event emitter.</p>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+										<dl class="details">
+											<dt class="tag-overrides">Overrides:</dt>
+											<dd class="tag-overrides">
+												<ul class="dummy">
+													<li>
+														UserBaseMiddleware#constructor
+													</li>
+												</ul>
+											</dd>
+											<p class="tag-source">
+												<a href="source_domains_system_admin_bounded_contexts_session_manager_event_handlers_session.js.html" class="button">View Source</a>
+												<span>
+													<a href="source_domains_system_admin_bounded_contexts_session_manager_event_handlers_session.js.html">source/domains/system_admin/bounded_contexts/session_manager/event_handlers/session.js</a>, <a href="source_domains_system_admin_bounded_contexts_session_manager_event_handlers_session.js.html#line31">line 31</a>
+												</span>
+											</p>
+										</dl>
+										<div class='columns method-parameter'>
+											<div class="column is-2"><label>Returns:</label></div>
+											<div class="column is-10">
+												<div class="columns">
+													<div class='param-desc column is-7'>
+														<p>A new Session instance.</p>
+													</div>
+													<div class='column is-5 has-text-left'>
+														<label>Type: </label>
+														<code class="param-type">Session</code>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
 								<h2 class="subsection-title">Protected Methods, to be overridden by derived classes</h2>
 								<div class="members">
 									<div class="member">
 										<h4 class="name" id="_registerHandlers">
 											<a class="href-link" href="#_registerHandlers">#</a>
 											<span class='tag'>async</span>
+											<span class='tag'>protected</span>
 											<span class="code-name">
-												_registerHandlers<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;void>|undefined}</span>
+												_registerHandlers<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span>
 											</span>
 										</h4>
 										<p class="summary">Registers the user session event handlers with the domain event emitter.</p>
@@ -456,7 +529,7 @@
 											<p class="tag-source">
 												<a href="source_domains_system_admin_bounded_contexts_session_manager_event_handlers_session.js.html" class="button">View Source</a>
 												<span>
-													<a href="source_domains_system_admin_bounded_contexts_session_manager_event_handlers_session.js.html">source/domains/system_admin/bounded_contexts/session_manager/event_handlers/session.js</a>, <a href="source_domains_system_admin_bounded_contexts_session_manager_event_handlers_session.js.html#line43">line 43</a>
+													<a href="source_domains_system_admin_bounded_contexts_session_manager_event_handlers_session.js.html">source/domains/system_admin/bounded_contexts/session_manager/event_handlers/session.js</a>, <a href="source_domains_system_admin_bounded_contexts_session_manager_event_handlers_session.js.html#line55">line 55</a>
 												</span>
 											</p>
 										</dl>
@@ -465,13 +538,11 @@
 											<div class="column is-10">
 												<div class="columns">
 													<div class='param-desc column is-7'>
-														<p>Resolves when handler registration completes.</p>
+														<p>Resolves after registration changes complete.</p>
 													</div>
 													<div class='column is-5 has-text-left'>
 														<label>Type: </label>
 														<code class="param-type">Promise.&lt;void></code>
-														|
-														<code class="param-type">undefined</code>
 													</div>
 												</div>
 											</div>
@@ -481,8 +552,9 @@
 										<h4 class="name" id="_unregisterHandlers">
 											<a class="href-link" href="#_unregisterHandlers">#</a>
 											<span class='tag'>async</span>
+											<span class='tag'>protected</span>
 											<span class="code-name">
-												_unregisterHandlers<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;void>|undefined}</span>
+												_unregisterHandlers<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span>
 											</span>
 										</h4>
 										<p class="summary">Removes the user session event handlers from the domain event emitter.</p>
@@ -501,7 +573,7 @@
 											<p class="tag-source">
 												<a href="source_domains_system_admin_bounded_contexts_session_manager_event_handlers_session.js.html" class="button">View Source</a>
 												<span>
-													<a href="source_domains_system_admin_bounded_contexts_session_manager_event_handlers_session.js.html">source/domains/system_admin/bounded_contexts/session_manager/event_handlers/session.js</a>, <a href="source_domains_system_admin_bounded_contexts_session_manager_event_handlers_session.js.html#line99">line 99</a>
+													<a href="source_domains_system_admin_bounded_contexts_session_manager_event_handlers_session.js.html">source/domains/system_admin/bounded_contexts/session_manager/event_handlers/session.js</a>, <a href="source_domains_system_admin_bounded_contexts_session_manager_event_handlers_session.js.html#line117">line 117</a>
 												</span>
 											</p>
 										</dl>
@@ -510,13 +582,11 @@
 											<div class="column is-10">
 												<div class="columns">
 													<div class='param-desc column is-7'>
-														<p>Resolves when handler deregistration completes.</p>
+														<p>Resolves after registration changes complete.</p>
 													</div>
 													<div class='column is-5 has-text-left'>
 														<label>Type: </label>
 														<code class="param-type">Promise.&lt;void></code>
-														|
-														<code class="param-type">undefined</code>
 													</div>
 												</div>
 											</div>
@@ -534,13 +604,11 @@
 												postLogoutCleanup<span class="signature">(eventData)</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span>
 											</span>
 										</h4>
-										<p class="summary">
-										<p>Deletes the cached user session snapshot after a logout-triggered
-											cache invalidation event.</p>
-										</p>
+										<p class="summary">Deletes the cached session snapshot for the event user and logs completion.</p>
 										<div class="description">
-											<p>Deletes the cached user session snapshot after a logout-triggered
-												cache invalidation event.</p>
+											<p>Deletes the cached session snapshot for the event user and logs completion.
+												Runs when the domain emits its cache invalidation event, including after logout
+												and profile, contact, or locale changes.</p>
 										</div>
 										<h5>Parameters:</h5>
 										<div class="table-container">
@@ -578,7 +646,7 @@
 											<p class="tag-source">
 												<a href="source_domains_system_admin_bounded_contexts_session_manager_event_handlers_session.js.html" class="button">View Source</a>
 												<span>
-													<a href="source_domains_system_admin_bounded_contexts_session_manager_event_handlers_session.js.html">source/domains/system_admin/bounded_contexts/session_manager/event_handlers/session.js</a>, <a href="source_domains_system_admin_bounded_contexts_session_manager_event_handlers_session.js.html#line154">line 154</a>
+													<a href="source_domains_system_admin_bounded_contexts_session_manager_event_handlers_session.js.html">source/domains/system_admin/bounded_contexts/session_manager/event_handlers/session.js</a>, <a href="source_domains_system_admin_bounded_contexts_session_manager_event_handlers_session.js.html#line178">line 178</a>
 												</span>
 											</p>
 										</dl>

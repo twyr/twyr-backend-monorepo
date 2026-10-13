@@ -268,11 +268,6 @@
 							<li><a href="REST%20API%20Server_Ingress%20Surfaces.REST%20API.IngressSurfaceFactory.html">REST API Server/Ingress Surfaces/REST API/IngressSurfaceFactory</a></li>
 							<li><a href="REST%20API%20Server_Ingress%20Surfaces.REST%20API.RestApi.html">REST API Server/Ingress Surfaces/REST API/RestApi</a></li>
 						</ul>
-						<h3>Global</h3>
-						<ul>
-							<li><a href="global.html#createAuditLogMiddleware">createAuditLogMiddleware</a></li>
-							<li><a href="global.html#createErrorLogMiddleware">createErrorLogMiddleware</a></li>
-						</ul>
 					</div>
 					<div class="category">
 						<h2>REST API Server/Repositories/Init</h2>
@@ -432,9 +427,84 @@
 								<h1>Methods</h1>
 								<div class="members">
 									<div class="member">
+										<h4 class="name" id="constructor">
+											<a class="href-link" href="#constructor">#</a>
+											<span class="code-name">
+												constructor<span class="signature">(location, domainInterface)</span><span class="type-signature"> &rarr; {SystemAdminBaseSurface}</span>
+											</span>
+										</h4>
+										<p class="summary">Initializes the SystemAdminBaseSurface surface using its base class.</p>
+										<div class="description">
+											<p>Initializes the SystemAdminBaseSurface surface using its base class.</p>
+										</div>
+										<h5>Parameters:</h5>
+										<div class="table-container">
+											<table class="params table">
+												<thead>
+													<tr>
+														<th>Name</th>
+														<th>Type</th>
+														<th class="last">Description</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr class="deep-level-0">
+														<td class="name"><code>location</code></td>
+														<td class="type">
+															<code class="param-type">string</code>
+														</td>
+														<td class="description last">
+															<p>Filesystem location of the artifact.</p>
+														</td>
+													</tr>
+													<tr class="deep-level-0">
+														<td class="name"><code>domainInterface</code></td>
+														<td class="type">
+															<code class="param-type">object</code>
+														</td>
+														<td class="description last">
+															<p>Domain APIs, repositories, models and event emitter.</p>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+										<dl class="details">
+											<dt class="tag-overrides">Overrides:</dt>
+											<dd class="tag-overrides">
+												<ul class="dummy">
+													<li>
+														BaseSurface#constructor
+													</li>
+												</ul>
+											</dd>
+											<p class="tag-source">
+												<a href="source_domains_system_admin_base_classes_surface.js.html" class="button">View Source</a>
+												<span>
+													<a href="source_domains_system_admin_base_classes_surface.js.html">source/domains/system_admin/base_classes/surface.js</a>, <a href="source_domains_system_admin_base_classes_surface.js.html#line28">line 28</a>
+												</span>
+											</p>
+										</dl>
+										<div class='columns method-parameter'>
+											<div class="column is-2"><label>Returns:</label></div>
+											<div class="column is-10">
+												<div class="columns">
+													<div class='param-desc column is-7'>
+														<p>A new SystemAdminBaseSurface instance.</p>
+													</div>
+													<div class='column is-5 has-text-left'>
+														<label>Type: </label>
+														<code class="param-type">SystemAdminBaseSurface</code>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="member">
 										<h4 class="name" id="_rbac">
 											<a class="href-link" href="#_rbac">#</a>
 											<span class='tag'>async</span>
+											<span class='tag'>protected</span>
 											<span class="code-name">
 												_rbac<span class="signature">(permission)</span><span class="type-signature"> &rarr; {Promise.&lt;function()>}</span>
 											</span>
@@ -478,7 +548,7 @@
 											<p class="tag-source">
 												<a href="source_domains_system_admin_base_classes_surface.js.html" class="button">View Source</a>
 												<span>
-													<a href="source_domains_system_admin_base_classes_surface.js.html">source/domains/system_admin/base_classes/surface.js</a>, <a href="source_domains_system_admin_base_classes_surface.js.html#line47">line 47</a>
+													<a href="source_domains_system_admin_base_classes_surface.js.html">source/domains/system_admin/base_classes/surface.js</a>, <a href="source_domains_system_admin_base_classes_surface.js.html#line50">line 50</a>
 												</span>
 											</p>
 										</dl>
@@ -498,9 +568,79 @@
 										</div>
 									</div>
 									<div class="member">
+										<h4 class="name" id="~permissionCheckerMiddleware">
+											<a class="href-link" href="#~permissionCheckerMiddleware">#</a>
+											<span class='tag'>async</span>
+											<span class='tag'>private</span>
+											<span class='tag'>inner</span>
+											<span class="code-name">
+												permissionCheckerMiddleware<span class="signature">(ctxt, next)</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span>
+											</span>
+										</h4>
+										<p class="summary">Ensures a user session exists and that the requested permission is allowed.</p>
+										<div class="description">
+											<p>Ensures a user session exists and that the requested permission is allowed.</p>
+										</div>
+										<h5>Parameters:</h5>
+										<div class="table-container">
+											<table class="params table">
+												<thead>
+													<tr>
+														<th>Name</th>
+														<th>Type</th>
+														<th class="last">Description</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr class="deep-level-0">
+														<td class="name"><code>ctxt</code></td>
+														<td class="type">
+															<code class="param-type">object</code>
+														</td>
+														<td class="description last">
+															<p>Koa request context.</p>
+														</td>
+													</tr>
+													<tr class="deep-level-0">
+														<td class="name"><code>next</code></td>
+														<td class="type">
+															<code class="param-type">function</code>
+														</td>
+														<td class="description last">
+															<p>Next Koa middleware.</p>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+										<dl class="details">
+											<p class="tag-source">
+												<a href="source_domains_system_admin_base_classes_surface.js.html" class="button">View Source</a>
+												<span>
+													<a href="source_domains_system_admin_base_classes_surface.js.html">source/domains/system_admin/base_classes/surface.js</a>, <a href="source_domains_system_admin_base_classes_surface.js.html#line69">line 69</a>
+												</span>
+											</p>
+										</dl>
+										<div class='columns method-parameter'>
+											<div class="column is-2"><label>Returns:</label></div>
+											<div class="column is-10">
+												<div class="columns">
+													<div class='param-desc column is-7'>
+														<p>Resolves after downstream middleware completes.</p>
+													</div>
+													<div class='column is-5 has-text-left'>
+														<label>Type: </label>
+														<code class="param-type">Promise.&lt;void></code>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="member">
 										<h4 class="name" id="_abac">
 											<a class="href-link" href="#_abac">#</a>
 											<span class='tag'>async</span>
+											<span class='tag'>protected</span>
 											<span class="code-name">
 												_abac<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;function()>}</span>
 											</span>
@@ -521,7 +661,7 @@
 											<p class="tag-source">
 												<a href="source_domains_system_admin_base_classes_surface.js.html" class="button">View Source</a>
 												<span>
-													<a href="source_domains_system_admin_base_classes_surface.js.html">source/domains/system_admin/base_classes/surface.js</a>, <a href="source_domains_system_admin_base_classes_surface.js.html#line100">line 100</a>
+													<a href="source_domains_system_admin_base_classes_surface.js.html">source/domains/system_admin/base_classes/surface.js</a>, <a href="source_domains_system_admin_base_classes_surface.js.html#line125">line 125</a>
 												</span>
 											</p>
 										</dl>
@@ -535,6 +675,75 @@
 													<div class='column is-5 has-text-left'>
 														<label>Type: </label>
 														<code class="param-type">Promise.&lt;function()></code>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="member">
+										<h4 class="name" id="~assetAccessCheckerMiddleware">
+											<a class="href-link" href="#~assetAccessCheckerMiddleware">#</a>
+											<span class='tag'>async</span>
+											<span class='tag'>private</span>
+											<span class='tag'>inner</span>
+											<span class="code-name">
+												assetAccessCheckerMiddleware<span class="signature">(ctxt, next)</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span>
+											</span>
+										</h4>
+										<p class="summary">Placeholder ABAC middleware for user-owned resources.</p>
+										<div class="description">
+											<p>Placeholder ABAC middleware for user-owned resources.</p>
+										</div>
+										<h5>Parameters:</h5>
+										<div class="table-container">
+											<table class="params table">
+												<thead>
+													<tr>
+														<th>Name</th>
+														<th>Type</th>
+														<th class="last">Description</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr class="deep-level-0">
+														<td class="name"><code>ctxt</code></td>
+														<td class="type">
+															<code class="param-type">object</code>
+														</td>
+														<td class="description last">
+															<p>Koa request context.</p>
+														</td>
+													</tr>
+													<tr class="deep-level-0">
+														<td class="name"><code>next</code></td>
+														<td class="type">
+															<code class="param-type">function</code>
+														</td>
+														<td class="description last">
+															<p>Next Koa middleware.</p>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+										<dl class="details">
+											<p class="tag-source">
+												<a href="source_domains_system_admin_base_classes_surface.js.html" class="button">View Source</a>
+												<span>
+													<a href="source_domains_system_admin_base_classes_surface.js.html">source/domains/system_admin/base_classes/surface.js</a>, <a href="source_domains_system_admin_base_classes_surface.js.html#line142">line 142</a>
+												</span>
+											</p>
+										</dl>
+										<div class='columns method-parameter'>
+											<div class="column is-2"><label>Returns:</label></div>
+											<div class="column is-10">
+												<div class="columns">
+													<div class='param-desc column is-7'>
+														<p>Resolves after downstream middleware completes.</p>
+													</div>
+													<div class='column is-5 has-text-left'>
+														<label>Type: </label>
+														<code class="param-type">Promise.&lt;void></code>
 													</div>
 												</div>
 											</div>

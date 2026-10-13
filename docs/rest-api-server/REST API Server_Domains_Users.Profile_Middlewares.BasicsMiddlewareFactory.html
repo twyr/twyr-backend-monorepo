@@ -268,11 +268,6 @@
 							<li><a href="REST%20API%20Server_Ingress%20Surfaces.REST%20API.IngressSurfaceFactory.html">REST API Server/Ingress Surfaces/REST API/IngressSurfaceFactory</a></li>
 							<li><a href="REST%20API%20Server_Ingress%20Surfaces.REST%20API.RestApi.html">REST API Server/Ingress Surfaces/REST API/RestApi</a></li>
 						</ul>
-						<h3>Global</h3>
-						<ul>
-							<li><a href="global.html#createAuditLogMiddleware">createAuditLogMiddleware</a></li>
-							<li><a href="global.html#createErrorLogMiddleware">createErrorLogMiddleware</a></li>
-						</ul>
 					</div>
 					<div class="category">
 						<h2>REST API Server/Repositories/Init</h2>
@@ -377,7 +372,7 @@
 												<p class="tag-source">
 													<a href="source_domains_users_bounded_contexts_profile_middlewares_basics.js.html" class="button">View Source</a>
 													<span>
-														<a href="source_domains_users_bounded_contexts_profile_middlewares_basics.js.html">source/domains/users/bounded_contexts/profile/middlewares/basics.js</a>, <a href="source_domains_users_bounded_contexts_profile_middlewares_basics.js.html#line729">line 729</a>
+														<a href="source_domains_users_bounded_contexts_profile_middlewares_basics.js.html">source/domains/users/bounded_contexts/profile/middlewares/basics.js</a>, <a href="source_domains_users_bounded_contexts_profile_middlewares_basics.js.html#line807">line 807</a>
 													</span>
 												</p>
 											</dl>
@@ -390,50 +385,55 @@
 								<li>EVASBaseFactory</li>
 							</ul>
 							<div class='vertical-section'>
-								<h1>Members</h1>
+								<h1>Methods</h1>
 								<div class="members">
 									<div class="member">
-										<span class="method-parameter is-pulled-right">
-											<label>Type:</label>
-											<code class="param-type">string</code>
-										</span>
-										<h4 class="name" id=".MiddlewareName">
-											<a class="href-link" href="#.MiddlewareName">#</a>
-											<span class='tag'>static</span>
-											<span class='tag'>readonly</span>
+										<h4 class="name" id="constructor">
+											<a class="href-link" href="#constructor">#</a>
 											<span class="code-name">
-												MiddlewareName
+												constructor<span class="signature">()</span><span class="type-signature"> &rarr; {BasicsMiddlewareFactory}</span>
 											</span>
 										</h4>
-										<p class="summary">Gets the exported middleware name.</p>
+										<p class="summary">Initializes the BasicsMiddlewareFactory factory using its base class.</p>
 										<div class="description">
-											<p>Gets the exported middleware name.</p>
+											<p>Initializes the BasicsMiddlewareFactory factory using its base class.</p>
 										</div>
 										<dl class="details">
 											<p class="tag-source">
 												<a href="source_domains_users_bounded_contexts_profile_middlewares_basics.js.html" class="button">View Source</a>
 												<span>
-													<a href="source_domains_users_bounded_contexts_profile_middlewares_basics.js.html">source/domains/users/bounded_contexts/profile/middlewares/basics.js</a>, <a href="source_domains_users_bounded_contexts_profile_middlewares_basics.js.html#line803">line 803</a>
+													<a href="source_domains_users_bounded_contexts_profile_middlewares_basics.js.html">source/domains/users/bounded_contexts/profile/middlewares/basics.js</a>, <a href="source_domains_users_bounded_contexts_profile_middlewares_basics.js.html#line821">line 821</a>
 												</span>
 											</p>
 										</dl>
+										<div class='columns method-parameter'>
+											<div class="column is-2"><label>Returns:</label></div>
+											<div class="column is-10">
+												<div class="columns">
+													<div class='param-desc column is-7'>
+														<p>A new BasicsMiddlewareFactory instance.</p>
+													</div>
+													<div class='column is-5 has-text-left'>
+														<label>Type: </label>
+														<code class="param-type">BasicsMiddlewareFactory</code>
+													</div>
+												</div>
+											</div>
+										</div>
 									</div>
-								</div>
-							</div>
-							<div class='vertical-section'>
-								<h1>Methods</h1>
-								<div class="members">
 									<div class="member">
 										<h4 class="name" id=".createInstances">
 											<a class="href-link" href="#.createInstances">#</a>
+											<span class='tag'>async</span>
 											<span class='tag'>static</span>
 											<span class="code-name">
 												createInstances<span class="signature">(domainInterface)</span><span class="type-signature"> &rarr; {Promise.&lt;Basics>}</span>
 											</span>
 										</h4>
-										<p class="summary">Creates or reuses the singleton basics middleware instance.</p>
+										<p class="summary">Creates and loads the middleware instance on first use, then reuses it.</p>
 										<div class="description">
-											<p>Creates or reuses the singleton basics middleware instance.</p>
+											<p>Creates and loads the middleware instance on first use, then reuses it.
+												Serializes access to the cached instance with the factory mutex.</p>
 										</div>
 										<h5>Parameters:</h5>
 										<div class="table-container">
@@ -462,7 +462,7 @@
 											<p class="tag-source">
 												<a href="source_domains_users_bounded_contexts_profile_middlewares_basics.js.html" class="button">View Source</a>
 												<span>
-													<a href="source_domains_users_bounded_contexts_profile_middlewares_basics.js.html">source/domains/users/bounded_contexts/profile/middlewares/basics.js</a>, <a href="source_domains_users_bounded_contexts_profile_middlewares_basics.js.html#line753">line 753</a>
+													<a href="source_domains_users_bounded_contexts_profile_middlewares_basics.js.html">source/domains/users/bounded_contexts/profile/middlewares/basics.js</a>, <a href="source_domains_users_bounded_contexts_profile_middlewares_basics.js.html#line840">line 840</a>
 												</span>
 											</p>
 										</dl>
@@ -471,7 +471,7 @@
 											<div class="column is-10">
 												<div class="columns">
 													<div class='param-desc column is-7'>
-														<p>The singleton middleware instance.</p>
+														<p>Resolves to the loaded Basics middleware instance.</p>
 													</div>
 													<div class='column is-5 has-text-left'>
 														<label>Type: </label>
@@ -484,20 +484,25 @@
 									<div class="member">
 										<h4 class="name" id=".destroyInstances">
 											<a class="href-link" href="#.destroyInstances">#</a>
+											<span class='tag'>async</span>
 											<span class='tag'>static</span>
 											<span class="code-name">
 												destroyInstances<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span>
 											</span>
 										</h4>
-										<p class="summary">Destroys the singleton basics middleware instance.</p>
+										<p class="summary">
+										<p>Unloads the cached middleware instance and clears the factory reference
+											under the factory mutex.</p>
+										</p>
 										<div class="description">
-											<p>Destroys the singleton basics middleware instance.</p>
+											<p>Unloads the cached middleware instance and clears the factory reference
+												under the factory mutex.</p>
 										</div>
 										<dl class="details">
 											<p class="tag-source">
 												<a href="source_domains_users_bounded_contexts_profile_middlewares_basics.js.html" class="button">View Source</a>
 												<span>
-													<a href="source_domains_users_bounded_contexts_profile_middlewares_basics.js.html">source/domains/users/bounded_contexts/profile/middlewares/basics.js</a>, <a href="source_domains_users_bounded_contexts_profile_middlewares_basics.js.html#line783">line 783</a>
+													<a href="source_domains_users_bounded_contexts_profile_middlewares_basics.js.html">source/domains/users/bounded_contexts/profile/middlewares/basics.js</a>, <a href="source_domains_users_bounded_contexts_profile_middlewares_basics.js.html#line876">line 876</a>
 												</span>
 											</p>
 										</dl>
@@ -506,11 +511,46 @@
 											<div class="column is-10">
 												<div class="columns">
 													<div class='param-desc column is-7'>
-														<p>Resolves after the instance is unloaded.</p>
+														<p>Resolves after the cached instance is unloaded and released.</p>
 													</div>
 													<div class='column is-5 has-text-left'>
 														<label>Type: </label>
 														<code class="param-type">Promise.&lt;void></code>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="member">
+										<h4 class="name" id=".MiddlewareName">
+											<a class="href-link" href="#.MiddlewareName">#</a>
+											<span class='tag'>static</span>
+											<span class="code-name">
+												MiddlewareName<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span>
+											</span>
+										</h4>
+										<p class="summary">Returns the registered middleware name: <code>Basics</code>.</p>
+										<div class="description">
+											<p>Returns the registered middleware name: <code>Basics</code>.</p>
+										</div>
+										<dl class="details">
+											<p class="tag-source">
+												<a href="source_domains_users_bounded_contexts_profile_middlewares_basics.js.html" class="button">View Source</a>
+												<span>
+													<a href="source_domains_users_bounded_contexts_profile_middlewares_basics.js.html">source/domains/users/bounded_contexts/profile/middlewares/basics.js</a>, <a href="source_domains_users_bounded_contexts_profile_middlewares_basics.js.html#line901">line 901</a>
+												</span>
+											</p>
+										</dl>
+										<div class='columns method-parameter'>
+											<div class="column is-2"><label>Returns:</label></div>
+											<div class="column is-10">
+												<div class="columns">
+													<div class='param-desc column is-7'>
+														<p>The middleware class name.</p>
+													</div>
+													<div class='column is-5 has-text-left'>
+														<label>Type: </label>
+														<code class="param-type">string</code>
 													</div>
 												</div>
 											</div>

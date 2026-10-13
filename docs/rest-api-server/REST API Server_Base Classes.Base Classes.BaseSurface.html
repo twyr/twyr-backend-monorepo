@@ -268,11 +268,6 @@
 							<li><a href="REST%20API%20Server_Ingress%20Surfaces.REST%20API.IngressSurfaceFactory.html">REST API Server/Ingress Surfaces/REST API/IngressSurfaceFactory</a></li>
 							<li><a href="REST%20API%20Server_Ingress%20Surfaces.REST%20API.RestApi.html">REST API Server/Ingress Surfaces/REST API/RestApi</a></li>
 						</ul>
-						<h3>Global</h3>
-						<ul>
-							<li><a href="global.html#createAuditLogMiddleware">createAuditLogMiddleware</a></li>
-							<li><a href="global.html#createErrorLogMiddleware">createErrorLogMiddleware</a></li>
-						</ul>
 					</div>
 					<div class="category">
 						<h2>REST API Server/Repositories/Init</h2>
@@ -430,28 +425,56 @@
 							</ul>
 							<div class='vertical-section'>
 								<h1>Methods</h1>
-								<h2 class="subsection-title">Lifecycle Methods</h2>
+								<h2 class="subsection-title">Constructor</h2>
 								<div class="members">
 									<div class="member">
-										<h4 class="name" id="load">
-											<a class="href-link" href="#load">#</a>
-											<span class='tag'>async</span>
+										<h4 class="name" id="constructor">
+											<a class="href-link" href="#constructor">#</a>
 											<span class="code-name">
-												load<span class="signature">()</span><span class="type-signature"> &rarr; {null}</span>
+												constructor<span class="signature">(location, domainInterface)</span><span class="type-signature"> &rarr; {BaseSurface}</span>
 											</span>
 										</h4>
-										<p class="summary">
-										<p>To be overridden by artifact implementations - for implementing custom
-											start logic</p>.</p>
+										<p class="summary">Initializes the BaseSurface surface using its base class.</p>
 										<div class="description">
-											<p>To be overridden by artifact implementations - for implementing custom
-												start logic</p>
+											<p>Initializes the BaseSurface surface using its base class.</p>
+										</div>
+										<h5>Parameters:</h5>
+										<div class="table-container">
+											<table class="params table">
+												<thead>
+													<tr>
+														<th>Name</th>
+														<th>Type</th>
+														<th class="last">Description</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr class="deep-level-0">
+														<td class="name"><code>location</code></td>
+														<td class="type">
+															<code class="param-type">string</code>
+														</td>
+														<td class="description last">
+															<p>Filesystem location of the artifact.</p>
+														</td>
+													</tr>
+													<tr class="deep-level-0">
+														<td class="name"><code>domainInterface</code></td>
+														<td class="type">
+															<code class="param-type">object</code>
+														</td>
+														<td class="description last">
+															<p>Domain APIs, repositories, models and event emitter.</p>
+														</td>
+													</tr>
+												</tbody>
+											</table>
 										</div>
 										<dl class="details">
 											<p class="tag-source">
 												<a href="base_classes_surface.js.html" class="button">View Source</a>
 												<span>
-													<a href="base_classes_surface.js.html">base_classes/surface.js</a>, <a href="base_classes_surface.js.html#line41">line 41</a>
+													<a href="base_classes_surface.js.html">base_classes/surface.js</a>, <a href="base_classes_surface.js.html#line29">line 29</a>
 												</span>
 											</p>
 										</dl>
@@ -460,13 +483,49 @@
 											<div class="column is-10">
 												<div class="columns">
 													<div class='param-desc column is-7'>
-														<ul>
-															<li>Nothing</li>
-														</ul>
+														<p>A new BaseSurface instance.</p>
 													</div>
 													<div class='column is-5 has-text-left'>
 														<label>Type: </label>
-														<code class="param-type">null</code>
+														<code class="param-type">BaseSurface</code>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<h2 class="subsection-title">Lifecycle Methods</h2>
+								<div class="members">
+									<div class="member">
+										<h4 class="name" id="load">
+											<a class="href-link" href="#load">#</a>
+											<span class='tag'>async</span>
+											<span class="code-name">
+												load<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span>
+											</span>
+										</h4>
+										<p class="summary">Loads the base artifact, registers surface routers, and initializes validation schemas.</p>
+										<div class="description">
+											<p>Loads the base artifact, registers surface routers, and initializes validation schemas.</p>
+										</div>
+										<dl class="details">
+											<p class="tag-source">
+												<a href="base_classes_surface.js.html" class="button">View Source</a>
+												<span>
+													<a href="base_classes_surface.js.html">base_classes/surface.js</a>, <a href="base_classes_surface.js.html#line53">line 53</a>
+												</span>
+											</p>
+										</dl>
+										<div class='columns method-parameter'>
+											<div class="column is-2"><label>Returns:</label></div>
+											<div class="column is-10">
+												<div class="columns">
+													<div class='param-desc column is-7'>
+														<p>Resolves after loading completes.</p>
+													</div>
+													<div class='column is-5 has-text-left'>
+														<label>Type: </label>
+														<code class="param-type">Promise.&lt;void></code>
 													</div>
 												</div>
 											</div>
@@ -477,21 +536,18 @@
 											<a class="href-link" href="#unload">#</a>
 											<span class='tag'>async</span>
 											<span class="code-name">
-												unload<span class="signature">()</span><span class="type-signature"> &rarr; {null}</span>
+												unload<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span>
 											</span>
 										</h4>
-										<p class="summary">
-										<p>To be overridden by artifact implementations - for implementing custom
-											stop logic</p>.</p>
+										<p class="summary">Unloads the surface infrastructure.</p>
 										<div class="description">
-											<p>To be overridden by artifact implementations - for implementing custom
-												stop logic</p>
+											<p>Unloads the surface infrastructure.</p>
 										</div>
 										<dl class="details">
 											<p class="tag-source">
 												<a href="base_classes_surface.js.html" class="button">View Source</a>
 												<span>
-													<a href="base_classes_surface.js.html">base_classes/surface.js</a>, <a href="base_classes_surface.js.html#line68">line 68</a>
+													<a href="base_classes_surface.js.html">base_classes/surface.js</a>, <a href="base_classes_surface.js.html#line80">line 80</a>
 												</span>
 											</p>
 										</dl>
@@ -500,13 +556,11 @@
 											<div class="column is-10">
 												<div class="columns">
 													<div class='param-desc column is-7'>
-														<ul>
-															<li>Nothing</li>
-														</ul>
+														<p>Resolves after unloading completes.</p>
 													</div>
 													<div class='column is-5 has-text-left'>
 														<label>Type: </label>
-														<code class="param-type">null</code>
+														<code class="param-type">Promise.&lt;void></code>
 													</div>
 												</div>
 											</div>
@@ -519,22 +573,24 @@
 										<h4 class="name" id="_registerSurface">
 											<a class="href-link" href="#_registerSurface">#</a>
 											<span class='tag'>async</span>
+											<span class='tag'>protected</span>
 											<span class="code-name">
-												_registerSurface<span class="signature">()</span><span class="type-signature"> &rarr; {Array}</span>
+												_registerSurface<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;object>>}</span>
 											</span>
 										</h4>
 										<p class="summary">
-										<p>To be overridden by artifact implementations - for registering custom
-											routes with the surface's Koa Router instance</p>.</p>
+										<p>Returns inherited and local route definitions, including their handlers
+											and any authorization middleware.</p>
+										</p>
 										<div class="description">
-											<p>To be overridden by artifact implementations - for registering custom
-												routes with the surface's Koa Router instance</p>
+											<p>Returns inherited and local route definitions, including their handlers
+												and any authorization middleware.</p>
 										</div>
 										<dl class="details">
 											<p class="tag-source">
 												<a href="base_classes_surface.js.html" class="button">View Source</a>
 												<span>
-													<a href="base_classes_surface.js.html">base_classes/surface.js</a>, <a href="base_classes_surface.js.html#line92">line 92</a>
+													<a href="base_classes_surface.js.html">base_classes/surface.js</a>, <a href="base_classes_surface.js.html#line105">line 105</a>
 												</span>
 											</p>
 										</dl>
@@ -543,13 +599,11 @@
 											<div class="column is-10">
 												<div class="columns">
 													<div class='param-desc column is-7'>
-														<ul>
-															<li>Array containing the routes exposed by this surface</li>
-														</ul>
+														<p>Resolves to the route definitions exposed by the surface.</p>
 													</div>
 													<div class='column is-5 has-text-left'>
 														<label>Type: </label>
-														<code class="param-type">Array</code>
+														<code class="param-type">Promise.&lt;Array.&lt;object>></code>
 													</div>
 												</div>
 											</div>
@@ -559,8 +613,9 @@
 										<h4 class="name" id="_unregisterSurface">
 											<a class="href-link" href="#_unregisterSurface">#</a>
 											<span class='tag'>async</span>
+											<span class='tag'>protected</span>
 											<span class="code-name">
-												_unregisterSurface<span class="signature">()</span><span class="type-signature"> &rarr; {null}</span>
+												_unregisterSurface<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span>
 											</span>
 										</h4>
 										<p class="summary">
@@ -574,7 +629,7 @@
 											<p class="tag-source">
 												<a href="base_classes_surface.js.html" class="button">View Source</a>
 												<span>
-													<a href="base_classes_surface.js.html">base_classes/surface.js</a>, <a href="base_classes_surface.js.html#line113">line 113</a>
+													<a href="base_classes_surface.js.html">base_classes/surface.js</a>, <a href="base_classes_surface.js.html#line127">line 127</a>
 												</span>
 											</p>
 										</dl>
@@ -583,13 +638,11 @@
 											<div class="column is-10">
 												<div class="columns">
 													<div class='param-desc column is-7'>
-														<ul>
-															<li>Nothing</li>
-														</ul>
+														<p>Resolves after registration changes complete.</p>
 													</div>
 													<div class='column is-5 has-text-left'>
 														<label>Type: </label>
-														<code class="param-type">null</code>
+														<code class="param-type">Promise.&lt;void></code>
 													</div>
 												</div>
 											</div>
@@ -599,8 +652,9 @@
 										<h4 class="name" id="_rbac">
 											<a class="href-link" href="#_rbac">#</a>
 											<span class='tag'>async</span>
+											<span class='tag'>protected</span>
 											<span class="code-name">
-												_rbac<span class="signature">(permission<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {function}</span>
+												_rbac<span class="signature">(permission<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;function()>}</span>
 											</span>
 										</h4>
 										<p class="summary">
@@ -645,7 +699,7 @@
 											<p class="tag-source">
 												<a href="base_classes_surface.js.html" class="button">View Source</a>
 												<span>
-													<a href="base_classes_surface.js.html">base_classes/surface.js</a>, <a href="base_classes_surface.js.html#line139">line 139</a>
+													<a href="base_classes_surface.js.html">base_classes/surface.js</a>, <a href="base_classes_surface.js.html#line156">line 156</a>
 												</span>
 											</p>
 										</dl>
@@ -660,7 +714,76 @@
 													</div>
 													<div class='column is-5 has-text-left'>
 														<label>Type: </label>
-														<code class="param-type">function</code>
+														<code class="param-type">Promise.&lt;function()></code>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="member">
+										<h4 class="name" id="~permissionCheckerMiddleware">
+											<a class="href-link" href="#~permissionCheckerMiddleware">#</a>
+											<span class='tag'>async</span>
+											<span class='tag'>private</span>
+											<span class='tag'>inner</span>
+											<span class="code-name">
+												permissionCheckerMiddleware<span class="signature">(ctxt, next)</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span>
+											</span>
+										</h4>
+										<p class="summary">No-op permission middleware used by the default base implementation.</p>
+										<div class="description">
+											<p>No-op permission middleware used by the default base implementation.</p>
+										</div>
+										<h5>Parameters:</h5>
+										<div class="table-container">
+											<table class="params table">
+												<thead>
+													<tr>
+														<th>Name</th>
+														<th>Type</th>
+														<th class="last">Description</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr class="deep-level-0">
+														<td class="name"><code>ctxt</code></td>
+														<td class="type">
+															<code class="param-type">object</code>
+														</td>
+														<td class="description last">
+															<p>Koa request context.</p>
+														</td>
+													</tr>
+													<tr class="deep-level-0">
+														<td class="name"><code>next</code></td>
+														<td class="type">
+															<code class="param-type">function</code>
+														</td>
+														<td class="description last">
+															<p>Next Koa middleware.</p>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+										<dl class="details">
+											<p class="tag-source">
+												<a href="base_classes_surface.js.html" class="button">View Source</a>
+												<span>
+													<a href="base_classes_surface.js.html">base_classes/surface.js</a>, <a href="base_classes_surface.js.html#line179">line 179</a>
+												</span>
+											</p>
+										</dl>
+										<div class='columns method-parameter'>
+											<div class="column is-2"><label>Returns:</label></div>
+											<div class="column is-10">
+												<div class="columns">
+													<div class='param-desc column is-7'>
+														<p>Resolves after downstream middleware completes.</p>
+													</div>
+													<div class='column is-5 has-text-left'>
+														<label>Type: </label>
+														<code class="param-type">Promise.&lt;void></code>
 													</div>
 												</div>
 											</div>
@@ -670,8 +793,9 @@
 										<h4 class="name" id="_abac">
 											<a class="href-link" href="#_abac">#</a>
 											<span class='tag'>async</span>
+											<span class='tag'>protected</span>
 											<span class="code-name">
-												_abac<span class="signature">()</span><span class="type-signature"> &rarr; {function}</span>
+												_abac<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;function()>}</span>
 											</span>
 										</h4>
 										<p class="summary">
@@ -697,7 +821,7 @@
 											<p class="tag-source">
 												<a href="base_classes_surface.js.html" class="button">View Source</a>
 												<span>
-													<a href="base_classes_surface.js.html">base_classes/surface.js</a>, <a href="base_classes_surface.js.html#line180">line 180</a>
+													<a href="base_classes_surface.js.html">base_classes/surface.js</a>, <a href="base_classes_surface.js.html#line207">line 207</a>
 												</span>
 											</p>
 										</dl>
@@ -712,7 +836,76 @@
 													</div>
 													<div class='column is-5 has-text-left'>
 														<label>Type: </label>
-														<code class="param-type">function</code>
+														<code class="param-type">Promise.&lt;function()></code>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="member">
+										<h4 class="name" id="~assetAccessCheckerMiddleware">
+											<a class="href-link" href="#~assetAccessCheckerMiddleware">#</a>
+											<span class='tag'>async</span>
+											<span class='tag'>private</span>
+											<span class='tag'>inner</span>
+											<span class="code-name">
+												assetAccessCheckerMiddleware<span class="signature">(ctxt, next)</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span>
+											</span>
+										</h4>
+										<p class="summary">No-op asset access middleware used by the default base implementation.</p>
+										<div class="description">
+											<p>No-op asset access middleware used by the default base implementation.</p>
+										</div>
+										<h5>Parameters:</h5>
+										<div class="table-container">
+											<table class="params table">
+												<thead>
+													<tr>
+														<th>Name</th>
+														<th>Type</th>
+														<th class="last">Description</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr class="deep-level-0">
+														<td class="name"><code>ctxt</code></td>
+														<td class="type">
+															<code class="param-type">object</code>
+														</td>
+														<td class="description last">
+															<p>Koa request context.</p>
+														</td>
+													</tr>
+													<tr class="deep-level-0">
+														<td class="name"><code>next</code></td>
+														<td class="type">
+															<code class="param-type">function</code>
+														</td>
+														<td class="description last">
+															<p>Next Koa middleware.</p>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+										<dl class="details">
+											<p class="tag-source">
+												<a href="base_classes_surface.js.html" class="button">View Source</a>
+												<span>
+													<a href="base_classes_surface.js.html">base_classes/surface.js</a>, <a href="base_classes_surface.js.html#line233">line 233</a>
+												</span>
+											</p>
+										</dl>
+										<div class='columns method-parameter'>
+											<div class="column is-2"><label>Returns:</label></div>
+											<div class="column is-10">
+												<div class="columns">
+													<div class='param-desc column is-7'>
+														<p>Resolves after downstream middleware completes.</p>
+													</div>
+													<div class='column is-5 has-text-left'>
+														<label>Type: </label>
+														<code class="param-type">Promise.&lt;void></code>
 													</div>
 												</div>
 											</div>
@@ -722,8 +915,9 @@
 										<h4 class="name" id="_setupValidationSchemas">
 											<a class="href-link" href="#_setupValidationSchemas">#</a>
 											<span class='tag'>async</span>
+											<span class='tag'>protected</span>
 											<span class="code-name">
-												_setupValidationSchemas<span class="signature">(validationSchemaMap<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Map}</span>
+												_setupValidationSchemas<span class="signature">(validationSchemaMap<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;(Map|undefined)>}</span>
 											</span>
 										</h4>
 										<p class="summary">
@@ -748,13 +942,13 @@
 													<tr class="deep-level-0">
 														<td class="name"><code>validationSchemaMap</code></td>
 														<td class="type">
-															<code class="param-type">string</code>
+															<code class="param-type">Map</code>
 														</td>
 														<td class="attributes">
 															&lt;optional><br>
 														</td>
 														<td class="description last">
-															<p>Map to be populated with the validation schemas.</p>
+															<p>Map supplied by a derived surface.</p>
 														</td>
 													</tr>
 												</tbody>
@@ -764,7 +958,7 @@
 											<p class="tag-source">
 												<a href="base_classes_surface.js.html" class="button">View Source</a>
 												<span>
-													<a href="base_classes_surface.js.html">base_classes/surface.js</a>, <a href="base_classes_surface.js.html#line224">line 224</a>
+													<a href="base_classes_surface.js.html">base_classes/surface.js</a>, <a href="base_classes_surface.js.html#line261">line 261</a>
 												</span>
 											</p>
 										</dl>
@@ -773,13 +967,11 @@
 											<div class="column is-10">
 												<div class="columns">
 													<div class='param-desc column is-7'>
-														<ul>
-															<li>Map containing the validation schemas</li>
-														</ul>
+														<p>Resolves to the supplied or cached validation schema map.</p>
 													</div>
 													<div class='column is-5 has-text-left'>
 														<label>Type: </label>
-														<code class="param-type">Map</code>
+														<code class="param-type">Promise.&lt;(Map|undefined)></code>
 													</div>
 												</div>
 											</div>
@@ -788,8 +980,9 @@
 									<div class="member">
 										<h4 class="name" id="_convertValidationErrorToHandlerError">
 											<a class="href-link" href="#_convertValidationErrorToHandlerError">#</a>
+											<span class='tag'>protected</span>
 											<span class="code-name">
-												_convertValidationErrorToHandlerError<span class="signature">(joiError<span class="signature-attributes">opt</span>, errorCode<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Error}</span>
+												_convertValidationErrorToHandlerError<span class="signature">(joiError<span class="signature-attributes">opt</span>, errorCode<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Error|undefined}</span>
 											</span>
 										</h4>
 										<p class="summary">
@@ -818,13 +1011,13 @@
 													<tr class="deep-level-0">
 														<td class="name"><code>joiError</code></td>
 														<td class="type">
-															<code class="param-type">Object</code>
+															<code class="param-type">object</code>
 														</td>
 														<td class="attributes">
 															&lt;optional><br>
 														</td>
 														<td class="description last">
-															<p>The Joi validation error object</p>
+															<p>Joi validation error containing field-level details.</p>
 														</td>
 													</tr>
 													<tr class="deep-level-0">
@@ -836,7 +1029,7 @@
 															&lt;optional><br>
 														</td>
 														<td class="description last">
-															<p>The error code to be set on the error object</p>
+															<p>Code assigned to the aggregate handler error.</p>
 														</td>
 													</tr>
 												</tbody>
@@ -846,7 +1039,7 @@
 											<p class="tag-source">
 												<a href="base_classes_surface.js.html" class="button">View Source</a>
 												<span>
-													<a href="base_classes_surface.js.html">base_classes/surface.js</a>, <a href="base_classes_surface.js.html#line246">line 246</a>
+													<a href="base_classes_surface.js.html">base_classes/surface.js</a>, <a href="base_classes_surface.js.html#line284">line 284</a>
 												</span>
 											</p>
 										</dl>
@@ -855,13 +1048,13 @@
 											<div class="column is-10">
 												<div class="columns">
 													<div class='param-desc column is-7'>
-														<ul>
-															<li>Error for the handler to throw</li>
-														</ul>
+														<p>The aggregate handler error, or undefined when no Joi error is supplied.</p>
 													</div>
 													<div class='column is-5 has-text-left'>
 														<label>Type: </label>
 														<code class="param-type">Error</code>
+														|
+														<code class="param-type">undefined</code>
 													</div>
 												</div>
 											</div>
@@ -887,7 +1080,7 @@
 											<p class="tag-source">
 												<a href="base_classes_surface.js.html" class="button">View Source</a>
 												<span>
-													<a href="base_classes_surface.js.html">base_classes/surface.js</a>, <a href="base_classes_surface.js.html#line284">line 284</a>
+													<a href="base_classes_surface.js.html">base_classes/surface.js</a>, <a href="base_classes_surface.js.html#line325">line 325</a>
 												</span>
 											</p>
 										</dl>
@@ -923,7 +1116,7 @@
 											<p class="tag-source">
 												<a href="base_classes_surface.js.html" class="button">View Source</a>
 												<span>
-													<a href="base_classes_surface.js.html">base_classes/surface.js</a>, <a href="base_classes_surface.js.html#line348">line 348</a>
+													<a href="base_classes_surface.js.html">base_classes/surface.js</a>, <a href="base_classes_surface.js.html#line391">line 391</a>
 												</span>
 											</p>
 										</dl>

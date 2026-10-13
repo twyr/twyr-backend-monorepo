@@ -268,11 +268,6 @@
 							<li><a href="REST%20API%20Server_Ingress%20Surfaces.REST%20API.IngressSurfaceFactory.html">REST API Server/Ingress Surfaces/REST API/IngressSurfaceFactory</a></li>
 							<li><a href="REST%20API%20Server_Ingress%20Surfaces.REST%20API.RestApi.html">REST API Server/Ingress Surfaces/REST API/RestApi</a></li>
 						</ul>
-						<h3>Global</h3>
-						<ul>
-							<li><a href="global.html#createAuditLogMiddleware">createAuditLogMiddleware</a></li>
-							<li><a href="global.html#createErrorLogMiddleware">createErrorLogMiddleware</a></li>
-						</ul>
 					</div>
 					<div class="category">
 						<h2>REST API Server/Repositories/Init</h2>
@@ -430,28 +425,56 @@
 							</ul>
 							<div class='vertical-section'>
 								<h1>Methods</h1>
-								<h2 class="subsection-title">Lifecycle Methods</h2>
+								<h2 class="subsection-title">Constructor</h2>
 								<div class="members">
 									<div class="member">
-										<h4 class="name" id="load">
-											<a class="href-link" href="#load">#</a>
-											<span class='tag'>async</span>
+										<h4 class="name" id="constructor">
+											<a class="href-link" href="#constructor">#</a>
 											<span class="code-name">
-												load<span class="signature">()</span><span class="type-signature"> &rarr; {null}</span>
+												constructor<span class="signature">(location, domainInterface)</span><span class="type-signature"> &rarr; {BaseMiddleware}</span>
 											</span>
 										</h4>
-										<p class="summary">
-										<p>To be overridden by artifact implementations - for implementing custom
-											start logic</p>.</p>
+										<p class="summary">Initializes the BaseMiddleware middleware using its base class.</p>
 										<div class="description">
-											<p>To be overridden by artifact implementations - for implementing custom
-												start logic</p>
+											<p>Initializes the BaseMiddleware middleware using its base class.</p>
+										</div>
+										<h5>Parameters:</h5>
+										<div class="table-container">
+											<table class="params table">
+												<thead>
+													<tr>
+														<th>Name</th>
+														<th>Type</th>
+														<th class="last">Description</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr class="deep-level-0">
+														<td class="name"><code>location</code></td>
+														<td class="type">
+															<code class="param-type">string</code>
+														</td>
+														<td class="description last">
+															<p>Filesystem location of the artifact.</p>
+														</td>
+													</tr>
+													<tr class="deep-level-0">
+														<td class="name"><code>domainInterface</code></td>
+														<td class="type">
+															<code class="param-type">object</code>
+														</td>
+														<td class="description last">
+															<p>Domain APIs, repositories, models and event emitter.</p>
+														</td>
+													</tr>
+												</tbody>
+											</table>
 										</div>
 										<dl class="details">
 											<p class="tag-source">
 												<a href="base_classes_middleware.js.html" class="button">View Source</a>
 												<span>
-													<a href="base_classes_middleware.js.html">base_classes/middleware.js</a>, <a href="base_classes_middleware.js.html#line52">line 52</a>
+													<a href="base_classes_middleware.js.html">base_classes/middleware.js</a>, <a href="base_classes_middleware.js.html#line40">line 40</a>
 												</span>
 											</p>
 										</dl>
@@ -460,13 +483,49 @@
 											<div class="column is-10">
 												<div class="columns">
 													<div class='param-desc column is-7'>
-														<ul>
-															<li>Nothing</li>
-														</ul>
+														<p>A new BaseMiddleware instance.</p>
 													</div>
 													<div class='column is-5 has-text-left'>
 														<label>Type: </label>
-														<code class="param-type">null</code>
+														<code class="param-type">BaseMiddleware</code>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<h2 class="subsection-title">Lifecycle Methods</h2>
+								<div class="members">
+									<div class="member">
+										<h4 class="name" id="load">
+											<a class="href-link" href="#load">#</a>
+											<span class='tag'>async</span>
+											<span class="code-name">
+												load<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span>
+											</span>
+										</h4>
+										<p class="summary">Loads the inherited middleware infrastructure for BaseMiddleware.</p>
+										<div class="description">
+											<p>Loads the inherited middleware infrastructure for BaseMiddleware.</p>
+										</div>
+										<dl class="details">
+											<p class="tag-source">
+												<a href="base_classes_middleware.js.html" class="button">View Source</a>
+												<span>
+													<a href="base_classes_middleware.js.html">base_classes/middleware.js</a>, <a href="base_classes_middleware.js.html#line64">line 64</a>
+												</span>
+											</p>
+										</dl>
+										<div class='columns method-parameter'>
+											<div class="column is-2"><label>Returns:</label></div>
+											<div class="column is-10">
+												<div class="columns">
+													<div class='param-desc column is-7'>
+														<p>Resolves after loading completes.</p>
+													</div>
+													<div class='column is-5 has-text-left'>
+														<label>Type: </label>
+														<code class="param-type">Promise.&lt;void></code>
 													</div>
 												</div>
 											</div>
@@ -477,21 +536,18 @@
 											<a class="href-link" href="#unload">#</a>
 											<span class='tag'>async</span>
 											<span class="code-name">
-												unload<span class="signature">()</span><span class="type-signature"> &rarr; {null}</span>
+												unload<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span>
 											</span>
 										</h4>
-										<p class="summary">
-										<p>To be overridden by artifact implementations - for implementing custom
-											stop logic</p>.</p>
+										<p class="summary">Unloads the middleware infrastructure.</p>
 										<div class="description">
-											<p>To be overridden by artifact implementations - for implementing custom
-												stop logic</p>
+											<p>Unloads the middleware infrastructure.</p>
 										</div>
 										<dl class="details">
 											<p class="tag-source">
 												<a href="base_classes_middleware.js.html" class="button">View Source</a>
 												<span>
-													<a href="base_classes_middleware.js.html">base_classes/middleware.js</a>, <a href="base_classes_middleware.js.html#line74">line 74</a>
+													<a href="base_classes_middleware.js.html">base_classes/middleware.js</a>, <a href="base_classes_middleware.js.html#line87">line 87</a>
 												</span>
 											</p>
 										</dl>
@@ -500,13 +556,11 @@
 											<div class="column is-10">
 												<div class="columns">
 													<div class='param-desc column is-7'>
-														<ul>
-															<li>Nothing</li>
-														</ul>
+														<p>Resolves after unloading completes.</p>
 													</div>
 													<div class='column is-5 has-text-left'>
 														<label>Type: </label>
-														<code class="param-type">null</code>
+														<code class="param-type">Promise.&lt;void></code>
 													</div>
 												</div>
 											</div>
@@ -519,22 +573,20 @@
 										<h4 class="name" id="_registerApi">
 											<a class="href-link" href="#_registerApi">#</a>
 											<span class='tag'>async</span>
+											<span class='tag'>protected</span>
 											<span class="code-name">
-												_registerApi<span class="signature">()</span><span class="type-signature"> &rarr; {null}</span>
+												_registerApi<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;object>>}</span>
 											</span>
 										</h4>
-										<p class="summary">
-										<p>To be overridden by artifact implementations - for adding their API
-											to the apiRegistry in the domainInterface</p>.</p>
+										<p class="summary">Provides an empty set of registration definitions for derived artifacts to extend.</p>
 										<div class="description">
-											<p>To be overridden by artifact implementations - for adding their API
-												to the apiRegistry in the domainInterface</p>
+											<p>Provides an empty set of registration definitions for derived artifacts to extend.</p>
 										</div>
 										<dl class="details">
 											<p class="tag-source">
 												<a href="base_classes_middleware.js.html" class="button">View Source</a>
 												<span>
-													<a href="base_classes_middleware.js.html">base_classes/middleware.js</a>, <a href="base_classes_middleware.js.html#line98">line 98</a>
+													<a href="base_classes_middleware.js.html">base_classes/middleware.js</a>, <a href="base_classes_middleware.js.html#line112">line 112</a>
 												</span>
 											</p>
 										</dl>
@@ -543,13 +595,11 @@
 											<div class="column is-10">
 												<div class="columns">
 													<div class='param-desc column is-7'>
-														<ul>
-															<li>Nothing</li>
-														</ul>
+														<p>Resolves to the inherited registration definitions; empty by default.</p>
 													</div>
 													<div class='column is-5 has-text-left'>
 														<label>Type: </label>
-														<code class="param-type">null</code>
+														<code class="param-type">Promise.&lt;Array.&lt;object>></code>
 													</div>
 												</div>
 											</div>
@@ -559,8 +609,9 @@
 										<h4 class="name" id="_unregisterApi">
 											<a class="href-link" href="#_unregisterApi">#</a>
 											<span class='tag'>async</span>
+											<span class='tag'>protected</span>
 											<span class="code-name">
-												_unregisterApi<span class="signature">()</span><span class="type-signature"> &rarr; {null}</span>
+												_unregisterApi<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span>
 											</span>
 										</h4>
 										<p class="summary">
@@ -574,7 +625,7 @@
 											<p class="tag-source">
 												<a href="base_classes_middleware.js.html" class="button">View Source</a>
 												<span>
-													<a href="base_classes_middleware.js.html">base_classes/middleware.js</a>, <a href="base_classes_middleware.js.html#line119">line 119</a>
+													<a href="base_classes_middleware.js.html">base_classes/middleware.js</a>, <a href="base_classes_middleware.js.html#line133">line 133</a>
 												</span>
 											</p>
 										</dl>
@@ -583,13 +634,11 @@
 											<div class="column is-10">
 												<div class="columns">
 													<div class='param-desc column is-7'>
-														<ul>
-															<li>Nothing</li>
-														</ul>
+														<p>Resolves after registration changes complete.</p>
 													</div>
 													<div class='column is-5 has-text-left'>
 														<label>Type: </label>
-														<code class="param-type">null</code>
+														<code class="param-type">Promise.&lt;void></code>
 													</div>
 												</div>
 											</div>
@@ -602,22 +651,44 @@
 										<h4 class="name" id="_executeWithBackOff">
 											<a class="href-link" href="#_executeWithBackOff">#</a>
 											<span class='tag'>async</span>
+											<span class='tag'>protected</span>
 											<span class="code-name">
-												_executeWithBackOff<span class="signature">()</span><span class="type-signature"> &rarr; {null}</span>
+												_executeWithBackOff<span class="signature">(method)</span><span class="type-signature"> &rarr; {Promise.&lt;*>}</span>
 											</span>
 										</h4>
-										<p class="summary">
-										<p>Surrounds the given method with an exponential back-off retry mechanism
-											to enable circuit breaker like functionality</p>.</p>
+										<p class="summary">Runs the supplied operation with exponential backoff and logs retry failures.</p>
 										<div class="description">
-											<p>Surrounds the given method with an exponential back-off retry mechanism
-												to enable circuit breaker like functionality</p>
+											<p>Runs the supplied operation with exponential backoff and logs retry failures.
+												Marks the propagated error as HTTP 503 if every retry fails.</p>
+										</div>
+										<h5>Parameters:</h5>
+										<div class="table-container">
+											<table class="params table">
+												<thead>
+													<tr>
+														<th>Name</th>
+														<th>Type</th>
+														<th class="last">Description</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr class="deep-level-0">
+														<td class="name"><code>method</code></td>
+														<td class="type">
+															<code class="param-type">function</code>
+														</td>
+														<td class="description last">
+															<p>Operation to retry until it succeeds or retries are exhausted.</p>
+														</td>
+													</tr>
+												</tbody>
+											</table>
 										</div>
 										<dl class="details">
 											<p class="tag-source">
 												<a href="base_classes_middleware.js.html" class="button">View Source</a>
 												<span>
-													<a href="base_classes_middleware.js.html">base_classes/middleware.js</a>, <a href="base_classes_middleware.js.html#line142">line 142</a>
+													<a href="base_classes_middleware.js.html">base_classes/middleware.js</a>, <a href="base_classes_middleware.js.html#line157">line 157</a>
 												</span>
 											</p>
 										</dl>
@@ -626,13 +697,11 @@
 											<div class="column is-10">
 												<div class="columns">
 													<div class='param-desc column is-7'>
-														<ul>
-															<li>Nothing</li>
-														</ul>
+														<p>Resolves to the operation result.</p>
 													</div>
 													<div class='column is-5 has-text-left'>
 														<label>Type: </label>
-														<code class="param-type">null</code>
+														<code class="param-type">Promise.&lt;*></code>
 													</div>
 												</div>
 											</div>
@@ -642,20 +711,46 @@
 										<h4 class="name" id="_getModelsFromDomain">
 											<a class="href-link" href="#_getModelsFromDomain">#</a>
 											<span class='tag'>async</span>
+											<span class='tag'>protected</span>
 											<span class="code-name">
-												_getModelsFromDomain<span class="signature">()</span><span class="type-signature"> &rarr; {null}</span>
+												_getModelsFromDomain<span class="signature">(modelList)</span><span class="type-signature"> &rarr; {Promise.&lt;(function()|Array.&lt;function()>|undefined)>}</span>
 											</span>
 										</h4>
-										<p class="summary">
-										<p>Fetches the models from the domainInterface</p>.</p>
+										<p class="summary">Resolves model descriptors through the domain interface.</p>
 										<div class="description">
-											<p>Fetches the models from the domainInterface</p>
+											<p>Resolves model descriptors through the domain interface.
+												Aggregates lookup failures before returning the resolved model classes.</p>
+										</div>
+										<h5>Parameters:</h5>
+										<div class="table-container">
+											<table class="params table">
+												<thead>
+													<tr>
+														<th>Name</th>
+														<th>Type</th>
+														<th class="last">Description</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr class="deep-level-0">
+														<td class="name"><code>modelList</code></td>
+														<td class="type">
+															<code class="param-type">object</code>
+															|
+															<code class="param-type">Array.&lt;object></code>
+														</td>
+														<td class="description last">
+															<p>Model descriptor or descriptors containing <code>type</code> and <code>name</code>.</p>
+														</td>
+													</tr>
+												</tbody>
+											</table>
 										</div>
 										<dl class="details">
 											<p class="tag-source">
 												<a href="base_classes_middleware.js.html" class="button">View Source</a>
 												<span>
-													<a href="base_classes_middleware.js.html">base_classes/middleware.js</a>, <a href="base_classes_middleware.js.html#line180">line 180</a>
+													<a href="base_classes_middleware.js.html">base_classes/middleware.js</a>, <a href="base_classes_middleware.js.html#line200">line 200</a>
 												</span>
 											</p>
 										</dl>
@@ -664,13 +759,11 @@
 											<div class="column is-10">
 												<div class="columns">
 													<div class='param-desc column is-7'>
-														<ul>
-															<li>Nothing</li>
-														</ul>
+														<p>One resolved model, multiple models, or undefined when none resolve.</p>
 													</div>
 													<div class='column is-5 has-text-left'>
 														<label>Type: </label>
-														<code class="param-type">null</code>
+														<code class="param-type">Promise.&lt;(function()|Array.&lt;function()>|undefined)></code>
 													</div>
 												</div>
 											</div>
@@ -680,20 +773,44 @@
 										<h4 class="name" id="_getTemplatesFromDomain">
 											<a class="href-link" href="#_getTemplatesFromDomain">#</a>
 											<span class='tag'>async</span>
+											<span class='tag'>protected</span>
 											<span class="code-name">
-												_getTemplatesFromDomain<span class="signature">()</span><span class="type-signature"> &rarr; {null}</span>
+												_getTemplatesFromDomain<span class="signature">(templateList)</span><span class="type-signature"> &rarr; {Promise.&lt;(Buffer|Array.&lt;Buffer>|undefined)>}</span>
 											</span>
 										</h4>
-										<p class="summary">
-										<p>Fetches the templates from the domainInterface</p>.</p>
+										<p class="summary">Resolves template descriptors through the domain interface.</p>
 										<div class="description">
-											<p>Fetches the templates from the domainInterface</p>
+											<p>Resolves template descriptors through the domain interface.
+												Aggregates lookup failures before returning the template file contents.</p>
+										</div>
+										<h5>Parameters:</h5>
+										<div class="table-container">
+											<table class="params table">
+												<thead>
+													<tr>
+														<th>Name</th>
+														<th>Type</th>
+														<th class="last">Description</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr class="deep-level-0">
+														<td class="name"><code>templateList</code></td>
+														<td class="type">
+															<code class="param-type">Array.&lt;object></code>
+														</td>
+														<td class="description last">
+															<p>Template descriptors containing <code>type</code> and <code>action</code>.</p>
+														</td>
+													</tr>
+												</tbody>
+											</table>
 										</div>
 										<dl class="details">
 											<p class="tag-source">
 												<a href="base_classes_middleware.js.html" class="button">View Source</a>
 												<span>
-													<a href="base_classes_middleware.js.html">base_classes/middleware.js</a>, <a href="base_classes_middleware.js.html#line229">line 229</a>
+													<a href="base_classes_middleware.js.html">base_classes/middleware.js</a>, <a href="base_classes_middleware.js.html#line257">line 257</a>
 												</span>
 											</p>
 										</dl>
@@ -702,13 +819,11 @@
 											<div class="column is-10">
 												<div class="columns">
 													<div class='param-desc column is-7'>
-														<ul>
-															<li>Nothing</li>
-														</ul>
+														<p>One template buffer, multiple buffers, or undefined when none resolve.</p>
 													</div>
 													<div class='column is-5 has-text-left'>
 														<label>Type: </label>
-														<code class="param-type">null</code>
+														<code class="param-type">Promise.&lt;(Buffer|Array.&lt;Buffer>|undefined)></code>
 													</div>
 												</div>
 											</div>

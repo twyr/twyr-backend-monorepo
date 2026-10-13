@@ -268,11 +268,6 @@
 							<li><a href="REST%20API%20Server_Ingress%20Surfaces.REST%20API.IngressSurfaceFactory.html">REST API Server/Ingress Surfaces/REST API/IngressSurfaceFactory</a></li>
 							<li><a href="REST%20API%20Server_Ingress%20Surfaces.REST%20API.RestApi.html">REST API Server/Ingress Surfaces/REST API/RestApi</a></li>
 						</ul>
-						<h3>Global</h3>
-						<ul>
-							<li><a href="global.html#createAuditLogMiddleware">createAuditLogMiddleware</a></li>
-							<li><a href="global.html#createErrorLogMiddleware">createErrorLogMiddleware</a></li>
-						</ul>
 					</div>
 					<div class="category">
 						<h2>REST API Server/Repositories/Init</h2>
@@ -432,16 +427,95 @@
 								<h1>Methods</h1>
 								<div class="members">
 									<div class="member">
+										<h4 class="name" id="constructor">
+											<a class="href-link" href="#constructor">#</a>
+											<span class="code-name">
+												constructor<span class="signature">(location, domainInterface)</span><span class="type-signature"> &rarr; {Main}</span>
+											</span>
+										</h4>
+										<p class="summary">Initializes the Main surface using its base class.</p>
+										<div class="description">
+											<p>Initializes the Main surface using its base class.</p>
+										</div>
+										<h5>Parameters:</h5>
+										<div class="table-container">
+											<table class="params table">
+												<thead>
+													<tr>
+														<th>Name</th>
+														<th>Type</th>
+														<th class="last">Description</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr class="deep-level-0">
+														<td class="name"><code>location</code></td>
+														<td class="type">
+															<code class="param-type">string</code>
+														</td>
+														<td class="description last">
+															<p>Filesystem location of the artifact.</p>
+														</td>
+													</tr>
+													<tr class="deep-level-0">
+														<td class="name"><code>domainInterface</code></td>
+														<td class="type">
+															<code class="param-type">object</code>
+														</td>
+														<td class="description last">
+															<p>Domain APIs, repositories, models and event emitter.</p>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+										<dl class="details">
+											<dt class="tag-overrides">Overrides:</dt>
+											<dd class="tag-overrides">
+												<ul class="dummy">
+													<li>
+														UserBaseSurface#constructor
+													</li>
+												</ul>
+											</dd>
+											<p class="tag-source">
+												<a href="source_domains_system_admin_bounded_contexts_profile_surfaces_command_main.js.html" class="button">View Source</a>
+												<span>
+													<a href="source_domains_system_admin_bounded_contexts_profile_surfaces_command_main.js.html">source/domains/system_admin/bounded_contexts/profile/surfaces/command/main.js</a>, <a href="source_domains_system_admin_bounded_contexts_profile_surfaces_command_main.js.html#line33">line 33</a>
+												</span>
+											</p>
+										</dl>
+										<div class='columns method-parameter'>
+											<div class="column is-2"><label>Returns:</label></div>
+											<div class="column is-10">
+												<div class="columns">
+													<div class='param-desc column is-7'>
+														<p>A new Main instance.</p>
+													</div>
+													<div class='column is-5 has-text-left'>
+														<label>Type: </label>
+														<code class="param-type">Main</code>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="member">
 										<h4 class="name" id="_registerSurface">
 											<a class="href-link" href="#_registerSurface">#</a>
 											<span class='tag'>async</span>
+											<span class='tag'>protected</span>
 											<span class="code-name">
 												_registerSurface<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;object>>}</span>
 											</span>
 										</h4>
-										<p class="summary">Registers the command routes for the profile surface.</p>
+										<p class="summary">
+										<p>Returns inherited and local route definitions, including their handlers
+											and any authorization middleware.</p>
+										</p>
 										<div class="description">
-											<p>Registers the command routes for the profile surface.</p>
+											<p>Returns inherited and local route definitions, including their handlers
+												and any authorization middleware.</p>
 										</div>
 										<dl class="details">
 											<dt class="tag-overrides">Overrides:</dt>
@@ -455,7 +529,7 @@
 											<p class="tag-source">
 												<a href="source_domains_system_admin_bounded_contexts_profile_surfaces_command_main.js.html" class="button">View Source</a>
 												<span>
-													<a href="source_domains_system_admin_bounded_contexts_profile_surfaces_command_main.js.html">source/domains/system_admin/bounded_contexts/profile/surfaces/command/main.js</a>, <a href="source_domains_system_admin_bounded_contexts_profile_surfaces_command_main.js.html#line51">line 51</a>
+													<a href="source_domains_system_admin_bounded_contexts_profile_surfaces_command_main.js.html">source/domains/system_admin/bounded_contexts/profile/surfaces/command/main.js</a>, <a href="source_domains_system_admin_bounded_contexts_profile_surfaces_command_main.js.html#line55">line 55</a>
 												</span>
 											</p>
 										</dl>
@@ -464,7 +538,7 @@
 											<div class="column is-10">
 												<div class="columns">
 													<div class='param-desc column is-7'>
-														<p>The complete list of routes for this surface.</p>
+														<p>Resolves to the route definitions exposed by the surface.</p>
 													</div>
 													<div class='column is-5 has-text-left'>
 														<label>Type: </label>
@@ -478,8 +552,9 @@
 										<h4 class="name" id="_setupValidationSchemas">
 											<a class="href-link" href="#_setupValidationSchemas">#</a>
 											<span class='tag'>async</span>
+											<span class='tag'>protected</span>
 											<span class="code-name">
-												_setupValidationSchemas<span class="signature">(validationSchemaMap)</span><span class="type-signature"> &rarr; {Promise.&lt;Map.&lt;string, object>>}</span>
+												_setupValidationSchemas<span class="signature">(validationSchemaMap<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;(Map|undefined)>}</span>
 											</span>
 										</h4>
 										<p class="summary">
@@ -497,6 +572,7 @@
 													<tr>
 														<th>Name</th>
 														<th>Type</th>
+														<th>Attributes</th>
 														<th class="last">Description</th>
 													</tr>
 												</thead>
@@ -504,10 +580,13 @@
 													<tr class="deep-level-0">
 														<td class="name"><code>validationSchemaMap</code></td>
 														<td class="type">
-															<code class="param-type">Map.&lt;string, object></code>
+															<code class="param-type">Map</code>
+														</td>
+														<td class="attributes">
+															&lt;optional><br>
 														</td>
 														<td class="description last">
-															<p>Schema cache to populate.</p>
+															<p>Map to populate; defaults to the surface cache when available.</p>
 														</td>
 													</tr>
 												</tbody>
@@ -525,7 +604,7 @@
 											<p class="tag-source">
 												<a href="source_domains_system_admin_bounded_contexts_profile_surfaces_command_main.js.html" class="button">View Source</a>
 												<span>
-													<a href="source_domains_system_admin_bounded_contexts_profile_surfaces_command_main.js.html">source/domains/system_admin/bounded_contexts/profile/surfaces/command/main.js</a>, <a href="source_domains_system_admin_bounded_contexts_profile_surfaces_command_main.js.html#line89">line 89</a>
+													<a href="source_domains_system_admin_bounded_contexts_profile_surfaces_command_main.js.html">source/domains/system_admin/bounded_contexts/profile/surfaces/command/main.js</a>, <a href="source_domains_system_admin_bounded_contexts_profile_surfaces_command_main.js.html#line102">line 102</a>
 												</span>
 											</p>
 										</dl>
@@ -534,11 +613,11 @@
 											<div class="column is-10">
 												<div class="columns">
 													<div class='param-desc column is-7'>
-														<p>The populated schema map.</p>
+														<p>Resolves to the supplied or cached validation schema map.</p>
 													</div>
 													<div class='column is-5 has-text-left'>
 														<label>Type: </label>
-														<code class="param-type">Promise.&lt;Map.&lt;string, object>></code>
+														<code class="param-type">Promise.&lt;(Map|undefined)></code>
 													</div>
 												</div>
 											</div>
@@ -553,9 +632,15 @@
 												createProfile<span class="signature">(ctxt)</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span>
 											</span>
 										</h4>
-										<p class="summary">Validates and dispatches profile-creation requests.</p>
+										<p class="summary">Handles <code>POST /create</code>.</p>
 										<div class="description">
-											<p>Validates and dispatches profile-creation requests.</p>
+											<p>Handles <code>POST /create</code>.
+												Validates and deserializes the request, then invokes the create middleware
+												and serializes its result. Requires JSON:API <code>data.type</code> to be <code>system_admin</code>.
+												The attributes include a required mobile number matching <code>/^\+\d{12}$/</code>,
+												first and last names, and locale_id.
+												Optional attributes include date_of_birth (YYYY-MM-DD), middle_names, and nickname.
+												Requires a session authorized by the <code>registered</code> RBAC middleware.</p>
 										</div>
 										<h5>Parameters:</h5>
 										<div class="table-container">
@@ -574,7 +659,7 @@
 															<code class="param-type">object</code>
 														</td>
 														<td class="description last">
-															<p>Koa request context.</p>
+															<p>Koa context for <code>POST /create</code>.</p>
 														</td>
 													</tr>
 												</tbody>
@@ -584,7 +669,7 @@
 											<p class="tag-source">
 												<a href="source_domains_system_admin_bounded_contexts_profile_surfaces_command_main.js.html" class="button">View Source</a>
 												<span>
-													<a href="source_domains_system_admin_bounded_contexts_profile_surfaces_command_main.js.html">source/domains/system_admin/bounded_contexts/profile/surfaces/command/main.js</a>, <a href="source_domains_system_admin_bounded_contexts_profile_surfaces_command_main.js.html#line157">line 157</a>
+													<a href="source_domains_system_admin_bounded_contexts_profile_surfaces_command_main.js.html">source/domains/system_admin/bounded_contexts/profile/surfaces/command/main.js</a>, <a href="source_domains_system_admin_bounded_contexts_profile_surfaces_command_main.js.html#line198">line 198</a>
 												</span>
 											</p>
 										</dl>
@@ -593,7 +678,7 @@
 											<div class="column is-10">
 												<div class="columns">
 													<div class='param-desc column is-7'>
-														<p>Resolves after the response is written.</p>
+														<p>Resolves after the response has been written.</p>
 													</div>
 													<div class='column is-5 has-text-left'>
 														<label>Type: </label>
@@ -602,6 +687,12 @@
 												</div>
 											</div>
 										</div>
+										<h5>Example</h5>
+										<pre class="prettyprint"><code>// Given the following input data [./servers/curl_example_data/api_v1_system_admin_profile_create.json]:
+// Invocation configuration [./servers/curl_example_data/api_v1_system_admin_profile_create.curl]:
+$ curl -X POST -H "Content-Type: application/json" -b ./cookies.txt -d @./servers/curl_example_data/api_v1_system_admin_profile_create.json "${base_url}/api/v1/system-admin/profile/create"
+// Equivalent invocation using the configuration file:
+$ curl --config ./servers/curl_example_data/api_v1_system_admin_profile_create.curl "${base_url}/api/v1/system-admin/profile/create"</code></pre>
 									</div>
 									<div class="member">
 										<h4 class="name" id="updateProfile">
@@ -612,9 +703,14 @@
 												updateProfile<span class="signature">(ctxt)</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span>
 											</span>
 										</h4>
-										<p class="summary">Validates and dispatches profile-update requests.</p>
+										<p class="summary">Handles <code>PATCH /update</code>.</p>
 										<div class="description">
-											<p>Validates and dispatches profile-update requests.</p>
+											<p>Handles <code>PATCH /update</code>.
+												Validates JSON:API <code>data.type</code> as <code>system_admin</code>,
+												a required UUID v4 or v7 <code>data.id</code>, and an attributes object.
+												Deserializes the update, invokes the middleware for the authenticated system admin,
+												and serializes the response.
+												Requires a session authorized by the <code>registered</code> RBAC middleware.</p>
 										</div>
 										<h5>Parameters:</h5>
 										<div class="table-container">
@@ -633,7 +729,7 @@
 															<code class="param-type">object</code>
 														</td>
 														<td class="description last">
-															<p>Koa request context.</p>
+															<p>Koa context for <code>PATCH /update</code>.</p>
 														</td>
 													</tr>
 												</tbody>
@@ -643,7 +739,7 @@
 											<p class="tag-source">
 												<a href="source_domains_system_admin_bounded_contexts_profile_surfaces_command_main.js.html" class="button">View Source</a>
 												<span>
-													<a href="source_domains_system_admin_bounded_contexts_profile_surfaces_command_main.js.html">source/domains/system_admin/bounded_contexts/profile/surfaces/command/main.js</a>, <a href="source_domains_system_admin_bounded_contexts_profile_surfaces_command_main.js.html#line201">line 201</a>
+													<a href="source_domains_system_admin_bounded_contexts_profile_surfaces_command_main.js.html">source/domains/system_admin/bounded_contexts/profile/surfaces/command/main.js</a>, <a href="source_domains_system_admin_bounded_contexts_profile_surfaces_command_main.js.html#line275">line 275</a>
 												</span>
 											</p>
 										</dl>
@@ -652,7 +748,7 @@
 											<div class="column is-10">
 												<div class="columns">
 													<div class='param-desc column is-7'>
-														<p>Resolves after the response is written.</p>
+														<p>Resolves after the response has been written.</p>
 													</div>
 													<div class='column is-5 has-text-left'>
 														<label>Type: </label>
@@ -661,6 +757,12 @@
 												</div>
 											</div>
 										</div>
+										<h5>Example</h5>
+										<pre class="prettyprint"><code>// Given the following input data [./servers/curl_example_data/api_v1_system_admin_profile_update.json]:
+// Invocation configuration [./servers/curl_example_data/api_v1_system_admin_profile_update.curl]:
+$ curl -X PATCH -H "Content-Type: application/json" -b ./cookies.txt -d @./servers/curl_example_data/api_v1_system_admin_profile_update.json "${base_url}/api/v1/system-admin/profile/update"
+// Equivalent invocation using the configuration file:
+$ curl --config ./servers/curl_example_data/api_v1_system_admin_profile_update.curl "${base_url}/api/v1/system-admin/profile/update"</code></pre>
 									</div>
 									<div class="member">
 										<h4 class="name" id="deleteProfile">
@@ -671,9 +773,12 @@
 												deleteProfile<span class="signature">(ctxt)</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span>
 											</span>
 										</h4>
-										<p class="summary">Dispatches profile-delete requests for the authenticated user.</p>
+										<p class="summary">Handles <code>DELETE /delete</code>.</p>
 										<div class="description">
-											<p>Dispatches profile-delete requests for the authenticated user.</p>
+											<p>Handles <code>DELETE /delete</code>.
+												Passes the authenticated system admin to
+												the delete middleware and writes its response status and body. No request body is required.
+												Requires a session authorized by the <code>registered</code> RBAC middleware.</p>
 										</div>
 										<h5>Parameters:</h5>
 										<div class="table-container">
@@ -692,7 +797,7 @@
 															<code class="param-type">object</code>
 														</td>
 														<td class="description last">
-															<p>Koa request context.</p>
+															<p>Koa context for <code>DELETE /delete</code>.</p>
 														</td>
 													</tr>
 												</tbody>
@@ -702,7 +807,7 @@
 											<p class="tag-source">
 												<a href="source_domains_system_admin_bounded_contexts_profile_surfaces_command_main.js.html" class="button">View Source</a>
 												<span>
-													<a href="source_domains_system_admin_bounded_contexts_profile_surfaces_command_main.js.html">source/domains/system_admin/bounded_contexts/profile/surfaces/command/main.js</a>, <a href="source_domains_system_admin_bounded_contexts_profile_surfaces_command_main.js.html#line246">line 246</a>
+													<a href="source_domains_system_admin_bounded_contexts_profile_surfaces_command_main.js.html">source/domains/system_admin/bounded_contexts/profile/surfaces/command/main.js</a>, <a href="source_domains_system_admin_bounded_contexts_profile_surfaces_command_main.js.html#line352">line 352</a>
 												</span>
 											</p>
 										</dl>
@@ -711,7 +816,7 @@
 											<div class="column is-10">
 												<div class="columns">
 													<div class='param-desc column is-7'>
-														<p>Resolves after the response is written.</p>
+														<p>Resolves after the response has been written.</p>
 													</div>
 													<div class='column is-5 has-text-left'>
 														<label>Type: </label>
@@ -720,6 +825,11 @@
 												</div>
 											</div>
 										</div>
+										<h5>Example</h5>
+										<pre class="prettyprint"><code>// Invocation configuration [./servers/curl_example_data/api_v1_system_admin_profile_delete.curl]:
+$ curl -X DELETE -H "Content-Type: application/json" -b ./cookies.txt "${base_url}/api/v1/system-admin/profile/delete"
+// Equivalent invocation using the configuration file:
+$ curl --config ./servers/curl_example_data/api_v1_system_admin_profile_delete.curl "${base_url}/api/v1/system-admin/profile/delete"</code></pre>
 									</div>
 								</div>
 							</div>

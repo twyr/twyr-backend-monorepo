@@ -268,11 +268,6 @@
 							<li><a href="REST%20API%20Server_Ingress%20Surfaces.REST%20API.IngressSurfaceFactory.html">REST API Server/Ingress Surfaces/REST API/IngressSurfaceFactory</a></li>
 							<li><a href="REST%20API%20Server_Ingress%20Surfaces.REST%20API.RestApi.html">REST API Server/Ingress Surfaces/REST API/RestApi</a></li>
 						</ul>
-						<h3>Global</h3>
-						<ul>
-							<li><a href="global.html#createAuditLogMiddleware">createAuditLogMiddleware</a></li>
-							<li><a href="global.html#createErrorLogMiddleware">createErrorLogMiddleware</a></li>
-						</ul>
 					</div>
 					<div class="category">
 						<h2>REST API Server/Repositories/Init</h2>
@@ -432,9 +427,84 @@
 								<h1>Methods</h1>
 								<div class="members">
 									<div class="member">
+										<h4 class="name" id="constructor">
+											<a class="href-link" href="#constructor">#</a>
+											<span class="code-name">
+												constructor<span class="signature">(location, domainInterface)</span><span class="type-signature"> &rarr; {UserBaseMiddleware}</span>
+											</span>
+										</h4>
+										<p class="summary">Initializes the UserBaseMiddleware middleware using its base class.</p>
+										<div class="description">
+											<p>Initializes the UserBaseMiddleware middleware using its base class.</p>
+										</div>
+										<h5>Parameters:</h5>
+										<div class="table-container">
+											<table class="params table">
+												<thead>
+													<tr>
+														<th>Name</th>
+														<th>Type</th>
+														<th class="last">Description</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr class="deep-level-0">
+														<td class="name"><code>location</code></td>
+														<td class="type">
+															<code class="param-type">string</code>
+														</td>
+														<td class="description last">
+															<p>Filesystem location of the artifact.</p>
+														</td>
+													</tr>
+													<tr class="deep-level-0">
+														<td class="name"><code>domainInterface</code></td>
+														<td class="type">
+															<code class="param-type">object</code>
+														</td>
+														<td class="description last">
+															<p>Domain APIs, repositories, models and event emitter.</p>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+										<dl class="details">
+											<dt class="tag-overrides">Overrides:</dt>
+											<dd class="tag-overrides">
+												<ul class="dummy">
+													<li>
+														BaseMiddleware#constructor
+													</li>
+												</ul>
+											</dd>
+											<p class="tag-source">
+												<a href="source_domains_users_base_classes_middleware.js.html" class="button">View Source</a>
+												<span>
+													<a href="source_domains_users_base_classes_middleware.js.html">source/domains/users/base_classes/middleware.js</a>, <a href="source_domains_users_base_classes_middleware.js.html#line27">line 27</a>
+												</span>
+											</p>
+										</dl>
+										<div class='columns method-parameter'>
+											<div class="column is-2"><label>Returns:</label></div>
+											<div class="column is-10">
+												<div class="columns">
+													<div class='param-desc column is-7'>
+														<p>A new UserBaseMiddleware instance.</p>
+													</div>
+													<div class='column is-5 has-text-left'>
+														<label>Type: </label>
+														<code class="param-type">UserBaseMiddleware</code>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="member">
 										<h4 class="name" id="_createUserEntity">
 											<a class="href-link" href="#_createUserEntity">#</a>
 											<span class='tag'>async</span>
+											<span class='tag'>protected</span>
 											<span class="code-name">
 												_createUserEntity<span class="signature">(data)</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span>
 											</span>
@@ -470,7 +540,7 @@
 											<p class="tag-source">
 												<a href="source_domains_users_base_classes_middleware.js.html" class="button">View Source</a>
 												<span>
-													<a href="source_domains_users_base_classes_middleware.js.html">source/domains/users/base_classes/middleware.js</a>, <a href="source_domains_users_base_classes_middleware.js.html#line46">line 46</a>
+													<a href="source_domains_users_base_classes_middleware.js.html">source/domains/users/base_classes/middleware.js</a>, <a href="source_domains_users_base_classes_middleware.js.html#line49">line 49</a>
 												</span>
 											</p>
 										</dl>
@@ -479,7 +549,7 @@
 											<div class="column is-10">
 												<div class="columns">
 													<div class='param-desc column is-7'>
-														<p>The HTTP status and serialized entity payload.</p>
+														<p>The HTTP status and raw entity payload.</p>
 													</div>
 													<div class='column is-5 has-text-left'>
 														<label>Type: </label>
@@ -493,6 +563,7 @@
 										<h4 class="name" id="_readUserEntity">
 											<a class="href-link" href="#_readUserEntity">#</a>
 											<span class='tag'>async</span>
+											<span class='tag'>protected</span>
 											<span class="code-name">
 												_readUserEntity<span class="signature">(data)</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span>
 											</span>
@@ -518,7 +589,7 @@
 															<code class="param-type">object</code>
 														</td>
 														<td class="description last">
-															<p>Model, user, entity id and serialization options.</p>
+															<p>Model, user, entity id and relationship details.</p>
 														</td>
 													</tr>
 												</tbody>
@@ -528,7 +599,7 @@
 											<p class="tag-source">
 												<a href="source_domains_users_base_classes_middleware.js.html" class="button">View Source</a>
 												<span>
-													<a href="source_domains_users_base_classes_middleware.js.html">source/domains/users/base_classes/middleware.js</a>, <a href="source_domains_users_base_classes_middleware.js.html#line98">line 98</a>
+													<a href="source_domains_users_base_classes_middleware.js.html">source/domains/users/base_classes/middleware.js</a>, <a href="source_domains_users_base_classes_middleware.js.html#line107">line 107</a>
 												</span>
 											</p>
 										</dl>
@@ -537,7 +608,7 @@
 											<div class="column is-10">
 												<div class="columns">
 													<div class='param-desc column is-7'>
-														<p>The HTTP status and serialized entity payload.</p>
+														<p>The HTTP status and raw entity payload.</p>
 													</div>
 													<div class='column is-5 has-text-left'>
 														<label>Type: </label>
@@ -551,6 +622,7 @@
 										<h4 class="name" id="_updateUserEntity">
 											<a class="href-link" href="#_updateUserEntity">#</a>
 											<span class='tag'>async</span>
+											<span class='tag'>protected</span>
 											<span class="code-name">
 												_updateUserEntity<span class="signature">(data)</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span>
 											</span>
@@ -586,7 +658,7 @@
 											<p class="tag-source">
 												<a href="source_domains_users_base_classes_middleware.js.html" class="button">View Source</a>
 												<span>
-													<a href="source_domains_users_base_classes_middleware.js.html">source/domains/users/base_classes/middleware.js</a>, <a href="source_domains_users_base_classes_middleware.js.html#line139">line 139</a>
+													<a href="source_domains_users_base_classes_middleware.js.html">source/domains/users/base_classes/middleware.js</a>, <a href="source_domains_users_base_classes_middleware.js.html#line153">line 153</a>
 												</span>
 											</p>
 										</dl>
@@ -595,7 +667,7 @@
 											<div class="column is-10">
 												<div class="columns">
 													<div class='param-desc column is-7'>
-														<p>The HTTP status and serialized entity payload.</p>
+														<p>The HTTP status and raw entity payload.</p>
 													</div>
 													<div class='column is-5 has-text-left'>
 														<label>Type: </label>
@@ -609,6 +681,7 @@
 										<h4 class="name" id="_deleteUserEntity">
 											<a class="href-link" href="#_deleteUserEntity">#</a>
 											<span class='tag'>async</span>
+											<span class='tag'>protected</span>
 											<span class="code-name">
 												_deleteUserEntity<span class="signature">(data)</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span>
 											</span>
@@ -644,7 +717,7 @@
 											<p class="tag-source">
 												<a href="source_domains_users_base_classes_middleware.js.html" class="button">View Source</a>
 												<span>
-													<a href="source_domains_users_base_classes_middleware.js.html">source/domains/users/base_classes/middleware.js</a>, <a href="source_domains_users_base_classes_middleware.js.html#line200">line 200</a>
+													<a href="source_domains_users_base_classes_middleware.js.html">source/domains/users/base_classes/middleware.js</a>, <a href="source_domains_users_base_classes_middleware.js.html#line220">line 220</a>
 												</span>
 											</p>
 										</dl>

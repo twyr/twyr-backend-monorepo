@@ -268,11 +268,6 @@
 							<li><a href="REST%20API%20Server_Ingress%20Surfaces.REST%20API.IngressSurfaceFactory.html">REST API Server/Ingress Surfaces/REST API/IngressSurfaceFactory</a></li>
 							<li><a href="REST%20API%20Server_Ingress%20Surfaces.REST%20API.RestApi.html">REST API Server/Ingress Surfaces/REST API/RestApi</a></li>
 						</ul>
-						<h3>Global</h3>
-						<ul>
-							<li><a href="global.html#createAuditLogMiddleware">createAuditLogMiddleware</a></li>
-							<li><a href="global.html#createErrorLogMiddleware">createErrorLogMiddleware</a></li>
-						</ul>
 					</div>
 					<div class="category">
 						<h2>REST API Server/Repositories/Init</h2>
@@ -430,6 +425,83 @@
 							</ul>
 							<div class='vertical-section'>
 								<h1>Methods</h1>
+								<h2 class="subsection-title">Constructor</h2>
+								<div class="members">
+									<div class="member">
+										<h4 class="name" id="constructor">
+											<a class="href-link" href="#constructor">#</a>
+											<span class="code-name">
+												constructor<span class="signature">(location, domainInterface)</span><span class="type-signature"> &rarr; {Main}</span>
+											</span>
+										</h4>
+										<p class="summary">Initializes the Main surface using its base class.</p>
+										<div class="description">
+											<p>Initializes the Main surface using its base class.</p>
+										</div>
+										<h5>Parameters:</h5>
+										<div class="table-container">
+											<table class="params table">
+												<thead>
+													<tr>
+														<th>Name</th>
+														<th>Type</th>
+														<th class="last">Description</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr class="deep-level-0">
+														<td class="name"><code>location</code></td>
+														<td class="type">
+															<code class="param-type">string</code>
+														</td>
+														<td class="description last">
+															<p>Filesystem location of the artifact.</p>
+														</td>
+													</tr>
+													<tr class="deep-level-0">
+														<td class="name"><code>domainInterface</code></td>
+														<td class="type">
+															<code class="param-type">object</code>
+														</td>
+														<td class="description last">
+															<p>Domain APIs, repositories, models and event emitter.</p>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+										<dl class="details">
+											<dt class="tag-overrides">Overrides:</dt>
+											<dd class="tag-overrides">
+												<ul class="dummy">
+													<li>
+														UserBaseSurface#constructor
+													</li>
+												</ul>
+											</dd>
+											<p class="tag-source">
+												<a href="source_domains_users_bounded_contexts_session_manager_surfaces_command_main.js.html" class="button">View Source</a>
+												<span>
+													<a href="source_domains_users_bounded_contexts_session_manager_surfaces_command_main.js.html">source/domains/users/bounded_contexts/session_manager/surfaces/command/main.js</a>, <a href="source_domains_users_bounded_contexts_session_manager_surfaces_command_main.js.html#line35">line 35</a>
+												</span>
+											</p>
+										</dl>
+										<div class='columns method-parameter'>
+											<div class="column is-2"><label>Returns:</label></div>
+											<div class="column is-10">
+												<div class="columns">
+													<div class='param-desc column is-7'>
+														<p>A new Main instance.</p>
+													</div>
+													<div class='column is-5 has-text-left'>
+														<label>Type: </label>
+														<code class="param-type">Main</code>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
 								<h2 class="subsection-title">Lifecycle Methods</h2>
 								<div class="members">
 									<div class="member">
@@ -440,9 +512,9 @@
 												load<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span>
 											</span>
 										</h4>
-										<p class="summary">Loads the surface and its inherited route infrastructure.</p>
+										<p class="summary">Loads the inherited surface infrastructure for Main.</p>
 										<div class="description">
-											<p>Loads the surface and its inherited route infrastructure.</p>
+											<p>Loads the inherited surface infrastructure for Main.</p>
 										</div>
 										<dl class="details">
 											<dt class="tag-overrides">Overrides:</dt>
@@ -456,7 +528,7 @@
 											<p class="tag-source">
 												<a href="source_domains_users_bounded_contexts_session_manager_surfaces_command_main.js.html" class="button">View Source</a>
 												<span>
-													<a href="source_domains_users_bounded_contexts_session_manager_surfaces_command_main.js.html">source/domains/users/bounded_contexts/session_manager/surfaces/command/main.js</a>, <a href="source_domains_users_bounded_contexts_session_manager_surfaces_command_main.js.html#line47">line 47</a>
+													<a href="source_domains_users_bounded_contexts_session_manager_surfaces_command_main.js.html">source/domains/users/bounded_contexts/session_manager/surfaces/command/main.js</a>, <a href="source_domains_users_bounded_contexts_session_manager_surfaces_command_main.js.html#line59">line 59</a>
 												</span>
 											</p>
 										</dl>
@@ -465,7 +537,7 @@
 											<div class="column is-10">
 												<div class="columns">
 													<div class='param-desc column is-7'>
-														<p>Resolves when the surface has loaded.</p>
+														<p>Resolves after loading completes.</p>
 													</div>
 													<div class='column is-5 has-text-left'>
 														<label>Type: </label>
@@ -483,9 +555,9 @@
 												unload<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span>
 											</span>
 										</h4>
-										<p class="summary">Unloads the surface and clears the local Joi validation schema cache.</p>
+										<p class="summary">Unloads the surface infrastructure and clears cached validation schemas.</p>
 										<div class="description">
-											<p>Unloads the surface and clears the local Joi validation schema cache.</p>
+											<p>Unloads the surface infrastructure and clears cached validation schemas.</p>
 										</div>
 										<dl class="details">
 											<dt class="tag-overrides">Overrides:</dt>
@@ -499,7 +571,7 @@
 											<p class="tag-source">
 												<a href="source_domains_users_bounded_contexts_session_manager_surfaces_command_main.js.html" class="button">View Source</a>
 												<span>
-													<a href="source_domains_users_bounded_contexts_session_manager_surfaces_command_main.js.html">source/domains/users/bounded_contexts/session_manager/surfaces/command/main.js</a>, <a href="source_domains_users_bounded_contexts_session_manager_surfaces_command_main.js.html#line66">line 66</a>
+													<a href="source_domains_users_bounded_contexts_session_manager_surfaces_command_main.js.html">source/domains/users/bounded_contexts/session_manager/surfaces/command/main.js</a>, <a href="source_domains_users_bounded_contexts_session_manager_surfaces_command_main.js.html#line80">line 80</a>
 												</span>
 											</p>
 										</dl>
@@ -508,7 +580,7 @@
 											<div class="column is-10">
 												<div class="columns">
 													<div class='param-desc column is-7'>
-														<p>Resolves when the surface has unloaded.</p>
+														<p>Resolves after unloading completes.</p>
 													</div>
 													<div class='column is-5 has-text-left'>
 														<label>Type: </label>
@@ -525,21 +597,18 @@
 										<h4 class="name" id="_registerSurface">
 											<a class="href-link" href="#_registerSurface">#</a>
 											<span class='tag'>async</span>
+											<span class='tag'>protected</span>
 											<span class="code-name">
-												_registerSurface<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;Array>}</span>
+												_registerSurface<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;object>>}</span>
 											</span>
 										</h4>
 										<p class="summary">
-										<p>Registers the user session command routes:
-											<code>POST /generate-otp</code>, <code>POST /validate-otp</code>, <code>POST /login</code>, and
-											<code>POST /logout</code> where logout requires the <code>registered</code> RBAC middleware.
-										</p>
+										<p>Returns inherited and local route definitions, including their handlers
+											and any authorization middleware.</p>
 										</p>
 										<div class="description">
-											<p>Registers the user session command routes:
-												<code>POST /generate-otp</code>, <code>POST /validate-otp</code>, <code>POST /login</code>, and
-												<code>POST /logout</code> where logout requires the <code>registered</code> RBAC middleware.
-											</p>
+											<p>Returns inherited and local route definitions, including their handlers
+												and any authorization middleware.</p>
 										</div>
 										<dl class="details">
 											<dt class="tag-overrides">Overrides:</dt>
@@ -553,7 +622,7 @@
 											<p class="tag-source">
 												<a href="source_domains_users_bounded_contexts_session_manager_surfaces_command_main.js.html" class="button">View Source</a>
 												<span>
-													<a href="source_domains_users_bounded_contexts_session_manager_surfaces_command_main.js.html">source/domains/users/bounded_contexts/session_manager/surfaces/command/main.js</a>, <a href="source_domains_users_bounded_contexts_session_manager_surfaces_command_main.js.html#line88">line 88</a>
+													<a href="source_domains_users_bounded_contexts_session_manager_surfaces_command_main.js.html">source/domains/users/bounded_contexts/session_manager/surfaces/command/main.js</a>, <a href="source_domains_users_bounded_contexts_session_manager_surfaces_command_main.js.html#line107">line 107</a>
 												</span>
 											</p>
 										</dl>
@@ -562,11 +631,11 @@
 											<div class="column is-10">
 												<div class="columns">
 													<div class='param-desc column is-7'>
-														<p>Routes to be added to the REST API router.</p>
+														<p>Resolves to the route definitions exposed by the surface.</p>
 													</div>
 													<div class='column is-5 has-text-left'>
 														<label>Type: </label>
-														<code class="param-type">Promise.&lt;Array></code>
+														<code class="param-type">Promise.&lt;Array.&lt;object>></code>
 													</div>
 												</div>
 											</div>
@@ -576,6 +645,7 @@
 										<h4 class="name" id="_unregisterSurface">
 											<a class="href-link" href="#_unregisterSurface">#</a>
 											<span class='tag'>async</span>
+											<span class='tag'>protected</span>
 											<span class="code-name">
 												_unregisterSurface<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span>
 											</span>
@@ -596,7 +666,7 @@
 											<p class="tag-source">
 												<a href="source_domains_users_bounded_contexts_session_manager_surfaces_command_main.js.html" class="button">View Source</a>
 												<span>
-													<a href="source_domains_users_bounded_contexts_session_manager_surfaces_command_main.js.html">source/domains/users/bounded_contexts/session_manager/surfaces/command/main.js</a>, <a href="source_domains_users_bounded_contexts_session_manager_surfaces_command_main.js.html#line141">line 141</a>
+													<a href="source_domains_users_bounded_contexts_session_manager_surfaces_command_main.js.html">source/domains/users/bounded_contexts/session_manager/surfaces/command/main.js</a>, <a href="source_domains_users_bounded_contexts_session_manager_surfaces_command_main.js.html#line162">line 162</a>
 												</span>
 											</p>
 										</dl>
@@ -605,7 +675,7 @@
 											<div class="column is-10">
 												<div class="columns">
 													<div class='param-desc column is-7'>
-														<p>Resolves when the surface routes are unregistered.</p>
+														<p>Resolves after registration changes complete.</p>
 													</div>
 													<div class='column is-5 has-text-left'>
 														<label>Type: </label>
@@ -619,20 +689,21 @@
 										<h4 class="name" id="_setupValidationSchemas">
 											<a class="href-link" href="#_setupValidationSchemas">#</a>
 											<span class='tag'>async</span>
+											<span class='tag'>protected</span>
 											<span class="code-name">
-												_setupValidationSchemas<span class="signature">(validationSchemaMap<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Map}</span>
+												_setupValidationSchemas<span class="signature">(validationSchemaMap<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span>
 											</span>
 										</h4>
 										<p class="summary">
 										<p>Registers Joi schemas for:
-											<code>POST /generate-otp</code> with <code>username</code> matching <code>/^\\+\\d{12}$/</code>,
+											<code>POST /generate-otp</code> with <code>username</code> matching <code>/^\+\d{12}$/</code>,
 											<code>POST /validate-otp</code> with the same <code>username</code> plus a four digit <code>password</code>,
 											and <code>POST /login</code> with the same <code>username</code> and four digit <code>password</code>.
 										</p>
 										</p>
 										<div class="description">
 											<p>Registers Joi schemas for:
-												<code>POST /generate-otp</code> with <code>username</code> matching <code>/^\\+\\d{12}$/</code>,
+												<code>POST /generate-otp</code> with <code>username</code> matching <code>/^\+\d{12}$/</code>,
 												<code>POST /validate-otp</code> with the same <code>username</code> plus a four digit <code>password</code>,
 												and <code>POST /login</code> with the same <code>username</code> and four digit <code>password</code>.
 											</p>
@@ -658,7 +729,7 @@
 															&lt;optional><br>
 														</td>
 														<td class="description last">
-															<p>Map to be populated with the validation schemas.</p>
+															<p>Map to populate; defaults to the surface cache when available.</p>
 														</td>
 													</tr>
 												</tbody>
@@ -676,7 +747,7 @@
 											<p class="tag-source">
 												<a href="source_domains_users_bounded_contexts_session_manager_surfaces_command_main.js.html" class="button">View Source</a>
 												<span>
-													<a href="source_domains_users_bounded_contexts_session_manager_surfaces_command_main.js.html">source/domains/users/bounded_contexts/session_manager/surfaces/command/main.js</a>, <a href="source_domains_users_bounded_contexts_session_manager_surfaces_command_main.js.html#line161">line 161</a>
+													<a href="source_domains_users_bounded_contexts_session_manager_surfaces_command_main.js.html">source/domains/users/bounded_contexts/session_manager/surfaces/command/main.js</a>, <a href="source_domains_users_bounded_contexts_session_manager_surfaces_command_main.js.html#line184">line 184</a>
 												</span>
 											</p>
 										</dl>
@@ -685,11 +756,11 @@
 											<div class="column is-10">
 												<div class="columns">
 													<div class='param-desc column is-7'>
-														<p>Map containing the validation schemas.</p>
+														<p>Resolves after the validation schemas are cached.</p>
 													</div>
 													<div class='column is-5 has-text-left'>
 														<label>Type: </label>
-														<code class="param-type">Map</code>
+														<code class="param-type">Promise.&lt;void></code>
 													</div>
 												</div>
 											</div>
@@ -710,8 +781,8 @@
 										<p class="summary">Handles <code>POST /generate-otp</code>.</p>
 										<div class="description">
 											<p>Handles <code>POST /generate-otp</code>.
-												Validates a request body shaped as <code>{ username }</code> where <code>username</code>
-												is a required string matching <code>/^\\+\\d{12}$/</code>, then triggers OTP generation.</p>
+												Validates <code>{ username }</code>, requiring <code>username</code> to match <code>/^\+\d{12}$/</code>,
+												then requests OTP generation and writes the middleware response.</p>
 										</div>
 										<h5>Parameters:</h5>
 										<div class="table-container">
@@ -740,7 +811,7 @@
 											<p class="tag-source">
 												<a href="source_domains_users_bounded_contexts_session_manager_surfaces_command_main.js.html" class="button">View Source</a>
 												<span>
-													<a href="source_domains_users_bounded_contexts_session_manager_surfaces_command_main.js.html">source/domains/users/bounded_contexts/session_manager/surfaces/command/main.js</a>, <a href="source_domains_users_bounded_contexts_session_manager_surfaces_command_main.js.html#line303">line 303</a>
+													<a href="source_domains_users_bounded_contexts_session_manager_surfaces_command_main.js.html">source/domains/users/bounded_contexts/session_manager/surfaces/command/main.js</a>, <a href="source_domains_users_bounded_contexts_session_manager_surfaces_command_main.js.html#line336">line 336</a>
 												</span>
 											</p>
 										</dl>
@@ -760,9 +831,10 @@
 										</div>
 										<h5>Example</h5>
 										<pre class="prettyprint"><code>// Given the following input data [./servers/curl_example_data/api_v1_users_session_manager_generate_otp.json]:
-$ curl -X POST -H "Content-Type: application/json" -d @./servers/curl_example_data/api_v1_users_session_manager_generate_otp.json ${base_url}/api/v1/users/session-manager/generate-otp
-
-OTP metadata is returned for the supplied user contact number.</code></pre>
+// Invocation configuration [./servers/curl_example_data/api_v1_users_session_manager_generate_otp.curl]:
+$ curl -X POST -H "Content-Type: application/json" -d @./servers/curl_example_data/api_v1_users_session_manager_generate_otp.json "${base_url}/api/v1/users/session-manager/generate-otp"
+// Equivalent invocation using the configuration file:
+$ curl --config ./servers/curl_example_data/api_v1_users_session_manager_generate_otp.curl "${base_url}/api/v1/users/session-manager/generate-otp"</code></pre>
 									</div>
 									<div class="member">
 										<h4 class="name" id="validateOtp">
@@ -776,9 +848,9 @@ OTP metadata is returned for the supplied user contact number.</code></pre>
 										<p class="summary">Handles <code>POST /validate-otp</code>.</p>
 										<div class="description">
 											<p>Handles <code>POST /validate-otp</code>.
-												Validates a request body shaped as <code>{ username, password }</code> where
-												<code>username</code> is required and matches <code>/^\\+\\d{12}$/</code> and <code>password</code>
-												is a required four digit string matching <code>/^\\d{4}$/</code>.
+												Validates <code>{ username, password }</code>, requiring <code>username</code> to match
+												<code>/^\+\d{12}$/</code> and <code>password</code> to be a four digit string matching <code>/^\d{4}$/</code>.
+												Writes the OTP validation result returned by the middleware.
 											</p>
 										</div>
 										<h5>Parameters:</h5>
@@ -808,7 +880,7 @@ OTP metadata is returned for the supplied user contact number.</code></pre>
 											<p class="tag-source">
 												<a href="source_domains_users_bounded_contexts_session_manager_surfaces_command_main.js.html" class="button">View Source</a>
 												<span>
-													<a href="source_domains_users_bounded_contexts_session_manager_surfaces_command_main.js.html">source/domains/users/bounded_contexts/session_manager/surfaces/command/main.js</a>, <a href="source_domains_users_bounded_contexts_session_manager_surfaces_command_main.js.html#line356">line 356</a>
+													<a href="source_domains_users_bounded_contexts_session_manager_surfaces_command_main.js.html">source/domains/users/bounded_contexts/session_manager/surfaces/command/main.js</a>, <a href="source_domains_users_bounded_contexts_session_manager_surfaces_command_main.js.html#line394">line 394</a>
 												</span>
 											</p>
 										</dl>
@@ -828,9 +900,10 @@ OTP metadata is returned for the supplied user contact number.</code></pre>
 										</div>
 										<h5>Example</h5>
 										<pre class="prettyprint"><code>// Given the following input data [./servers/curl_example_data/api_v1_users_session_manager_validate_otp.json]:
-$ curl -X POST -H "Content-Type: application/json" -d @./servers/curl_example_data/api_v1_users_session_manager_validate_otp.json ${base_url}/api/v1/users/session-manager/validate-otp
-
-The response indicates whether the supplied OTP is valid.</code></pre>
+// Invocation configuration [./servers/curl_example_data/api_v1_users_session_manager_validate_otp.curl]:
+$ curl -X POST -H "Content-Type: application/json" -d @./servers/curl_example_data/api_v1_users_session_manager_validate_otp.json "${base_url}/api/v1/users/session-manager/validate-otp"
+// Equivalent invocation using the configuration file:
+$ curl --config ./servers/curl_example_data/api_v1_users_session_manager_validate_otp.curl "${base_url}/api/v1/users/session-manager/validate-otp"</code></pre>
 									</div>
 									<div class="member">
 										<h4 class="name" id="login">
@@ -844,12 +917,9 @@ The response indicates whether the supplied OTP is valid.</code></pre>
 										<p class="summary">Handles <code>POST /login</code>.</p>
 										<div class="description">
 											<p>Handles <code>POST /login</code>.
-												Validates a request body shaped as <code>{ username, password }</code> where
-												<code>username</code> is required and matches <code>/^\\+\\d{12}$/</code> and <code>password</code>
-												is a required four digit string matching <code>/^\\d{4}$/</code>.
-												If no active session exists, the route authenticates the user and creates
-												the session cookie.
-											</p>
+												Validates the same username and four digit password format as OTP validation.
+												Rejects an existing authenticated session, authenticates the user,
+												and writes the serialized profile while storing the session identity.</p>
 										</div>
 										<h5>Parameters:</h5>
 										<div class="table-container">
@@ -878,7 +948,7 @@ The response indicates whether the supplied OTP is valid.</code></pre>
 											<p class="tag-source">
 												<a href="source_domains_users_bounded_contexts_session_manager_surfaces_command_main.js.html" class="button">View Source</a>
 												<span>
-													<a href="source_domains_users_bounded_contexts_session_manager_surfaces_command_main.js.html">source/domains/users/bounded_contexts/session_manager/surfaces/command/main.js</a>, <a href="source_domains_users_bounded_contexts_session_manager_surfaces_command_main.js.html#line411">line 411</a>
+													<a href="source_domains_users_bounded_contexts_session_manager_surfaces_command_main.js.html">source/domains/users/bounded_contexts/session_manager/surfaces/command/main.js</a>, <a href="source_domains_users_bounded_contexts_session_manager_surfaces_command_main.js.html#line454">line 454</a>
 												</span>
 											</p>
 										</dl>
@@ -897,9 +967,11 @@ The response indicates whether the supplied OTP is valid.</code></pre>
 											</div>
 										</div>
 										<h5>Example</h5>
-										<pre class="prettyprint"><code>$ curl -X POST -H "Content-Type: application/json" -d '{"username":"+911234567890", "password":"1270"}' -c ./cookies.txt ${base_url}/api/v1/users/session-manager/login
-
-The authenticated user profile is returned and the session cookie is set.</code></pre>
+										<pre class="prettyprint"><code>// Given the following input data [./servers/curl_example_data/api_v1_users_session_manager_login.json]:
+// Invocation configuration [./servers/curl_example_data/api_v1_users_session_manager_login.curl]:
+$ curl -X POST -H "Content-Type: application/json" -c ./cookies.txt -d @./servers/curl_example_data/api_v1_users_session_manager_login.json "${base_url}/api/v1/users/session-manager/login"
+// Equivalent invocation using the configuration file:
+$ curl --config ./servers/curl_example_data/api_v1_users_session_manager_login.curl "${base_url}/api/v1/users/session-manager/login"</code></pre>
 									</div>
 									<div class="member">
 										<h4 class="name" id="logout">
@@ -913,9 +985,9 @@ The authenticated user profile is returned and the session cookie is set.</code>
 										<p class="summary">Handles <code>POST /logout</code>.</p>
 										<div class="description">
 											<p>Handles <code>POST /logout</code>.
-												This route has no Joi body validation and instead relies on the route definition:
-												it is a <code>POST /logout</code> endpoint guarded by the <code>registered</code> RBAC middleware and
-												logs out the currently authenticated user session.</p>
+												Logs out the authenticated user, requests cache invalidation through
+												the logout middleware, and writes the localized response. The request body is unused.
+												Requires a session authorized by the <code>registered</code> RBAC middleware.</p>
 										</div>
 										<h5>Parameters:</h5>
 										<div class="table-container">
@@ -944,7 +1016,7 @@ The authenticated user profile is returned and the session cookie is set.</code>
 											<p class="tag-source">
 												<a href="source_domains_users_bounded_contexts_session_manager_surfaces_command_main.js.html" class="button">View Source</a>
 												<span>
-													<a href="source_domains_users_bounded_contexts_session_manager_surfaces_command_main.js.html">source/domains/users/bounded_contexts/session_manager/surfaces/command/main.js</a>, <a href="source_domains_users_bounded_contexts_session_manager_surfaces_command_main.js.html#line487">line 487</a>
+													<a href="source_domains_users_bounded_contexts_session_manager_surfaces_command_main.js.html">source/domains/users/bounded_contexts/session_manager/surfaces/command/main.js</a>, <a href="source_domains_users_bounded_contexts_session_manager_surfaces_command_main.js.html#line544">line 544</a>
 												</span>
 											</p>
 										</dl>
@@ -963,9 +1035,11 @@ The authenticated user profile is returned and the session cookie is set.</code>
 											</div>
 										</div>
 										<h5>Example</h5>
-										<pre class="prettyprint"><code>$ curl -X POST -b ./cookies.txt ${base_url}/api/v1/users/session-manager/logout
-
-A localized logout response is returned for the current user session.</code></pre>
+										<pre class="prettyprint"><code>// Given the following input data [./servers/curl_example_data/api_v1_users_session_manager_logout.json]:
+// Invocation configuration [./servers/curl_example_data/api_v1_users_session_manager_logout.curl]:
+$ curl -X POST -H "Content-Type: application/json" -b ./cookies.txt -d @./servers/curl_example_data/api_v1_users_session_manager_logout.json "${base_url}/api/v1/users/session-manager/logout"
+// Equivalent invocation using the configuration file:
+$ curl --config ./servers/curl_example_data/api_v1_users_session_manager_logout.curl "${base_url}/api/v1/users/session-manager/logout"</code></pre>
 									</div>
 								</div>
 							</div>
